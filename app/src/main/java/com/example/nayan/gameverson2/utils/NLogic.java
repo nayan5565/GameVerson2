@@ -14,12 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nayan.kidsgame.R;
-import com.example.nayan.kidsgame.activity.SubLevelActivity;
-import com.example.nayan.kidsgame.adapter.Class3AdapterOfBangla;
-import com.example.nayan.kidsgame.model.MContents;
-import com.example.nayan.kidsgame.model.MLock;
-import com.example.nayan.kidsgame.model.MSubLevel;
+import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.SubLevelActivity;
+import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.model.MLock;
+import com.example.nayan.gameverson2.model.MSubLevel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +38,7 @@ public class NLogic {
     private RecyclerView.Adapter gameAdapter;
     private MContents mContents = new MContents();
     //    private MLock mLock = new MLock();
-    private Class3AdapterOfBangla class3Adapter;
+//    private Class3AdapterOfBangla class3Adapter;
 
 
     private NLogic() {
@@ -73,7 +72,7 @@ public class NLogic {
     }
 
     private void saveDb() {
-        MyDatabase db = new MyDatabase(context);
+        DatabaseHelper1 db = new DatabaseHelper1(context);
         MLock lock = new MLock();
 
         lock.setId(Global.SUB_LEVEL_ID);
@@ -100,7 +99,7 @@ public class NLogic {
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.getSound(context, R.raw.shuffle);
+//                Utils.getSound(context, R.raw.shuffle);
                 resetList(listSize);
                 dialog.dismiss();
             }
@@ -168,7 +167,7 @@ public class NLogic {
         gameAdapter.notifyDataSetChanged();
         count++;
         Log.e("click", "count: " + count);
-        Utils.getSound(context, R.raw.click);
+//        Utils.getSound(context, R.raw.click);
         if (count == 2) {
 
             if (previousId == mImage.getMid()) {
@@ -180,7 +179,7 @@ public class NLogic {
                     @Override
                     public void run() {
 
-                        Utils.getSound(context, R.raw.match2);
+//                        Utils.getSound(context, R.raw.match2);
                         count = 0;
 
 
@@ -194,7 +193,7 @@ public class NLogic {
                     MLock mLock = new MLock();
                     mLock.setId(mSubLevel.getLid());
                     mLock.setUnlockNextLevel(1);
-                    MyDatabase db = new MyDatabase(context);
+                    DatabaseHelper1 db = new DatabaseHelper1(context);
                     db.addLockData(mLock);
                     Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
 //                    handler.postDelayed(new Runnable() {
@@ -236,7 +235,7 @@ public class NLogic {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Utils.getSound(context, R.raw.fail);
+//                        Utils.getSound(context, R.raw.fail);
                         for (int i = 0; i < listSize; i++) {
                             if (list.get(i).getPresentType() == perevious || list.get(i).getPresentType() == mImage.getPresentType()) {
                                 list.get(i).setClick(Utils.IMAGE_OFF);

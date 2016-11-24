@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2;
+package com.example.nayan.gameverson2.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,12 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
 import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.MyDatabase;
+import com.example.nayan.gameverson2.utils.DatabaseHelper1;
 import com.example.nayan.gameverson2.utils.Utils;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MLevel mLevel;
     //    private static LevelAdapter levelAdapter;
     private static ArrayList<MLevel> levels;
-    private MyDatabase database;
+    private DatabaseHelper1 database;
     private DrawerLayout drawerLayout;
     private Animation animation;
 
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Utils.isSoundPlay = false;
 
         }
-        database = new MyDatabase(this);
+        database = new DatabaseHelper1(this);
 
         result = (Button) findViewById(R.id.result);
         special = (Button) findViewById(R.id.special);

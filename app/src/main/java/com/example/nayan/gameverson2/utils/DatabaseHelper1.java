@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by NAYAN on 8/24/2016.
  */
-public class MyDatabase {
+public class DatabaseHelper1 {
     private Context context;
     private static final String DATABASE_NAME = "game.db";
     private static final int DATABASE_VERSION = 2;
@@ -118,7 +118,7 @@ public class MyDatabase {
             + KEY_POINT_ID + " integer primary key, "
             + KEY_BEST_POINT + " integer)";
 
-    public MyDatabase(Context context) {
+    public DatabaseHelper1(Context context) {
 
         this.context = context;
         openDB(context);

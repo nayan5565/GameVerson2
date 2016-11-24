@@ -1,6 +1,7 @@
-package com.example.nayan.gameverson2;
+package com.example.nayan.gameverson2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.Class1Activity;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.utils.MyDatabase;
+import com.example.nayan.gameverson2.utils.DatabaseHelper1;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -26,14 +29,14 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
     private Context context;
 
     private LayoutInflater inflater;
-    private MyDatabase db;
+    private DatabaseHelper1 db;
     private int count;
     private int subLevel;
 
     public SubLevelAdapter(Context context) {
         this.context = context;
         mSubLevels = new ArrayList<>();
-        db = new MyDatabase(context);
+        db = new DatabaseHelper1(context);
         inflater = LayoutInflater.from(context);
     }
 
@@ -69,8 +72,6 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         if (mSubLevel.getUnlockNextLevel() == 1) {
             holder.imgLock.setVisibility(View.GONE);
         }
-
-
     }
 
     @Override
@@ -94,42 +95,12 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                     mSubLevel = mSubLevels.get(getAdapterPosition());
                     Utils.bestPoint = mSubLevel.getBestPoint();
                     count = getAdapterPosition();
-//                    if (mSubLevel.getLid() == 1 && mSubLevel.getUnlockNextLevel() == 1) {
-//                        Intent intent = new Intent(context, Class1Activity.class);
-//                        intent.putExtra("subLevel", mSubLevel.getName());
-//                        intent.putExtra("index", getAdapterPosition());
-//                        intent.putExtra("Sid", mSubLevel.getLid());
-//                        intent.putExtra("parentLevel", mSubLevel.getParentName());
-//                        context.startActivity(intent);
-//                    } else if (mSubLevel.getLid() == 2 && mSubLevel.getUnlockNextLevel() == 1) {
-//                        Intent intent = new Intent(context, Class2Activity.class);
-//                        intent.putExtra("subLevel", mSubLevel.getName());
-//                        intent.putExtra("Sid", mSubLevel.getLid());
-//                        intent.putExtra("index", getAdapterPosition());
-//                        intent.putExtra("parentLevel", mSubLevel.getParentName());
-//                        context.startActivity(intent);
-//                    } else if (mSubLevel.getLid() == 3 && mSubLevel.getUnlockNextLevel() == 1) {
-//                        Intent intent = new Intent(context, Class3Activity.class);
-//                        intent.putExtra("subLevel", mSubLevel.getName());
-//                        intent.putExtra("Sid", mSubLevel.getLid());
-//                        intent.putExtra("parentLevel", mSubLevel.getParentName());
-//                        context.startActivity(intent);
-//                    } else if (mSubLevel.getLid() == 4 && mSubLevel.getUnlockNextLevel() == 1) {
-//                        Intent intent = new Intent(context, MathLevel_1Activity.class);
-//                        intent.putExtra("subLevel", mSubLevel.getName());
-//                        intent.putExtra("index", getAdapterPosition());
-//                        intent.putExtra("Sid", mSubLevel.getLid());
-//                        intent.putExtra("parentLevel", mSubLevel.getParentName());
-//                        context.startActivity(intent);
-//                    } else if (mSubLevel.getLid() == 5 && mSubLevel.getUnlockNextLevel() == 1) {
-//                        Intent intent = new Intent(context, GoingToAnotherTextActivity.class);
-//                        intent.putExtra("subLevel", mSubLevel.getName());
-//                        intent.putExtra("Sid", mSubLevel.getLid());
-//                        intent.putExtra("index", getAdapterPosition());
-//                        intent.putExtra("parentLevel", mSubLevel.getParentName());
-//                        context.startActivity(intent);
-//                    }
-
+                    Intent intent = new Intent(context, Class1Activity.class);
+                    intent.putExtra("subLevel", mSubLevel.getName());
+                    intent.putExtra("index", getAdapterPosition());
+                    intent.putExtra("Sid", mSubLevel.getLid());
+                    intent.putExtra("parentLevel", mSubLevel.getParentName());
+                    context.startActivity(intent);
                 }
             });
         }

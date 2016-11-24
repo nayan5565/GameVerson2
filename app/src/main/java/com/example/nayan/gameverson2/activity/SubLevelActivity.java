@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2;
+package com.example.nayan.gameverson2.activity;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,11 +15,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
-import com.example.nayan.gameverson2.utils.MyDatabase;
+import com.example.nayan.gameverson2.utils.DatabaseHelper1;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private static ArrayList<MLevel> mLevels;
     private static MSubLevel mSubLevel = new MSubLevel();
     private static MLevel mLevel = new MLevel();
-    private MyDatabase database;
+    private DatabaseHelper1 database;
     private RecyclerView recyclerView;
     private TextView textView;
     private String lName;
@@ -131,7 +133,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
         Utils.levels = new ArrayList<>();
         mLevels = new ArrayList<>();
-        database = new MyDatabase(this);
+        database = new DatabaseHelper1(this);
         textView = (TextView) findViewById(R.id.txtPName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         subLevelAdapter = new SubLevelAdapter(this);
