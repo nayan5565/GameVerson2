@@ -94,13 +94,15 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                 public void onClick(View v) {
                     mSubLevel = mSubLevels.get(getAdapterPosition());
                     Utils.bestPoint = mSubLevel.getBestPoint();
-                    count = getAdapterPosition();
-                    Intent intent = new Intent(context, Class1Activity.class);
-                    intent.putExtra("subLevel", mSubLevel.getName());
-                    intent.putExtra("index", getAdapterPosition());
-                    intent.putExtra("Sid", mSubLevel.getLid());
-                    intent.putExtra("parentLevel", mSubLevel.getParentName());
-                    context.startActivity(intent);
+                    if (mSubLevel.getUnlockNextLevel() == 1) {
+                        Intent intent = new Intent(context, Class1Activity.class);
+                        intent.putExtra("subLevel", mSubLevel.getName());
+                        intent.putExtra("index", getAdapterPosition());
+                        intent.putExtra("Sid", mSubLevel.getLid());
+                        intent.putExtra("parentLevel", mSubLevel.getParentName());
+                        context.startActivity(intent);
+                    }
+
                 }
             });
         }

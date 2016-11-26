@@ -16,6 +16,7 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.Class1AdapterOfBangla;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
+import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.DatabaseHelper1;
 import com.example.nayan.gameverson2.utils.NLogic;
@@ -32,6 +33,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
     private static int levelId;
     private static MLevel mLevel;
     private static MContents mContents;
+    private MSubLevel mSubLevel=new MSubLevel();
     private ArrayList<MContents> imageArrayList1;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
@@ -53,8 +55,6 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
         prepareDisplay();
 
 
-
-
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void getLocalData() {
-        if (Global.SUB_LEVEL_ID == 1) {
+        if (Global.SUB_LEVEL_ID == 1  ) {
             imageArrayList1 = database.getContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 2) {
