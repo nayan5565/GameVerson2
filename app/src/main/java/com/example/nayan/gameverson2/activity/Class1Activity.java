@@ -32,7 +32,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
     private static int levelId;
     private static MLevel mLevel;
     private static MContents mContents;
-    private ArrayList<MContents> imageArrayList;
+    private ArrayList<MContents> imageArrayList1;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
     private Class1AdapterOfBangla class1AdapterOfBangla;
@@ -49,13 +49,10 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
 //        VungleAdManager.getInstance(this).play();
 
         init();
-        prepareDisplay();
         getLocalData();
-        subLevel = getIntent().getStringExtra("subLevel");
-        Global.INDEX_POSISION = getIntent().getIntExtra("index",0);
-        Global.SUB_LEVEL_ID = getIntent().getIntExtra("Sid",0);
-        parentName = getIntent().getStringExtra("parentLevel");
-        txtName.setText(parentName + "(" + subLevel + ")");
+        prepareDisplay();
+
+
 
 
     }
@@ -69,23 +66,21 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void getLocalData() {
-        if (Global.SUB_LEVEL_ID==1){
-            imageArrayList = database.getContentsData();
-            Collections.shuffle(imageArrayList);
-        }
-        else if (Global.SUB_LEVEL_ID==2){
+        if (Global.SUB_LEVEL_ID == 1) {
+            imageArrayList1 = database.getContentsData();
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 2) {
             ArrayList<MContents> realAssets = new ArrayList<>();
             realAssets = database.getContentsData();
-            imageArrayList = generateAssets(realAssets);
-            Collections.shuffle(imageArrayList);
-        }
-        else if (Global.SUB_LEVEL_ID==3){
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 3) {
             ArrayList<MContents> realTxtSen = new ArrayList<>();
             realTxtSen = database.getContentsData();
-            imageArrayList = generatesTxtSen(realTxtSen);
+            imageArrayList1 = generatesTxtSen(realTxtSen);
         }
 
-        class1AdapterOfBangla.setData(imageArrayList);
+
     }
 
     private ArrayList<MContents> generateAssets(ArrayList<MContents> realAssets) {
@@ -102,6 +97,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
         }
         return tempAsset;
     }
+
     private ArrayList<MContents> generatesTxtSen(ArrayList<MContents> realTxtSen) {
         int count = 20;
         ArrayList<MContents> tempTxtSen = new ArrayList<>();
@@ -130,21 +126,30 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
+
         txtName = (TextView) findViewById(R.id.txtName);
         database = new DatabaseHelper1(this);
         imgSetting = (ImageView) findViewById(R.id.imgseting);
         imgSetting.setOnClickListener(this);
-        imageArrayList = new ArrayList<>();
+        imageArrayList1 = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.addItemDecoration(new SpacesItemDecoration(7));
+
+        subLevel = getIntent().getStringExtra("subLevel");
+        Global.INDEX_POSISION = getIntent().getIntExtra("index", 0);
+        Global.SUB_LEVEL_ID = getIntent().getIntExtra("Sid", 0);
+        parentName = getIntent().getStringExtra("parentLevel");
+        txtName.setText(parentName + "(" + subLevel + ")");
+
         class1AdapterOfBangla = new Class1AdapterOfBangla(this);
 
     }
 
     private void prepareDisplay() {
-        int item= Utils.getScreenSize(this,100);
+        int item = Utils.getScreenSize(this, 100);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(class1AdapterOfBangla);
+        class1AdapterOfBangla.setData(imageArrayList1);
     }
 
     @Override

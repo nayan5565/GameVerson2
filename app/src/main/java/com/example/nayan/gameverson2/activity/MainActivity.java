@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Utils.moveAnimation(cloud1,cloud2);
         getOnlineData();
         getOnlineContentsData();
-        prepareDisplay();
         getLocalData();
 
     }
@@ -299,11 +298,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (MContents data2 : Utils.contents) {
             database.addContentsFromJsom(data2);
         }
-    }
-
-    public void prepareDisplay() {
-
-
     }
 
     @Override
