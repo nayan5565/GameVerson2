@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.NLogic;
+import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -60,8 +62,27 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
     @Override
     public void onBindViewHolder(MyViewholder holder, int position) {
         mContents = textArrayList.get(position);
-        holder.txtContents.setText(mContents.getTxt());
-        holder.txtContents.setTextColor(0xffff00ff);
+        if (Global.SUB_LEVEL_ID == 1) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+
+        }
+        if (Global.SUB_LEVEL_ID == 2) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+
+        } else if (Global.SUB_LEVEL_ID == 3) {
+            if (mContents.getClick() == Utils.IMAGE_ON) {
+                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+                    holder.txtContents.setText(mContents.getSen());
+                } else {
+                    holder.txtContents.setText(mContents.getTxt());
+                }
+            } else {
+                holder.txtContents.setText(" ");
+            }
+        }
+
     }
 
     @Override
@@ -79,10 +100,18 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContents=textArrayList.get(getAdapterPosition());
+                    mContents = textArrayList.get(getAdapterPosition());
 //                    nLogic.textClick(mContents);
 //                    Toast.makeText(context,mContents.getTxt(), Toast.LENGTH_SHORT).show();
-                    nLogic.textClick(mContents,textArrayList.size());
+                    if (Global.SUB_LEVEL_ID == 1) {
+                        nLogic.textClick(mContents, textArrayList.size());
+
+                    } else if (Global.SUB_LEVEL_ID == 2) {
+                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size());
+                    } else if (Global.SUB_LEVEL_ID == 3) {
+                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size());
+                    }
+
                 }
             });
         }

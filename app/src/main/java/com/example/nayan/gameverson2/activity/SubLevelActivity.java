@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
-import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DatabaseHelper1;
@@ -37,7 +36,6 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private static int value;
     private static SubLevelAdapter subLevelAdapter;
     public static ArrayList<MSubLevel> mSubLevels;
-    private static ArrayList<MContents> contentses;
     private static ArrayList<MLevel> mLevels;
     private static MSubLevel mSubLevel = new MSubLevel();
     private static MLevel mLevel = new MLevel();
@@ -49,11 +47,9 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private Button back;
     private LinearLayout changeColor;
     private ImageView imageView;
-    Drawable drawable;
-    String uri = "@drawable/green_panel";
-    String uri1 = "@drawable/yellow_panel";
+    String uriGreen = "@drawable/green_panel";
+    String uriYellow = "@drawable/yellow_panel";
 
-    public static int pos;
 
 
     @Override
@@ -155,15 +151,16 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
     private void prepareDisplay() {
 
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-        Drawable res = getResources().getDrawable(imageResource);
+        int imageResourceGreen = getResources().getIdentifier(uriGreen, null, getPackageName());
+        Drawable resGreen = getResources().getDrawable(imageResourceGreen);
+        int imageResourceYellow = getResources().getIdentifier(uriYellow, null, getPackageName());
+        Drawable resYellow = getResources().getDrawable(imageResourceYellow);
         if (value == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
-            changeColor.setBackground(res);
+            changeColor.setBackground(resGreen);
         } else if (value == 2) {
-            int imageResource1 = getResources().getIdentifier(uri1, null, getPackageName());
-            Drawable res1 = getResources().getDrawable(imageResource1);
-            changeColor.setBackground(res1);
+            imageView.setImageResource(R.drawable.yellow_coins);
+            changeColor.setBackground(resYellow);
         }
         int item = Utils.getScreenSize(this, 80);
         textView.setText(lName);
