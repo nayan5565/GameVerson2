@@ -1,6 +1,7 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +23,8 @@ import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
 import com.example.nayan.gameverson2.utils.DatabaseHelper1;
+import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -44,6 +47,12 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private String lName;
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back;
+    private LinearLayout changeColor;
+    private ImageView imageView;
+    Drawable drawable;
+    String uri = "@drawable/green_panel";
+    String uri1 = "@drawable/yellow_panel";
+
     public static int pos;
 
 
@@ -89,6 +98,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -129,7 +139,9 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void init() {
-        back=(Button)findViewById(R.id.back);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        changeColor = (LinearLayout) findViewById(R.id.changeColor);
+        back = (Button) findViewById(R.id.back);
         back.setOnClickListener(this);
         Utils.levels = new ArrayList<>();
         mLevels = new ArrayList<>();
@@ -142,7 +154,18 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void prepareDisplay() {
-        int item= Utils.getScreenSize(this,80);
+
+        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+        Drawable res = getResources().getDrawable(imageResource);
+        if (value == 1) {
+            imageView.setImageResource(R.drawable.grren_coins);
+            changeColor.setBackground(res);
+        } else if (value == 2) {
+            int imageResource1 = getResources().getIdentifier(uri1, null, getPackageName());
+            Drawable res1 = getResources().getDrawable(imageResource1);
+            changeColor.setBackground(res1);
+        }
+        int item = Utils.getScreenSize(this, 80);
         textView.setText(lName);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(subLevelAdapter);
@@ -150,7 +173,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.back){
+        if (v.getId() == R.id.back) {
             finish();
         }
     }

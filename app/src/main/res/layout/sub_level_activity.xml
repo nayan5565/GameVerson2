@@ -37,6 +37,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/changeColor"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:background="@drawable/violet_panel"
