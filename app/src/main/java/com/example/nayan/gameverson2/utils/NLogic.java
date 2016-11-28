@@ -57,14 +57,20 @@ public class NLogic {
     }
 
     private void saveDb() {
-        DatabaseHelper1 db = new DatabaseHelper1(context);
-        MLock lock = new MLock();
+        DatabaseHelper1 db =DatabaseHelper1.getInstance(context);
+        MLock lock = db.getLocalData(Global.SUB_LEVEL_ID);
+        if(lock==null){
+            lock=new MLock();
+        }
         lock.setId(Global.SUB_LEVEL_ID);
         lock.setBestPoint(Utils.bestPoint);
+//        lock.setUnlockNextLevel(1);
         db.addLockData(lock);
 
         if (SubLevelActivity.mSubLevels.size() - 1 > Global.INDEX_POSISION) {
             lock = new MLock();
+            Log.e("global", "index" + Global.INDEX_POSISION);
+            Log.e("arraryList", "size :" + SubLevelActivity.mSubLevels.size());
             MSubLevel mSubLevel = SubLevelActivity.mSubLevels.get(Global.INDEX_POSISION + 1);
             lock.setId(mSubLevel.getLid());
             lock.setUnlockNextLevel(1);

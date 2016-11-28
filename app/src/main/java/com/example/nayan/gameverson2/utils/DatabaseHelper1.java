@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class DatabaseHelper1 {
     private Context context;
+    private static DatabaseHelper1 instance;
     private static final String DATABASE_NAME = "game.db";
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_LEVEL_TABLE = "level";
@@ -65,7 +66,7 @@ public class DatabaseHelper1 {
     private final String TAG = getClass().getSimpleName();
     private final String PASS = Utils.databasePassKey("nayan5565@gmail.com", "Asus");
 
-    private SQLiteDatabase db;
+    private static SQLiteDatabase db;
 
 
     private static final String DATABASE_CREATE_LEVEL_TABLE = "create table if not exists "
@@ -121,8 +122,15 @@ public class DatabaseHelper1 {
     public DatabaseHelper1(Context context) {
 
         this.context = context;
+        instance=this;
         openDB(context);
         onCreate();
+    }
+    public static DatabaseHelper1 getInstance(Context context){
+        if(instance==null){
+            instance=new DatabaseHelper1(context);
+        }
+        return instance;
     }
 
     private void openDB(Context context) {
@@ -132,6 +140,7 @@ public class DatabaseHelper1 {
             databaseFile.mkdirs();
             databaseFile.delete();
         }
+        if(db==null)
         db = SQLiteDatabase.openOrCreateDatabase(databaseFile, PASS, null);
     }
 
@@ -379,10 +388,10 @@ public class DatabaseHelper1 {
         return levelArrayList;
     }
 
-    public MLock getLocalData() {
+    public MLock getLocalData(int id) {
         ArrayList<MLock> unlocks = new ArrayList<>();
        MLock mLock = new MLock();
-        String sql = "select * from " + DATABASE_LOCK_TABLE ;
+        String sql = "select * from " + DATABASE_LOCK_TABLE +" where "+KEY_LOCK_ID+"='"+id+"'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -469,7 +478,7 @@ public class DatabaseHelper1 {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
 
         MSubLevel mSubLevel;
-        String sql = "select a.lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.lid=b.loid where " + KEY_PARENT_ID + "='" + id + "'";
+        String sql = "select a.lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.lid=b.loid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
        Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
