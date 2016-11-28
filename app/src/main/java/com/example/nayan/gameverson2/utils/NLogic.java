@@ -1,5 +1,6 @@
 package com.example.nayan.gameverson2.utils;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,10 +59,10 @@ public class NLogic {
     }
 
     private void saveDb() {
-        DatabaseHelper1 db =DatabaseHelper1.getInstance(context);
+        DatabaseHelper1 db = DatabaseHelper1.getInstance(context);
         MLock lock = db.getLocalData(Global.SUB_LEVEL_ID);
-        if(lock==null){
-            lock=new MLock();
+        if (lock == null) {
+            lock = new MLock();
         }
         lock.setId(Global.SUB_LEVEL_ID);
         lock.setBestPoint(Utils.bestPoint);
@@ -79,45 +81,51 @@ public class NLogic {
 
     }
 
-    public void textClick(MContents mContents, int pos, int listSize) {
+    public void textClick(MContents mContents, int pos, final int listSize, View view) {
         counter++;
         Log.e("counter", "is" + counter);
-        list.get(pos).setClick(Utils.IMAGE_ON);
-        gameAdapter.notifyDataSetChanged();
+
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
+            list.get(pos).setClick(Utils.IMAGE_ON);
+            gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
-
+            getAnimation(view);
             clickCount = mContents.getMid();
             count++;
 
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
-            list.get(pos).setClick(Utils.IMAGE_OFF);
+//            list.get(pos).setClick(Utils.IMAGE_OFF);
             gameAdapter.notifyDataSetChanged();
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
-
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    resetList(listSize);
+                    Dialog dialog = new Dialog(context);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.dialog_level_cleared);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+                    TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+                    TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                    txtBestPoint.setText("" + Utils.bestPoint);
+                    txtScore.setText(presentPoint + "");
+                    if (presentPoint == 50) {
+                        txtPoint.setText(Utils.getIntToStar(1));
+                    } else if (presentPoint == 75) {
+                        txtPoint.setText(Utils.getIntToStar(2));
+                    } else if (presentPoint == 100) {
+                        txtPoint.setText(Utils.getIntToStar(3));
+                    } else txtPoint.setText(Utils.getIntToStar(0));
+                    dialog.show();
+                }
+            }, 1200);
             savePoint(listSize);
-            resetList(listSize);
-            Dialog dialog = new Dialog(context);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_level_cleared);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
-            TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-            txtBestPoint.setText("" + Utils.bestPoint);
-            txtScore.setText(presentPoint + "");
-            if (presentPoint == 50) {
-                txtPoint.setText(Utils.getIntToStar(1));
-            } else if (presentPoint == 75) {
-                txtPoint.setText(Utils.getIntToStar(2));
-            } else if (presentPoint == 100) {
-                txtPoint.setText(Utils.getIntToStar(3));
-            } else txtPoint.setText(Utils.getIntToStar(0));
-            dialog.show();
+
             Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
 
         }
@@ -125,9 +133,16 @@ public class NLogic {
 
     }
 
-    public void imageClick(final MContents mImage, int pos, final int listSize) {
+    public void getAnimation(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
+        animator.setDuration(500);
+        animator.start();
+    }
+
+    public void imageClick(final MContents mImage, int pos, final int listSize, View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         counter++;
+        getAnimation(view);
         if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
@@ -135,6 +150,7 @@ public class NLogic {
             return;
         }
         clickCount++;
+
         list.get(pos).setClick(Utils.IMAGE_ON);
         gameAdapter.notifyDataSetChanged();
         count++;

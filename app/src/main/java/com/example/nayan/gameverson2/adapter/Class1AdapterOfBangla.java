@@ -1,5 +1,7 @@
 package com.example.nayan.gameverson2.adapter;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
@@ -30,6 +33,9 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
     private NLogic nLogic;
     private Animation animation;
     private int subLevelType;
+    private AnimatorSet mSetRightOut;
+    private AnimatorSet mSetLeftIn;
+    private boolean mIsBackVisible = false;
 
 
     public Class1AdapterOfBangla(Context context) {
@@ -63,10 +69,10 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
     public void onBindViewHolder(MyViewholder holder, int position) {
         mContents = textArrayList.get(position);
         if (Global.SUB_LEVEL_ID == 1) {
-            if (mContents.getClick()==Utils.IMAGE_ON){
+            if (mContents.getClick() == Utils.IMAGE_ON) {
                 holder.txtContents.setBackgroundColor(0xff888888);
-            }
-            else {
+//                getAnimation(holder.txtContents);
+            } else {
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -81,6 +87,7 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
             if (mContents.getClick() == Utils.IMAGE_ON) {
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
                     holder.txtContents.setText(mContents.getSen());
+
                 } else {
                     holder.txtContents.setText(mContents.getTxt());
                 }
@@ -99,27 +106,36 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
 
     class MyViewholder extends RecyclerView.ViewHolder {
         TextView txtContents;
+        private ImageView imgAnim;
+        private ImageView imgAnim2;
 
         public MyViewholder(final View itemView) {
             super(itemView);
+            imgAnim = (ImageView) itemView.findViewById(R.id.imganim);
+            imgAnim2 = (ImageView) itemView.findViewById(R.id.imganim2);
             txtContents = (TextView) itemView.findViewById(R.id.textContents);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    getAnimation(itemView);
                     mContents = textArrayList.get(getAdapterPosition());
-//                    nLogic.textClick(mContents);
-//                    Toast.makeText(context,mContents.getTxt(), Toast.LENGTH_SHORT).show();
                     if (Global.SUB_LEVEL_ID == 1) {
-                        nLogic.textClick(mContents,getAdapterPosition(), textArrayList.size());
+                        nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size());
+                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size());
+                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     }
 
                 }
             });
         }
+    }
+
+    public void getAnimation(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
+        animator.setDuration(500);
+        animator.start();
     }
 }
