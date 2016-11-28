@@ -63,6 +63,12 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
     public void onBindViewHolder(MyViewholder holder, int position) {
         mContents = textArrayList.get(position);
         if (Global.SUB_LEVEL_ID == 1) {
+            if (mContents.getClick()==Utils.IMAGE_ON){
+                holder.txtContents.setBackgroundColor(0xff888888);
+            }
+            else {
+                holder.txtContents.setBackgroundColor(0);
+            }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
 
@@ -104,7 +110,7 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
 //                    nLogic.textClick(mContents);
 //                    Toast.makeText(context,mContents.getTxt(), Toast.LENGTH_SHORT).show();
                     if (Global.SUB_LEVEL_ID == 1) {
-                        nLogic.textClick(mContents, textArrayList.size());
+                        nLogic.textClick(mContents,getAdapterPosition(), textArrayList.size());
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
                         nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size());

@@ -63,7 +63,7 @@ public class NLogic {
         lock.setBestPoint(Utils.bestPoint);
         db.addLockData(lock);
 
-        if (SubLevelActivity.mSubLevels.size()-1>Global.INDEX_POSISION){
+        if (SubLevelActivity.mSubLevels.size() - 1 > Global.INDEX_POSISION) {
             lock = new MLock();
             MSubLevel mSubLevel = SubLevelActivity.mSubLevels.get(Global.INDEX_POSISION + 1);
             lock.setId(mSubLevel.getLid());
@@ -73,17 +73,22 @@ public class NLogic {
 
     }
 
-    public void textClick(MContents mContents, int listSize) {
+    public void textClick(MContents mContents, int pos, int listSize) {
         counter++;
         Log.e("counter", "is" + counter);
-
+        list.get(pos).setClick(Utils.IMAGE_ON);
+        gameAdapter.notifyDataSetChanged();
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
             //clickcount store present mid
+
             clickCount = mContents.getMid();
             count++;
+
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
+            list.get(pos).setClick(Utils.IMAGE_OFF);
+            gameAdapter.notifyDataSetChanged();
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
@@ -124,7 +129,6 @@ public class NLogic {
             return;
         }
         clickCount++;
-
         list.get(pos).setClick(Utils.IMAGE_ON);
         gameAdapter.notifyDataSetChanged();
         count++;
@@ -187,7 +191,7 @@ public class NLogic {
                         for (int i = 0; i < listSize; i++) {
                             if (list.get(i).getPresentType() == perevious || list.get(i).getPresentType() == mImage.getPresentType()) {
                                 list.get(i).setClick(Utils.IMAGE_OFF);
-                                Toast.makeText(context, "did not match or same click", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
 //
                             }
                         }
