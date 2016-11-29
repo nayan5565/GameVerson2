@@ -360,11 +360,11 @@ public class DatabaseHelper1 {
     }
 
 
-    public ArrayList<MLevel> getLevelData() {
+    public ArrayList<MLevel> getLevelData(int id) {
         ArrayList<MLevel> levelArrayList = new ArrayList<>();
 
         MLevel mLevel;
-        String sql = "select * from " + DATABASE_LEVEL_TABLE;
+        String sql = "select * from " + DATABASE_LEVEL_TABLE ;//+" where "+KEY_LEVEL_ID+"='"+id+"'";;
         Cursor cursor = db.rawQuery(sql, null);
         Log.e("cursor", "count :" + cursor.getCount());
         if (cursor != null && cursor.moveToFirst()) {

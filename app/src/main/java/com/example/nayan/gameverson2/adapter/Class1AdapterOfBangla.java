@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,6 +74,7 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
                 holder.txtContents.setBackgroundColor(0xff888888);
 //                getAnimation(holder.txtContents);
             } else {
+//                getShake(holder.itemView);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -137,5 +139,13 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
         animator.setDuration(500);
         animator.start();
+    }
+    public void getShake(View v) {
+        // Create shake effect from xml resource
+        Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
+        // View element to be shaken
+
+        // Perform animation
+        v.startAnimation(shake);
     }
 }

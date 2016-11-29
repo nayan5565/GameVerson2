@@ -50,10 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseHelper1 database;
     private DrawerLayout drawerLayout;
     private Animation animation;
-
+    private TextView txtSub;
     private String image;
     private static String B_URL = Global.BASE_URL;
-
     private static String ALTER_URL = "";
     private Gson gson;
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         result = (Button) findViewById(R.id.result);
         init();
-        Utils.moveAnimation(cloud1,cloud2);
+        Utils.moveAnimation(cloud1, cloud2);
         getOnlineData();
         getOnlineContentsData();
         getLocalData();
@@ -82,8 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        database = new DatabaseHelper1(this);
+
+        mLevel = new MLevel();
         btnBangla = (Button) findViewById(R.id.btnBangla);
         btnBangla.setOnClickListener(this);
+        txtSub = (TextView) findViewById(R.id.txtSub);
 
         btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
         btnBanglaMath.setOnClickListener(this);
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Utils.isSoundPlay = false;
 
         }
-        database = new DatabaseHelper1(this);
+
 
         result = (Button) findViewById(R.id.result);
         special = (Button) findViewById(R.id.special);
@@ -109,8 +112,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getLocalData() {
-        levels = database.getLevelData();
+        levels = database.getLevelData(1);
         Log.e("list", "size : " + levels.size());
+        txtSub.setText(levels.get(0).getTotal_slevel());
+
+        Log.e("sublel","size");
     }
 
 
@@ -144,58 +150,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(B_URL + Global.API_LEVELS, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                Utils.levels = new ArrayList<MLevel>();
-                Utils.mSubLevelArrayList = new ArrayList<MSubLevel>();
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        Utils.levels = new ArrayList<MLevel>();
+                        Utils.mSubLevelArrayList = new ArrayList<MSubLevel>();
 
-                try {
-                    JSONObject puzzle = response.getJSONObject("puzzle");
+                        try {
+                            JSONObject puzzle = response.getJSONObject("puzzle");
 
 
-                    JSONArray level = puzzle.getJSONArray("level");
-                    for (int i = 0; i < level.length(); i++) {
-                        JSONObject jsonObject = level.getJSONObject(i);
+                            JSONArray level = puzzle.getJSONArray("level");
+                            for (int i = 0; i < level.length(); i++) {
+                                JSONObject jsonObject = level.getJSONObject(i);
 
-                        mLevel = new MLevel();
+                                mLevel = new MLevel();
 //                                mLevel.setId(jsonObject.getInt("id"));
-                        mLevel.setLid(jsonObject.getInt("lid"));
-                        mLevel.setName(jsonObject.getString("name"));
-                        Log.e("level", "name :" + mLevel.getName());
-                        mLevel.setUpdate_date(jsonObject.getString("update_date"));
-                        mLevel.setTotal_slevel(jsonObject.getString("total_slevel"));
-                        Utils.levels.add(mLevel);
+                                mLevel.setLid(jsonObject.getInt("lid"));
+                                mLevel.setName(jsonObject.getString("name"));
+                                Log.e("level", "name :" + mLevel.getName());
+                                mLevel.setUpdate_date(jsonObject.getString("update_date"));
+                                mLevel.setTotal_slevel(jsonObject.getString("total_slevel"));
+                                Utils.levels.add(mLevel);
 
-                        JSONArray sub = jsonObject.getJSONArray("sub");
+                                JSONArray sub = jsonObject.getJSONArray("sub");
 
-                        MSubLevel mSubLevel;
-                        int count = 0;
-                        for (int j = 0; j < sub.length(); j++) {
-                            JSONObject subLevel = sub.getJSONObject(j);
+                                MSubLevel mSubLevel;
+                                int count = 0;
+                                for (int j = 0; j < sub.length(); j++) {
+                                    JSONObject subLevel = sub.getJSONObject(j);
 
-                            count++;
-                            mSubLevel = new MSubLevel();
-                            mSubLevel.setParentId(mLevel.getLid());
-                            mSubLevel.setParentName(mLevel.getName());
-                            mSubLevel.setLid(subLevel.getInt("lid"));
-                            mSubLevel.setName(subLevel.getString("name"));
-                            Log.e("sublevel", "name :" + mSubLevel.getName());
-                            mSubLevel.setCoins_price(subLevel.getString("coins_price"));
-                            mSubLevel.setNo_of_coins(subLevel.getString("no_of_coins"));
-                            Utils.mSubLevelArrayList.add(mSubLevel);
+                                    count++;
+                                    mSubLevel = new MSubLevel();
+                                    mSubLevel.setParentId(mLevel.getLid());
+                                    mSubLevel.setParentName(mLevel.getName());
+                                    mSubLevel.setLid(subLevel.getInt("lid"));
+                                    mSubLevel.setName(subLevel.getString("name"));
+                                    Log.e("sublevel", "name :" + mSubLevel.getName());
+                                    mSubLevel.setCoins_price(subLevel.getString("coins_price"));
+                                    mSubLevel.setNo_of_coins(subLevel.getString("no_of_coins"));
+                                    Utils.mSubLevelArrayList.add(mSubLevel);
 
+                                }
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-
-
+                        saveLevelToDb();
+                        saveSubLevelToDb();
+                        getLocalData();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                saveLevelToDb();
-                saveSubLevelToDb();
-                getLocalData();
-            }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -282,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void saveLevelToDb() {
         Log.e("SAVE", "Level size:" + Utils.levels.size());
-        for (MLevel data:Utils.levels){
+        for (MLevel data : Utils.levels) {
             database.addLevelFromJson(data);
         }
     }
@@ -361,10 +367,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
-
-
 
 
 }

@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,8 +98,7 @@ public class NLogic {
 
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
-//            list.get(pos).setClick(Utils.IMAGE_OFF);
-            gameAdapter.notifyDataSetChanged();
+            getShake(view);
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
@@ -139,13 +140,23 @@ public class NLogic {
         animator.start();
     }
 
+    public void getShake(View v) {
+        // Create shake effect from xml resource
+        Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
+        // View element to be shaken
+
+        // Perform animation
+        v.startAnimation(shake);
+    }
+
     public void imageClick(final MContents mImage, int pos, final int listSize, View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         counter++;
-        getAnimation(view);
+
         if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
+            getShake(view);
             Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -157,7 +168,7 @@ public class NLogic {
         Log.e("click", "count: " + count);
 //        Utils.getSound(context, R.raw.click);
         if (count == 2) {
-
+            getAnimation(view);
             if (previousId == mImage.getMid()) {
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
                 Log.e("log", "matchwincount : " + matchWinCount);
@@ -203,7 +214,7 @@ public class NLogic {
 
                 return;
             } else {
-
+                getShake(view);
                 final int perevious = previousType;
 
                 handler.postDelayed(new Runnable() {
