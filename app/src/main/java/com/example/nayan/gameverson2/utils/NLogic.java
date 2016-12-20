@@ -37,6 +37,7 @@ public class NLogic {
     private Handler handler = new Handler();
     private RecyclerView.Adapter gameAdapter;
     private MContents mContents = new MContents();
+    View view1;
 
 
     private NLogic() {
@@ -83,7 +84,7 @@ public class NLogic {
 
     }
 
-    public void textClick(MContents mContents, int pos, final int listSize, View view) {
+    public void textClick(MContents mContents, int pos, final int listSize, View view,TextView view2) {
         counter++;
         Log.e("counter", "is" + counter);
 
@@ -99,6 +100,7 @@ public class NLogic {
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
             getShake(view);
+            view2.setBackgroundColor(0xffff0000);
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
@@ -151,12 +153,14 @@ public class NLogic {
 
     public void imageClick(final MContents mImage, int pos, final int listSize, View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
+        Log.e("position","pos"+pos);
+        getAnimation(view);
         counter++;
 
         if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
-            getShake(view);
+//            getShake(view);
             Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -168,11 +172,13 @@ public class NLogic {
         Log.e("click", "count: " + count);
 //        Utils.getSound(context, R.raw.click);
         if (count == 2) {
-            getAnimation(view);
+
             if (previousId == mImage.getMid()) {
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
                 Log.e("log", "matchwincount : " + matchWinCount);
                 Log.e("preivious id", "MID : " + previousId);
+
+
                 matchWinCount++;
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -214,7 +220,7 @@ public class NLogic {
 
                 return;
             } else {
-                getShake(view);
+//                getShake(view);
                 final int perevious = previousType;
 
                 handler.postDelayed(new Runnable() {
@@ -239,7 +245,8 @@ public class NLogic {
         }
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
-    }
+//        view1=view;
+}
 
 
     private void resetList(int listSize) {

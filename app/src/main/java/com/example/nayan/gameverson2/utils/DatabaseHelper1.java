@@ -364,7 +364,7 @@ public class DatabaseHelper1 {
         ArrayList<MLevel> levelArrayList = new ArrayList<>();
 
         MLevel mLevel;
-        String sql = "select * from " + DATABASE_LEVEL_TABLE ;//+" where "+KEY_LEVEL_ID+"='"+id+"'";;
+        String sql = "select * from " + DATABASE_LEVEL_TABLE +" where "+KEY_LEVEL_ID+"='"+id+"'";
         Cursor cursor = db.rawQuery(sql, null);
         Log.e("cursor", "count :" + cursor.getCount());
         if (cursor != null && cursor.moveToFirst()) {

@@ -130,6 +130,7 @@
                         android:background="@drawable/bangla_math_btn_text" />
 
                     <TextView
+                        android:id="@+id/txtMath"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="right"
@@ -152,6 +153,7 @@
                         android:background="@drawable/englis_button" />
 
                     <TextView
+                        android:id="@+id/txtDrawing"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="right"

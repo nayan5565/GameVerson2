@@ -122,7 +122,7 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
 //                    getAnimation(itemView);
                     mContents = textArrayList.get(getAdapterPosition());
                     if (Global.SUB_LEVEL_ID == 1) {
-                        nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                        nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView,txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
                         nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);

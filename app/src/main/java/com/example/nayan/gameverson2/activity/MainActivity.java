@@ -47,10 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MLevel mLevel;
     //    private static LevelAdapter levelAdapter;
     private static ArrayList<MLevel> levels;
+    private static ArrayList<MLevel> levelsMath;
+    private static ArrayList<MLevel> levelsDrawing;
     private DatabaseHelper1 database;
     private DrawerLayout drawerLayout;
     private Animation animation;
-    private TextView txtSub;
+    private TextView txtSub, txtMath, txtDrawing;
     private String image;
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Utils.moveAnimation(cloud1, cloud2);
         getOnlineData();
         getOnlineContentsData();
-        getLocalData();
+//        getLocalData();
 
     }
 
@@ -87,7 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBangla = (Button) findViewById(R.id.btnBangla);
         btnBangla.setOnClickListener(this);
         txtSub = (TextView) findViewById(R.id.txtSub);
-
+        txtMath = (TextView) findViewById(R.id.txtMath);
+        txtDrawing = (TextView) findViewById(R.id.txtDrawing);
+        Utils.levels = new ArrayList<>();
         btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
         btnBanglaMath.setOnClickListener(this);
         cloud1 = (ImageView) findViewById(R.id.imgCloud1);
@@ -112,11 +116,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getLocalData() {
-        levels = database.getLevelData(1);
-        Log.e("list", "size : " + levels.size());
-        txtSub.setText(levels.get(0).getTotal_slevel());
-
-        Log.e("sublel","size");
+        Utils.levels = database.getLevelData(5);
+        txtSub.setText(Utils.levels.get(0).getTotal_slevel());
+//        levelsMath = database.getLevelData(2);
+//        txtMath.setText(levelsMath.get(0).getTotal_slevel());
+//        levelsDrawing = database.getLevelData(5);
+//        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
+        Log.e("sublel", "size");
     }
 
 
