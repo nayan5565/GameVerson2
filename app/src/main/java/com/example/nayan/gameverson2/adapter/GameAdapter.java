@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by NAYAN on 11/24/2016.
  */
-public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfBangla.MyViewholder> {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> {
 
     private ArrayList<MContents> textArrayList;
 
@@ -39,7 +39,7 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
     private boolean mIsBackVisible = false;
 
 
-    public Class1AdapterOfBangla(Context context) {
+    public GameAdapter(Context context) {
         this.context = context;
 
         textArrayList = new ArrayList<>();

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
-import com.example.nayan.gameverson2.activity.Class1Activity;
+import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DatabaseHelper1;
@@ -95,7 +95,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                     mSubLevel = mSubLevels.get(getAdapterPosition());
                     Utils.bestPoint = mSubLevel.getBestPoint();
                     if (mSubLevel.getUnlockNextLevel() == 1) {
-                        Intent intent = new Intent(context, Class1Activity.class);
+                        Intent intent = new Intent(context, GameActivity.class);
                         intent.putExtra("subLevel", mSubLevel.getName());
                         intent.putExtra("index", getAdapterPosition());
                         intent.putExtra("Sid", mSubLevel.getLid());

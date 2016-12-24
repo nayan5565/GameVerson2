@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
-import com.example.nayan.gameverson2.adapter.Class1AdapterOfBangla;
+import com.example.nayan.gameverson2.adapter.GameAdapter;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -29,7 +29,7 @@ import java.util.Collections;
 /**
  * Created by NAYAN on 11/24/2016.
  */
-public class Class1Activity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private static int levelId;
     private static MLevel mLevel;
     private static MContents mContents;
@@ -37,7 +37,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
     private ArrayList<MContents> imageArrayList1;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
-    private Class1AdapterOfBangla class1AdapterOfBangla;
+    private GameAdapter class1AdapterOfBangla;
     private DatabaseHelper1 database;
     public String subLevel;
     public String parentName;
@@ -141,7 +141,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
         parentName = getIntent().getStringExtra("parentLevel");
         txtName.setText(parentName + "(" + subLevel + ")");
 
-        class1AdapterOfBangla = new Class1AdapterOfBangla(this);
+        class1AdapterOfBangla = new GameAdapter(this);
 
     }
 
@@ -164,7 +164,7 @@ public class Class1Activity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-                    NLogic.getInstance(Class1Activity.this).showHistory();
+                    NLogic.getInstance(GameActivity.this).showHistory();
                 }
             });
 
