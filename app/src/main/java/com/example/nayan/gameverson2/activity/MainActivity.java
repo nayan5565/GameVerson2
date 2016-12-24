@@ -65,15 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         result = (Button) findViewById(R.id.result);
         init();
-        cloud1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utils.getScreenSize(MainActivity.this);
-                Utils.move(cloud1, cloud2);
-                Utils.moveAnimation(cloud1, cloud2);
-
-            }
-        }, 100);
         getOnlineData();
         getOnlineContentsData();
 //        getLocalData();
@@ -105,6 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBanglaMath.setOnClickListener(this);
         cloud1 = (ImageView) findViewById(R.id.imgCloud1);
         cloud2 = (ImageView) findViewById(R.id.imgCloud2);
+        cloud1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utils.getScreenSize(MainActivity.this);
+                Utils.move(cloud1, cloud2);
+                Utils.moveAnimation(cloud1, cloud2);
+
+            }
+        }, 100);
         image = DialogSoundOnOff.getPREF(this, DialogSoundOnOff.KEY_IMAGE);
         if (image.equals(1 + "")) {
             Utils.isSoundPlay = true;
