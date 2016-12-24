@@ -72,9 +72,9 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
         if (Global.SUB_LEVEL_ID == 1) {
             if (mContents.getClick() == Utils.IMAGE_ON) {
                 holder.txtContents.setBackgroundColor(0xff888888);
-//                getAnimation(holder.txtContents);
+//                flipAnimation(holder.txtContents);
             } else {
-//                getShake(holder.itemView);
+//                shakeAnimation(holder.itemView);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -119,7 +119,7 @@ public class Class1AdapterOfBangla extends RecyclerView.Adapter<Class1AdapterOfB
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    getAnimation(itemView);
+//                    flipAnimation(itemView);
                     mContents = textArrayList.get(getAdapterPosition());
                     if (Global.SUB_LEVEL_ID == 1) {
                         nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView,txtContents);

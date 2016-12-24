@@ -17,6 +17,7 @@ import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by NAYAN on 8/25/2016.
@@ -34,6 +35,7 @@ public class Utils {
     public static boolean isSoundPlay = true;
     public static int bestPoint,presentPoint;
     static MediaPlayer mediaPlayer;
+    public static int widthSize,heightSize;
 
     public static void getSound(Context context, int path) {
         if (isSoundPlay) {
@@ -110,6 +112,58 @@ public class Utils {
         int paddingDp = (int) (pixel * density);
         return paddingDp;
     }
+    public static void moveAnimation(Object target, Object target2) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -200, widthSize+10);
+        animator.setDuration(9000);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.start();
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -200);
+        animator1.setDuration(9000);
+        animator1.setRepeatCount(ValueAnimator.INFINITE);
+        animator1.start();
+
+    }
+    public static int randInt(int min, int max) {
+
+
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
+    public static void move(final View view, final View view2) {
+
+//        count=count+10;
+//        Log.e("count", "is" + count);
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                getScreenSize(MainActivity.this);
+                view2.setY(randInt(5,heightSize-15));
+                view2.setX(280);
+                view.setY(randInt(5,heightSize-15));
+                view.setX(-200);
+                move(view,view2);
+            }
+        }, 9000);
+
+    }
+    public static void getScreenSize(Activity activity) {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        widthSize = (width - 5);
+        heightSize = height;
+        Log.e("width","size"+width);
+        Log.e("height","size"+height);
+
+    }
 
     public static boolean isInternetOn(Context context) {
 
@@ -131,17 +185,17 @@ public class Utils {
         return false;
     }
 
-    public static void moveAnimation(Object target, Object target2) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -280, 280);
-        animator.setDuration(9000);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.start();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", 280, -280);
-        animator1.setDuration(9000);
-        animator1.setRepeatCount(ValueAnimator.INFINITE);
-        animator1.start();
-
-    }
+//    public static void moveAnimation(Object target, Object target2) {
+//        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -280, 280);
+//        animator.setDuration(9000);
+//        animator.setRepeatCount(ValueAnimator.INFINITE);
+//        animator.start();
+//        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", 280, -280);
+//        animator1.setDuration(9000);
+//        animator1.setRepeatCount(ValueAnimator.INFINITE);
+//        animator1.start();
+//
+//    }
 
     public static String getIntToStar(int starCount) {
         String fillStar = "\u2605";

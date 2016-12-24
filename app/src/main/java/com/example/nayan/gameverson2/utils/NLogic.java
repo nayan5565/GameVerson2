@@ -93,13 +93,13 @@ public class NLogic {
             list.get(pos).setClick(Utils.IMAGE_ON);
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
-            getAnimation(view);
+            flipAnimation(view);
             clickCount = mContents.getMid();
             count++;
 
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
-            getShake(view);
+            shakeAnimation(view);
             view2.setBackgroundColor(0xffff0000);
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
@@ -136,13 +136,13 @@ public class NLogic {
 
     }
 
-    public void getAnimation(View view) {
+    public void flipAnimation(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
         animator.setDuration(500);
         animator.start();
     }
 
-    public void getShake(View v) {
+    public void shakeAnimation(View v) {
         // Create shake effect from xml resource
         Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
         // View element to be shaken
@@ -154,13 +154,13 @@ public class NLogic {
     public void imageClick(final MContents mImage, int pos, final int listSize, View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position","pos"+pos);
-        getAnimation(view);
+        flipAnimation(view);
         counter++;
 
         if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
-//            getShake(view);
+//            shakeAnimation(view);
             Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -220,7 +220,7 @@ public class NLogic {
 
                 return;
             } else {
-//                getShake(view);
+//                shakeAnimation(view);
                 final int perevious = previousType;
 
                 handler.postDelayed(new Runnable() {

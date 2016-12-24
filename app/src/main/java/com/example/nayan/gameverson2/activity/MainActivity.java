@@ -23,9 +23,9 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.utils.DatabaseHelper1;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
 import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.DatabaseHelper1;
 import com.example.nayan.gameverson2.utils.Utils;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
     private Gson gson;
+    int widthSize, heightSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         result = (Button) findViewById(R.id.result);
         init();
-        Utils.moveAnimation(cloud1, cloud2);
+        cloud1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utils.getScreenSize(MainActivity.this);
+                Utils.move(cloud1, cloud2);
+                Utils.moveAnimation(cloud1, cloud2);
+
+            }
+        }, 100);
         getOnlineData();
         getOnlineContentsData();
 //        getLocalData();
