@@ -125,12 +125,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getLocalData() {
-        Utils.levels = database.getLevelData(5);
+        Utils.levels = database.getLevelData(1);
         txtSub.setText(Utils.levels.get(0).getTotal_slevel());
-//        levelsMath = database.getLevelData(2);
-//        txtMath.setText(levelsMath.get(0).getTotal_slevel());
-//        levelsDrawing = database.getLevelData(5);
-//        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
+        levelsMath = database.getLevelData(2);
+        txtMath.setText(levelsMath.get(0).getTotal_slevel());
+        levelsDrawing = database.getLevelData(5);
+        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
         Log.e("sublel", "size");
     }
 
