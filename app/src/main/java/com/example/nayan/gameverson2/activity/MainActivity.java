@@ -49,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static ArrayList<MLevel> levels;
     private static ArrayList<MLevel> levelsMath;
     private static ArrayList<MLevel> levelsDrawing;
+    private static ArrayList<MLevel> levelsEnglish;
+    private static ArrayList<MLevel> levelsEnglish2;
     private DatabaseHelper1 database;
     private DrawerLayout drawerLayout;
     private Animation animation;
-    private TextView txtSub, txtMath, txtDrawing;
+    private TextView txtSub, txtMath, txtDrawing,txtEnglish,txtEnglish2;
     private String image;
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
@@ -90,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBangla.setOnClickListener(this);
         txtSub = (TextView) findViewById(R.id.txtSub);
         txtMath = (TextView) findViewById(R.id.txtMath);
+        txtEnglish = (TextView) findViewById(R.id.txtEnglish);
         txtDrawing = (TextView) findViewById(R.id.txtDrawing);
+        txtEnglish2 = (TextView) findViewById(R.id.txtEnglish2);
         Utils.levels = new ArrayList<>();
         btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
         btnBanglaMath.setOnClickListener(this);
@@ -131,6 +135,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtMath.setText(levelsMath.get(0).getTotal_slevel());
         levelsDrawing = database.getLevelData(5);
         txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
+        levelsEnglish = database.getLevelData(4);
+        txtEnglish.setText(levelsEnglish.get(0).getTotal_slevel());
+        levelsEnglish2 = database.getLevelData(3);
+        txtEnglish2.setText(levelsEnglish2.get(0).getTotal_slevel());
         Log.e("sublel", "size");
     }
 
