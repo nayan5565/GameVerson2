@@ -113,7 +113,7 @@ public class Utils {
         return paddingDp;
     }
     public static void moveAnimation(Object target, Object target2) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -200, widthSize+10);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -215, widthSize+10);
         animator.setDuration(9000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();

@@ -39,7 +39,7 @@
     <ImageView
         android:id="@+id/imgFacebook"
         android:layout_width="190dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_gravity="bottom|center"
         android:background="@drawable/facebook"/>
 
@@ -52,7 +52,7 @@
         <ImageView
             android:id="@+id/btnLevelMenu"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:src="@drawable/menu_btn" />
         <ImageView
@@ -60,12 +60,12 @@
             android:src="@drawable/reload_btn"
             android:id="@+id/btnLevelReload"
             android:layout_width="0dp"
-            android:layout_height="70dp" />
+            android:layout_height="50dp" />
 
         <ImageView
             android:id="@+id/btnLevelForward"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:src="@drawable/forward_btn_red" />
 

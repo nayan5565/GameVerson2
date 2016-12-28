@@ -37,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<MContents> imageArrayList1;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
-    private GameAdapter class1AdapterOfBangla;
+    private GameAdapter gameAdapter;
     private DatabaseHelper1 database;
     public String subLevel;
     public String parentName;
@@ -141,15 +141,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         parentName = getIntent().getStringExtra("parentLevel");
         txtName.setText(parentName + "(" + subLevel + ")");
 
-        class1AdapterOfBangla = new GameAdapter(this);
+        gameAdapter = new GameAdapter(this);
 
     }
 
     private void prepareDisplay() {
         int item = Utils.getScreenSize(this, 100);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
-        recyclerView.setAdapter(class1AdapterOfBangla);
-        class1AdapterOfBangla.setData(imageArrayList1);
+        recyclerView.setAdapter(gameAdapter);
+        gameAdapter.setData(imageArrayList1);
     }
 
     @Override
