@@ -62,7 +62,7 @@ public class NLogic {
     }
 
     private void saveDb() {
-        DatabaseHelper1 db = DatabaseHelper1.getInstance(context);
+        DatabaseHelper db = DatabaseHelper.getInstance(context);
         MLock lock = db.getLocalData(Global.SUB_LEVEL_ID);
         if (lock == null) {
             lock = new MLock();
@@ -84,7 +84,7 @@ public class NLogic {
 
     }
 
-    public void textClick(MContents mContents, int pos, final int listSize, View view,TextView view2) {
+    public void textClick(MContents mContents, int pos, final int listSize, View view, TextView view2) {
         counter++;
         Log.e("counter", "is" + counter);
 
@@ -153,11 +153,11 @@ public class NLogic {
 
     public void imageClick(final MContents mImage, int pos, final int listSize, View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
-        Log.e("position","pos"+pos);
-        flipAnimation(view);
+        Log.e("position", "pos" + pos);
+
         counter++;
 
-        if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
+        if (previousType == mImage.getPresentType() || count > 1||mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
@@ -167,8 +167,10 @@ public class NLogic {
         clickCount++;
 
         list.get(pos).setClick(Utils.IMAGE_ON);
-        gameAdapter.notifyDataSetChanged();
+//        gameAdapter.notifyDataSetChanged();
+        flipAnimation(view);
         count++;
+
         Log.e("click", "count: " + count);
 //        Utils.getSound(context, R.raw.click);
         if (count == 2) {
@@ -193,26 +195,33 @@ public class NLogic {
 
 
                 if (matchWinCount == listSize / 2) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            resetList(listSize);
+                            Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.dialog_level_cleared);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+                            TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                            txtBestPoint.setText("" + Utils.bestPoint);
+                            txtScore.setText(presentPoint + "");
+                            if (presentPoint == 50) {
+                                txtPoint.setText(Utils.getIntToStar(1));
+                            } else if (presentPoint == 75) {
+                                txtPoint.setText(Utils.getIntToStar(2));
+                            } else if (presentPoint == 100) {
+                                txtPoint.setText(Utils.getIntToStar(3));
+                            } else txtPoint.setText(Utils.getIntToStar(0));
+                            dialog.show();
+                        }
+                    },1500);
 //                    VungleAdManager.getInstance(context).play();
                     savePoint(listSize);
-                    resetList(listSize);
-                    Dialog dialog = new Dialog(context);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.dialog_level_cleared);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-                    TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
-                    TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-                    txtBestPoint.setText("" + Utils.bestPoint);
-                    txtScore.setText(presentPoint + "");
-                    if (presentPoint == 50) {
-                        txtPoint.setText(Utils.getIntToStar(1));
-                    } else if (presentPoint == 75) {
-                        txtPoint.setText(Utils.getIntToStar(2));
-                    } else if (presentPoint == 100) {
-                        txtPoint.setText(Utils.getIntToStar(3));
-                    } else txtPoint.setText(Utils.getIntToStar(0));
-                    dialog.show();
+
+
                     Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
                     gameWinCount++;
                     Log.e("log", "game over : " + gameWinCount);
@@ -246,7 +255,119 @@ public class NLogic {
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
 //        view1=view;
-}
+    }
+
+    public void imageClick2(final MContents mImage, int pos, final int listSize, final View view) {
+        Log.e("Loge", "present id ::" + mImage.getPresentId());
+        Log.e("position", "pos" + pos);
+
+        counter++;
+
+        if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
+            Log.e("previoustype", "same: " + mImage.getPresentType());
+            Log.e("click over 1", "count: " + count);
+//            shakeAnimation(view);
+            Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        clickCount++;
+
+        list.get(pos).setClick(Utils.IMAGE_ON);
+//        gameAdapter.notifyDataSetChanged();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                flipAnimation(view);
+            }
+        },1000);
+
+        count++;
+
+
+        Log.e("click", "count: " + count);
+//        Utils.getSound(context, R.raw.click);
+        if (count == 2) {
+
+            if (previousId == mImage.getMid()) {
+                Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
+                Log.e("log", "matchwincount : " + matchWinCount);
+                Log.e("preivious id", "MID : " + previousId);
+
+
+                matchWinCount++;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+//                        Utils.getSound(context, R.raw.match2);
+                        count = 0;
+
+
+                    }
+                }, 800);
+
+
+                if (matchWinCount == listSize / 2) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            resetList(listSize);
+                            Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.dialog_level_cleared);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+                            TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                            txtBestPoint.setText("" + Utils.bestPoint);
+                            txtScore.setText(presentPoint + "");
+                            if (presentPoint == 50) {
+                                txtPoint.setText(Utils.getIntToStar(1));
+                            } else if (presentPoint == 75) {
+                                txtPoint.setText(Utils.getIntToStar(2));
+                            } else if (presentPoint == 100) {
+                                txtPoint.setText(Utils.getIntToStar(3));
+                            } else txtPoint.setText(Utils.getIntToStar(0));
+                            dialog.show();
+                        }
+                    },1500);
+//                    VungleAdManager.getInstance(context).play();
+                    savePoint(listSize);
+
+                    Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
+                    gameWinCount++;
+                    Log.e("log", "game over : " + gameWinCount);
+                }
+
+                return;
+            } else {
+//                shakeAnimation(view);
+                final int perevious = previousType;
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        Utils.getSound(context, R.raw.fail);
+                        for (int i = 0; i < listSize; i++) {
+                            if (list.get(i).getPresentType() == perevious || list.get(i).getPresentType() == mImage.getPresentType()) {
+                                list.get(i).setClick(Utils.IMAGE_OFF);
+                                Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
+//
+                            }
+                        }
+                        gameAdapter.notifyDataSetChanged();
+                        count = 0;
+                    }
+                }, 1000);
+                previousId = 0;
+                previousType = 0;
+                return;
+            }
+        }
+        previousId = mImage.getMid();
+        previousType = mImage.getPresentType();
+//        view1=view;
+    }
 
 
     private void resetList(int listSize) {

@@ -18,7 +18,7 @@ import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.DatabaseHelper1;
+import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.NLogic;
 import com.example.nayan.gameverson2.utils.SpacesItemDecoration;
 import com.example.nayan.gameverson2.utils.Utils;
@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView imgSetting;
     private RecyclerView recyclerView;
     private GameAdapter gameAdapter;
-    private DatabaseHelper1 database;
+    private DatabaseHelper database;
     public String subLevel;
     public String parentName;
     private TextView txtName;
@@ -128,7 +128,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
 
         txtName = (TextView) findViewById(R.id.txtName);
-        database = new DatabaseHelper1(this);
+        database = new DatabaseHelper(this);
         imgSetting = (ImageView) findViewById(R.id.imgseting);
         imgSetting.setOnClickListener(this);
         imageArrayList1 = new ArrayList<>();

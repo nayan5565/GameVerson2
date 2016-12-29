@@ -14,7 +14,7 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.utils.DatabaseHelper1;
+import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -29,14 +29,14 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
     private Context context;
 
     private LayoutInflater inflater;
-    private DatabaseHelper1 db;
+    private DatabaseHelper db;
     private int count;
     private int subLevel;
 
     public SubLevelAdapter(Context context) {
         this.context = context;
         mSubLevels = new ArrayList<>();
-        db = new DatabaseHelper1(context);
+        db = new DatabaseHelper(context);
         inflater = LayoutInflater.from(context);
     }
 

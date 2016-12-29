@@ -21,9 +21,9 @@ import java.util.ArrayList;
 /**
  * Created by NAYAN on 8/24/2016.
  */
-public class DatabaseHelper1 {
+public class DatabaseHelper {
     private Context context;
-    private static DatabaseHelper1 instance;
+    private static DatabaseHelper instance;
     private static final String DATABASE_NAME = "game.db";
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_LEVEL_TABLE = "level";
@@ -119,16 +119,16 @@ public class DatabaseHelper1 {
             + KEY_POINT_ID + " integer primary key, "
             + KEY_BEST_POINT + " integer)";
 
-    public DatabaseHelper1(Context context) {
+    public DatabaseHelper(Context context) {
 
         this.context = context;
         instance=this;
         openDB(context);
         onCreate();
     }
-    public static DatabaseHelper1 getInstance(Context context){
+    public static DatabaseHelper getInstance(Context context){
         if(instance==null){
-            instance=new DatabaseHelper1(context);
+            instance=new DatabaseHelper(context);
         }
         return instance;
     }

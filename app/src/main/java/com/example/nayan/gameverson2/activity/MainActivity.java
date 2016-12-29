@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +21,7 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.utils.DatabaseHelper1;
+import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
 import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.Utils;
@@ -51,15 +49,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static ArrayList<MLevel> levelsDrawing;
     private static ArrayList<MLevel> levelsEnglish;
     private static ArrayList<MLevel> levelsEnglish2;
-    private DatabaseHelper1 database;
-    private DrawerLayout drawerLayout;
-    private Animation animation;
+    private DatabaseHelper database;
     private TextView txtSub, txtMath, txtDrawing,txtEnglish,txtEnglish2;
     private String image;
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
     private Gson gson;
-    int widthSize, heightSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        database = new DatabaseHelper1(this);
+        database = new DatabaseHelper(this);
 
         mLevel = new MLevel();
         btnBangla = (Button) findViewById(R.id.btnBangla);

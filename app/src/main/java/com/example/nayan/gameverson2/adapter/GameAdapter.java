@@ -88,7 +88,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         } else if (Global.SUB_LEVEL_ID == 3) {
             if (mContents.getClick() == Utils.IMAGE_ON) {
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+
                     holder.txtContents.setText(mContents.getSen());
+                    notifyDataSetChanged();
 
                 } else {
                     holder.txtContents.setText(mContents.getTxt());
@@ -127,7 +129,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     } else if (Global.SUB_LEVEL_ID == 2) {
                         nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                        nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     }
 
                 }
