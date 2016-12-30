@@ -273,13 +273,14 @@ public class NLogic {
         clickCount++;
 
         list.get(pos).setClick(Utils.IMAGE_ON);
-//        gameAdapter.notifyDataSetChanged();
+
+        flipAnimation(view);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                flipAnimation(view);
+                gameAdapter.notifyDataSetChanged();
             }
-        },1000);
+        },100);
 
         count++;
 
@@ -290,8 +291,8 @@ public class NLogic {
 
             if (previousId == mImage.getMid()) {
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
-                Log.e("log", "matchwincount : " + matchWinCount);
-                Log.e("preivious id", "MID : " + previousId);
+                Log.e("log", "match win count : " + matchWinCount);
+                Log.e("previous id", "MID : " + previousId);
 
 
                 matchWinCount++;

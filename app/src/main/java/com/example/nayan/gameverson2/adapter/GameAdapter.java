@@ -90,7 +90,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
 
                     holder.txtContents.setText(mContents.getSen());
-                    notifyDataSetChanged();
 
                 } else {
                     holder.txtContents.setText(mContents.getTxt());
