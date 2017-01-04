@@ -38,6 +38,7 @@ public class NLogic {
     private RecyclerView.Adapter gameAdapter;
     private MContents mContents = new MContents();
     View view1;
+    TextView textView2;
 
 
     private NLogic() {
@@ -94,6 +95,7 @@ public class NLogic {
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
+            view2.setBackgroundColor(0xff888888);
             clickCount = mContents.getMid();
             count++;
 
@@ -142,6 +144,12 @@ public class NLogic {
         animator.start();
     }
 
+    public void flipAnimation2(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", 0, -180);
+        animator.setDuration(500);
+        animator.start();
+    }
+
     public void shakeAnimation(View v) {
         // Create shake effect from xml resource
         Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
@@ -151,13 +159,13 @@ public class NLogic {
         v.startAnimation(shake);
     }
 
-    public void imageClick(final MContents mImage, int pos, final int listSize, View view) {
+    public void imageClick(final MContents mImage, int pos, final int listSize, final View view, final TextView textView) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
 
         counter++;
 
-        if (previousType == mImage.getPresentType() || count > 1||mImage.getClick() == Utils.IMAGE_ON) {
+        if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
@@ -169,7 +177,22 @@ public class NLogic {
         list.get(pos).setClick(Utils.IMAGE_ON);
 //        gameAdapter.notifyDataSetChanged();
         flipAnimation(view);
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                textView.setBackgroundColor(0xff888888);
+//            }
+//        }, 100);
+
         count++;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mImage.getClick()==Utils.IMAGE_ON){
+                    textView.setBackgroundColor(0xff888888);
+                }
+            }
+        },500);
 
         Log.e("click", "count: " + count);
 //        Utils.getSound(context, R.raw.click);
@@ -195,10 +218,13 @@ public class NLogic {
 
 
                 if (matchWinCount == listSize / 2) {
+
+                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             resetList(listSize);
+
                             Dialog dialog = new Dialog(context);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             dialog.setContentView(R.layout.dialog_level_cleared);
@@ -217,7 +243,7 @@ public class NLogic {
                             } else txtPoint.setText(Utils.getIntToStar(0));
                             dialog.show();
                         }
-                    },1500);
+                    }, 1500);
 //                    VungleAdManager.getInstance(context).play();
                     savePoint(listSize);
 
@@ -230,6 +256,9 @@ public class NLogic {
                 return;
             } else {
 //                shakeAnimation(view);
+//                textView.setBackgroundColor(0xffff0000);
+
+
                 final int perevious = previousType;
 
                 handler.postDelayed(new Runnable() {
@@ -244,6 +273,7 @@ public class NLogic {
                             }
                         }
                         gameAdapter.notifyDataSetChanged();
+                        textView.setBackgroundColor(0);
                         count = 0;
                     }
                 }, 1000);
@@ -254,10 +284,11 @@ public class NLogic {
         }
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
+        textView2 = textView;
 //        view1=view;
     }
 
-    public void imageClick2(final MContents mImage, int pos, final int listSize, final View view) {
+    public void imageClick2(final MContents mImage, int pos, final int listSize, final View view, final View view1) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
 
@@ -266,7 +297,15 @@ public class NLogic {
         if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
             Log.e("previoustype", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
-//            shakeAnimation(view);
+
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    flipAnimation2(view);
+//                    flipAnimation2(view1);
+//                }
+//            },500);
+
             Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -280,7 +319,7 @@ public class NLogic {
             public void run() {
                 gameAdapter.notifyDataSetChanged();
             }
-        },100);
+        }, 400);
 
         count++;
 
@@ -331,7 +370,7 @@ public class NLogic {
                             } else txtPoint.setText(Utils.getIntToStar(0));
                             dialog.show();
                         }
-                    },1500);
+                    }, 1500);
 //                    VungleAdManager.getInstance(context).play();
                     savePoint(listSize);
 
@@ -342,7 +381,13 @@ public class NLogic {
 
                 return;
             } else {
-//                shakeAnimation(view);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        flipAnimation2(view);
+                    }
+                }, 500);
+
                 final int perevious = previousType;
 
                 handler.postDelayed(new Runnable() {
@@ -359,7 +404,7 @@ public class NLogic {
                         gameAdapter.notifyDataSetChanged();
                         count = 0;
                     }
-                }, 1000);
+                }, 800);
                 previousId = 0;
                 previousType = 0;
                 return;
@@ -367,7 +412,6 @@ public class NLogic {
         }
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
-//        view1=view;
     }
 
 

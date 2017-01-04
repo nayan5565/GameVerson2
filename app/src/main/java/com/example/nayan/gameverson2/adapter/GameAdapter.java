@@ -71,7 +71,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         mContents = textArrayList.get(position);
         if (Global.SUB_LEVEL_ID == 1) {
             if (mContents.getClick() == Utils.IMAGE_ON) {
-                holder.txtContents.setBackgroundColor(0xff888888);
+//                holder.txtContents.setBackgroundColor(0xff888888);
 //                flipAnimation(holder.txtContents);
             } else {
 //                shakeAnimation(holder.itemView);
@@ -123,12 +123,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                    flipAnimation(itemView);
                     mContents = textArrayList.get(getAdapterPosition());
                     if (Global.SUB_LEVEL_ID == 1) {
-                        nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView,txtContents);
+                        nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView,txtContents);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                        nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);
                     }
 
                 }
@@ -141,6 +141,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         animator.setDuration(500);
         animator.start();
     }
+
     public void getShake(View v) {
         // Create shake effect from xml resource
         Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);

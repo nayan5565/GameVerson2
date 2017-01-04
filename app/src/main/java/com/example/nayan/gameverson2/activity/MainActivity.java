@@ -99,9 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 Utils.getScreenSize(MainActivity.this);
-                Utils.move(cloud1, cloud2);
                 Utils.moveAnimation(cloud1, cloud2);
-
+                Utils.move(cloud1, cloud2);
             }
         }, 100);
         image = DialogSoundOnOff.getPREF(this, DialogSoundOnOff.KEY_IMAGE);
