@@ -17,6 +17,16 @@ public class MContents {
     private String click;
     private int bestPoint;
 
+    public int getMatch() {
+        return match;
+    }
+
+    public void setMatch(int match) {
+        this.match = match;
+    }
+
+    private int match;
+
     public int getBestPoint() {
         return bestPoint;
 

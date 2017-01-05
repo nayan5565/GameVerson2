@@ -84,30 +84,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private ArrayList<MContents> generateAssets(ArrayList<MContents> realAssets) {
-        int count = 20;
+        int count = realAssets.size();
         ArrayList<MContents> tempAsset = new ArrayList<>();
         for (MContents mContents : realAssets) {
             tempAsset.add(mContents);
             count++;
             MContents asset1 = new MContents();
-            asset1.setPresentType(count);
+            asset1.setPresentType(mContents.getPresentType());
             asset1.setTxt(mContents.getTxt());
-            asset1.setMid(mContents.getMid());
+            asset1.setMid(count);
             tempAsset.add(asset1);
         }
         return tempAsset;
     }
 
     private ArrayList<MContents> generatesTxtSen(ArrayList<MContents> realTxtSen) {
-        int count = 20;
+        int count = realTxtSen.size();
         ArrayList<MContents> tempTxtSen = new ArrayList<>();
         for (MContents mContents : realTxtSen) {
             tempTxtSen.add(mContents);
             count++;
             MContents contents = new MContents();
             contents.setSen(mContents.getSen());
-            contents.setMid(mContents.getMid());
-            contents.setPresentType(count);
+            contents.setMid(count);
+            contents.setPresentType(mContents.getPresentType());
             tempTxtSen.add(contents);
         }
         return tempTxtSen;

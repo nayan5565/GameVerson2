@@ -36,7 +36,7 @@ public class NLogic {
     private Context context;
     private Handler handler = new Handler();
     private RecyclerView.Adapter gameAdapter;
-    private MContents mContents = new MContents();
+    private MContents previousMcontents;
     View view1;
     TextView textView2;
 
@@ -59,7 +59,7 @@ public class NLogic {
     }
 
     public void setLevel(MContents mContents) {
-        this.mContents = mContents;
+        this.previousMcontents = mContents;
     }
 
     private void saveDb() {
@@ -76,7 +76,7 @@ public class NLogic {
         if (SubLevelActivity.mSubLevels.size() - 1 > Global.INDEX_POSISION) {
             lock = new MLock();
             Log.e("global", "index" + Global.INDEX_POSISION);
-            Log.e("arraryList", "size :" + SubLevelActivity.mSubLevels.size());
+            Log.e("array List", "size :" + SubLevelActivity.mSubLevels.size());
             MSubLevel mSubLevel = SubLevelActivity.mSubLevels.get(Global.INDEX_POSISION + 1);
             lock.setId(mSubLevel.getLid());
             lock.setUnlockNextLevel(1);
@@ -137,36 +137,50 @@ public class NLogic {
 
 
     }
+    public void forLevel2(View itemView,MContents mContents){
+        if (mContents.getMatch()==1){
+            Toast.makeText(context,"matched",Toast.LENGTH_SHORT).show();
+            Log.e("s",":1");
+            return;
+        }
+        if (previousId==0){
+            mContents.setMatch(1);
+            gameAdapter.notifyDataSetChanged();
+            previousMcontents=mContents;
+            previousId=mContents.getMid();
+            Log.e("s",":3");
+            return;
+        }
+        if (previousId==mContents.getMid()){
+            Toast.makeText(context,"same click",Toast.LENGTH_SHORT).show();
+            Log.e("s",":2");
+            return;
+        }
 
-    public void flipAnimation(View view) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
-        animator.setDuration(500);
-        animator.start();
+        else {
+            Log.e("s",":4");
+            if (mContents.getPresentType()==previousMcontents.getPresentType()){
+                mContents.setMatch(1);
+                Toast.makeText(context,"match",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                mContents.setMatch(0);
+                Toast.makeText(context,"wrong",Toast.LENGTH_SHORT).show();
+            }
+            previousId=0;
+            previousMcontents=mContents;
+            gameAdapter.notifyDataSetChanged();
+        }
+
     }
-
-    public void flipAnimation2(View view) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", 0, -180);
-        animator.setDuration(500);
-        animator.start();
-    }
-
-    public void shakeAnimation(View v) {
-        // Create shake effect from xml resource
-        Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
-        // View element to be shaken
-
-        // Perform animation
-        v.startAnimation(shake);
-    }
-
-    public void imageClick(final MContents mImage, int pos, final int listSize, final View view, final TextView textView) {
+    public void imageClick(final MContents mImage, int pos, final int listSize, final View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
 
         counter++;
 
-        if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
-            Log.e("previoustype", "same: " + mImage.getPresentType());
+        if (previousId == mImage.getPresentId() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
+            Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
             Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
@@ -175,33 +189,27 @@ public class NLogic {
         clickCount++;
 
         list.get(pos).setClick(Utils.IMAGE_ON);
-//        gameAdapter.notifyDataSetChanged();
-        flipAnimation(view);
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                textView.setBackgroundColor(0xff888888);
-//            }
-//        }, 100);
 
-        count++;
+        flipAnimation(view);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mImage.getClick()==Utils.IMAGE_ON){
-                    textView.setBackgroundColor(0xff888888);
-                }
+                gameAdapter.notifyDataSetChanged();
+//                textView.setBackgroundColor(0xff888888);
             }
-        },500);
+        }, 400);
+
+        count++;
+
 
         Log.e("click", "count: " + count);
 //        Utils.getSound(context, R.raw.click);
         if (count == 2) {
 
-            if (previousId == mImage.getMid()) {
+            if (previousType == mImage.getPresentType()) {
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
-                Log.e("log", "matchwincount : " + matchWinCount);
-                Log.e("preivious id", "MID : " + previousId);
+                Log.e("log", "match win count : " + matchWinCount);
+                Log.e("previous id", "MID : " + previousId);
 
 
                 matchWinCount++;
@@ -219,7 +227,7 @@ public class NLogic {
 
                 if (matchWinCount == listSize / 2) {
 
-                    textView.setBackgroundColor(0);
+//                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -259,21 +267,28 @@ public class NLogic {
 //                textView.setBackgroundColor(0xffff0000);
 
 
-                final int perevious = previousType;
+                final int previous = previousId;
 
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
 //                        Utils.getSound(context, R.raw.fail);
                         for (int i = 0; i < listSize; i++) {
-                            if (list.get(i).getPresentType() == perevious || list.get(i).getPresentType() == mImage.getPresentType()) {
+                            if (list.get(i).getPresentId() == previous || list.get(i).getPresentId() == mImage.getPresentId()) {
                                 list.get(i).setClick(Utils.IMAGE_OFF);
                                 Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
+                                flipAnimation2(view);
 //
                             }
                         }
-                        gameAdapter.notifyDataSetChanged();
-                        textView.setBackgroundColor(0);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                gameAdapter.notifyDataSetChanged();
+                            }
+                        },400);
+
+//                        textView.setBackgroundColor(0);
                         count = 0;
                     }
                 }, 1000);
@@ -284,7 +299,7 @@ public class NLogic {
         }
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
-        textView2 = textView;
+//        textView2 = textView;
 //        view1=view;
     }
 
@@ -295,7 +310,7 @@ public class NLogic {
         counter++;
 
         if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
-            Log.e("previoustype", "same: " + mImage.getPresentType());
+            Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 
 //            handler.postDelayed(new Runnable() {
@@ -413,6 +428,26 @@ public class NLogic {
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
     }
+    public void flipAnimation(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
+        animator.setDuration(500);
+        animator.start();
+    }
+
+    public void flipAnimation2(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", 0, -180);
+        animator.setDuration(500);
+        animator.start();
+    }
+
+    public void shakeAnimation(View v) {
+        // Create shake effect from xml resource
+        Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
+        // View element to be shaken
+
+        // Perform animation
+        v.startAnimation(shake);
+    }
 
 
     private void resetList(int listSize) {
@@ -456,7 +491,7 @@ public class NLogic {
         dialog.setTitle("Status");
         dialog.setContentView(R.layout.row_d_best_point);
         TextView textView = (TextView) dialog.findViewById(R.id.txtBetPoint);
-//        textView.setText("best point: " + mContents.getBestpoint() + "\nWin count : " + mContents.getLevelWinCount());
+//        textView.setText("best point: " + previousMcontents.getBestpoint() + "\nWin count : " + previousMcontents.getLevelWinCount());
         TextView textView1 = (TextView) dialog.findViewById(R.id.txtTotalWin);
 //        textView1.setText("no of total win: " + gameWinCount + "");
         dialog.show();

@@ -3,6 +3,7 @@ package com.example.nayan.gameverson2.adapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,6 +83,21 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
         }
         if (Global.SUB_LEVEL_ID == 2) {
+            if (mContents.getMatch()==1){
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            }
+            else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+//            if (mContents.getClick() == Utils.IMAGE_ON) {
+//                holder.txtContents.setBackgroundColor(0xff888888);
+////                holder.itemView.setBackgroundColor(0xff888888);
+////                flipAnimation(holder.txtContents);
+//            } else {
+////                shakeAnimation(holder.itemView);
+////                flipAnimation2(holder.itemView);
+//                holder.txtContents.setBackgroundColor(0);
+//            }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
 
@@ -126,7 +142,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView,txtContents);
+                        nLogic.forLevel2(itemView,mContents);
+//                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
                         nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);
                     }
@@ -141,6 +158,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         animator.setDuration(500);
         animator.start();
     }
+
+    public void flipAnimation2(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", 0, -180);
+        animator.setDuration(500);
+        animator.start();
+    }
+
 
     public void getShake(View v) {
         // Create shake effect from xml resource
