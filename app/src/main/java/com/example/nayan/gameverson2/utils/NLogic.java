@@ -137,42 +137,57 @@ public class NLogic {
 
 
     }
-    public void forLevel2(View itemView,MContents mContents){
-        if (mContents.getMatch()==1){
-            Toast.makeText(context,"matched",Toast.LENGTH_SHORT).show();
-            Log.e("s",":1");
+
+    public void forLevel2(View itemView, final MContents mContents) {
+        if (mContents.getMatch() == 1) {
+            Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
+            Log.e("s", ":1");
             return;
         }
-        if (previousId==0){
+        if (previousId == 0) {
             mContents.setMatch(1);
-            gameAdapter.notifyDataSetChanged();
-            previousMcontents=mContents;
-            previousId=mContents.getMid();
-            Log.e("s",":3");
-            return;
-        }
-        if (previousId==mContents.getMid()){
-            Toast.makeText(context,"same click",Toast.LENGTH_SHORT).show();
-            Log.e("s",":2");
-            return;
-        }
 
-        else {
-            Log.e("s",":4");
-            if (mContents.getPresentType()==previousMcontents.getPresentType()){
+            previousMcontents = mContents;
+            previousId = mContents.getMid();
+            flipAnimation(itemView);
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    gameAdapter.notifyDataSetChanged();
+//                }
+//            }, 400);
+            Log.e("s", ":3");
+            return;
+        }
+        if (previousId == mContents.getMid()) {
+            Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
+
+            Log.e("s", ":2");
+            return;
+        } else {
+
+            Log.e("s", ":4");
+            if (mContents.getPresentType() == previousMcontents.getPresentType()) {
                 mContents.setMatch(1);
-                Toast.makeText(context,"match",Toast.LENGTH_SHORT).show();
-            }
-            else {
-                mContents.setMatch(0);
-                Toast.makeText(context,"wrong",Toast.LENGTH_SHORT).show();
-            }
-            previousId=0;
-            previousMcontents=mContents;
-            gameAdapter.notifyDataSetChanged();
-        }
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        gameAdapter.notifyDataSetChanged();
+//                    }
+//                }, 400);
+                Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
 
+            } else {
+                previousMcontents.setMatch(0);
+                Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();
+
+            }
+            previousId = 0;
+            previousMcontents = mContents;
+            flipAnimation(itemView);
+        }
     }
+
     public void imageClick(final MContents mImage, int pos, final int listSize, final View view) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
@@ -286,7 +301,7 @@ public class NLogic {
                             public void run() {
                                 gameAdapter.notifyDataSetChanged();
                             }
-                        },400);
+                        }, 400);
 
 //                        textView.setBackgroundColor(0);
                         count = 0;
@@ -428,10 +443,17 @@ public class NLogic {
         previousId = mImage.getMid();
         previousType = mImage.getPresentType();
     }
+
     public void flipAnimation(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
         animator.setDuration(500);
         animator.start();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                gameAdapter.notifyDataSetChanged();
+            }
+        }, 500);
     }
 
     public void flipAnimation2(View view) {

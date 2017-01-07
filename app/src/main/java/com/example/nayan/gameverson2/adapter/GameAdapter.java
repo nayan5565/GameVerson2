@@ -83,10 +83,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
         }
         if (Global.SUB_LEVEL_ID == 2) {
-            if (mContents.getMatch()==1){
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
                 holder.txtContents.setBackgroundColor(Color.BLACK);
-            }
-            else {
+            } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
 //            if (mContents.getClick() == Utils.IMAGE_ON) {
@@ -98,8 +99,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 ////                flipAnimation2(holder.itemView);
 //                holder.txtContents.setBackgroundColor(0);
 //            }
-            holder.txtContents.setText(mContents.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
+
 
         } else if (Global.SUB_LEVEL_ID == 3) {
             if (mContents.getClick() == Utils.IMAGE_ON) {
@@ -142,7 +142,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        nLogic.forLevel2(itemView,mContents);
+                        nLogic.forLevel2(itemView, mContents);
 //                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
                         nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);
