@@ -142,7 +142,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        nLogic.forLevel2(itemView, mContents);
+                        nLogic.forLevel2(itemView, mContents,textArrayList.size());
 //                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
                         nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);

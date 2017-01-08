@@ -56,9 +56,7 @@
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_gravity="bottom|center"
-                        android:background="@drawable/bangla_button"
-                        android:text="বাংলা"
-                        android:textSize="30dp" />
+                        android:background="@drawable/bangl_button_text" />
 
                     <TextView
                         android:id="@+id/txtSub"
@@ -84,7 +82,9 @@
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_gravity="bottom|center"
-                        android:background="@drawable/bangl_button_text" />
+                        android:background="@drawable/bangla_button"
+                        android:text="Math"
+                        android:textSize="30dp" />
 
                     <TextView
                         android:id="@+id/txtEnglish"
@@ -103,12 +103,12 @@
                     android:layout_height="60dp">
 
                     <Button
-                        android:text="English"
                         android:id="@+id/btnMath"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_gravity="bottom|center"
-                        android:background="@drawable/math_button" />
+                        android:background="@drawable/math_button"
+                        android:text="English" />
 
                     <TextView
                         android:id="@+id/txtEnglish2"
@@ -150,12 +150,12 @@
                     android:layout_height="60dp">
 
                     <Button
-                        android:text="Drawing"
                         android:id="@+id/btnDrawing"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_gravity="bottom|center"
-                        android:background="@drawable/englis_button" />
+                        android:background="@drawable/englis_button"
+                        android:text="Drawing" />
 
                     <TextView
                         android:id="@+id/txtDrawing"

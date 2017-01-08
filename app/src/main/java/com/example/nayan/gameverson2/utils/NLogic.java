@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class NLogic {
     private Handler handler = new Handler();
     private RecyclerView.Adapter gameAdapter;
     private MContents previousMcontents;
+    private RecyclerView recyclerView;
     View view1;
     TextView textView2;
 
@@ -61,6 +63,7 @@ public class NLogic {
     public void setLevel(MContents mContents) {
         this.previousMcontents = mContents;
     }
+
 
     private void saveDb() {
         DatabaseHelper db = DatabaseHelper.getInstance(context);
@@ -117,6 +120,17 @@ public class NLogic {
                     TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                     TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                     TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                    ImageView imgForward = (ImageView) dialog.findViewById(R.id.imgForward);
+                    imgForward.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+//                                SubLevelActivity.mSubLevels.get(Global.INDEX_POSISION + 1);
+                            }
+
+
+
+                    });
                     txtBestPoint.setText("" + Utils.bestPoint);
                     txtScore.setText(presentPoint + "");
                     if (presentPoint == 50) {
@@ -138,7 +152,23 @@ public class NLogic {
 
     }
 
-    public void forLevel2(View itemView, final MContents mContents) {
+    private ArrayList<MContents> generateAssets(ArrayList<MContents> realAssets) {
+        int count = realAssets.size();
+        ArrayList<MContents> tempAsset = new ArrayList<>();
+        for (MContents mContents : realAssets) {
+            tempAsset.add(mContents);
+            count++;
+            MContents asset1 = new MContents();
+            asset1.setPresentType(mContents.getPresentType());
+            asset1.setTxt(mContents.getTxt());
+            asset1.setMid(count);
+            tempAsset.add(asset1);
+        }
+        return tempAsset;
+    }
+
+    public void forLevel2(final View itemView, final MContents mContents, final int listSize) {
+        counter++;
         if (mContents.getMatch() == 1) {
             Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
             Log.e("s", ":1");
@@ -164,22 +194,55 @@ public class NLogic {
 
             Log.e("s", ":2");
             return;
+
         } else {
 
             Log.e("s", ":4");
             if (mContents.getPresentType() == previousMcontents.getPresentType()) {
                 mContents.setMatch(1);
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        gameAdapter.notifyDataSetChanged();
-//                    }
-//                }, 400);
+                matchWinCount++;
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
+
+                if (matchWinCount == listSize / 2) {
+
+//                    textView.setBackgroundColor(0);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            resetList2(listSize);
+
+                            Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.dialog_level_cleared);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+                            TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                            txtBestPoint.setText("" + Utils.bestPoint);
+                            txtScore.setText(presentPoint + "");
+                            if (presentPoint == 50) {
+                                txtPoint.setText(Utils.getIntToStar(1));
+                            } else if (presentPoint == 75) {
+                                txtPoint.setText(Utils.getIntToStar(2));
+                            } else if (presentPoint == 100) {
+                                txtPoint.setText(Utils.getIntToStar(3));
+                            } else txtPoint.setText(Utils.getIntToStar(0));
+                            dialog.show();
+                        }
+                    }, 1500);
+                    savePoint(listSize);
+                    gameWinCount++;
+                }
 
             } else {
                 previousMcontents.setMatch(0);
                 Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        flipAnimation2(itemView);
+//                    }
+//                },800);
 
             }
             previousId = 0;
@@ -476,12 +539,28 @@ public class NLogic {
         for (int i = 0; i < listSize; i++) {
             list.get(i).setClick(Utils.IMAGE_OFF);
         }
+        previousMcontents.setMatch(0);
+        MContents mContents = new MContents();
+        previousMcontents = mContents;
         Collections.shuffle(list);
         clickCount = 0;
         matchWinCount = 0;
         previousType = 0;
         previousId = 0;
         count = 0;
+        counter = 0;
+        gameAdapter.notifyDataSetChanged();
+
+    }
+
+    private void resetList2(int listSize) {
+        for (int i = 0; i < listSize; i++) {
+            list.get(i).setMatch(0);
+        }
+        Collections.shuffle(list);
+        matchWinCount = 0;
+        previousType = 0;
+        previousId = 0;
         counter = 0;
         gameAdapter.notifyDataSetChanged();
 

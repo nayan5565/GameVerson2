@@ -17,8 +17,8 @@ import com.example.nayan.gameverson2.adapter.GameAdapter;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
+import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.NLogic;
 import com.example.nayan.gameverson2.utils.SpacesItemDecoration;
 import com.example.nayan.gameverson2.utils.Utils;
@@ -31,17 +31,28 @@ import java.util.Collections;
  */
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private static int levelId;
+//    private static GameActivity gameActivity;
     private static MLevel mLevel;
     private static MContents mContents;
     private MSubLevel mSubLevel=new MSubLevel();
     private ArrayList<MContents> imageArrayList1;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
+//    private Context context;
     private GameAdapter gameAdapter;
     private DatabaseHelper database;
     public String subLevel;
     public String parentName;
     private TextView txtName;
+
+//    private GameActivity(){
+//
+//    }
+//    public static GameActivity getInstance(Context context){
+//        gameActivity=new GameActivity();
+//        gameActivity.context=context;
+//        return gameActivity;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +76,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void getLocalData() {
+    public void getLocalData() {
         if (Global.SUB_LEVEL_ID == 1  ) {
             imageArrayList1 = database.getContentsData();
             Collections.shuffle(imageArrayList1);
