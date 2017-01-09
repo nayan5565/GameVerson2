@@ -41,7 +41,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private static MLevel mLevel = new MLevel();
     private DatabaseHelper database;
     private RecyclerView recyclerView;
-    private TextView textView;
+    private TextView txtLevelName;
     private String lName;
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back;
@@ -142,7 +142,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Utils.levels = new ArrayList<>();
         mLevels = new ArrayList<>();
         database = new DatabaseHelper(this);
-        textView = (TextView) findViewById(R.id.txtPName);
+        txtLevelName = (TextView) findViewById(R.id.txtLevelName);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         subLevelAdapter = new SubLevelAdapter(this);
 
@@ -158,12 +158,14 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         if (value == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
             changeColor.setBackground(resGreen);
+            txtLevelName.setTextColor(0xff00ff00);
         } else if (value == 2) {
             imageView.setImageResource(R.drawable.yellow_coins);
             changeColor.setBackground(resYellow);
+            txtLevelName.setTextColor(0xffffff00);
         }
         int item = Utils.getScreenSize(this, 80);
-        textView.setText(lName);
+        txtLevelName.setText(lName);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(subLevelAdapter);
     }

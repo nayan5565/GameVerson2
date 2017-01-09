@@ -46,11 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //    private static LevelAdapter levelAdapter;
     private static ArrayList<MLevel> levels;
     private static ArrayList<MLevel> levelsMath;
+    private static ArrayList<MLevel> levelsBangla;
     private static ArrayList<MLevel> levelsDrawing;
     private static ArrayList<MLevel> levelsEnglish;
-    private static ArrayList<MLevel> levelsEnglish2;
+    private static ArrayList<MLevel> levelsBanglaMath;
     private DatabaseHelper database;
-    private TextView txtSub, txtMath, txtDrawing,txtEnglish,txtEnglish2;
+    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath;
     private String image;
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtSub = (TextView) findViewById(R.id.txtSub);
         txtMath = (TextView) findViewById(R.id.txtMath);
         txtEnglish = (TextView) findViewById(R.id.txtEnglish);
-        txtDrawing = (TextView) findViewById(R.id.txtDrawing);
-        txtEnglish2 = (TextView) findViewById(R.id.txtEnglish2);
+//        txtDrawing = (TextView) findViewById(R.id.txtEnglish);
+        txtBanglaMath = (TextView) findViewById(R.id.txtBanglaMath);
         Utils.levels = new ArrayList<>();
         btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
         btnBanglaMath.setOnClickListener(this);
@@ -123,16 +124,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getLocalData() {
-        Utils.levels = database.getLevelData(1);
+        levelsBangla = database.getLevelData(1);
         txtSub.setText(Utils.levels.get(0).getTotal_slevel());
-        levelsMath = database.getLevelData(2);
+        levelsMath = database.getLevelData(4);
         txtMath.setText(levelsMath.get(0).getTotal_slevel());
-        levelsDrawing = database.getLevelData(5);
-        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
-        levelsEnglish = database.getLevelData(4);
+//        levelsDrawing = database.getLevelData(5);
+//        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
+        levelsEnglish = database.getLevelData(3);
         txtEnglish.setText(levelsEnglish.get(0).getTotal_slevel());
-        levelsEnglish2 = database.getLevelData(3);
-        txtEnglish2.setText(levelsEnglish2.get(0).getTotal_slevel());
+        levelsBanglaMath = database.getLevelData(2);
+        txtBanglaMath.setText(levelsBanglaMath.get(0).getTotal_slevel());
         Log.e("sublel", "size");
     }
 
