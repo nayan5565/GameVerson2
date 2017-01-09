@@ -49,6 +49,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private ImageView imageView;
     String uriGreen = "@drawable/green_panel";
     String uriYellow = "@drawable/yellow_panel";
+    String uriRed = "@drawable/red_panel";
 
 
 
@@ -155,6 +156,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Drawable resGreen = getResources().getDrawable(imageResourceGreen);
         int imageResourceYellow = getResources().getIdentifier(uriYellow, null, getPackageName());
         Drawable resYellow = getResources().getDrawable(imageResourceYellow);
+        int imageResourceRed = getResources().getIdentifier(uriRed, null, getPackageName());
+        Drawable resRed = getResources().getDrawable(imageResourceRed);
         if (value == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
             changeColor.setBackground(resGreen);
@@ -163,6 +166,14 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             imageView.setImageResource(R.drawable.yellow_coins);
             changeColor.setBackground(resYellow);
             txtLevelName.setTextColor(0xffffff00);
+        }else if (value == 3) {
+            imageView.setImageResource(R.drawable.red_coins);
+            changeColor.setBackground(resRed);
+            txtLevelName.setTextColor(0xffff0000);
+        }else if (value == 5) {
+            imageView.setImageResource(R.drawable.red_coins);
+            changeColor.setBackground(resRed);
+            txtLevelName.setTextColor(0xffff0000);
         }
         int item = Utils.getScreenSize(this, 80);
         txtLevelName.setText(lName);

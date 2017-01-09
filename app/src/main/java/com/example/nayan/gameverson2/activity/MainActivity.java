@@ -86,10 +86,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLevel = new MLevel();
         btnBangla = (Button) findViewById(R.id.btnBangla);
         btnBangla.setOnClickListener(this);
+        btnEnglish = (Button) findViewById(R.id.btnEnglish);
+        btnEnglish.setOnClickListener(this);
+        btnMath = (Button) findViewById(R.id.btnMath);
+        btnMath.setOnClickListener(this);
+        btnDrawing = (Button) findViewById(R.id.btnDrawing);
+        btnDrawing.setOnClickListener(this);
         txtSub = (TextView) findViewById(R.id.txtSub);
         txtMath = (TextView) findViewById(R.id.txtMath);
         txtEnglish = (TextView) findViewById(R.id.txtEnglish);
-//        txtDrawing = (TextView) findViewById(R.id.txtEnglish);
+        txtDrawing = (TextView) findViewById(R.id.txtDrawing);
         txtBanglaMath = (TextView) findViewById(R.id.txtBanglaMath);
         Utils.levels = new ArrayList<>();
         btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
@@ -126,14 +132,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getLocalData() {
         levelsBangla = database.getLevelData(1);
         txtSub.setText(Utils.levels.get(0).getTotal_slevel());
-        levelsMath = database.getLevelData(4);
-        txtMath.setText(levelsMath.get(0).getTotal_slevel());
-//        levelsDrawing = database.getLevelData(5);
-//        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
-        levelsEnglish = database.getLevelData(3);
-        txtEnglish.setText(levelsEnglish.get(0).getTotal_slevel());
         levelsBanglaMath = database.getLevelData(2);
         txtBanglaMath.setText(levelsBanglaMath.get(0).getTotal_slevel());
+        levelsEnglish = database.getLevelData(3);
+        txtEnglish.setText(levelsEnglish.get(0).getTotal_slevel());
+        levelsMath = database.getLevelData(4);
+        txtMath.setText(levelsMath.get(0).getTotal_slevel());
+        levelsDrawing = database.getLevelData(5);
+        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
+
+
         Log.e("sublel", "size");
     }
 
@@ -376,11 +384,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("id", 1);
             intent.putExtra("name", "বাংলা  ");
             startActivity(intent);
-        }
-        if (v.getId() == R.id.btnBanglaMath) {
+        } else if (v.getId() == R.id.btnBanglaMath) {
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
             intent.putExtra("id", 2);
             intent.putExtra("name", "অংক ");
+            startActivity(intent);
+        } else if (v.getId() == R.id.btnEnglish) {
+            Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
+            intent.putExtra("id", 3);
+            intent.putExtra("name", "English ");
+            startActivity(intent);
+        } else if (v.getId() == R.id.btnMath) {
+            Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
+            intent.putExtra("id", 4);
+            intent.putExtra("name", "Math ");
+            startActivity(intent);
+        } else if (v.getId() == R.id.btnDrawing) {
+            Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
+            intent.putExtra("id", 5);
+            intent.putExtra("name", "Drawing ");
             startActivity(intent);
         }
 
