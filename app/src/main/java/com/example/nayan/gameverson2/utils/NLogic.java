@@ -37,7 +37,7 @@ public class NLogic {
     private Context context;
     private Handler handler = new Handler();
     private RecyclerView.Adapter gameAdapter;
-    private MContents previousMcontents;
+    private MContents previousMcontents=new MContents();
     private RecyclerView recyclerView;
     View view1;
     TextView textView2;
@@ -88,7 +88,7 @@ public class NLogic {
 
     }
 
-    public void textClick(MContents mContents, int pos, final int listSize, View view, TextView view2) {
+    public void textClick(final MContents mContents, int pos, final int listSize, final View view, TextView view2) {
         counter++;
         Log.e("counter", "is" + counter);
 
@@ -113,24 +113,24 @@ public class NLogic {
                 @Override
                 public void run() {
                     resetList(listSize);
-                    Dialog dialog = new Dialog(context);
+                    final Dialog dialog = new Dialog(context);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_level_cleared);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                     TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                     TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-                    ImageView imgForward = (ImageView) dialog.findViewById(R.id.imgForward);
+                    ImageView imgForward = (ImageView) dialog.findViewById(R.id.btnLevelForward);
                     imgForward.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
-//                                SubLevelActivity.mSubLevels.get(Global.INDEX_POSISION + 1);
-                            }
 
+                        }
 
 
                     });
+
                     txtBestPoint.setText("" + Utils.bestPoint);
                     txtScore.setText(presentPoint + "");
                     if (presentPoint == 50) {
@@ -141,8 +141,10 @@ public class NLogic {
                         txtPoint.setText(Utils.getIntToStar(3));
                     } else txtPoint.setText(Utils.getIntToStar(0));
                     dialog.show();
+
                 }
             }, 1200);
+
             savePoint(listSize);
 
             Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
@@ -167,7 +169,7 @@ public class NLogic {
         return tempAsset;
     }
 
-    public void forLevel2(final View itemView, final MContents mContents, final int listSize) {
+    public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView) {
         counter++;
         if (mContents.getMatch() == 1) {
             Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
@@ -237,6 +239,7 @@ public class NLogic {
             } else {
                 previousMcontents.setMatch(0);
                 Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();
+                textView.setBackgroundColor(0xffff0000);
 //                handler.postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
