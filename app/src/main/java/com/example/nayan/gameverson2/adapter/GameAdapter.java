@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.NLogic;
+import com.example.nayan.gameverson2.utils.GameLogic;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private MContents mContents = new MContents();
     private Context context;
     private LayoutInflater inflater;
-    private NLogic nLogic;
+    private GameLogic gameLogic;
     private Animation animation;
     private int subLevelType;
     private AnimatorSet mSetRightOut;
@@ -53,8 +53,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         this.textArrayList = textArraylist;
 
         Log.e("log", "setdata:" + textArraylist.size());
-        nLogic = NLogic.getInstance(context);
-        nLogic.callData(textArraylist, this);
+        gameLogic = GameLogic.getInstance(context);
+        gameLogic.callData(textArraylist, this);
 
         notifyDataSetChanged();
     }
@@ -139,13 +139,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                    flipAnimation(itemView);
                     mContents = textArrayList.get(getAdapterPosition());
                     if (Global.SUB_LEVEL_ID == 1) {
-                        nLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        nLogic.forLevel2(itemView, mContents,textArrayList.size(),txtContents);
-//                        nLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                        gameLogic.forLevel2(itemView, mContents,textArrayList.size(),txtContents);
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        nLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);
+                        gameLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);
                     }
 
                 }

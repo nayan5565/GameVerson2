@@ -18,8 +18,8 @@ import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
+import com.example.nayan.gameverson2.utils.GameLogic;
 import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.NLogic;
 import com.example.nayan.gameverson2.utils.SpacesItemDecoration;
 import com.example.nayan.gameverson2.utils.Utils;
 
@@ -175,7 +175,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-                    NLogic.getInstance(GameActivity.this).showHistory();
+                    GameLogic.getInstance(GameActivity.this).showHistory();
                 }
             });
 

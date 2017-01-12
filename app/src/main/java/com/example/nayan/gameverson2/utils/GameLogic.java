@@ -29,9 +29,9 @@ import java.util.Collections;
 /**
  * Created by NAYAN on 8/20/2016.
  */
-public class NLogic {
+public class GameLogic {
     private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint;
-    private static NLogic nLogic;
+    private static GameLogic gameLogic;
     private ArrayList<MContents> list;
     private SharedPreferences preferences;
     private Context context;
@@ -43,15 +43,15 @@ public class NLogic {
     TextView textView2;
 
 
-    private NLogic() {
+    private GameLogic() {
 
     }
 
-    public static NLogic getInstance(Context context1) {
-        nLogic = new NLogic();
-        nLogic.context = context1;
+    public static GameLogic getInstance(Context context1) {
+        gameLogic = new GameLogic();
+        gameLogic.context = context1;
 
-        return nLogic;
+        return gameLogic;
 
     }
 
@@ -157,7 +157,7 @@ public class NLogic {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Utils.getSound(context,R.raw.gameover);
+                    Utils.getSound(context,R.raw.shuffle );
                 }
             },500);
 
