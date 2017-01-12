@@ -95,6 +95,7 @@ public class NLogic {
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
             list.get(pos).setClick(Utils.IMAGE_ON);
+            Utils.getSound(context,R.raw.click);
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
@@ -104,14 +105,18 @@ public class NLogic {
 
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
+            Utils.getSound(context,R.raw.fail);
             shakeAnimation(view);
             view2.setBackgroundColor(0xffff0000);
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
+
+
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+
                     resetList(listSize);
                     final Dialog dialog = new Dialog(context);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -142,31 +147,23 @@ public class NLogic {
                     } else txtPoint.setText(Utils.getIntToStar(0));
                     dialog.show();
 
+
                 }
             }, 1200);
 
             savePoint(listSize);
 
             Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Utils.getSound(context,R.raw.gameover);
+                }
+            },500);
 
         }
 
 
-    }
-
-    private ArrayList<MContents> generateAssets(ArrayList<MContents> realAssets) {
-        int count = realAssets.size();
-        ArrayList<MContents> tempAsset = new ArrayList<>();
-        for (MContents mContents : realAssets) {
-            tempAsset.add(mContents);
-            count++;
-            MContents asset1 = new MContents();
-            asset1.setPresentType(mContents.getPresentType());
-            asset1.setTxt(mContents.getTxt());
-            asset1.setMid(count);
-            tempAsset.add(asset1);
-        }
-        return tempAsset;
     }
 
     public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView) {
