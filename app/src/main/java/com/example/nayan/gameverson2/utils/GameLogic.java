@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,10 +39,12 @@ public class GameLogic {
     private Context context;
     private Handler handler = new Handler();
     private RecyclerView.Adapter gameAdapter;
-    private MContents previousMcontents=new MContents();
+    private MContents previousMcontents = new MContents();
     private RecyclerView recyclerView;
+    private LinearLayout changeColor;
     View view1;
     TextView textView2;
+    String uriGreen = "@drawable/green_panel";
 
 
     private GameLogic() {
@@ -62,6 +66,7 @@ public class GameLogic {
 
     public void setLevel(MContents mContents) {
         this.previousMcontents = mContents;
+
     }
 
 
@@ -91,11 +96,13 @@ public class GameLogic {
     public void textClick(final MContents mContents, int pos, final int listSize, final View view, TextView view2) {
         counter++;
         Log.e("counter", "is" + counter);
+        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
+        final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
 
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
             list.get(pos).setClick(Utils.IMAGE_ON);
-            Utils.getSound(context,R.raw.click);
+            Utils.getSound(context, R.raw.click);
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
@@ -105,7 +112,7 @@ public class GameLogic {
 
             Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
-            Utils.getSound(context,R.raw.fail);
+            Utils.getSound(context, R.raw.fail);
             shakeAnimation(view);
             view2.setBackgroundColor(0xffff0000);
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
@@ -117,20 +124,23 @@ public class GameLogic {
                 @Override
                 public void run() {
 
-                    resetList(listSize);
+
                     final Dialog dialog = new Dialog(context);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_level_cleared);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    changeColor=(LinearLayout)dialog.findViewById(R.id.dia_LenearLayout);
                     TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                     TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                     TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-                    ImageView imgForward = (ImageView) dialog.findViewById(R.id.btnLevelForward);
-                    imgForward.setOnClickListener(new View.OnClickListener() {
+                    changeColor.setBackground(resGreen);
+                    ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
+                    imgReload.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-
+                            resetList(listSize);
+                            dialog.dismiss();
+                            Toast.makeText(context,"Reload",Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -157,9 +167,9 @@ public class GameLogic {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Utils.getSound(context,R.raw.shuffle );
+                    Utils.getSound(context, R.raw.shuffle);
                 }
-            },500);
+            }, 500);
 
         }
 
