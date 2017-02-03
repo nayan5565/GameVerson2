@@ -32,7 +32,7 @@ import java.util.Collections;
  * Created by NAYAN on 8/20/2016.
  */
 public class GameLogic {
-    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint;
+    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint,idPrevious;
     private static GameLogic gameLogic;
     private ArrayList<MContents> list;
     private SharedPreferences preferences;
@@ -101,7 +101,7 @@ public class GameLogic {
 
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
-            list.get(pos).setClick(Utils.IMAGE_ON);
+            list.get(pos).setClick(Utils.IMAGE_OPEN);
             Utils.getSound(context, R.raw.click);
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
@@ -176,7 +176,7 @@ public class GameLogic {
 
     }
 
-    public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView) {
+    public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView,int pos) {
         counter++;
         if (mContents.getMatch() == 1) {
             Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
@@ -189,6 +189,7 @@ public class GameLogic {
             previousMcontents = mContents;
             previousId = mContents.getMid();
             flipAnimation(itemView);
+
 //            handler.postDelayed(new Runnable() {
 //                @Override
 //                public void run() {
@@ -198,6 +199,7 @@ public class GameLogic {
             Log.e("s", ":3");
             return;
         }
+
         if (previousId == mContents.getMid()) {
             Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
 
@@ -267,7 +269,7 @@ public class GameLogic {
 
         counter++;
 
-        if (previousId == mImage.getPresentId() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
+        if (previousId == mImage.getPresentId() || count > 1 || mImage.getClick() == Utils.IMAGE_OPEN) {
             Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
@@ -276,7 +278,7 @@ public class GameLogic {
         }
         clickCount++;
 
-        list.get(pos).setClick(Utils.IMAGE_ON);
+        list.get(pos).setClick(Utils.IMAGE_OPEN);
 
         flipAnimation(view);
         handler.postDelayed(new Runnable() {
@@ -397,8 +399,8 @@ public class GameLogic {
 
         counter++;
 
-        if (previousType == mImage.getPresentType() || count > 1 || mImage.getClick() == Utils.IMAGE_ON) {
-            Log.e("previous type", "same: " + mImage.getPresentType());
+        if (idPrevious == mImage.getPresentId() || count > 1 || mImage.getClick() == Utils.IMAGE_OPEN) {
+            Log.e("previous id", "same: " + mImage.getPresentId());
             Log.e("click over 1", "count: " + count);
 
 //            handler.postDelayed(new Runnable() {
@@ -414,7 +416,7 @@ public class GameLogic {
         }
         clickCount++;
 
-        list.get(pos).setClick(Utils.IMAGE_ON);
+        list.get(pos).setClick(Utils.IMAGE_OPEN);
 
         flipAnimation(view);
         handler.postDelayed(new Runnable() {
@@ -431,10 +433,10 @@ public class GameLogic {
 //        Utils.getSound(context, R.raw.click);
         if (count == 2) {
 
-            if (previousId == mImage.getMid()) {
+            if (previousType == mImage.getPresentType()) {
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
                 Log.e("log", "match win count : " + matchWinCount);
-                Log.e("previous id", "MID : " + previousId);
+                Log.e("previous type", "type : " + previousType);
 
 
                 matchWinCount++;
@@ -491,14 +493,14 @@ public class GameLogic {
                     }
                 }, 500);
 
-                final int perevious = previousType;
+                final int perevious = idPrevious;
 
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
 //                        Utils.getSound(context, R.raw.fail);
                         for (int i = 0; i < listSize; i++) {
-                            if (list.get(i).getPresentType() == perevious || list.get(i).getPresentType() == mImage.getPresentType()) {
+                            if (list.get(i).getPresentId() == perevious || list.get(i).getPresentId() == mImage.getPresentId()) {
                                 list.get(i).setClick(Utils.IMAGE_OFF);
                                 Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
 //
@@ -508,12 +510,12 @@ public class GameLogic {
                         count = 0;
                     }
                 }, 800);
-                previousId = 0;
+                idPrevious = 0;
                 previousType = 0;
                 return;
             }
         }
-        previousId = mImage.getMid();
+        idPrevious = mImage.getMid();
         previousType = mImage.getPresentType();
     }
 

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         result = (Button) findViewById(R.id.result);
         init();
         getOnlineData();
-        getOnlineContentsData();
+        getOnlineBanglaContentsData();
 //        getLocalData();
 
     }
@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
 
     private void getLocalData() {
         levelsBangla = database.getLevelData(1);
@@ -260,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void getOnlineContentsData() {
+    private void getOnlineBanglaContentsData() {
         if (!Utils.isInternetOn(this)) {
             Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
             return;
@@ -288,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mContents.setTxt(jsonObject.getString("txt"));
                         mContents.setVid(jsonObject.getString("vid"));
                         mContents.setSen(jsonObject.getString("sen"));
+                        mContents.setPresentId(count);
                         mContents.setPresentType(count);
 
 
@@ -304,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 B_URL = ALTER_URL;
-                getOnlineContentsData();
+                getOnlineBanglaContentsData();
             }
         });
     }

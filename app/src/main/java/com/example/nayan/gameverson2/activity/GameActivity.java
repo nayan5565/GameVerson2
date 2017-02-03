@@ -78,17 +78,63 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getLocalData() {
         if (Global.SUB_LEVEL_ID == 1  ) {
-            imageArrayList1 = database.getContentsData();
+            imageArrayList1 = database.getBanglaContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 2) {
             ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getContentsData();
+            realAssets = database.getBanglaContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 3) {
-            ArrayList<MContents> realTxtSen = new ArrayList<>();
-            realTxtSen = database.getContentsData();
-            imageArrayList1 = generatesTxtSen(realTxtSen);
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 4) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 5) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 6) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 8) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 9) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 13) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        } else if (Global.SUB_LEVEL_ID == 14) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        }else if (Global.SUB_LEVEL_ID == 15) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
+        }else if (Global.SUB_LEVEL_ID == 19) {
+            ArrayList<MContents> realAssets = new ArrayList<>();
+            realAssets = database.getBanglaContentsData();
+            imageArrayList1 = generateAssets(realAssets);
+            Collections.shuffle(imageArrayList1);
         }
 
 
@@ -118,6 +164,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             MContents contents = new MContents();
             contents.setSen(mContents.getSen());
             contents.setMid(count);
+            contents.setPresentId(mContents.getPresentId());
             contents.setPresentType(mContents.getPresentType());
             tempTxtSen.add(contents);
         }

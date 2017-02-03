@@ -234,6 +234,7 @@ public class DatabaseHelper {
             values.put(KEY_PRESENT_TYPE, mContents.getPresentType());
             values.put(KEY_VIDEO, mContents.getVid());
             values.put(KEY_SEN, mContents.getSen());
+            values.put(KEY_PRESENT_ID,mContents.getPresentId());
 
             String sql = "select * from " + DATABASE_CONTENTS_TABLE + " where " + KEY_MODEL_ID + "='" + mContents.getMid() + "'";
             cursor = db.rawQuery(sql, null);
@@ -508,7 +509,7 @@ public class DatabaseHelper {
         return assetArrayList;
     }
 
-    public ArrayList<MContents> getContentsData() {
+    public ArrayList<MContents> getBanglaContentsData() {
         ArrayList<MContents> assetArrayList = new ArrayList<>();
 
         MContents mContents;
@@ -525,6 +526,7 @@ public class DatabaseHelper {
                 mContents.setImg(cursor.getString(cursor.getColumnIndex(KEY_IMAGE)));
                 mContents.setSen(cursor.getString(cursor.getColumnIndex(KEY_SEN)));
                 mContents.setPresentType(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_TYPE)));
+                mContents.setPresentId(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_ID)));
                 assetArrayList.add(mContents);
 
             } while (cursor.moveToNext());

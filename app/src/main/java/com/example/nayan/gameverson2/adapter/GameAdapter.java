@@ -71,7 +71,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     public void onBindViewHolder(MyViewholder holder, int position) {
         mContents = textArrayList.get(position);
         if (Global.SUB_LEVEL_ID == 1) {
-            if (mContents.getClick() == Utils.IMAGE_ON) {
+            if (mContents.getClick() == Utils.IMAGE_OPEN) {
 //                holder.txtContents.setBackgroundColor(0xff888888);
 //                flipAnimation(holder.txtContents);
             } else {
@@ -81,8 +81,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
 
-        }
-        if (Global.SUB_LEVEL_ID == 2) {
+        } else if (Global.SUB_LEVEL_ID == 2) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -90,30 +89,100 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-//            if (mContents.getClick() == Utils.IMAGE_ON) {
-//                holder.txtContents.setBackgroundColor(0xff888888);
-////                holder.itemView.setBackgroundColor(0xff888888);
-////                flipAnimation(holder.txtContents);
-//            } else {
-////                shakeAnimation(holder.itemView);
-////                flipAnimation2(holder.itemView);
-//                holder.txtContents.setBackgroundColor(0);
-//            }
-
-
-        } else if (Global.SUB_LEVEL_ID == 3) {
-            if (mContents.getClick() == Utils.IMAGE_ON) {
-                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-
-                    holder.txtContents.setText(mContents.getSen());
-
-                } else {
-                    holder.txtContents.setText(mContents.getTxt());
-                }
+        }else if (Global.SUB_LEVEL_ID == 3) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
             } else {
-                holder.txtContents.setText(" ");
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 4) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 5) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 6) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 8) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 9) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 13) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 14) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 15) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }else if (Global.SUB_LEVEL_ID == 19) {
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+            if (mContents.getMatch() == 1) {
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+            } else {
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         }
+//        else if (Global.SUB_LEVEL_ID == 8) {
+//            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+//                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+//
+//                    holder.txtContents.setText(mContents.getSen());
+//
+//                } else {
+//                    holder.txtContents.setText(mContents.getTxt());
+//                }
+//            } else {
+//                holder.txtContents.setText(" ");
+//            }
+//        }
 
     }
 
@@ -142,10 +211,38 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
-                        gameLogic.forLevel2(itemView, mContents,textArrayList.size(),txtContents);
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        gameLogic.imageClick2(mContents, getAdapterPosition(), textArrayList.size(), itemView, itemView);
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 4) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 5) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 6) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 8) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 9) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 13) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 14) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 15) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.SUB_LEVEL_ID == 19) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     }
 
                 }
