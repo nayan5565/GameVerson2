@@ -24,6 +24,7 @@ import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
+import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -58,8 +59,10 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub_level_activity);
 
-        lName = getIntent().getStringExtra("name");
-        value = getIntent().getIntExtra("id", 0);
+        Global.levelName = getIntent().getStringExtra("name");
+        Global.levelId = getIntent().getIntExtra("id", 0);
+        value=Global.levelId;
+        lName=Global.levelName;
         Log.e("log", "is" + value);
 
         init();

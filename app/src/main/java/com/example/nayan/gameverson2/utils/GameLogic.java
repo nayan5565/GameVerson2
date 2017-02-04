@@ -1,6 +1,7 @@
 package com.example.nayan.gameverson2.utils;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -130,11 +131,27 @@ public class GameLogic {
                     final Dialog dialog = new Dialog(context);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_level_cleared);
+                    dialog.setCancelable(false);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
                     TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                     TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                     TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                    ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
+                    imgLevelMenu.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+//                            Intent intent = new Intent(context, SubLevelActivity.class);
+//                            intent.putExtra("id", Global.levelId);
+//                            intent.putExtra("name", Global.levelName);
+//                            context.startActivity(intent);
+                            ((Activity) context).finish();
+                            dialog.dismiss();
+
+
+                            Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     changeColor.setBackground(resGreen);
                     ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
                     imgReload.setOnClickListener(new View.OnClickListener() {
@@ -147,15 +164,19 @@ public class GameLogic {
 
 
                     });
-                    ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
-                    imgLevelMenu.setOnClickListener(new View.OnClickListener() {
+                    ImageView imgNextLevel = (ImageView) dialog.findViewById(R.id.imgLevelForward);
+                    imgNextLevel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            Intent intent = new Intent(context, SubLevelActivity.class);
-//                            context.startActivity(intent);
-                            Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
+                            Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
+                            GameActivity.getInstance().subLevelName=Global.subLevelName;
+                            GameActivity.getInstance().parentName=Global.parentLevelName;
+                            GameActivity.getInstance().getLocalData();
+                            GameActivity.getInstance().prepareDisplay();
+                            dialog.dismiss();
                         }
                     });
+
 
                     txtBestPoint.setText("" + Utils.bestPoint);
                     txtScore.setText(presentPoint + "");

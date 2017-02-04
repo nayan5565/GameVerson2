@@ -96,10 +96,10 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                     Utils.bestPoint = mSubLevel.getBestPoint();
                     if (mSubLevel.getUnlockNextLevel() == 1) {
                         Intent intent = new Intent(context, GameActivity.class);
-                        intent.putExtra("subLevel", mSubLevel.getName());
+                        intent.putExtra("subLevelName", mSubLevel.getName());
                         intent.putExtra("index", getAdapterPosition());
                         intent.putExtra("Sid", mSubLevel.getLid());
-                        intent.putExtra("parentLevel", mSubLevel.getParentName());
+                        intent.putExtra("parentLevelName", mSubLevel.getParentName());
                         context.startActivity(intent);
                     }
 

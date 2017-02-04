@@ -31,7 +31,7 @@ import java.util.Collections;
  */
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private static int levelId;
-//    private static GameActivity gameActivity;
+    private static GameActivity gameActivity;
     private static MLevel mLevel;
     private static MContents mContents;
     private MSubLevel mSubLevel=new MSubLevel();
@@ -41,18 +41,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //    private Context context;
     private GameAdapter gameAdapter;
     private DatabaseHelper database;
-    public String subLevel;
+    public String subLevelName;
     public String parentName;
     private TextView txtName;
 
 //    private GameActivity(){
 //
 //    }
-//    public static GameActivity getInstance(Context context){
-//        gameActivity=new GameActivity();
-//        gameActivity.context=context;
-//        return gameActivity;
-//    }
+    public static GameActivity getInstance(){
+        return gameActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +58,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.game_activity);
 //        VungleAdManager.getInstance(this).play();
+
 
         init();
         getLocalData();
@@ -185,6 +184,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
 
+        gameActivity=this;
         txtName = (TextView) findViewById(R.id.txtName);
         database = new DatabaseHelper(this);
         imgSetting = (ImageView) findViewById(R.id.imgseting);
@@ -192,18 +192,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         imageArrayList1 = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.addItemDecoration(new SpacesItemDecoration(7));
+        Global.subLevelName=getIntent().getStringExtra("subLevelName");
+        subLevelName =Global.subLevelName ;
+        Global.parentLevelName= getIntent().getStringExtra("parentLevelName");
+        parentName =Global.parentLevelName;
 
-        subLevel = getIntent().getStringExtra("subLevel");
         Global.INDEX_POSISION = getIntent().getIntExtra("index", 0);
         Global.SUB_LEVEL_ID = getIntent().getIntExtra("Sid", 0);
-        parentName = getIntent().getStringExtra("parentLevel");
-        txtName.setText(parentName + "(" + subLevel + ")");
+
+
 
         gameAdapter = new GameAdapter(this);
 
     }
 
-    private void prepareDisplay() {
+    public void prepareDisplay() {
+        txtName.setText(parentName + "(" + subLevelName + ")");
         int item = Utils.getScreenSize(this, 100);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);

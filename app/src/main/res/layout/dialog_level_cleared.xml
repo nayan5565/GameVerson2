@@ -64,7 +64,7 @@
             android:layout_height="50dp" />
 
         <ImageView
-            android:id="@+id/btnLevelForward"
+            android:id="@+id/imgLevelForward"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
