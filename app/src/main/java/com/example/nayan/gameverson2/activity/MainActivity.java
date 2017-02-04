@@ -2,6 +2,8 @@ package com.example.nayan.gameverson2.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -340,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_game_exit);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button btnYes = (Button) dialog.findViewById(R.id.btnYes);
         Button btnNO = (Button) dialog.findViewById(R.id.btnNo);
         btnYes.setOnClickListener(new View.OnClickListener() {

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#a4a0a2"
+    android:layout_height="300dp"
+    android:background="@drawable/yellow_panel"
     android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -19,26 +20,34 @@
         android:text="Do you really want to quit the game?"
         android:textColor="#8e561a" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
 
         <Button
             android:id="@+id/btnYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Yes" />
+            android:text="Yes"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp" />
 
         <Button
             android:id="@+id/btnNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="No" />
+            android:text="No"
+            android:layout_alignTop="@+id/btnYes"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="56dp"
+            android:layout_marginEnd="56dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

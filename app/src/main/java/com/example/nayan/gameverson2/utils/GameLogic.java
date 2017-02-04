@@ -3,6 +3,7 @@ package com.example.nayan.gameverson2.utils;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
@@ -32,7 +34,7 @@ import java.util.Collections;
  * Created by NAYAN on 8/20/2016.
  */
 public class GameLogic {
-    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint,idPrevious;
+    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious;
     private static GameLogic gameLogic;
     private ArrayList<MContents> list;
     private SharedPreferences preferences;
@@ -129,7 +131,7 @@ public class GameLogic {
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_level_cleared);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    changeColor=(LinearLayout)dialog.findViewById(R.id.dia_LenearLayout);
+                    changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
                     TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                     TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                     TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
@@ -140,10 +142,19 @@ public class GameLogic {
                         public void onClick(View v) {
                             resetList(listSize);
                             dialog.dismiss();
-                            Toast.makeText(context,"Reload",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
                         }
 
 
+                    });
+                    ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
+                    imgLevelMenu.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+//                            Intent intent = new Intent(context, SubLevelActivity.class);
+//                            context.startActivity(intent);
+                            Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
+                        }
                     });
 
                     txtBestPoint.setText("" + Utils.bestPoint);
@@ -176,7 +187,7 @@ public class GameLogic {
 
     }
 
-    public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView,int pos) {
+    public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView, int pos) {
         counter++;
         if (mContents.getMatch() == 1) {
             Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
@@ -229,6 +240,14 @@ public class GameLogic {
                             TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                             TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                             TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+                            ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
+                            imgLevelMenu.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(context, GameActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            });
                             txtBestPoint.setText("" + Utils.bestPoint);
                             txtScore.setText(presentPoint + "");
                             if (presentPoint == 50) {

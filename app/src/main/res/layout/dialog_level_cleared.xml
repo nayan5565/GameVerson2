@@ -51,7 +51,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/btnLevelMenu"
+            android:id="@+id/imgLevelMenu"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
