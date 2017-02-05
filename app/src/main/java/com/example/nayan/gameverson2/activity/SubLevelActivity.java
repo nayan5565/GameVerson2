@@ -123,7 +123,9 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getLocalData() {
+
         mSubLevels = database.getSubLevelData(value);
+        Global.parentName=mSubLevels;
         mLevels = database.getLevelData(mLevel.getLid());
         Log.e("getDb", "sublevel : " + mSubLevels.size());
         mSubLevels.get(0).setUnlockNextLevel(1);

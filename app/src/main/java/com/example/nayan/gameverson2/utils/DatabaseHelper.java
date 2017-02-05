@@ -388,6 +388,11 @@ public class DatabaseHelper {
 
         return levelArrayList;
     }
+    public MSubLevel getSubOrParentName(int id){
+        MSubLevel mSubLevel=new MSubLevel();
+
+        return mSubLevel;
+    }
 
     public MLock getLocalData(int id) {
         ArrayList<MLock> unlocks = new ArrayList<>();

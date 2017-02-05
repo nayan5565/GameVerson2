@@ -206,6 +206,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void refresh(int index){
+        subLevelName=Global.parentName.get(index).getName();
+        parentName=Global.parentName.get(index).getParentName();
+        getLocalData();
+        prepareDisplay();
+    }
     public void prepareDisplay() {
         txtName.setText(parentName + "(" + subLevelName + ")");
         int item = Utils.getScreenSize(this, 100);

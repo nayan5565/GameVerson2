@@ -172,10 +172,14 @@ public class GameLogic {
 
 //                            Global.parentLevelName=GameActivity.getInstance().parentName;
 //                            Global.subLevelName=GameActivity.getInstance().subLevelName;
-                            GameActivity.getInstance().subLevelName=Global.subLevelName;
-                            GameActivity.getInstance().parentName=Global.parentLevelName;
-                            GameActivity.getInstance().getLocalData();
-                            GameActivity.getInstance().prepareDisplay();
+                            if (Global.SUB_LEVEL_ID==2){
+                                GameActivity.getInstance().subLevelName="class-2";
+                            }
+
+//                            GameActivity.getInstance().parentName=Global.parentLevelName;
+//                            GameActivity.getInstance().getLocalData();
+//                            GameActivity.getInstance().prepareDisplay();
+                            GameActivity.getInstance().refresh(Global.INDEX_POSISION+1);
                             dialog.dismiss();
                         }
                     });
