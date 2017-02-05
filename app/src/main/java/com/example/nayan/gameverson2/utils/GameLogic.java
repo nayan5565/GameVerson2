@@ -169,10 +169,11 @@ public class GameLogic {
                         @Override
                         public void onClick(View v) {
                             Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
-                            Global.parentLevelName=GameActivity.getInstance().parentName;
-                            Global.subLevelName=GameActivity.getInstance().subLevelName;
-//                            GameActivity.getInstance().subLevelName=Global.subLevelName;
-//                            GameActivity.getInstance().parentName=Global.parentLevelName;
+
+//                            Global.parentLevelName=GameActivity.getInstance().parentName;
+//                            Global.subLevelName=GameActivity.getInstance().subLevelName;
+                            GameActivity.getInstance().subLevelName=Global.subLevelName;
+                            GameActivity.getInstance().parentName=Global.parentLevelName;
                             GameActivity.getInstance().getLocalData();
                             GameActivity.getInstance().prepareDisplay();
                             dialog.dismiss();

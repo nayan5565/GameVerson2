@@ -6,14 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,7 +39,7 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button result, special, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
+    private Button btnSetting, special, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private ImageView cloud1, cloud2;
     private MLevel mLevel;
     //    private static LevelAdapter levelAdapter;
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        result = (Button) findViewById(R.id.result);
+
         init();
         getOnlineData();
         getOnlineBanglaContentsData();
@@ -84,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         database = new DatabaseHelper(this);
-
+        btnSetting = (Button) findViewById(R.id.btnSetting);
+        btnSetting.setOnClickListener(this);
         mLevel = new MLevel();
         btnBangla = (Button) findViewById(R.id.btnBangla);
         btnBangla.setOnClickListener(this);
@@ -122,11 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        result = (Button) findViewById(R.id.result);
-        special = (Button) findViewById(R.id.special);
-        special.setOnClickListener(this);
-        result.setTextColor(0xffff00ff);
-        special.setTextColor(0xffff00ff);
+//        result = (Button) findViewById(R.id.result);
+//        special = (Button) findViewById(R.id.special);
+//        special.setOnClickListener(this);
+//        result.setTextColor(0xffff00ff);
+//        special.setTextColor(0xffff00ff);
 
 
     }
@@ -339,7 +337,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setTitle("quite");
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_game_exit);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -368,21 +367,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.special) {
-            LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-            View view = layoutInflater.inflate(R.layout.scrollview_dailog, null);
-            TextView textView = (TextView) view.findViewById(R.id.txtScroll);
-//            textView.setText("Your really long message.");
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            textView.setTextColor(0xffff00ff);
-            alertDialog.setTitle("Title");
-//alertDialog.setMessage("Here is a really long message.");
-            alertDialog.setView(view);
-//            alertDialog.setButton("OK", null);
-            AlertDialog alert = alertDialog.create();
-            alert.show();
-
-        }
+//        if (v.getId() == R.id.special) {
+//            DialogSoundOnOff.dialogShow(this);
+////            LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+////            View view = layoutInflater.inflate(R.layout.scrollview_dailog, null);
+////            TextView textView = (TextView) view.findViewById(R.id.txtScroll);
+////            textView.setText("Your really long message.");
+////            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+////            textView.setTextColor(0xffff00ff);
+////            alertDialog.setTitle("Title");
+////alertDialog.setMessage("Here is a really long message.");
+////            alertDialog.setView(view);
+////            alertDialog.setButton("OK", null);
+////            AlertDialog alert = alertDialog.create();
+////            alert.show();
+//
+//        }
         if (v.getId() == R.id.btnBangla) {
 
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
@@ -409,6 +409,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("id", 5);
             intent.putExtra("name", "Drawing ");
             startActivity(intent);
+        } else if (v.getId() == R.id.btnSetting) {
+            DialogSoundOnOff.dialogShow(this);
+
         }
 
     }
