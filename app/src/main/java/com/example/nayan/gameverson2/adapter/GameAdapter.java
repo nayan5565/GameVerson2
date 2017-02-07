@@ -98,14 +98,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
-        }else if (Global.SUB_LEVEL_ID == 4) {
-            holder.txtContents.setText(mContents.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
-            if (mContents.getMatch() == 1) {
-                holder.txtContents.setBackgroundColor(Color.BLACK);
-            } else {
-                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
-            }
+//        }else if (Global.SUB_LEVEL_ID == 4) {
+//            holder.txtContents.setText(mContents.getTxt());
+//            holder.txtContents.setTextColor(0xffff00ff);
+//            if (mContents.getMatch() == 1) {
+//                holder.txtContents.setBackgroundColor(Color.BLACK);
+//            } else {
+//                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+//            }
         }else if (Global.SUB_LEVEL_ID == 5) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
@@ -171,19 +171,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         }
-//        else if (Global.SUB_LEVEL_ID == 8) {
-//            if (mContents.getClick() == Utils.IMAGE_OPEN) {
-//                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-//
-//                    holder.txtContents.setText(mContents.getSen());
-//
-//                } else {
-//                    holder.txtContents.setText(mContents.getTxt());
-//                }
-//            } else {
-//                holder.txtContents.setText(" ");
-//            }
-//        }
+        else if (Global.SUB_LEVEL_ID == 4) {
+            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+
+                    holder.txtContents.setText(mContents.getSen());
+
+                } else {
+                    holder.txtContents.setText(mContents.getTxt());
+                }
+            } else {
+                holder.txtContents.setText(" ");
+            }
+        }
 
     }
 

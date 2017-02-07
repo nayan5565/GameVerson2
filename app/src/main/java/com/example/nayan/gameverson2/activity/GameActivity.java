@@ -92,7 +92,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else if (Global.SUB_LEVEL_ID == 4) {
             ArrayList<MContents> realAssets = new ArrayList<>();
             realAssets = database.getBanglaContentsData();
-            imageArrayList1 = generateAssets(realAssets);
+            imageArrayList1 = generatesTxtSen(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 5) {
             ArrayList<MContents> realAssets = new ArrayList<>();
@@ -163,7 +163,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             MContents contents = new MContents();
             contents.setSen(mContents.getSen());
             contents.setMid(count);
-            contents.setPresentId(mContents.getPresentId());
+//            contents.setPresentId(mContents.getPresentId());
             contents.setPresentType(mContents.getPresentType());
             tempTxtSen.add(contents);
         }
@@ -210,6 +210,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         subLevelName=Global.parentName.get(index).getName();
         Log.e("sublevel name","s  n :"+subLevelName);
         parentName=Global.parentName.get(index).getParentName();
+        Log.e("index ","posi ="+Global.INDEX_POSISION);
         getLocalData();
         prepareDisplay();
     }
