@@ -3,15 +3,24 @@ package com.example.nayan.gameverson2.utils;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -211,4 +220,82 @@ public class Utils {
 
         return star;
     }
+    public static void dialogShowForLevelClear(final Context context, final int listSize,int point){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_level_cleared);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
+        TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+        TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+        TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+        ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
+        imgLevelMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                            Intent intent = new Intent(context, SubLevelActivity.class);
+//                            intent.putExtra("id", Global.levelId);
+//                            intent.putExtra("name", Global.levelName);
+//                            context.startActivity(intent);
+                ((Activity) context).finish();
+                dialog.dismiss();
+
+
+                Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        changeColor.setBackground(resGreen);
+        ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
+        imgReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                GameLogic.getInstance(context).resetList(listSize);
+//                resetList(listSize);
+                dialog.dismiss();
+                Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+        ImageView imgNextLevel = (ImageView) dialog.findViewById(R.id.imgLevelForward);
+        imgNextLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
+
+//                            Global.parentLevelName=GameActivity.getInstance().parentName;
+//                            Global.subLevelName=GameActivity.getInstance().subLevelName;
+
+
+//                            GameActivity.getInstance().parentName=Global.parentLevelName;
+//                            GameActivity.getInstance().getLocalData();
+//                            GameActivity.getInstance().prepareDisplay();
+                if (Global.INDEX_POSISION >= Global.parentName.size()) {
+
+                    Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
+                    Global.INDEX_POSISION = 0;
+
+                    return;
+
+                } else {
+                    GameActivity.getInstance().refresh(Global.INDEX_POSISION + 1);
+                }
+                dialog.dismiss();
+            }
+        });
+
+
+        txtBestPoint.setText("" + Utils.bestPoint);
+        txtScore.setText(point + "");
+        if (presentPoint == 50) {
+            txtPoint.setText(getIntToStar(1));
+        } else if (presentPoint == 75) {
+            txtPoint.setText(getIntToStar(2));
+        } else if (presentPoint == 100) {
+            txtPoint.setText(getIntToStar(3));
+        } else txtPoint.setText(getIntToStar(0));
+        dialog.show();
+    }
+
 }

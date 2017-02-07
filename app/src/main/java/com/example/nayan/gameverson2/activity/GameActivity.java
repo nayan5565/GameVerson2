@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -85,10 +86,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 3) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
-            imageArrayList1 = generateAssets(realAssets);
+            imageArrayList1 = database.getBanglaContentsData();
             Collections.shuffle(imageArrayList1);
+
         } else if (Global.SUB_LEVEL_ID == 4) {
             ArrayList<MContents> realAssets = new ArrayList<>();
             realAssets = database.getBanglaContentsData();
@@ -208,6 +208,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void refresh(int index){
         subLevelName=Global.parentName.get(index).getName();
+        Log.e("sublevel name","s  n :"+subLevelName);
         parentName=Global.parentName.get(index).getParentName();
         getLocalData();
         prepareDisplay();

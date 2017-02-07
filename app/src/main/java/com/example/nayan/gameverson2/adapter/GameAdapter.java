@@ -89,14 +89,15 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 3) {
+        }else if (Global.SUB_LEVEL_ID == 3) {if (mContents.getClick() == Utils.IMAGE_OPEN) {
+//                holder.txtContents.setBackgroundColor(0xff888888);
+//                flipAnimation(holder.txtContents);
+        } else {
+//                shakeAnimation(holder.itemView);
+            holder.txtContents.setBackgroundColor(0);
+        }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
-            if (mContents.getMatch() == 1) {
-                holder.txtContents.setBackgroundColor(Color.BLACK);
-            } else {
-                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
-            }
         }else if (Global.SUB_LEVEL_ID == 4) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
@@ -214,7 +215,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 4) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());

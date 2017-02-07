@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -127,74 +126,7 @@ public class GameLogic {
                 @Override
                 public void run() {
 
-
-                    final Dialog dialog = new Dialog(context);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.dialog_level_cleared);
-                    dialog.setCancelable(false);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
-                    TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-                    TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
-                    TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-                    ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
-                    imgLevelMenu.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-//                            Intent intent = new Intent(context, SubLevelActivity.class);
-//                            intent.putExtra("id", Global.levelId);
-//                            intent.putExtra("name", Global.levelName);
-//                            context.startActivity(intent);
-                            ((Activity) context).finish();
-                            dialog.dismiss();
-
-
-                            Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    changeColor.setBackground(resGreen);
-                    ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
-                    imgReload.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            resetList(listSize);
-                            dialog.dismiss();
-                            Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
-                        }
-
-
-                    });
-                    ImageView imgNextLevel = (ImageView) dialog.findViewById(R.id.imgLevelForward);
-                    imgNextLevel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
-
-//                            Global.parentLevelName=GameActivity.getInstance().parentName;
-//                            Global.subLevelName=GameActivity.getInstance().subLevelName;
-                            if (Global.SUB_LEVEL_ID==2){
-                                GameActivity.getInstance().subLevelName="class-2";
-                            }
-
-//                            GameActivity.getInstance().parentName=Global.parentLevelName;
-//                            GameActivity.getInstance().getLocalData();
-//                            GameActivity.getInstance().prepareDisplay();
-                            GameActivity.getInstance().refresh(Global.INDEX_POSISION+1);
-                            dialog.dismiss();
-                        }
-                    });
-
-
-                    txtBestPoint.setText("" + Utils.bestPoint);
-                    txtScore.setText(presentPoint + "");
-                    if (presentPoint == 50) {
-                        txtPoint.setText(Utils.getIntToStar(1));
-                    } else if (presentPoint == 75) {
-                        txtPoint.setText(Utils.getIntToStar(2));
-                    } else if (presentPoint == 100) {
-                        txtPoint.setText(Utils.getIntToStar(3));
-                    } else txtPoint.setText(Utils.getIntToStar(0));
-                    dialog.show();
+                    Utils.dialogShowForLevelClear(context, listSize, presentPoint);
 
 
                 }
@@ -217,6 +149,8 @@ public class GameLogic {
 
     public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView, int pos) {
         counter++;
+        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
+        final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         if (mContents.getMatch() == 1) {
             Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
             Log.e("s", ":1");
@@ -260,11 +194,14 @@ public class GameLogic {
                         @Override
                         public void run() {
                             resetList2(listSize);
+//                            Utils.dialogShowForLevelClear(context,listSize,presentPoint);
 
-                            Dialog dialog = new Dialog(context);
+                            final Dialog dialog = new Dialog(context);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             dialog.setContentView(R.layout.dialog_level_cleared);
+                            dialog.setCancelable(false);
                             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
                             TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
                             TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                             TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
@@ -272,8 +209,55 @@ public class GameLogic {
                             imgLevelMenu.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(context, GameActivity.class);
-                                    context.startActivity(intent);
+//                            Intent intent = new Intent(context, SubLevelActivity.class);
+//                            intent.putExtra("id", Global.levelId);
+//                            intent.putExtra("name", Global.levelName);
+//                            context.startActivity(intent);
+                                    ((Activity) context).finish();
+                                    dialog.dismiss();
+
+
+                                    Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            changeColor.setBackground(resGreen);
+                            ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
+                            imgReload.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    resetList(listSize);
+                                    dialog.dismiss();
+                                    Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            });
+                            ImageView imgNextLevel = (ImageView) dialog.findViewById(R.id.imgLevelForward);
+                            imgNextLevel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+
+//                            Global.parentLevelName=GameActivity.getInstance().parentName;
+//                            Global.subLevelName=GameActivity.getInstance().subLevelName;
+
+
+//                            GameActivity.getInstance().parentName=Global.parentLevelName;
+//                            GameActivity.getInstance().getLocalData();
+//                            GameActivity.getInstance().prepareDisplay();
+                                    if (Global.INDEX_POSISION > Global.parentName.size()) {
+                                        Global.SUB_LEVEL_ID = 0;
+                                        Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
+                                        Global.INDEX_POSISION = 0;
+
+                                        return;
+
+                                    } else {
+                                        Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
+                                        GameActivity.getInstance().refresh(Global.INDEX_POSISION + 1);
+                                    }
+                                    dialog.dismiss();
+
                                 }
                             });
                             txtBestPoint.setText("" + Utils.bestPoint);
@@ -328,13 +312,13 @@ public class GameLogic {
         list.get(pos).setClick(Utils.IMAGE_OPEN);
 
         flipAnimation(view);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                gameAdapter.notifyDataSetChanged();
-//                textView.setBackgroundColor(0xff888888);
-            }
-        }, 400);
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                gameAdapter.notifyDataSetChanged();
+////                textView.setBackgroundColor(0xff888888);
+//            }
+//        }, 400);
 
         count++;
 
@@ -594,7 +578,7 @@ public class GameLogic {
     }
 
 
-    private void resetList(int listSize) {
+    public void resetList(int listSize) {
         for (int i = 0; i < listSize; i++) {
             list.get(i).setClick(Utils.IMAGE_OFF);
         }
