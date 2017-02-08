@@ -17,9 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
 import com.example.nayan.gameverson2.utils.Global;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnSetting, special, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private ImageView cloud1, cloud2;
     private MLevel mLevel;
+    private MAllContent mAllContent;
+    private MWords mWords;
     //    private static LevelAdapter levelAdapter;
     private static ArrayList<MLevel> levels;
     private static ArrayList<MLevel> levelsMath;
@@ -217,6 +221,81 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     mSubLevel.setCoins_price(subLevel.getString("coins_price"));
                                     mSubLevel.setNo_of_coins(subLevel.getString("no_of_coins"));
                                     Utils.mSubLevelArrayList.add(mSubLevel);
+
+                                }
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        saveLevelToDb();
+                        saveSubLevelToDb();
+                        getLocalData();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        B_URL = ALTER_URL;
+                        getOnlineData();
+                        Log.e("json", "onfailer :" + responseString);
+                    }
+                }
+        );
+    }
+
+    private void getEnglishContentData() {
+        if (!Utils.isInternetOn(this)) {
+            Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(B_URL + Global.API_ENGLISH, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        Utils.English = new ArrayList<MAllContent>();
+                        Utils.English_words = new ArrayList<MWords>();
+
+                        try {
+                            JSONObject object = response.getJSONObject("object");
+
+
+                            JSONArray contents = object.getJSONArray("contents");
+                            for (int i = 0; i < contents.length(); i++) {
+                                JSONObject jsonObject = contents.getJSONObject(i);
+
+                                mAllContent = new MAllContent();
+//                                mLevel.setId(jsonObject.getInt("id"));
+                                mAllContent.setLid(jsonObject.getInt("lid"));
+                                mAllContent.setMid(jsonObject.getInt("mid"));
+                                mAllContent.setImg(jsonObject.getString("img"));
+                                mAllContent.setAud(jsonObject.getString("aud"));
+                                mAllContent.setTxt(jsonObject.getString("txt"));
+                                Log.e("level", "name :" + mLevel.getName());
+                                mAllContent.setVid(jsonObject.getString("vid"));
+                                mAllContent.setSen(jsonObject.getString("sen"));
+                                Utils.English.add(mAllContent);
+
+                                JSONArray words = jsonObject.getJSONArray("words");
+
+                                MWords mWords;
+                                int count = 0;
+                                for (int j = 0; j < words.length(); j++) {
+                                    JSONObject subWord = words.getJSONObject(j);
+
+                                    count++;
+                                    mWords = new MWords();
+                                    mWords.setContentId(mAllContent.getLid());
+//                                    mWords.setParentName(mLevel.getName());
+                                    mWords.setWid(subWord.getInt("wid"));
+                                    mWords.setWletter(subWord.getString("wletter"));
+                                    Log.e("sublevel", "name :" + mWords.getWletter());
+                                    mWords.setWword(subWord.getString("wword"));
+                                    mWords.setWimg(subWord.getString("wimg"));
+                                    mWords.setWsound(subWord.getString("wsound"));
+                                    Utils.English_words.add(mWords);
 
                                 }
 

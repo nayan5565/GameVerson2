@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MItem;
 import com.example.nayan.gameverson2.model.MLevel;
@@ -12,6 +13,7 @@ import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MPoint;
 import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.model.MWords;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -33,7 +35,15 @@ public class DatabaseHelper {
     private static final String DATABASE_QUES_TABLE = "ques";
     private static final String DATABASE_OPTION_TABLE = "option";
     private static final String DATABASE_POINT_TABLE = "point_tb";
+    private static final String DATABASE_WORDS_TABLE = "words_tb";
+    private static final String DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE = "words_tb";
 
+    private static final String KEY_WORDS_ID = "words_id";
+    private static final String KEY_WORDS_CONTENTS_ID = "words_contents_id";
+    private static final String KEY_WORDS_LETTER = "words_letter";
+    private static final String KEY_WORDS_Word = "words_word";
+    private static final String KEY_WORDS_IMG = "words_img";
+    private static final String KEY_WORDS_SOUND = "words_sound";
     private static final String KEY_POINT_ID = "point_id";
     private static final String KEY_PRESENT_POINT = "present_point";
     private static final String KEY_UPDATE_DATE = "update_date";
@@ -89,6 +99,17 @@ public class DatabaseHelper {
             + KEY_TEXT + " text, "
             + KEY_VIDEO + " text, "
             + KEY_SOUNDS + " text)";
+    private static final String DATABASE_CREATE_CONTENTS_OF_ALL_LEVEL_TABLE = "create table if not exists "
+            + DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE + "("
+            + KEY_LEVEL_ID + " integer, "
+            + KEY_MODEL_ID + " integer primary key, "
+            + KEY_PRESENT_ID + " integer, "
+            + KEY_PRESENT_TYPE + " integer, "
+            + KEY_IMAGE + " text, "
+            + KEY_SEN + " text, "
+            + KEY_TEXT + " text, "
+            + KEY_VIDEO + " text, "
+            + KEY_SOUNDS + " text)";
     private static final String DATABASE_CREATE_SUB_LEVEL_TABLE = "create table if not exists "
             + DATABASE_SUB_LEVEL_TABLE + "("
             + KEY_LEVEL_ID + " integer primary key, "
@@ -99,6 +120,14 @@ public class DatabaseHelper {
             + KEY_PARENT_NAME + " text, "
             + KEY_COINS_PRICE + " text, "
             + KEY_NO_OF_COINS + " text)";
+    private static final String DATABASE_CREATE_WORDS_TABLE = "create table if not exists "
+            + DATABASE_WORDS_TABLE + "("
+            + KEY_WORDS_ID + " integer primary key, "
+            + KEY_WORDS_CONTENTS_ID + " integer, "
+            + KEY_WORDS_IMG + " text, "
+            + KEY_WORDS_LETTER + " text, "
+            + KEY_WORDS_SOUND + " text, "
+            + KEY_WORDS_Word + " text)";
     private static final String DATABASE_CREATE_LOCK_TABLE = "create table if not exists "
             + DATABASE_LOCK_TABLE + "("
             + KEY_LOCK_ID + " integer primary key, "
@@ -122,13 +151,14 @@ public class DatabaseHelper {
     public DatabaseHelper(Context context) {
 
         this.context = context;
-        instance=this;
+        instance = this;
         openDB(context);
         onCreate();
     }
-    public static DatabaseHelper getInstance(Context context){
-        if(instance==null){
-            instance=new DatabaseHelper(context);
+
+    public static DatabaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DatabaseHelper(context);
         }
         return instance;
     }
@@ -140,8 +170,8 @@ public class DatabaseHelper {
             databaseFile.mkdirs();
             databaseFile.delete();
         }
-        if(db==null)
-        db = SQLiteDatabase.openOrCreateDatabase(databaseFile, PASS, null);
+        if (db == null)
+            db = SQLiteDatabase.openOrCreateDatabase(databaseFile, PASS, null);
     }
 
 
@@ -153,6 +183,8 @@ public class DatabaseHelper {
         db.execSQL(DATABASE_CREATE_QUES_TABLE);
         db.execSQL(DATABASE_CREATE_OPTION_TABLE);
         db.execSQL(DATABASE_CREATE_POINT_TABLE);
+        db.execSQL(DATABASE_CREATE_WORDS_TABLE);
+        db.execSQL(DATABASE_CREATE_CONTENTS_OF_ALL_LEVEL_TABLE);
 
     }
 
@@ -222,6 +254,36 @@ public class DatabaseHelper {
         cursor.close();
     }
 
+    public void addWordsFromJsom(MWords mWords) {
+        Cursor cursor = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_WORDS_ID, mWords.getWid());
+            values.put(KEY_WORDS_CONTENTS_ID, mWords.getContentId());
+            values.put(KEY_WORDS_IMG, mWords.getWimg());
+            values.put(KEY_WORDS_LETTER, mWords.getWletter());
+            values.put(KEY_WORDS_Word, mWords.getWword());
+            values.put(KEY_WORDS_SOUND, mWords.getWsound());
+
+
+            String sql = "select * from " + DATABASE_WORDS_TABLE + " where " + KEY_WORDS_ID + "='" + mWords.getWid() + "'";
+            cursor = db.rawQuery(sql, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int update = db.update(DATABASE_WORDS_TABLE, values, KEY_WORDS_ID + "=?", new String[]{mWords.getWid() + ""});
+                Log.e("log", "sub level update : " + update);
+            } else {
+                long v = db.insert(DATABASE_WORDS_TABLE, null, values);
+                Log.e("log", "sub level insert : " + v);
+
+            }
+
+
+        } catch (Exception e) {
+
+        }
+        cursor.close();
+    }
+
     public void addContentsFromJsom(MContents mContents) {
         Cursor cursor = null;
         try {
@@ -234,7 +296,7 @@ public class DatabaseHelper {
             values.put(KEY_PRESENT_TYPE, mContents.getPresentType());
             values.put(KEY_VIDEO, mContents.getVid());
             values.put(KEY_SEN, mContents.getSen());
-            values.put(KEY_PRESENT_ID,mContents.getPresentId());
+            values.put(KEY_PRESENT_ID, mContents.getPresentId());
 
             String sql = "select * from " + DATABASE_CONTENTS_TABLE + " where " + KEY_MODEL_ID + "='" + mContents.getMid() + "'";
             cursor = db.rawQuery(sql, null);
@@ -243,6 +305,38 @@ public class DatabaseHelper {
                 Log.e("log", "content update : " + update);
             } else {
                 long v = db.insert(DATABASE_CONTENTS_TABLE, null, values);
+                Log.e("log", "content insert : " + v);
+
+            }
+
+
+        } catch (Exception e) {
+
+        }
+
+        cursor.close();
+    }
+    public void addContentsOfAllLevelFromJsom(MAllContent mAllContent) {
+        Cursor cursor = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_LEVEL_ID, mAllContent.getLid());
+            values.put(KEY_MODEL_ID, mAllContent.getMid());
+            values.put(KEY_IMAGE, mAllContent.getImg());
+            values.put(KEY_TEXT, mAllContent.getTxt());
+            values.put(KEY_SOUNDS, mAllContent.getAud());
+            values.put(KEY_PRESENT_TYPE, mAllContent.getPresentType());
+            values.put(KEY_VIDEO, mAllContent.getVid());
+            values.put(KEY_SEN, mAllContent.getSen());
+            values.put(KEY_PRESENT_ID, mAllContent.getPresentId());
+
+            String sql = "select * from " + DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE + " where " + KEY_MODEL_ID + "='" + mAllContent.getMid() + "'";
+            cursor = db.rawQuery(sql, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int update = db.update(DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE, values, KEY_MODEL_ID + "=?", new String[]{mAllContent.getMid() + ""});
+                Log.e("log", "content update : " + update);
+            } else {
+                long v = db.insert(DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE, null, values);
                 Log.e("log", "content insert : " + v);
 
             }
@@ -365,7 +459,7 @@ public class DatabaseHelper {
         ArrayList<MLevel> levelArrayList = new ArrayList<>();
 
         MLevel mLevel;
-        String sql = "select * from " + DATABASE_LEVEL_TABLE +" where "+KEY_LEVEL_ID+"='"+id+"'";
+        String sql = "select * from " + DATABASE_LEVEL_TABLE + " where " + KEY_LEVEL_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         Log.e("cursor", "count :" + cursor.getCount());
         if (cursor != null && cursor.moveToFirst()) {
@@ -388,16 +482,17 @@ public class DatabaseHelper {
 
         return levelArrayList;
     }
-    public MSubLevel getSubOrParentName(int id){
-        MSubLevel mSubLevel=new MSubLevel();
+
+    public MSubLevel getSubOrParentName(int id) {
+        MSubLevel mSubLevel = new MSubLevel();
 
         return mSubLevel;
     }
 
     public MLock getLocalData(int id) {
         ArrayList<MLock> unlocks = new ArrayList<>();
-       MLock mLock = new MLock();
-        String sql = "select * from " + DATABASE_LOCK_TABLE +" where "+KEY_LOCK_ID+"='"+id+"'";
+        MLock mLock = new MLock();
+        String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LOCK_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -486,18 +581,18 @@ public class DatabaseHelper {
         MSubLevel mSubLevel;
         String sql = "select a.lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.lid=b.loid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
-       Cursor cursor = db.rawQuery(sql, null);
+        Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
                 mSubLevel.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
 
-              try {
-                  mSubLevel.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
-              }catch (Exception e){
-                  mSubLevel.setBestPoint(0);
-              }
+                try {
+                    mSubLevel.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
+                } catch (Exception e) {
+                    mSubLevel.setBestPoint(0);
+                }
 
                 mSubLevel.setParentId(cursor.getInt(cursor.getColumnIndex(KEY_PARENT_ID)));
                 mSubLevel.setParentName(cursor.getString(cursor.getColumnIndex(KEY_PARENT_NAME)));
@@ -505,6 +600,32 @@ public class DatabaseHelper {
                 mSubLevel.setCoins_price(cursor.getString(cursor.getColumnIndex(KEY_COINS_PRICE)));
                 mSubLevel.setNo_of_coins(cursor.getString(cursor.getColumnIndex(KEY_NO_OF_COINS)));
                 assetArrayList.add(mSubLevel);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+
+        return assetArrayList;
+    }
+
+    public ArrayList<MWords> getWordsData(int id) {
+        ArrayList<MWords> assetArrayList = new ArrayList<>();
+
+        MWords mWords;
+        String sql = "select * from " + DATABASE_WORDS_TABLE + " a where " + KEY_WORDS_CONTENTS_ID + "='" + id + "'";
+
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mWords = new MWords();
+                mWords.setWid(cursor.getInt(cursor.getColumnIndex(KEY_WORDS_ID)));
+                mWords.setWsound(cursor.getString(cursor.getColumnIndex(KEY_WORDS_SOUND)));
+                mWords.setWword(cursor.getString(cursor.getColumnIndex(KEY_WORDS_Word)));
+                mWords.setContentId(cursor.getInt(cursor.getColumnIndex(KEY_WORDS_CONTENTS_ID)));
+                mWords.setWimg(cursor.getString(cursor.getColumnIndex(KEY_WORDS_IMG)));
+                mWords.setWletter(cursor.getString(cursor.getColumnIndex(KEY_WORDS_LETTER)));
+                assetArrayList.add(mWords);
 
             } while (cursor.moveToNext());
             cursor.close();
@@ -533,6 +654,33 @@ public class DatabaseHelper {
                 mContents.setPresentType(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_TYPE)));
                 mContents.setPresentId(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_ID)));
                 assetArrayList.add(mContents);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+
+        return assetArrayList;
+    }
+    public ArrayList<MAllContent> getContentsOfAllLevelContentsData() {
+        ArrayList<MAllContent> assetArrayList = new ArrayList<>();
+
+        MAllContent mAllContent;
+        String sql = "select * from " + DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE;
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mAllContent = new MAllContent();
+                mAllContent.setLid(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mAllContent.setMid(cursor.getInt(cursor.getColumnIndex(KEY_MODEL_ID)));
+                mAllContent.setAud(cursor.getString(cursor.getColumnIndex(KEY_SOUNDS)));
+                mAllContent.setVid(cursor.getString(cursor.getColumnIndex(KEY_VIDEO)));
+                mAllContent.setTxt(cursor.getString(cursor.getColumnIndex(KEY_TEXT)));
+                mAllContent.setImg(cursor.getString(cursor.getColumnIndex(KEY_IMAGE)));
+                mAllContent.setSen(cursor.getString(cursor.getColumnIndex(KEY_SEN)));
+                mAllContent.setPresentType(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_TYPE)));
+                mAllContent.setPresentId(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_ID)));
+                assetArrayList.add(mAllContent);
 
             } while (cursor.moveToNext());
             cursor.close();
