@@ -15,6 +15,33 @@ public class MAllContent {
     private String vid;
     private String sen;
     private int presentType,presentId;
+    private String click;
+    private int bestPoint;
+    private int match;
+
+    public int getMatch() {
+        return match;
+    }
+
+    public void setMatch(int match) {
+        this.match = match;
+    }
+
+    public String getClick() {
+        return click;
+    }
+
+    public void setClick(String click) {
+        this.click = click;
+    }
+
+    public int getBestPoint() {
+        return bestPoint;
+    }
+
+    public void setBestPoint(int bestPoint) {
+        this.bestPoint = bestPoint;
+    }
 
     public int getPresentType() {
         return presentType;

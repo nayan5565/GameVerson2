@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.activity.SubLevelActivity;
+import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -36,12 +37,12 @@ import java.util.Collections;
 public class GameLogic {
     private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious;
     private static GameLogic gameLogic;
-    private ArrayList<MContents> list;
+    private ArrayList<MAllContent> list;
     private SharedPreferences preferences;
     private Context context;
     private Handler handler = new Handler();
     private RecyclerView.Adapter gameAdapter;
-    private MContents previousMcontents = new MContents();
+    private MAllContent previousMcontents = new MAllContent();
     private RecyclerView recyclerView;
     private LinearLayout changeColor;
     View view1;
@@ -61,12 +62,12 @@ public class GameLogic {
 
     }
 
-    public void callData(ArrayList<MContents> list, RecyclerView.Adapter adapter) {
+    public void callData(ArrayList<MAllContent> list, RecyclerView.Adapter adapter) {
         this.list = list;
         this.gameAdapter = adapter;
     }
 
-    public void setLevel(MContents mContents) {
+    public void setLevel(MAllContent mContents) {
         this.previousMcontents = mContents;
 
     }
@@ -95,7 +96,7 @@ public class GameLogic {
 
     }
 
-    public void textClick(final MContents mContents, int pos, final int listSize, final View view, TextView view2) {
+    public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2) {
         counter++;
         Log.e("counter", "is" + counter);
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
@@ -148,7 +149,7 @@ public class GameLogic {
     }
 
 
-    public void forLevel2(final View itemView, final MContents mContents, final int listSize, TextView textView, int pos) {
+    public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos) {
         counter++;
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
         final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
@@ -595,7 +596,7 @@ public class GameLogic {
             list.get(i).setClick(Utils.IMAGE_OFF);
         }
         previousMcontents.setMatch(0);
-        MContents mContents = new MContents();
+        MAllContent mContents = new MAllContent();
         previousMcontents = mContents;
         Collections.shuffle(list);
         clickCount = 0;

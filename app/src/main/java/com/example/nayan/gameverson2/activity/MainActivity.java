@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
         getOnlineData();
-        getOnlineBanglaContentsData();
+        getEnglishContentData();
+//        getOnlineBanglaContentsData();
 //        getLocalData();
 
     }
@@ -304,9 +305,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        saveLevelToDb();
-                        saveSubLevelToDb();
-                        getLocalData();
+                        saveContentsOfAllLevelToDb();
+                        saveWordsToDb();
                     }
 
                     @Override
@@ -410,6 +410,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void saveContentsToDb() {
         for (MContents data2 : Utils.contents) {
             database.addContentsFromJsom(data2);
+        }
+    }
+
+    private void saveContentsOfAllLevelToDb() {
+        for (MAllContent mAllContent : Utils.English) {
+            database.addContentsOfAllLevelFromJsom(mAllContent);
+        }
+    }
+
+    private void saveWordsToDb() {
+        for (MWords mWords : Utils.English_words) {
+            database.addWordsFromJsom(mWords);
         }
     }
 

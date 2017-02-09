@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.GameAdapter;
-import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
@@ -34,9 +34,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static int levelId;
     private static GameActivity gameActivity;
     private static MLevel mLevel;
-    private static MContents mContents;
+    private static MAllContent mContents;
     private MSubLevel mSubLevel=new MSubLevel();
-    private ArrayList<MContents> imageArrayList1;
+    private ArrayList<MAllContent> imageArrayList1;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
 //    private Context context;
@@ -78,60 +78,60 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getLocalData() {
         if (Global.SUB_LEVEL_ID == 1  ) {
-            imageArrayList1 = database.getBanglaContentsData();
+            imageArrayList1 = database.getContentsOfAllLevelContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 2) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 3) {
-            imageArrayList1 = database.getBanglaContentsData();
+            imageArrayList1 = database.getContentsOfAllLevelContentsData();
             Collections.shuffle(imageArrayList1);
 
         } else if (Global.SUB_LEVEL_ID == 4) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generatesTxtSen(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 5) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 6) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 8) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 9) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 13) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 14) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         }else if (Global.SUB_LEVEL_ID == 15) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         }else if (Global.SUB_LEVEL_ID == 19) {
-            ArrayList<MContents> realAssets = new ArrayList<>();
-            realAssets = database.getBanglaContentsData();
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            realAssets = database.getContentsOfAllLevelContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         }
@@ -139,13 +139,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private ArrayList<MContents> generateAssets(ArrayList<MContents> realAssets) {
+    private ArrayList<MAllContent> generateAssets(ArrayList<MAllContent> realAssets) {
         int count = realAssets.size();
-        ArrayList<MContents> tempAsset = new ArrayList<>();
-        for (MContents mContents : realAssets) {
+        ArrayList<MAllContent> tempAsset = new ArrayList<>();
+        for (MAllContent mContents : realAssets) {
             tempAsset.add(mContents);
             count++;
-            MContents asset1 = new MContents();
+            MAllContent asset1 = new MAllContent();
             asset1.setPresentType(mContents.getPresentType());
             asset1.setTxt(mContents.getTxt());
             asset1.setMid(count);
@@ -154,13 +154,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return tempAsset;
     }
 
-    private ArrayList<MContents> generatesTxtSen(ArrayList<MContents> realTxtSen) {
+    private ArrayList<MAllContent> generatesTxtSen(ArrayList<MAllContent> realTxtSen) {
         int count = realTxtSen.size();
-        ArrayList<MContents> tempTxtSen = new ArrayList<>();
-        for (MContents mContents : realTxtSen) {
+        ArrayList<MAllContent> tempTxtSen = new ArrayList<>();
+        for (MAllContent mContents : realTxtSen) {
             tempTxtSen.add(mContents);
             count++;
-            MContents contents = new MContents();
+            MAllContent contents = new MAllContent();
             contents.setSen(mContents.getSen());
             contents.setMid(count);
 //            contents.setPresentId(mContents.getPresentId());

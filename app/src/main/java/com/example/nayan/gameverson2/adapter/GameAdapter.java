@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
-import com.example.nayan.gameverson2.model.MContents;
-import com.example.nayan.gameverson2.utils.Global;
+import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.utils.GameLogic;
+import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.Utils;
 
 import java.util.ArrayList;
@@ -27,9 +27,9 @@ import java.util.ArrayList;
  */
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> {
 
-    private ArrayList<MContents> textArrayList;
+    private ArrayList<MAllContent> textArrayList;
 
-    private MContents mContents = new MContents();
+    private MAllContent mContents = new MAllContent();
     private Context context;
     private LayoutInflater inflater;
     private GameLogic gameLogic;
@@ -49,7 +49,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         inflater = LayoutInflater.from(context);
     }
 
-    public void setData(ArrayList<MContents> textArraylist) {
+    public void setData(ArrayList<MAllContent> textArraylist) {
         this.textArrayList = textArraylist;
 
         Log.e("log", "setdata:" + textArraylist.size());
