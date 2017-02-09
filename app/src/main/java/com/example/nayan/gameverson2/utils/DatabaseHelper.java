@@ -36,7 +36,7 @@ public class DatabaseHelper {
     private static final String DATABASE_OPTION_TABLE = "option";
     private static final String DATABASE_POINT_TABLE = "point_tb";
     private static final String DATABASE_WORDS_TABLE = "words_tb";
-    private static final String DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE = "words_tb";
+    private static final String DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE = "contents_tb";
 
     private static final String KEY_WORDS_ID = "words_id";
     private static final String KEY_WORDS_CONTENTS_ID = "words_contents_id";
@@ -316,6 +316,7 @@ public class DatabaseHelper {
 
         cursor.close();
     }
+
     public void addContentsOfAllLevelFromJsom(MAllContent mAllContent) {
         Cursor cursor = null;
         try {
@@ -662,11 +663,13 @@ public class DatabaseHelper {
 
         return assetArrayList;
     }
+
     public ArrayList<MAllContent> getContentsOfAllLevelContentsData() {
         ArrayList<MAllContent> assetArrayList = new ArrayList<>();
 
         MAllContent mAllContent;
         String sql = "select * from " + DATABASE_CONTENTS_OF_ALL_LEVEL_TABLE;
+//                + " where " + KEY_LEVEL_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {

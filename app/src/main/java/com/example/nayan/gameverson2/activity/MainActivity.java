@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
         getOnlineData();
         getEnglishContentData();
-//        getOnlineBanglaContentsData();
+        getOnlineBanglaContentsData();
 //        getLocalData();
 
     }
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = ALTER_URL;
-                        getOnlineData();
+                        getEnglishContentData();
                         Log.e("json", "onfailer :" + responseString);
                     }
                 }
@@ -429,7 +429,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         final Dialog dialog = new Dialog(this);
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setTitle("quite");
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_game_exit);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
