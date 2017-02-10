@@ -16,9 +16,9 @@ public class Global {
     public static int SUB_LEVEL_ID;
     public static final String API_LEVELS = "levels.php";
     public static final String API_CONTENTS = "contents.php";
-    public static final String API_MATH = "contents_math";
-    public static final String API_ENGLISH = "contents_english";
-    public static final String API_BANGLA = "contents_bangla";
+    public static final String API_MATH = "contents_math.php";
+    public static final String API_ENGLISH = "contents_english.php";
+    public static final String API_BANGLA = "contents_bangla.php";
     public static final String BASE_URL = "http://www.radhooni.com/content/match_game/v1/";
     public static ArrayList<MSubLevel> parentName;
 
