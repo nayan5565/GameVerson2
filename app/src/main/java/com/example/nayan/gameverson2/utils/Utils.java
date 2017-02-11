@@ -33,8 +33,10 @@ public class Utils {
     public static ArrayList<MContents> contents;
     public static ArrayList<MAllContent> English;
     public static ArrayList<MWords> English_words;
-    public static ArrayList<MLevel> Maths;
-    public static ArrayList<MLevel> Drawing;
+    public static ArrayList<MWords> BANGLA_words;
+    public static ArrayList<MWords> MATH_words;
+    public static ArrayList<MAllContent> Maths;
+    public static ArrayList<MAllContent> BANGLA;
     public static boolean isSoundPlay = true;
     public static int bestPoint,presentPoint;
     static MediaPlayer mediaPlayer;

@@ -7,16 +7,19 @@
 
     <TextView
         android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Quit"
-        android:textColor="#8e561a" />
+        android:gravity="center"
+        android:background="#808000"
+        android:textColor="#fff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
+        android:layout_gravity="center"
         android:text="Do you really want to quit the game?"
         android:textColor="#8e561a" />
 

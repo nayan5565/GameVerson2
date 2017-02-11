@@ -357,6 +357,10 @@ public class GameLogic {
 //        view1=view;
     }
 
+    public void dialogforTextClick(){
+        Dialog dialog=new Dialog(context);
+    }
+
     public void imageClick2(final MContents mImage, int pos, final int listSize, final View view, final View view1) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);

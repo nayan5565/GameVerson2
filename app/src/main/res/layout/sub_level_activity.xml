@@ -47,7 +47,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="50dp" />
+            android:text="Level Select"
+            android:textColor="#fff"
+            android:textSize="40dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"

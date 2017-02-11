@@ -78,61 +78,61 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getLocalData() {
         if (Global.SUB_LEVEL_ID == 1  ) {
-            imageArrayList1 = database.getContentsOfAllLevelContentsData();
+            imageArrayList1 = database.getBanglaContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 2) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getContentsOfAllLevelContentsData();
+            realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 3) {
-            imageArrayList1 = database.getContentsOfAllLevelContentsData();
+            imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
 
         }
 //        else if (Global.SUB_LEVEL_ID == 4) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData(4);
+//            realAssets = database.getEnglishContentsContentsData(4);
 //            imageArrayList1 = generatesTxtSen(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        } else if (Global.SUB_LEVEL_ID == 5) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        } else if (Global.SUB_LEVEL_ID == 6) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        } else if (Global.SUB_LEVEL_ID == 8) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        } else if (Global.SUB_LEVEL_ID == 9) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        } else if (Global.SUB_LEVEL_ID == 13) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        } else if (Global.SUB_LEVEL_ID == 14) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        }else if (Global.SUB_LEVEL_ID == 15) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        }else if (Global.SUB_LEVEL_ID == 19) {
 //            ArrayList<MAllContent> realAssets = new ArrayList<>();
-//            realAssets = database.getContentsOfAllLevelContentsData();
+//            realAssets = database.getEnglishContentsContentsData();
 //            imageArrayList1 = generateAssets(realAssets);
 //            Collections.shuffle(imageArrayList1);
 //        }

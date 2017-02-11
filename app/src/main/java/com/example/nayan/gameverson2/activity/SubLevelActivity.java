@@ -125,9 +125,14 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private void getLocalData() {
 
         mSubLevels = database.getSubLevelData(value);
+        if (mSubLevels.size()<1){
+            Toast.makeText(this,"empty data",Toast.LENGTH_SHORT).show();
+            return;
+        }
         Global.parentName=mSubLevels;
         mLevels = database.getLevelData(mLevel.getLid());
         Log.e("getDb", "sublevel : " + mSubLevels.size());
+
         mSubLevels.get(0).setUnlockNextLevel(1);
         subLevelAdapter.setData(mSubLevels);
 
