@@ -18,6 +18,7 @@ import com.example.nayan.gameverson2.adapter.GameAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.GameLogic;
 import com.example.nayan.gameverson2.utils.Global;
@@ -35,21 +36,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static GameActivity gameActivity;
     private static MLevel mLevel;
     private static MAllContent mContents;
-    private MSubLevel mSubLevel=new MSubLevel();
+    private MSubLevel mSubLevel = new MSubLevel();
     private ArrayList<MAllContent> imageArrayList1;
+    private ArrayList<MWords> wordsList;
     private ImageView imgSetting;
     private RecyclerView recyclerView;
-//    private Context context;
+    //    private Context context;
     private GameAdapter gameAdapter;
     private DatabaseHelper database;
     public String subLevelName;
     public String parentName;
     private TextView txtName;
 
-//    private GameActivity(){
+    //    private GameActivity(){
 //
 //    }
-    public static GameActivity getInstance(){
+    public static GameActivity getInstance() {
         return gameActivity;
     }
 
@@ -77,8 +79,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getLocalData() {
-        if (Global.SUB_LEVEL_ID == 1  ) {
-            imageArrayList1 = database.getBanglaContentsContentsData();
+//        wordsList = database.getMathWordsData(Utils.MATH_words.get(0).getContentId());
+        if (Global.SUB_LEVEL_ID == 1) {
+            imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 2) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
@@ -185,42 +188,44 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
 
-        gameActivity=this;
+        gameActivity = this;
         txtName = (TextView) findViewById(R.id.txtName);
         database = new DatabaseHelper(this);
         imgSetting = (ImageView) findViewById(R.id.imgseting);
         imgSetting.setOnClickListener(this);
         imageArrayList1 = new ArrayList<>();
+        wordsList = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.addItemDecoration(new SpacesItemDecoration(7));
-        Global.subLevelName=getIntent().getStringExtra("subLevelName");
-        subLevelName =Global.subLevelName ;
-        Global.parentLevelName= getIntent().getStringExtra("parentLevelName");
-        parentName =Global.parentLevelName;
+        Global.subLevelName = getIntent().getStringExtra("subLevelName");
+        subLevelName = Global.subLevelName;
+        Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
+        parentName = Global.parentLevelName;
 
         Global.INDEX_POSISION = getIntent().getIntExtra("index", 0);
         Global.SUB_LEVEL_ID = getIntent().getIntExtra("Sid", 0);
-
 
 
         gameAdapter = new GameAdapter(this);
 
     }
 
-    public void refresh(int index){
-        subLevelName=Global.parentName.get(index).getName();
-        Log.e("sublevel name","s  n :"+subLevelName);
-        parentName=Global.parentName.get(index).getParentName();
-        Log.e("index ","posi ="+Global.INDEX_POSISION);
+    public void refresh(int index) {
+        subLevelName = Global.parentName.get(index).getName();
+        Log.e("sublevel name", "s  n :" + subLevelName);
+        parentName = Global.parentName.get(index).getParentName();
+        Log.e("index ", "posi =" + Global.INDEX_POSISION);
         getLocalData();
         prepareDisplay();
     }
+
     public void prepareDisplay() {
         txtName.setText(parentName + "(" + subLevelName + ")");
         int item = Utils.getScreenSize(this, 100);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.setData(imageArrayList1);
+//        gameAdapter.setDataWord(wordsList);
     }
 
     @Override

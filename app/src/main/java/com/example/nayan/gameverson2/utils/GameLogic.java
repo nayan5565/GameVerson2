@@ -27,6 +27,7 @@ import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.model.MWords;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,7 @@ public class GameLogic {
     private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious;
     private static GameLogic gameLogic;
     private ArrayList<MAllContent> list;
+    private ArrayList<MWords> list2;
     private SharedPreferences preferences;
     private Context context;
     private Handler handler = new Handler();
@@ -64,6 +66,7 @@ public class GameLogic {
 
     public void callData(ArrayList<MAllContent> list, RecyclerView.Adapter adapter) {
         this.list = list;
+        clickCount = getMin() - 1;
         this.gameAdapter = adapter;
     }
 
@@ -96,12 +99,22 @@ public class GameLogic {
 
     }
 
+    public int getMin() {
+        int min = list.get(0).getMid();
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).getMid() < min) {
+                min = list.get(i).getMid();
+            }
+        }
+        return min;
+    }
+
     public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2) {
         counter++;
+
         Log.e("counter", "is" + counter);
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
         final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
-
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
             list.get(pos).setClick(Utils.IMAGE_OPEN);
@@ -357,9 +370,6 @@ public class GameLogic {
 //        view1=view;
     }
 
-    public void dialogforTextClick(){
-        Dialog dialog=new Dialog(context);
-    }
 
     public void imageClick2(final MContents mImage, int pos, final int listSize, final View view, final View view1) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
@@ -487,6 +497,37 @@ public class GameLogic {
         previousType = mImage.getPresentType();
     }
 
+
+
+    public void dialogforTextClick(MAllContent mContents, View view,  final int pos) {
+//        this.list2=list2;
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_show_text);
+                dialog.setCancelable(false);
+                TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
+                TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
+                TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
+                TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
+//        txt1.setText(list2.get(0).getWword());
+//        txt2.setText(list2.get(1).getWword());
+//        txt3.setText(list2.get(2).getWword());
+//        txt4.setText(list2.get(3).getWword());
+                txt1.setText(list.get(pos).getWords().get(0).getWword());
+                txt2.setText(list.get(pos).getWords().get(1).getWword());
+                txt3.setText(list.get(pos).getWords().get(2).getWword());
+                txt4.setText(list.get(pos).getWords().get(3).getWword());
+                dialog.show();
+            }
+        });
+
+
+
+
+    }
+
     private void dialogShowForLevelClear(final int listSize) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -603,7 +644,7 @@ public class GameLogic {
         MAllContent mContents = new MAllContent();
         previousMcontents = mContents;
         Collections.shuffle(list);
-        clickCount = 0;
+        clickCount = getMin() - 1;
         matchWinCount = 0;
         previousType = 0;
         previousId = 0;

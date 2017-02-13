@@ -2,6 +2,7 @@ package com.example.nayan.gameverson2.adapter;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MWords;
+import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.GameLogic;
 import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.Utils;
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> {
 
     private ArrayList<MAllContent> textArrayList;
+//    private ArrayList<MWords> textArrayList2;
 
     private MAllContent mContents = new MAllContent();
     private Context context;
@@ -38,13 +42,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private AnimatorSet mSetRightOut;
     private AnimatorSet mSetLeftIn;
     private boolean mIsBackVisible = false;
+    DatabaseHelper db;
 
 
     public GameAdapter(Context context) {
         this.context = context;
 
         textArrayList = new ArrayList<>();
-
+        db = new DatabaseHelper(context);
 
         inflater = LayoutInflater.from(context);
     }
@@ -58,6 +63,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
         notifyDataSetChanged();
     }
+
+//    public void setDataWord(ArrayList<MWords> wordList) {
+//        this.textArrayList2 = wordList;
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public MyViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -89,13 +99,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 3) {if (mContents.getClick() == Utils.IMAGE_OPEN) {
+        } else if (Global.SUB_LEVEL_ID == 3) {
+            if (mContents.getClick() == Utils.IMAGE_OPEN) {
 //                holder.txtContents.setBackgroundColor(0xff888888);
 //                flipAnimation(holder.txtContents);
-        } else {
+            } else {
 //                shakeAnimation(holder.itemView);
-            holder.txtContents.setBackgroundColor(0);
-        }
+                holder.txtContents.setBackgroundColor(0);
+            }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
 //        }else if (Global.SUB_LEVEL_ID == 4) {
@@ -106,7 +117,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //            } else {
 //                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
 //            }
-        }else if (Global.SUB_LEVEL_ID == 5) {
+        } else if (Global.SUB_LEVEL_ID == 5) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -114,7 +125,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 6) {
+        } else if (Global.SUB_LEVEL_ID == 6) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -122,7 +133,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 8) {
+        } else if (Global.SUB_LEVEL_ID == 8) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -130,7 +141,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 9) {
+        } else if (Global.SUB_LEVEL_ID == 9) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -138,7 +149,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 13) {
+        } else if (Global.SUB_LEVEL_ID == 13) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -146,7 +157,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 14) {
+        } else if (Global.SUB_LEVEL_ID == 14) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -154,7 +165,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 15) {
+        } else if (Global.SUB_LEVEL_ID == 15) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -162,7 +173,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }else if (Global.SUB_LEVEL_ID == 19) {
+        } else if (Global.SUB_LEVEL_ID == 19) {
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
@@ -170,8 +181,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-        }
-        else if (Global.SUB_LEVEL_ID == 4) {
+        } else if (Global.SUB_LEVEL_ID == 4) {
             if (mContents.getClick() == Utils.IMAGE_OPEN) {
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
 
@@ -203,19 +213,76 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             imgAnim = (ImageView) itemView.findViewById(R.id.imganim);
             imgAnim2 = (ImageView) itemView.findViewById(R.id.imganim2);
             txtContents = (TextView) itemView.findViewById(R.id.textContents);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 //                    flipAnimation(itemView);
                     mContents = textArrayList.get(getAdapterPosition());
+
                     if (Global.SUB_LEVEL_ID == 1) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                        Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.dialog_show_text);
+                        dialog.setCancelable(true);
+                        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
+                        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
+                        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
+                        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
+//        txt1.setText(list2.get(0).getWword());
+//        txt2.setText(list2.get(1).getWword());
+//        txt3.setText(list2.get(2).getWword());
+//        txt4.setText(list2.get(3).getWword());
+//                        txt1.setText(mContents.getSen());
+//                        txt2.setText(mContents.getTxt());
+//                        txt3.setText(mContents.getImg());
+//                        txt4.setText(mContents.getSen());
+                        if (mContents.getWords().size() == 4) {
+                            txt1.setText(mContents.getWords().get(0).getWword());
+                            txt2.setText(mContents.getWords().get(1).getWword());
+                            txt3.setText(mContents.getWords().get(2).getWword());
+                            txt4.setText(mContents.getWords().get(3).getWword());
+                            return;
+                        } else if (mContents.getWords().size() == 3) {
+                            txt1.setText(mContents.getWords().get(0).getWword());
+                            txt2.setText(mContents.getWords().get(1).getWword());
+                            txt3.setText(mContents.getWords().get(2).getWword());
+                        } else if (mContents.getWords().size() == 2) {
+                            txt1.setText(mContents.getWords().get(0).getWword());
+                            txt2.setText(mContents.getWords().get(1).getWword());
+
+                        } else if (mContents.getWords().size() == 1) {
+                            txt1.setText(mContents.getWords().get(0).getWword());
+
+                        }
+
+//                        txt3.setText(textArrayList.get(getAdapterPosition()).getWords().get(2).getWword());
+//                        txt4.setText(textArrayList.get(getAdapterPosition()).getWords().get(3).getWword());
+                        dialog.show();
+//                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
+                        Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.dialog_show_text);
+                        dialog.setCancelable(true);
+                        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
+                        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
+                        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
+                        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
+//        txt1.setText(list2.get(0).getWword());
+//        txt2.setText(list2.get(1).getWword());
+//        txt3.setText(list2.get(2).getWword());
+//        txt4.setText(list2.get(3).getWword());
+//                        txt1.setText(mContents.getSen());
+                        txt2.setText(textArrayList.get(getAdapterPosition()).getWords().get(1).getWword());
+//                        txt3.setText(textArrayList.get(getAdapterPosition()).getWords().get(2).getWword());
+//                        txt4.setText(textArrayList.get(getAdapterPosition()).getWords().get(3).getWword());
+                        dialog.show();
+//                        gameLogic.dialogforTextClick(mContents, itemView, getAdapterPosition());
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 4) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
