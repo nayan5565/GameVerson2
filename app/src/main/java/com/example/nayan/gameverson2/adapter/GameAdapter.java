@@ -222,68 +222,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     mContents = textArrayList.get(getAdapterPosition());
 
                     if (Global.SUB_LEVEL_ID == 1) {
-                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                        Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.dialog_show_text);
-                        dialog.setCancelable(true);
-                        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
-                        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
-                        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
-                        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
-//        txt1.setText(list2.get(0).getWword());
-//        txt2.setText(list2.get(1).getWword());
-//        txt3.setText(list2.get(2).getWword());
-//        txt4.setText(list2.get(3).getWword());
-//                        txt1.setText(mContents.getSen());
-//                        txt2.setText(mContents.getTxt());
-//                        txt3.setText(mContents.getImg());
-//                        txt4.setText(mContents.getSen());
-                        if (mContents.getWords().size() == 4) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText(mContents.getWords().get(1).getWword());
-                            txt3.setText(mContents.getWords().get(2).getWword());
-                            txt4.setText(mContents.getWords().get(3).getWword());
-                            return;
-                        } else if (mContents.getWords().size() == 3) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText(mContents.getWords().get(1).getWword());
-                            txt3.setText(mContents.getWords().get(2).getWword());
-                        } else if (mContents.getWords().size() == 2) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText(mContents.getWords().get(1).getWword());
 
-                        } else if (mContents.getWords().size() == 1) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-
-                        }
-
-//                        txt3.setText(textArrayList.get(getAdapterPosition()).getWords().get(2).getWword());
-//                        txt4.setText(textArrayList.get(getAdapterPosition()).getWords().get(3).getWword());
-                        dialog.show();
-//                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
 
                     } else if (Global.SUB_LEVEL_ID == 2) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 3) {
-                        Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.dialog_show_text);
-                        dialog.setCancelable(true);
-                        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
-                        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
-                        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
-                        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
-//        txt1.setText(list2.get(0).getWword());
-//        txt2.setText(list2.get(1).getWword());
-//        txt3.setText(list2.get(2).getWword());
-//        txt4.setText(list2.get(3).getWword());
-//                        txt1.setText(mContents.getSen());
-                        txt2.setText(textArrayList.get(getAdapterPosition()).getWords().get(1).getWword());
-//                        txt3.setText(textArrayList.get(getAdapterPosition()).getWords().get(2).getWword());
-//                        txt4.setText(textArrayList.get(getAdapterPosition()).getWords().get(3).getWword());
-                        dialog.show();
-//                        gameLogic.dialogforTextClick(mContents, itemView, getAdapterPosition());
-//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                        dialogShohWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 4) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
@@ -338,5 +284,41 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
         // Perform animation
         v.startAnimation(shake);
+    }
+
+    private void dialogShohWithWordsList() {
+        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_show_text);
+        dialog.setCancelable(true);
+        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
+        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
+        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
+        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
+        if (mContents.getWords().size() == 4) {
+            txt1.setText(mContents.getWords().get(0).getWword());
+            txt2.setText(mContents.getWords().get(1).getWword());
+            txt3.setText(mContents.getWords().get(2).getWword());
+            txt4.setText(mContents.getWords().get(3).getWword());
+
+        } else if (mContents.getWords().size() == 3) {
+            txt1.setText(mContents.getWords().get(0).getWword());
+            txt2.setText(mContents.getWords().get(1).getWword());
+            txt3.setText(mContents.getWords().get(2).getWword());
+            txt4.setText("null");
+        } else if (mContents.getWords().size() == 2) {
+            txt1.setText(mContents.getWords().get(0).getWword());
+            txt2.setText(mContents.getWords().get(1).getWword());
+            txt3.setText("null");
+            txt4.setText("null");
+
+        } else if (mContents.getWords().size() == 1) {
+            txt1.setText(mContents.getWords().get(0).getWword());
+            txt2.setText("null");
+            txt3.setText("null");
+            txt4.setText("null");
+
+        }
+        dialog.show();
     }
 }
