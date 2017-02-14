@@ -333,7 +333,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                                Utils.English.get(i).setPresentId(i+1);
                                 Utils.BANGLA.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Utils.BANGLA.get(i).getWords().size(); j++) {
-                                    Utils.BANGLA_words.add(Utils.BANGLA.get(i).getWords().get(j));
+                                    MWords mWords = Utils.BANGLA.get(i).getWords().get(j);
+                                    mWords.setContentId(Utils.BANGLA.get(i).getMid());
+                                    Utils.BANGLA_words.add(mWords);
                                 }
                             }
                         } catch (JSONException e) {
@@ -373,7 +375,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             MAllContent[] data = gson.fromJson(response.getJSONArray("contents").toString(), MAllContent[].class);
                             Utils.Maths = new ArrayList<MAllContent>(Arrays.asList(data));
                             for (int i = 0; i < Utils.Maths.size(); i++) {
-//                                Utils.English.get(i).setPresentId(i+1);
                                 Utils.Maths.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Utils.Maths.get(i).getWords().size(); j++) {
                                     MWords mWords = Utils.Maths.get(i).getWords().get(j);

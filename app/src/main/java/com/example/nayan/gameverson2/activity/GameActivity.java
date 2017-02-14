@@ -107,9 +107,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 9) {
-            ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getEnglishContentsContentsData();
-            imageArrayList1 = generateAssets(realAssets);
+            imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 13) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
