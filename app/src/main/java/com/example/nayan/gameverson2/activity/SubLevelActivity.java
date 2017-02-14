@@ -45,13 +45,12 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private TextView txtLevelName;
     private String lName;
     private int STORAGE_PERMISSION_CODE = 23;
-    private Button back;
+    private Button back, btnSubSetting;
     private LinearLayout changeColor;
     private ImageView imageView;
     String uriGreen = "@drawable/green_panel";
     String uriYellow = "@drawable/yellow_panel";
     String uriRed = "@drawable/red_panel";
-
 
 
     @Override
@@ -61,8 +60,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
         Global.levelName = getIntent().getStringExtra("name");
         Global.levelId = getIntent().getIntExtra("id", 0);
-        value=Global.levelId;
-        lName=Global.levelName;
+        value = Global.levelId;
+        lName = Global.levelName;
         Log.e("log", "is" + value);
 
         init();
@@ -125,11 +124,11 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private void getLocalData() {
 
         mSubLevels = database.getSubLevelData(value);
-        if (mSubLevels.size()<1){
-            Toast.makeText(this,"empty data",Toast.LENGTH_SHORT).show();
+        if (mSubLevels.size() < 1) {
+            Toast.makeText(this, "empty data", Toast.LENGTH_SHORT).show();
             return;
         }
-        Global.parentName=mSubLevels;
+        Global.parentName = mSubLevels;
         mLevels = database.getLevelData(mLevel.getLid());
         Log.e("getDb", "sublevel : " + mSubLevels.size());
 
@@ -149,7 +148,9 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         imageView = (ImageView) findViewById(R.id.imageView);
         changeColor = (LinearLayout) findViewById(R.id.changeColor);
         back = (Button) findViewById(R.id.back);
+        btnSubSetting = (Button) findViewById(R.id.btnSubSetting);
         back.setOnClickListener(this);
+        btnSubSetting.setOnClickListener(this);
         Utils.levels = new ArrayList<>();
         mLevels = new ArrayList<>();
         database = new DatabaseHelper(this);
@@ -176,11 +177,11 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             imageView.setImageResource(R.drawable.yellow_coins);
             changeColor.setBackground(resYellow);
             txtLevelName.setTextColor(0xffffff00);
-        }else if (value == 3) {
+        } else if (value == 3) {
             imageView.setImageResource(R.drawable.red_coins);
             changeColor.setBackground(resRed);
             txtLevelName.setTextColor(0xffff0000);
-        }else if (value == 5) {
+        } else if (value == 5) {
             imageView.setImageResource(R.drawable.red_coins);
             changeColor.setBackground(resRed);
             txtLevelName.setTextColor(0xffff0000);
@@ -195,6 +196,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == R.id.back) {
             finish();
+        } else if (v.getId() == R.id.btnSubSetting) {
+            DialogSoundOnOff.dialogShow(SubLevelActivity.this);
         }
     }
 }

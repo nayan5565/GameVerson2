@@ -78,7 +78,7 @@
             android:background="@drawable/prev_btn" />
 
         <Button
-            android:id="@+id/result"
+            android:id="@+id/btnSubSetting"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
