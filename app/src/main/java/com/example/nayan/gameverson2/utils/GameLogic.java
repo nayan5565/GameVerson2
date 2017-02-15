@@ -32,6 +32,8 @@ import com.example.nayan.gameverson2.model.MWords;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.example.nayan.gameverson2.activity.SubLevelActivity.mSubLevels;
+
 /**
  * Created by NAYAN on 8/20/2016.
  */
@@ -87,11 +89,11 @@ public class GameLogic {
 //        lock.setUnlockNextLevel(1);
         db.addLockData(lock);
 
-        if (SubLevelActivity.mSubLevels.size() - 1 > Global.INDEX_POSISION) {
+        if (mSubLevels.size() - 1 > Global.INDEX_POSISION) {
             lock = new MLock();
             Log.e("global", "index" + Global.INDEX_POSISION);
-            Log.e("array List", "size :" + SubLevelActivity.mSubLevels.size());
-            MSubLevel mSubLevel = SubLevelActivity.mSubLevels.get(Global.INDEX_POSISION + 1);
+            Log.e("array List", "size :" + mSubLevels.size());
+            MSubLevel mSubLevel = mSubLevels.get(Global.INDEX_POSISION + 1);
             lock.setId(mSubLevel.getLid());
             lock.setUnlockNextLevel(1);
             db.addLockData(lock);
@@ -498,8 +500,7 @@ public class GameLogic {
     }
 
 
-
-    public void dialogforTextClick(MAllContent mContents, View view,  final int pos) {
+    public void dialogforTextClick(MAllContent mContents, View view, final int pos) {
 //        this.list2=list2;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -522,8 +523,6 @@ public class GameLogic {
                 dialog.show();
             }
         });
-
-
 
 
     }
@@ -570,25 +569,15 @@ public class GameLogic {
         imgNextLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
-
-//                            Global.parentLevelName=GameActivity.getInstance().parentName;
-//                            Global.subLevelName=GameActivity.getInstance().subLevelName;
-
-
-//                            GameActivity.getInstance().parentName=Global.parentLevelName;
-//                            GameActivity.getInstance().getLocalData();
-//                            GameActivity.getInstance().prepareDisplay();
                 if (Global.INDEX_POSISION >= Global.parentName.size() - 1) {
-//                    Global.SUB_LEVEL_ID = 0;
                     Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
-//                    Global.INDEX_POSISION = 0;
 
                     return;
 
                 } else {
                     Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
                     Global.INDEX_POSISION = Global.INDEX_POSISION + 1;
+                    mSubLevels.get(Global.INDEX_POSISION).setUnlockNextLevel(1);
                     GameActivity.getInstance().refresh(Global.INDEX_POSISION);
                 }
                 dialog.dismiss();

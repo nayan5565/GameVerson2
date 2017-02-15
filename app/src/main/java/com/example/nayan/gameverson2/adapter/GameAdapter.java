@@ -5,11 +5,13 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -215,38 +217,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition());
                     } else if (Global.SUB_LEVEL_ID == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
-                        Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.dialog_show_text);
-                        dialog.setCancelable(true);
-                        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
-                        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
-                        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
-                        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
-                        if (mContents.getWords().size() == 4) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText(mContents.getWords().get(1).getWword());
-                            txt3.setText(mContents.getWords().get(2).getWword());
-                            txt4.setText(mContents.getWords().get(3).getWword());
-
-                        } else if (mContents.getWords().size() == 3) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText(mContents.getWords().get(1).getWword());
-                            txt3.setText(mContents.getWords().get(2).getWword());
-                            txt4.setText("null");
-                        } else if (mContents.getWords().size() == 2) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText(mContents.getWords().get(1).getWword());
-                            txt3.setText("null");
-                            txt4.setText("null");
-
-                        } else if (mContents.getWords().size() == 1) {
-                            txt1.setText(mContents.getWords().get(0).getWword());
-                            txt2.setText("null");
-                            txt3.setText("null");
-                            txt4.setText("null");
-
-                        }
-                        dialog.show();
+                        dialogShohWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 4) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents);
                     } else if (Global.SUB_LEVEL_ID == 5) {
@@ -301,6 +272,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private void dialogShohWithWordsList() {
 
         Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_show_text);
         dialog.setCancelable(true);
         TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
