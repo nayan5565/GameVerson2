@@ -286,7 +286,7 @@ public class DatabaseHelper {
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int update = db.update(DATABASE_SUB_LEVEL_TABLE, values, KEY_LEVEL_ID + "=?", new String[]{mSubLevel.getLid() + ""});
-                Log.e("log", "sub level update : " + update);
+                Log.e("sublevel", "sub level update : " + update);
             } else {
                 long v = db.insert(DATABASE_SUB_LEVEL_TABLE, null, values);
                 Log.e("log", "sub level insert : " + v);

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.opengl.Visibility;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -111,7 +112,7 @@ public class GameLogic {
         return min;
     }
 
-    public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2) {
+    public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2, final ImageView imageView) {
         counter++;
 
         Log.e("counter", "is" + counter);
@@ -124,7 +125,8 @@ public class GameLogic {
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
-            view2.setBackgroundColor(0xff888888);
+            imageView.setImageResource(R.drawable.red_panel);
+//            view2.setBackgroundColor(0xff888888);
             clickCount = mContents.getMid();
             count++;
 
@@ -142,7 +144,7 @@ public class GameLogic {
                 @Override
                 public void run() {
 
-                    dialogShowForLevelClear(listSize);
+                    dialogShowForLevelClear(listSize, imageView);
 
 
                 }
@@ -164,7 +166,7 @@ public class GameLogic {
     }
 
 
-    public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos) {
+    public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos,ImageView imageView) {
         counter++;
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
         final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
@@ -215,7 +217,7 @@ public class GameLogic {
                         public void run() {
                             resetList2(listSize);
 //                            Utils.dialogShowForLevelClear(context,listSize,presentPoint);
-                            dialogShowForLevelClear(listSize);
+//                            dialogShowForLevelClear(listSize);
                         }
                     }, 1500);
                     savePoint(listSize);
@@ -242,7 +244,7 @@ public class GameLogic {
         }
     }
 
-    public void imageClick(final MContents mImage, int pos, final int listSize, final View view) {
+    public void imageClick(final MContents mImage, int pos, final int listSize, final View view, final ImageView imageView) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
 
@@ -300,7 +302,7 @@ public class GameLogic {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            resetList(listSize);
+//                            resetList(listSize);
 
                             Dialog dialog = new Dialog(context);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -436,7 +438,7 @@ public class GameLogic {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            resetList(listSize);
+//                            resetList(listSize);
                             Dialog dialog = new Dialog(context);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             dialog.setContentView(R.layout.dialog_level_cleared);
@@ -527,7 +529,7 @@ public class GameLogic {
 
     }
 
-    private void dialogShowForLevelClear(final int listSize) {
+    private void dialogShowForLevelClear(final int listSize, final ImageView imageView) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_cleared);
@@ -558,7 +560,9 @@ public class GameLogic {
             @Override
             public void onClick(View v) {
 //                GameLogic.getInstance(context).resetList(listSize);
-                resetList(listSize);
+//                imageView.setImageResource(R.drawable.yellow_panel);
+
+                resetList(listSize,imageView);
                 dialog.dismiss();
                 Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
             }
@@ -578,6 +582,8 @@ public class GameLogic {
                     Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
                     Global.INDEX_POSISION = Global.INDEX_POSISION + 1;
                     mSubLevels.get(Global.INDEX_POSISION).setUnlockNextLevel(1);
+                    DatabaseHelper db = new DatabaseHelper(context);
+                    db.addSubFromJsom(mSubLevels.get(Global.INDEX_POSISION));
                     GameActivity.getInstance().refresh(Global.INDEX_POSISION);
                 }
                 dialog.dismiss();
@@ -625,9 +631,11 @@ public class GameLogic {
     }
 
 
-    public void resetList(int listSize) {
+    public void resetList(int listSize,ImageView imageView) {
         for (int i = 0; i < listSize; i++) {
             list.get(i).setClick(Utils.IMAGE_OFF);
+            imageView.setImageResource(R.drawable.yellow_panel);
+
         }
         previousMcontents.setMatch(0);
         MAllContent mContents = new MAllContent();
