@@ -83,7 +83,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     public void onBindViewHolder(MyViewholder holder, int position) {
         mContents = textArrayList.get(position);
         if (Global.SUB_LEVEL_ID == 1) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 //                holder.txtContents.setBackgroundColor(0xff888888);
 //                flipAnimation(holder.txtContents);
 
@@ -98,8 +98,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
-//                holder.txtContents.setBackgroundColor(Color.BLACK);
-                holder.imgAnim2.setImageResource(R.drawable.red_panel);
+                holder.txtContents.setBackgroundColor(Color.BLACK);
+//                holder.imgAnim2.setImageResource(R.drawable.red_panel);
             } else {
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }

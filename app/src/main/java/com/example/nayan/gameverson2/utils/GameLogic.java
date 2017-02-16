@@ -120,13 +120,14 @@ public class GameLogic {
         final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
-            list.get(pos).setClick(Utils.IMAGE_OPEN);
+            list.get(pos).setMatch(1);
+//            list.get(pos).setClick(Utils.IMAGE_OPEN);
             Utils.getSound(context, R.raw.click);
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
-            imageView.setImageResource(R.drawable.red_panel);
-//            view2.setBackgroundColor(0xff888888);
+//            imageView.setImageResource(R.drawable.red_panel);
+            view2.setBackgroundColor(0xff888888);
             clickCount = mContents.getMid();
             count++;
 
@@ -166,7 +167,7 @@ public class GameLogic {
     }
 
 
-    public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos,ImageView imageView) {
+    public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos, final ImageView imageView) {
         counter++;
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
         final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
@@ -205,7 +206,7 @@ public class GameLogic {
             Log.e("s", ":4");
             if (mContents.getPresentType() == previousMcontents.getPresentType()) {
                 mContents.setMatch(1);
-                mContents.setClick(Utils.IMAGE_OPEN);
+//                mContents.setClick(Utils.IMAGE_OPEN);
                 matchWinCount++;
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
 
@@ -215,9 +216,9 @@ public class GameLogic {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            resetList2(listSize);
+//                            resetList2(listSize);
 //                            Utils.dialogShowForLevelClear(context,listSize,presentPoint);
-//                            dialogShowForLevelClear(listSize);
+                            dialogShowForLevelClear(listSize,imageView);
                         }
                     }, 1500);
                     savePoint(listSize);
@@ -226,8 +227,8 @@ public class GameLogic {
 
             } else {
                 previousMcontents.setMatch(0);
-                mContents.setClick(Utils.IMAGE_OFF);
-                previousMcontents.setClick(Utils.IMAGE_OFF);
+//                mContents.setClick(Utils.IMAGE_OFF);
+//                previousMcontents.setClick(Utils.IMAGE_OFF);
                 Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();
                 textView.setBackgroundColor(0xffff0000);
 //                handler.postDelayed(new Runnable() {
@@ -633,9 +634,10 @@ public class GameLogic {
 
     public void resetList(int listSize,ImageView imageView) {
         for (int i = 0; i < listSize; i++) {
-            list.get(i).setClick(Utils.IMAGE_OFF);
-            imageView.setImageResource(R.drawable.yellow_panel);
-
+//            list.get(i).setClick(Utils.IMAGE_OFF);
+//            imageView.setImageResource(R.drawable.yellow_panel);
+            list.get(i).setMatch(0);
+//
         }
         previousMcontents.setMatch(0);
         MAllContent mContents = new MAllContent();
