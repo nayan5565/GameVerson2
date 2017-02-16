@@ -89,6 +89,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
             } else {
 //                shakeAnimation(holder.itemView);
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -98,9 +99,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
-                holder.txtContents.setBackgroundColor(Color.BLACK);
-//                holder.imgAnim2.setImageResource(R.drawable.red_panel);
+//                holder.txtContents.setBackgroundColor(Color.BLACK);
+                holder.imgAnim2.setImageResource(R.drawable.red_panel);
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         } else if (Global.SUB_LEVEL_ID == 3) {
