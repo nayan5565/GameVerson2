@@ -18,6 +18,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:fontFamily="cursive"
+            android:background="@drawable/rounded_corner"
             android:text="Game Names"
             android:textSize="30dp" />
 

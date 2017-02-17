@@ -1,8 +1,13 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +34,7 @@ import com.example.nayan.gameverson2.utils.Utils;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static ArrayList<MLevel> levelsEnglish;
     private static ArrayList<MLevel> levelsBanglaMath;
     private DatabaseHelper database;
-    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath;
+    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath,textName;
     private String image;
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
@@ -86,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        textName=(TextView)findViewById(R.id.txtGameNames);
+
         database = new DatabaseHelper(this);
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);
@@ -124,13 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Utils.isSoundPlay = false;
 
         }
-
-
-//        result = (Button) findViewById(R.id.result);
-//        special = (Button) findViewById(R.id.special);
-//        special.setOnClickListener(this);
-//        result.setTextColor(0xffff00ff);
-//        special.setTextColor(0xffff00ff);
 
 
     }
@@ -189,49 +190,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         Utils.levels = new ArrayList<MLevel>();
                         Utils.mSubLevelArrayList = new ArrayList<MSubLevel>();
-
-//                        try {
-//                            JSONObject puzzle = response.getJSONObject("puzzle");
-//
-//
-//                            JSONArray level = puzzle.getJSONArray("level");
-//                            for (int i = 0; i < level.length(); i++) {
-//                                JSONObject jsonObject = level.getJSONObject(i);
-//
-//                                mLevel = new MLevel();
-////                                mLevel.setId(jsonObject.getInt("id"));
-//                                mLevel.setLid(jsonObject.getInt("lid"));
-//                                mLevel.setName(jsonObject.getString("name"));
-//                                Log.e("level", "name :" + mLevel.getName());
-//                                mLevel.setUpdate_date(jsonObject.getString("update_date"));
-//                                mLevel.setTotal_slevel(jsonObject.getString("total_slevel"));
-//                                Utils.levels.add(mLevel);
-//
-//                                JSONArray sub = jsonObject.getJSONArray("sub");
-//
-//                                MSubLevel mSubLevel;
-//                                int count = 0;
-//                                for (int j = 0; j < sub.length(); j++) {
-//                                    JSONObject subLevel = sub.getJSONObject(j);
-//
-//                                    count++;
-//                                    mSubLevel = new MSubLevel();
-//                                    mSubLevel.setParentId(mLevel.getLid());
-//                                    mSubLevel.setParentName(mLevel.getName());
-//                                    mSubLevel.setLid(subLevel.getInt("lid"));
-//                                    mSubLevel.setName(subLevel.getString("name"));
-//                                    Log.e("sublevel", "name :" + mSubLevel.getName());
-//                                    mSubLevel.setCoins_price(subLevel.getString("coins_price"));
-//                                    mSubLevel.setNo_of_coins(subLevel.getString("no_of_coins"));
-//                                    Utils.mSubLevelArrayList.add(mSubLevel);
-//
-//                                }
-//
-//
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
                         try {
                             MLevel[] levelData = gson.fromJson(response.getJSONObject("puzzle").getJSONArray("level").toString(), MLevel[].class);
                             Utils.levels = new ArrayList<MLevel>(Arrays.asList(levelData));
@@ -525,6 +483,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             database.addBanglaWordsFromJsom(mWords);
         }
     }
+    public void imageGet(){
+        Picasso.with(this)
+                .load(Global.IMAGE_URL+mWords.getWimg())
+                .rotate(280);
+//                .into(imageView1);
+    }
 
     private void saveMathWordsToDb() {
         for (MWords mWords : Utils.MATH_words) {
@@ -566,22 +530,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-//        if (v.getId() == R.id.special) {
-//            DialogSoundOnOff.dialogShow(this);
-////            LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-////            View view = layoutInflater.inflate(R.layout.scrollview_dailog, null);
-////            TextView textView = (TextView) view.findViewById(R.id.txtScroll);
-////            textView.setText("Your really long message.");
-////            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-////            textView.setTextColor(0xffff00ff);
-////            alertDialog.setTitle("Title");
-////alertDialog.setMessage("Here is a really long message.");
-////            alertDialog.setView(view);
-////            alertDialog.setButton("OK", null);
-////            AlertDialog alert = alertDialog.create();
-////            alert.show();
-//
-//        }
         if (v.getId() == R.id.btnBangla) {
 
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
@@ -613,6 +561,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+    }
+    public class GraphicsView extends View {
+        private static final String MY_TEXT = "xjaphx: Draw Text on Curve";
+        private Path mArc;
+
+        private Paint mPaintText;
+
+        public GraphicsView(Context context) {
+            super(context);
+
+            mArc = new Path();
+            RectF oval = new RectF(50,100,200,250);;
+            mArc.addArc(oval, -180, 200);
+            mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
+            mPaintText.setColor(Color.WHITE);
+            mPaintText.setTextSize(20f);
+
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            canvas.drawTextOnPath(MY_TEXT, mArc, 0, 20, mPaintText);
+            invalidate();
+        }
     }
 
 

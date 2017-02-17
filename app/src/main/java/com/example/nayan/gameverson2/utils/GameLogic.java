@@ -126,7 +126,7 @@ public class GameLogic {
             gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
-            imageView.setImageResource(R.drawable.red_panel);
+            imageView.setImageResource(R.drawable.green_panel);
 //            view2.setBackgroundColor(0xff888888);
             clickCount = mContents.getMid();
             count++;
@@ -135,7 +135,8 @@ public class GameLogic {
         } else {
             Utils.getSound(context, R.raw.fail);
             shakeAnimation(view);
-            view2.setBackgroundColor(0xffff0000);
+            imageView.setImageResource(R.drawable.red_panel);
+//            view2.setBackgroundColor(0xffff0000);
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
@@ -229,7 +230,7 @@ public class GameLogic {
             } else {
                 previousMcontents.setMatch(0);
                 mContents.setMatch(0);
-                imageView.setImageResource(R.drawable.yellow_panel);
+                imageView.setImageResource(R.drawable.red_panel);
 //                mContents.setClick(Utils.IMAGE_OFF);
 //                previousMcontents.setClick(Utils.IMAGE_OFF);
                 Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();

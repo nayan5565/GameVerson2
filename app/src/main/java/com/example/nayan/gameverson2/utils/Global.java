@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Created by NAYAN on 11/14/2016.
  */
 public class Global {
+    public static final String IMAGE_URL = "http://www.radhooni.com/content/match_game/v1/images/";
     public static int levelId;
     public static String levelName;
     public static String subLevelName;

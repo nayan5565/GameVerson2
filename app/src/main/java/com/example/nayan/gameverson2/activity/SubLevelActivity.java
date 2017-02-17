@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,22 +19,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nayan.gameverson2.Manifest;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
+import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
+import com.example.nayan.gameverson2.utils.DownLoadAsyncTask;
 import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by NAYAN on 11/24/2016.
  */
 public class SubLevelActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String IMAGE_URL = "http://www.radhooni.com/content/match_game/v1/images/";
+
     private static int value;
     private static SubLevelAdapter subLevelAdapter;
     public static ArrayList<MSubLevel> mSubLevels;
@@ -43,6 +50,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private DatabaseHelper database;
     private RecyclerView recyclerView;
     private TextView txtLevelName;
+    MAllContent mAllContent=new MAllContent();
     private String lName;
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back, btnSubSetting;
@@ -97,6 +105,31 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+    private void downloadAssets() {
+//        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+//            ArrayList<String> uniqueImage = new ArrayList<>();
+//            for (int i = 0; i < Utils.BANGLA.size(); i++) {
+//                ArrayList<MWords> assetArrayList = database.getBanglaWordsData(Utils.BANGLA.get(i).getMid());
+//                for (int j = 0; j < assetArrayList.size(); j++) {
+//                    if (!uniqueImage.contains(assetArrayList.get(j).getWimg())) {
+//                        uniqueImage.add(assetArrayList.get(j).getWimg());
+//                    }
+//                }
+//            }
+//            for (int i = 0; i < uniqueImage.size(); i++) {
+//                Log.e("DOWNLOAD_PATH", "Path:" + MainActivity.getPath(uniqueImage.get(i)));
+//                File file = new File(MainActivity.getPath(uniqueImage.get(i)));
+//                if (!file.exists()) {
+//                    new DownLoadAsyncTask(this, MainActivity.getPath(uniqueImage.get(i))).execute(IMAGE_URL + uniqueImage.get(i));
+//                }
+//
+//            }
+//        } else requestStoragePermission();
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
