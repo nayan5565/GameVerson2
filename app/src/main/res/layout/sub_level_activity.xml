@@ -17,13 +17,13 @@
             android:id="@+id/txtLevelName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_weight="1"
+            android:fontFamily="cursive"
             android:text="level Name"
             android:textColor="#f0f"
-            android:textSize="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:textSize="30dp" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Level Select"
+            android:fontFamily="cursive"
             android:textColor="#fff"
             android:textSize="40dp" />
 

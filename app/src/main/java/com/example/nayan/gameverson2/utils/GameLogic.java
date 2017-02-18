@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.opengl.Visibility;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
-import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
@@ -90,11 +88,11 @@ public class GameLogic {
 //        lock.setUnlockNextLevel(1);
         db.addLockData(lock);
 
-        if (mSubLevels.size() - 1 > Global.INDEX_POSISION) {
+        if (mSubLevels.size() - 1 > Global.SUB_INDEX_POSITION) {
             lock = new MLock();
-            Log.e("global", "index" + Global.INDEX_POSISION);
+            Log.e("global", "index" + Global.SUB_INDEX_POSITION);
             Log.e("array List", "size :" + mSubLevels.size());
-            MSubLevel mSubLevel = mSubLevels.get(Global.INDEX_POSISION + 1);
+            MSubLevel mSubLevel = mSubLevels.get(Global.SUB_INDEX_POSITION + 1);
             lock.setId(mSubLevel.getLid());
             lock.setUnlockNextLevel(1);
             db.addLockData(lock);
@@ -578,18 +576,18 @@ public class GameLogic {
         imgNextLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Global.INDEX_POSISION >= Global.parentName.size() - 1) {
+                if (Global.SUB_INDEX_POSITION >= Global.parentName.size() - 1) {
                     Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
 
                     return;
 
                 } else {
                     Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
-                    Global.INDEX_POSISION = Global.INDEX_POSISION + 1;
-                    mSubLevels.get(Global.INDEX_POSISION).setUnlockNextLevel(1);
+                    Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
+                    mSubLevels.get(Global.SUB_INDEX_POSITION).setUnlockNextLevel(1);
                     DatabaseHelper db = new DatabaseHelper(context);
-                    db.addSubFromJsom(mSubLevels.get(Global.INDEX_POSISION));
-                    GameActivity.getInstance().refresh(Global.INDEX_POSISION);
+                    db.addSubFromJsom(mSubLevels.get(Global.SUB_INDEX_POSITION));
+                    GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 }
                 dialog.dismiss();
             }

@@ -90,7 +90,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 3) {
             imageArrayList1 = database.getBanglaContentsContentsData();
-            Collections.shuffle(imageArrayList1);
+//            Collections.shuffle(imageArrayList1);
 
         } else if (Global.SUB_LEVEL_ID == 4) {
             imageArrayList1 = database.getMathContentsContentsData();
@@ -193,7 +193,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
         parentName = Global.parentLevelName;
 
-        Global.INDEX_POSISION = getIntent().getIntExtra("index", 0);
+        Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
         Global.SUB_LEVEL_ID = getIntent().getIntExtra("Sid", 0);
 
 
@@ -205,7 +205,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         subLevelName = Global.parentName.get(index).getName();
         Log.e("sublevel name", "s  n :" + subLevelName);
         parentName = Global.parentName.get(index).getParentName();
-        Log.e("index ", "posi =" + Global.INDEX_POSISION);
+        Log.e("index ", "posi =" + Global.SUB_INDEX_POSITION);
         getLocalData();
         prepareDisplay();
     }

@@ -13,8 +13,9 @@ public class Global {
     public static String levelName;
     public static String subLevelName;
     public static String parentLevelName;
-    public static int INDEX_POSISION;
+    public static int SUB_INDEX_POSITION;
     public static int SUB_LEVEL_ID;
+    public static int GAME_INDEX_POSITION;
     public static final String API_LEVELS = "levels.php";
     public static final String API_CONTENTS = "contents.php";
     public static final String API_MATH = "contents_math.php";
