@@ -1,6 +1,11 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -50,7 +55,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private DatabaseHelper database;
     private RecyclerView recyclerView;
     private TextView txtLevelName;
-    MAllContent mAllContent=new MAllContent();
+    MAllContent mAllContent = new MAllContent();
     private String lName;
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back, btnSubSetting;
@@ -59,6 +64,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     String uriGreen = "@drawable/green_panel";
     String uriYellow = "@drawable/yellow_panel";
     String uriRed = "@drawable/red_panel";
+
 
 
     @Override
@@ -105,6 +111,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+
     private void downloadAssets() {
 //        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 //        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {

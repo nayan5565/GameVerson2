@@ -25,6 +25,7 @@ import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.GameLogic;
 import com.example.nayan.gameverson2.utils.Global;
 import com.example.nayan.gameverson2.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -305,10 +306,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Global.GAME_INDEX_POSITION = Global.GAME_INDEX_POSITION - 1;
 //                    Utils.BANGLA.get(Global.GAME_INDEX_POSITION);
 
-
+                    mContents = textArrayList.get(Global.GAME_INDEX_POSITION);
                     mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                     dialogShohWithWordsList();
-                    GameActivity.getInstance().refresh(Global.GAME_INDEX_POSITION);
+//                    GameActivity.getInstance().refresh(Global.GAME_INDEX_POSITION);
                     Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
@@ -321,38 +322,70 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 dialog.dismiss();
             }
         });
-
+        Log.e("TEST", "s:" + mContents.getWords().size());
         if (mContents.getWords().size() == 4) {
             txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(1).getWword());
             txt3.setText(mContents.getWords().get(2).getWword());
             txt4.setText(mContents.getWords().get(3).getWword());
-//            img1.setImageResource(mContents.getWords().get(0).getWimg());
-//            img2.setImageResource(mContents.getWords().get(1).getWimg());
-//            img3.setImageResource(mContents.getWords().get(2).getWimg());
-//            img4.setImageResource(mContents.getWords().get(3).getWimg());
+
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
+            String url4 = Global.IMAGE_URL + mContents.getWords().get(3).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+            Picasso.with(context)
+                    .load(url3)
+                    .into(img3);
+            Picasso.with(context)
+                    .load(url4)
+                    .into(img4);
 
         } else if (mContents.getWords().size() == 3) {
             txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(1).getWword());
             txt3.setText(mContents.getWords().get(2).getWword());
             txt4.setText("null");
-//            img1.setImageResource(mContents.getWords().get(0).getWimg());
-//            img2.setImageResource(mContents.getWords().get(1).getWimg());
-//            img3.setImageResource(mContents.getWords().get(2).getWimg());
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+            Picasso.with(context)
+                    .load(url3)
+                    .into(img3);
         } else if (mContents.getWords().size() == 2) {
             txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(1).getWword());
             txt3.setText("null");
             txt4.setText("null");
-//            img1.setImageResource(mContents.getWords().get(0).getWimg());
-//            img2.setImageResource(mContents.getWords().get(1).getWimg());
-
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
         } else if (mContents.getWords().size() == 1) {
             txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText("null");
             txt3.setText("null");
             txt4.setText("null");
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            Log.e("imgae", "url is" + url);
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
 //            img1.setImageResource(mContents.getWords().get(0).getWimg());
 
 

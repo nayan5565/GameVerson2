@@ -13,7 +13,7 @@ import android.view.View;
  */
 
 public class GraficsView extends View {
-    private static final String MY_TEXT = "xjaphx: Draw Text on Curve";
+    private static final String MY_TEXT = "Level Select";
     private Path mArc;
 
     private Paint mPaintText;

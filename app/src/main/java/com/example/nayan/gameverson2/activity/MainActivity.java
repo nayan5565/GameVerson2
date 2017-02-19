@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static ArrayList<MLevel> levelsEnglish;
     private static ArrayList<MLevel> levelsBanglaMath;
     private DatabaseHelper database;
-    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath,textName;
+    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName;
     private String image;
     private static String B_URL = Global.BASE_URL;
     private static String ALTER_URL = "";
@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        textName=(TextView)findViewById(R.id.txtGameNames);
+        textName = (TextView) findViewById(R.id.txtGameNames);
+
 
         database = new DatabaseHelper(this);
         btnSetting = (Button) findViewById(R.id.btnSetting);
@@ -347,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         saveMathContentsOfAllLevelToDb();
                         saveMathWordsToDb();
-                        Log.e("mathList","is : "+Utils.MATH_words.size());
+                        Log.e("mathList", "is : " + Utils.MATH_words.size());
                     }
 
                     @Override
@@ -483,17 +484,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             database.addBanglaWordsFromJsom(mWords);
         }
     }
-    public void imageGet(){
-        Picasso.with(this)
-                .load(Global.IMAGE_URL+mWords.getWimg())
-                .rotate(280);
-//                .into(imageView1);
-    }
+
 
     private void saveMathWordsToDb() {
         for (MWords mWords : Utils.MATH_words) {
             database.addMathWordsFromJsom(mWords);
-            Log.e("math"," words");
+            Log.e("math", " words");
         }
     }
 
@@ -562,6 +558,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
     public class GraphicsView extends View {
         private static final String MY_TEXT = "xjaphx: Draw Text on Curve";
         private Path mArc;
@@ -572,7 +569,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super(context);
 
             mArc = new Path();
-            RectF oval = new RectF(50,100,200,250);;
+            RectF oval = new RectF(50, 100, 200, 250);
+            ;
             mArc.addArc(oval, -180, 200);
             mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
             mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
