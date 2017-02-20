@@ -504,34 +504,6 @@ public class GameLogic {
         previousType = mImage.getPresentType();
     }
 
-
-    public void dialogforTextClick(MAllContent mContents, View view, final int pos) {
-//        this.list2=list2;
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_show_text);
-                dialog.setCancelable(false);
-                TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
-                TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
-                TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
-                TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
-//        txt1.setText(list2.get(0).getWword());
-//        txt2.setText(list2.get(1).getWword());
-//        txt3.setText(list2.get(2).getWword());
-//        txt4.setText(list2.get(3).getWword());
-                txt1.setText(list.get(pos).getWords().get(0).getWword());
-                txt2.setText(list.get(pos).getWords().get(1).getWword());
-                txt3.setText(list.get(pos).getWords().get(2).getWword());
-                txt4.setText(list.get(pos).getWords().get(3).getWword());
-                dialog.show();
-            }
-        });
-
-
-    }
-
     private void dialogShowForLevelClear(final int listSize) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -539,9 +511,9 @@ public class GameLogic {
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //        changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
-        TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-        TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
-        TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
+        final TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+        final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+        final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
         imgLevelMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -584,6 +556,8 @@ public class GameLogic {
                 } else {
                     Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
+
+                    savePoint(listSize);
                     mSubLevels.get(Global.SUB_INDEX_POSITION).setUnlockNextLevel(1);
                     DatabaseHelper db = new DatabaseHelper(context);
                     db.addSubFromJsom(mSubLevels.get(Global.SUB_INDEX_POSITION));

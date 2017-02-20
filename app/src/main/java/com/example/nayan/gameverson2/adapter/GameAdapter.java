@@ -118,8 +118,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 4) {
             if (mContents.getMatch() == 1) {
+//                holder.txtContents.setBackgroundColor(0xff888888);
+//                flipAnimation(holder.txtContents);
 
             } else {
+//                shakeAnimation(holder.itemView);
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
@@ -145,8 +148,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 8) {
             if (mContents.getMatch() == 1) {
+//                holder.txtContents.setBackgroundColor(0xff888888);
+//                flipAnimation(holder.txtContents);
 
             } else {
+//                shakeAnimation(holder.itemView);
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
@@ -235,19 +241,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShohWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 4) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 5) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 6) {
                         mContents.setWords(db.getMathWordsData(mContents.getMid()));
                         dialogShohWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 8) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 9) {
                         mContents.setWords(db.getWordsData(mContents.getMid()));
                         dialogShohWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 13) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 14) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 15) {
@@ -312,23 +318,23 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                 } else {
                     Global.GAME_INDEX_POSITION = Global.GAME_INDEX_POSITION - 1;
-//                    Utils.BANGLA.get(Global.GAME_INDEX_POSITION);
 
                     mContents = textArrayList.get(Global.GAME_INDEX_POSITION);
 
                     if (Global.SUB_LEVEL_ID == 3) {
 
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
-                    }if (Global.SUB_LEVEL_ID == 6) {
+                    }
+                    if (Global.SUB_LEVEL_ID == 6) {
 
                         mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                    }if (Global.SUB_LEVEL_ID == 8) {
+                    }
+                    if (Global.SUB_LEVEL_ID == 9) {
 
                         mContents.setWords(db.getWordsData(mContents.getMid()));
                     }
 
                     dialogShohWithWordsList();
-//                    GameActivity.getInstance().refresh(Global.GAME_INDEX_POSITION);
                     Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
