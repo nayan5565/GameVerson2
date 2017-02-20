@@ -109,7 +109,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         } else if (Global.SUB_LEVEL_ID == 3) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
                 holder.txtContents.setBackgroundColor(0);
@@ -117,9 +117,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 4) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -128,12 +129,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
-                holder.txtContents.setBackgroundColor(Color.BLACK);
+//                holder.txtContents.setBackgroundColor(Color.BLACK);
+                holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         } else if (Global.SUB_LEVEL_ID == 6) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
                 holder.txtContents.setBackgroundColor(0);
@@ -141,15 +144,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 8) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 9) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
                 holder.txtContents.setBackgroundColor(0);
@@ -157,9 +161,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 13) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -168,8 +173,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
-                holder.txtContents.setBackgroundColor(Color.BLACK);
+//                holder.txtContents.setBackgroundColor(Color.BLACK);
+                holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         } else if (Global.SUB_LEVEL_ID == 15) {
@@ -181,9 +188,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.SUB_LEVEL_ID == 19) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getMatch() == 1) {
 
             } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
             holder.txtContents.setText(mContents.getTxt());
@@ -307,7 +315,18 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                    Utils.BANGLA.get(Global.GAME_INDEX_POSITION);
 
                     mContents = textArrayList.get(Global.GAME_INDEX_POSITION);
-                    mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
+
+                    if (Global.SUB_LEVEL_ID == 3) {
+
+                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
+                    }if (Global.SUB_LEVEL_ID == 6) {
+
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                    }if (Global.SUB_LEVEL_ID == 8) {
+
+                        mContents.setWords(db.getWordsData(mContents.getMid()));
+                    }
+
                     dialogShohWithWordsList();
 //                    GameActivity.getInstance().refresh(Global.GAME_INDEX_POSITION);
                     Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
