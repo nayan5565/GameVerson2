@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else if (Global.SUB_LEVEL_ID == 2) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaContentsContentsData();
-            imageArrayList1 = generateAssets(realAssets);
+            imageArrayList1 = generatesTxtSen(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.SUB_LEVEL_ID == 3) {
             imageArrayList1 = database.getBanglaContentsContentsData();
@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             tempTxtSen.add(mContents);
             count++;
             MAllContent contents = new MAllContent();
-            contents.setSen(mContents.getSen());
+            contents.setImg(mContents.getImg());
             contents.setMid(count);
 //            contents.setPresentId(mContents.getPresentId());
             contents.setPresentType(mContents.getPresentType());
