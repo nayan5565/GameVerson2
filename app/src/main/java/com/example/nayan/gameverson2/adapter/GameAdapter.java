@@ -120,19 +120,20 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //        }
 
         else if (Global.SUB_LEVEL_ID == 2) {
-            holder.txtContents.setText(mContents.getTxt());
+//            holder.txtContents.setText(mContents.getTxt());
+            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+                Log.e("image e","img :"+Global.IMAGE_URL+mContents.getImg());
+                holder.txtContents.setVisibility(View.GONE);
+                Picasso.with(context)
+                        .load(Global.IMAGE_URL+mContents.getImg())
+                        .into(holder.imgAnim);
+
+            } else {
+                holder.txtContents.setText(mContents.getTxt());
+            }
             holder.txtContents.setTextColor(0xffff00ff);
             if (mContents.getMatch() == 1) {
-                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-                    Log.e("image e","img :"+Global.IMAGE_URL+mContents.getImg());
-                    holder.txtContents.setVisibility(View.GONE);
-                    Picasso.with(context)
-                            .load(Global.IMAGE_URL+mContents.getImg())
-                            .into(holder.imgAnim);
 
-                } else {
-                    holder.txtContents.setText(mContents.getTxt());
-                }
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);

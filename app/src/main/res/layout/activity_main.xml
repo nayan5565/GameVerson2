@@ -17,7 +17,6 @@
             android:id="@+id/txtGameNames"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corner"
             android:fontFamily="cursive"
             android:gravity="center"
             android:text="Game Names"

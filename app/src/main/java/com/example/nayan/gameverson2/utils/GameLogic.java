@@ -176,7 +176,7 @@ public class GameLogic {
             return;
         }
 //        list.get(pos).setClick(Utils.IMAGE_OPEN);
-        list.get(pos).setMatch(1);
+//        list.get(pos).setMatch(1);
         if (previousId == 0) {
             mContents.setMatch(1);
 //            mContents.setClick(Utils.IMAGE_OPEN);
