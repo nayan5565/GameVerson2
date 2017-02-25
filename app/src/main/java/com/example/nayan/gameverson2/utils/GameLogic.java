@@ -4,10 +4,12 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -176,7 +178,7 @@ public class GameLogic {
             return;
         }
 //        list.get(pos).setClick(Utils.IMAGE_OPEN);
-//        list.get(pos).setMatch(1);
+        list.get(pos).setMatch(1);
         if (previousId == 0) {
             mContents.setMatch(1);
 //            mContents.setClick(Utils.IMAGE_OPEN);
@@ -247,13 +249,13 @@ public class GameLogic {
         }
     }
 
-    public void imageClick(final MContents mImage, int pos, final int listSize, final View view, final ImageView imageView) {
+    public void imageClick(final MAllContent mImage, int pos, final int listSize, final View view, final ImageView imageView) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
 
         counter++;
 
-        if (previousId == mImage.getPresentId() || count > 1 || mImage.getClick() == Utils.IMAGE_OPEN) {
+        if (previousId == mImage.getMid() || count > 1 || mImage.getMatch() ==1) {
             Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
@@ -262,7 +264,7 @@ public class GameLogic {
         }
         clickCount++;
 
-        list.get(pos).setClick(Utils.IMAGE_OPEN);
+        list.get(pos).setMatch(1);
 
         flipAnimation(view);
 //        handler.postDelayed(new Runnable() {
@@ -306,24 +308,7 @@ public class GameLogic {
                         @Override
                         public void run() {
 //                            resetList(listSize);
-
-                            Dialog dialog = new Dialog(context);
-                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                            dialog.setContentView(R.layout.dialog_level_cleared);
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
-                            TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-                            txtBestPoint.setText("" + Utils.bestPoint);
-                            txtScore.setText(presentPoint + "");
-                            if (presentPoint == 50) {
-                                txtPoint.setText(Utils.getIntToStar(1));
-                            } else if (presentPoint == 75) {
-                                txtPoint.setText(Utils.getIntToStar(2));
-                            } else if (presentPoint == 100) {
-                                txtPoint.setText(Utils.getIntToStar(3));
-                            } else txtPoint.setText(Utils.getIntToStar(0));
-                            dialog.show();
+                            dialogShowForLevelClear(listSize);
                         }
                     }, 1500);
 //                    VungleAdManager.getInstance(context).play();
@@ -348,19 +333,21 @@ public class GameLogic {
                     public void run() {
 //                        Utils.getSound(context, R.raw.fail);
                         for (int i = 0; i < listSize; i++) {
-                            if (list.get(i).getPresentId() == previous || list.get(i).getPresentId() == mImage.getPresentId()) {
-                                list.get(i).setClick(Utils.IMAGE_OFF);
+                            if (list.get(i).getMid() == previous || list.get(i).getMid() == mImage.getMid()) {
+                                list.get(i).setMatch(0);
+                                gameAdapter.notifyDataSetChanged();
+                                imageView.setImageResource(R.drawable.red_panel);
                                 Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
-                                flipAnimation2(view);
+//                                flipAnimation2(view);
 //
                             }
                         }
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                gameAdapter.notifyDataSetChanged();
-                            }
-                        }, 400);
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                gameAdapter.notifyDataSetChanged();
+//                            }
+//                        }, 400);
 
 //                        textView.setBackgroundColor(0);
                         count = 0;
@@ -515,6 +502,7 @@ public class GameLogic {
         final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
+        ImageView imgFacebook = (ImageView) dialog.findViewById(R.id.imgFacebook);
         imgLevelMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -563,6 +551,14 @@ public class GameLogic {
                     db.addSubFromJsom(mSubLevels.get(Global.SUB_INDEX_POSITION));
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 }
+                dialog.dismiss();
+            }
+        });
+        imgFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/apple.fruit"));
+                context.startActivity(browserIntent);
                 dialog.dismiss();
             }
         });

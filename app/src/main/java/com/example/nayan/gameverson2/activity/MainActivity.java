@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         textName = (TextView) findViewById(R.id.txtGameNames);
 
-
         database = new DatabaseHelper(this);
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);

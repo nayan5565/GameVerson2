@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             tempTxtSen.add(mContents);
             count++;
             MAllContent contents = new MAllContent();
-            contents.setImg(mContents.getImg());
+            contents.setSen(mContents.getSen());
             contents.setMid(count);
 //            contents.setPresentId(mContents.getPresentId());
             contents.setPresentType(mContents.getPresentType());
