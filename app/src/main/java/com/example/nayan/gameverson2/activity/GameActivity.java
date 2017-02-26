@@ -46,7 +46,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseHelper database;
     public String subLevelName;
     public String parentName;
-    private TextView txtName;
+    public TextView txtName, txtTotalPoint;
 
     //    private GameActivity(){
 //
@@ -177,10 +177,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void init() {
+    public void init() {
 
         gameActivity = this;
         txtName = (TextView) findViewById(R.id.txtName);
+        txtTotalPoint = (TextView) findViewById(R.id.txtTotalPoint);
         database = new DatabaseHelper(this);
         imgSetting = (ImageView) findViewById(R.id.imgseting);
         imgSetting.setOnClickListener(this);
@@ -212,7 +213,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void prepareDisplay() {
         txtName.setText(parentName + "(" + subLevelName + ")");
-        int item = Utils.getScreenSize(this, 100);
+        txtTotalPoint.setText(Global.TOTAL_POINT + "");
+        int item = Utils.getScreenSize(this, 90);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.setData(imageArrayList1);

@@ -226,7 +226,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             changeColor.setBackground(resRed);
             txtLevelName.setTextColor(0xffff0000);
         }
-        int item = Utils.getScreenSize(this, 80);
+        int item = Utils.getScreenSize(this, 90);
         txtLevelName.setText(lName);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(subLevelAdapter);

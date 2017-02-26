@@ -98,49 +98,48 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
 
-        }
-//        else if (Global.SUB_LEVEL_ID == 2) {
-//            holder.txtContents.setTextColor(0xffff00ff);
-//            holder.txtContents.setTextSize(20);
-//            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-//              holder.txtContents.setText(mContents.getSen());
-//
-//
-//            } else {
-//                holder.txtContents.setText(mContents.getTxt());
-//            }
-//            if (mContents.getMatch() ==1) {
-//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
-//            } else {
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(0);
-//            }
-//
-//        }
-
-        else if (Global.SUB_LEVEL_ID == 2) {
+        } else if (Global.SUB_LEVEL_ID == 2) {
             holder.txtContents.setTextColor(0xffff00ff);
-//            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextSize(20);
             if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-                holder.txtContents.setVisibility(View.GONE);
-                Log.e("image e","img :"+Global.IMAGE_URL+mContents.getImg());
-                Picasso.with(context)
-                        .load(Global.IMAGE_URL+mContents.getImg())
-                        .into(holder.imgAnim);
+                holder.txtContents.setText(mContents.getSen());
+
 
             } else {
                 holder.txtContents.setText(mContents.getTxt());
-//                holder.imgAnim.setVisibility(View.GONE);
             }
-
             if (mContents.getMatch() == 1) {
-
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+                holder.txtContents.setBackgroundColor(0);
             }
+
         }
+
+//        else if (Global.SUB_LEVEL_ID == 2) {
+//            holder.txtContents.setTextColor(0xffff00ff);
+////            holder.txtContents.setText(mContents.getTxt());
+//            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+//                holder.txtContents.setVisibility(View.GONE);
+//                Log.e("image e","img :"+Global.IMAGE_URL+mContents.getImg());
+//                Picasso.with(context)
+//                        .load(Global.IMAGE_URL+mContents.getImg())
+//                        .into(holder.imgAnim);
+//
+//            } else {
+//                holder.txtContents.setText(mContents.getTxt());
+////                holder.imgAnim.setVisibility(View.GONE);
+//            }
+//
+//            if (mContents.getMatch() == 1) {
+//
+//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
+//            } else {
+//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
+//                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
+//            }
+//        }
         else if (Global.SUB_LEVEL_ID == 3) {
             if (mContents.getMatch() == 1) {
 
@@ -273,7 +272,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                        gameLogic.imageClick( mContents,getAdapterPosition(),textArrayList.size(),itemView, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
-                        dialogShohWithWordsList();
+                        dialogShowWithWordArray(getAdapterPosition());
+//                        dialogShohWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 4) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 5) {
@@ -325,11 +325,98 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         v.startAnimation(shake);
     }
 
+    private void dialogShowWithWordArray(int pos) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_show_with_word_text);
+        TextView txt1 = (TextView) dialog.findViewById(R.id.txtOne);
+        TextView txt2 = (TextView) dialog.findViewById(R.id.txtTwo);
+        TextView txt3 = (TextView) dialog.findViewById(R.id.txtThree);
+        TextView txt4 = (TextView) dialog.findViewById(R.id.txtFour);
+        ImageView img1 = (ImageView) dialog.findViewById(R.id.imgOne);
+        ImageView img2 = (ImageView) dialog.findViewById(R.id.imgTwo);
+        ImageView img3 = (ImageView) dialog.findViewById(R.id.imgThree);
+        ImageView imgSound = (ImageView) dialog.findViewById(R.id.imgSoundOne);
+        ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBackOne);
+        ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgCloseOne);
+        txt1.setText(textArrayList.get(pos).getTxt());
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Log.e("TEST", "s:" + mContents.getWords().size());
+        if (mContents.getWords().size() == 4) {
+//            txt1.setText(mContents.getWords().get(0).getWword());
+            txt2.setText(mContents.getWords().get(0).getWword());
+            txt3.setText(mContents.getWords().get(1).getWword());
+            txt4.setText(mContents.getWords().get(2).getWword());
+
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+            Picasso.with(context)
+                    .load(url3)
+                    .into(img3);
+        } else if (mContents.getWords().size() == 3) {
+            txt2.setText(mContents.getWords().get(0).getWword());
+            txt3.setText(mContents.getWords().get(1).getWword());
+            txt4.setText(mContents.getWords().get(2).getWword());
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+            Picasso.with(context)
+                    .load(url3)
+                    .into(img3);
+        } else if (mContents.getWords().size() == 2) {
+            txt2.setText(mContents.getWords().get(0).getWword());
+            txt3.setText(mContents.getWords().get(1).getWword());
+            txt4.setText("null");
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+        } else if (mContents.getWords().size() == 1) {
+            txt2.setText(mContents.getWords().get(0).getWword());
+            txt3.setText("null");
+            txt4.setText("null");
+            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+            Log.e("imgae", "url is" + url);
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+//            img1.setImageResource(mContents.getWords().get(0).getWimg());
+
+
+        }
+        dialog.show();
+
+    }
+
     private void dialogShohWithWordsList() {
 
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_show_text);
         TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);

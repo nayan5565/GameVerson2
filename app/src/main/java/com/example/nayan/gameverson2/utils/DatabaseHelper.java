@@ -78,7 +78,7 @@ public class DatabaseHelper {
     private static final String KEY_LEVEL_WIN_COUNT = "win_count";
 
     private final String TAG = getClass().getSimpleName();
-    private final String PASS = Utils.databasePassKey("nayan5565@gmail.com", "Asus");
+    private final String PASS = Utils.databasePassKey("nayan5565@gmail.com", "As us");
 
     private static SQLiteDatabase db;
 

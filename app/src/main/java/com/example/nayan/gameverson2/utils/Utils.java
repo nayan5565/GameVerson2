@@ -38,9 +38,9 @@ public class Utils {
     public static ArrayList<MAllContent> Maths;
     public static ArrayList<MAllContent> BANGLA;
     public static boolean isSoundPlay = true;
-    public static int bestPoint,presentPoint;
+    public static int bestPoint, presentPoint;
     static MediaPlayer mediaPlayer;
-    public static int widthSize,heightSize;
+    public static int widthSize, heightSize;
 
     public static void getSound(Context context, int path) {
         if (isSoundPlay) {
@@ -107,7 +107,7 @@ public class Utils {
         itemSize = getPixel(activity, itemSize);
         int width = size.x;
         int height = size.y;
-        int item = (width - 5) / (itemSize + 5);
+        int item = (width - 30) / (itemSize);
         return item;
 
     }
@@ -117,8 +117,9 @@ public class Utils {
         int paddingDp = (int) (pixel * density);
         return paddingDp;
     }
+
     public static void moveAnimation(Object target, Object target2) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -215, widthSize+10);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -230, widthSize + 10);
         animator.setDuration(9000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
@@ -128,6 +129,7 @@ public class Utils {
         animator1.start();
 
     }
+
     public static int randInt(int min, int max) {
 
 
@@ -148,15 +150,17 @@ public class Utils {
             @Override
             public void run() {
 //                getScreenSize(MainActivity.this);
-                view2.setY(randInt(5,heightSize-15));
+
+                view2.setY(randInt(50, heightSize - 50));
                 view2.setX(280);
-                view.setY(randInt(5,heightSize-15));
+                view.setY(randInt(50, heightSize - 50));
                 view.setX(-200);
-                move(view,view2);
+                move(view, view2);
             }
         }, 9000);
 
     }
+
     public static void getScreenSize(Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -164,9 +168,9 @@ public class Utils {
         int width = size.x;
         int height = size.y;
         widthSize = (width - 5);
-        heightSize = height;
-        Log.e("width","size"+width);
-        Log.e("height","size"+height);
+        heightSize = (height - 50);
+        Log.e("width", "size" + width);
+        Log.e("height", "size" + height);
 
     }
 

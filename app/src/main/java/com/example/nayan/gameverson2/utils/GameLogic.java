@@ -255,7 +255,7 @@ public class GameLogic {
 
         counter++;
 
-        if (previousId == mImage.getMid() || count > 1 || mImage.getMatch() ==1) {
+        if (previousId == mImage.getMid() || count > 1 || mImage.getMatch() == 1) {
             Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
@@ -434,9 +434,9 @@ public class GameLogic {
                             dialog.setContentView(R.layout.dialog_level_cleared);
                             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+//                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                             TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-                            txtBestPoint.setText("" + Utils.bestPoint);
+//                            txtBestPoint.setText("" + Utils.bestPoint);
                             txtScore.setText(presentPoint + "");
                             if (presentPoint == 50) {
                                 txtPoint.setText(Utils.getIntToStar(1));
@@ -499,7 +499,7 @@ public class GameLogic {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //        changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
         final TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
-        final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
+//        final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
         ImageView imgFacebook = (ImageView) dialog.findViewById(R.id.imgFacebook);
@@ -525,6 +525,8 @@ public class GameLogic {
 //                GameLogic.getInstance(context).resetList(listSize);
 //                imageView.setImageResource(R.drawable.yellow_panel);
 
+                GameActivity.getInstance().txtTotalPoint.setText(Global.TOTAL_POINT + "");
+                GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 resetList(listSize);
                 dialog.dismiss();
                 Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
@@ -564,8 +566,8 @@ public class GameLogic {
         });
 
 
-        txtBestPoint.setText("" + Utils.bestPoint);
-        txtScore.setText(presentPoint + "");
+//        txtBestPoint.setText("" + Utils.bestPoint);
+        txtScore.setText("Score :  " + presentPoint + "");
         if (presentPoint == 50) {
             txtPoint.setText(Utils.getIntToStar(1));
         } else if (presentPoint == 75) {
@@ -640,6 +642,7 @@ public class GameLogic {
 
     private void savePoint(int listSize) {
         presentPoint = pointCount(listSize);
+        Global.TOTAL_POINT = Global.TOTAL_POINT + presentPoint;
         if (presentPoint > Utils.bestPoint) {
             Utils.bestPoint = presentPoint;
             saveDb();
