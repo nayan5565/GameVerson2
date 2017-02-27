@@ -53,6 +53,8 @@ public class GameLogic {
     View view1;
     TextView textView2;
     String uriGreen = "@drawable/green_panel";
+    String uriYellow = "@drawable/yellow_panel";
+    String uriRed = "@drawable/red_panel";
 
 
     private GameLogic() {
@@ -87,6 +89,7 @@ public class GameLogic {
         }
         lock.setId(Global.SUB_LEVEL_ID);
         lock.setBestPoint(Utils.bestPoint);
+        lock.setTotal_pont(Global.TOTAL_POINT);
 //        lock.setUnlockNextLevel(1);
         db.addLockData(lock);
 
@@ -496,8 +499,14 @@ public class GameLogic {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_cleared);
         dialog.setCancelable(false);
+        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
+        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
+        int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
+        Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
+        int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
+        Drawable resRed = context.getResources().getDrawable(imageResourceRed);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
+        changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
         final TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
 //        final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
@@ -517,15 +526,26 @@ public class GameLogic {
                 Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
             }
         });
-//        changeColor.setBackground(resGreen);
+        if (Global.levelId == 1) {
+            changeColor.setBackground(resGreen);
+        } else if (Global.levelId == 2) {
+            changeColor.setBackground(resYellow);
+        } else if (Global.levelId == 3) {
+            changeColor.setBackground(resRed);
+        }
+
         ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
         imgReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                GameLogic.getInstance(context).resetList(listSize);
 //                imageView.setImageResource(R.drawable.yellow_panel);
-
+//                MLock mLock = new MLock();
+//                mLock.setTotal_pont(Global.TOTAL_POINT);
+//                DatabaseHelper db = new DatabaseHelper(context);
+//                db.addLockData(mLock);
                 GameActivity.getInstance().txtTotalPoint.setText(Global.TOTAL_POINT + "");
+                Log.e("totalpoint","tpoint is"+Global.TOTAL_POINT);
                 GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 resetList(listSize);
                 dialog.dismiss();
@@ -647,6 +667,7 @@ public class GameLogic {
             Utils.bestPoint = presentPoint;
             saveDb();
         }
+        saveDb();
     }
 
     private int pointCount(int listSize) {

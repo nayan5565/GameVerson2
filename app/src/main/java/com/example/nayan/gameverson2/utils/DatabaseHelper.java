@@ -59,6 +59,7 @@ public class DatabaseHelper {
     private static final String KEY_MODEL_ID = "mid";
     private static final String KEY_LOCK_ID = "loid";
     private static final String KEY_UNLOCK = "un_lock";
+    private static final String KEY_TOTAL_POINT = "lock_total_point";
     private static final String KEY_Q_ID = "qid";
     private static final String KEY_OP_ID = "opid";
     private static final String KEY_PARENT_ID = "pid";
@@ -174,6 +175,7 @@ public class DatabaseHelper {
             + DATABASE_LOCK_TABLE + "("
             + KEY_LOCK_ID + " integer primary key, "
             + KEY_BEST_POINT + " integer, "
+            + KEY_TOTAL_POINT + " integer, "
             + KEY_UNLOCK + " integer)";
     private static final String DATABASE_CREATE_OPTION_TABLE = "create table if not exists "
             + DATABASE_OPTION_TABLE + "("
@@ -528,16 +530,17 @@ public class DatabaseHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_LOCK_ID, mLock.getId());
             values.put(KEY_BEST_POINT, mLock.getBestPoint());
+            values.put(KEY_TOTAL_POINT, mLock.getTotal_pont());
             values.put(KEY_UNLOCK, mLock.getUnlockNextLevel());
 
             String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LOCK_ID + "='" + mLock.getId() + "'";
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int update = db.update(DATABASE_LOCK_TABLE, values, KEY_LOCK_ID + "=?", new String[]{mLock.getId() + ""});
-                Log.e("log", "content update : " + update);
+                Log.e("log", "lockdata update : " + update);
             } else {
                 long v = db.insert(DATABASE_LOCK_TABLE, null, values);
-                Log.e("log", "content insert : " + v);
+                Log.e("log", "contentlock insert : " + v);
 
             }
 
@@ -673,7 +676,9 @@ public class DatabaseHelper {
                 mLock.setId(cursor.getInt(cursor.getColumnIndex(KEY_LOCK_ID)));
                 mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
                 mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
-
+                mLock.setTotal_pont(cursor.getInt(cursor.getColumnIndex(KEY_TOTAL_POINT)));
+                Log.e("totalPoint","is :"+mLock.getTotal_pont());
+                Log.e("unlock","lock size"+unlocks.size());
                 unlocks.add(mLock);
 
             } while (cursor.moveToNext());

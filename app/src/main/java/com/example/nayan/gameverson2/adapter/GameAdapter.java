@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +16,11 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
-import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
 import com.example.nayan.gameverson2.utils.GameLogic;
@@ -28,7 +29,6 @@ import com.example.nayan.gameverson2.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by NAYAN on 11/24/2016.
@@ -46,7 +46,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private int subLevelType;
     private AnimatorSet mSetRightOut;
     private AnimatorSet mSetLeftIn;
+    String uriGreen = "@drawable/green_panel";
+    String uriYellow = "@drawable/yellow_panel";
+    String uriRed = "@drawable/red_panel";
     private boolean mIsBackVisible = false;
+    private RelativeLayout changeColor;
     DatabaseHelper db;
 
 
@@ -273,19 +277,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     } else if (Global.SUB_LEVEL_ID == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShowWithWordArray(getAdapterPosition());
-//                        dialogShohWithWordsList();
+//                        dialogShowWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 4) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 5) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 6) {
                         mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                        dialogShohWithWordsList();
+                        dialogShowWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 8) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 9) {
                         mContents.setWords(db.getWordsData(mContents.getMid()));
-                        dialogShohWithWordsList();
+                        dialogShowWithWordsList();
                     } else if (Global.SUB_LEVEL_ID == 13) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.SUB_LEVEL_ID == 14) {
@@ -294,7 +298,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.SUB_LEVEL_ID == 19) {
-                        dialogShohWithWordsList();
+                        dialogShowWithWordsList();
                     }
 
 
@@ -331,6 +335,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         dialog.setCancelable(true);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_show_with_word_text);
+        RelativeLayout changeColor2 = (RelativeLayout) dialog.findViewById(R.id.dia_relativeLayout2);
+        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
+        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
+        int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
+        Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
+        int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
+        Drawable resRed = context.getResources().getDrawable(imageResourceRed);
         TextView txt1 = (TextView) dialog.findViewById(R.id.txtOne);
         TextView txt2 = (TextView) dialog.findViewById(R.id.txtTwo);
         TextView txt3 = (TextView) dialog.findViewById(R.id.txtThree);
@@ -349,7 +360,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             }
         });
         Log.e("TEST", "s:" + mContents.getWords().size());
-        if (mContents.getWords().size() == 4) {
+        if (Global.levelId == 1) {
+            changeColor2.setBackground(resGreen);
+        } else if (Global.levelId == 2) {
+            changeColor2.setBackground(resYellow);
+        } else if (Global.levelId == 3) {
+            changeColor2.setBackground(resRed);
+        } else if (mContents.getWords().size() == 4) {
 //            txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());
@@ -408,17 +425,25 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
 
         }
+
         dialog.show();
 
     }
 
-    private void dialogShohWithWordsList() {
+    private void dialogShowWithWordsList() {
 
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_show_text);
+        RelativeLayout changeColor2 = (RelativeLayout) dialog.findViewById(R.id.relLayout);
+        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
+        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
+        int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
+        Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
+        int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
+        Drawable resRed = context.getResources().getDrawable(imageResourceRed);
         TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
         TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
         TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
@@ -429,6 +454,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView img4 = (ImageView) dialog.findViewById(R.id.img4);
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBack);
         ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
+        if (Global.levelId == 1) {
+            changeColor2.setBackground(resGreen);
+        } else if (Global.levelId == 2) {
+            changeColor2.setBackground(resYellow);
+        } else if (Global.levelId == 3) {
+            changeColor2.setBackground(resRed);
+        }
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -455,7 +487,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         mContents.setWords(db.getWordsData(mContents.getMid()));
                     }
 
-                    dialogShohWithWordsList();
+                    dialogShowWithWordsList();
                     Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
