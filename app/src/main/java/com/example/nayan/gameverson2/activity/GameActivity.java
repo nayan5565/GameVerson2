@@ -17,6 +17,7 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.GameAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
+import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
@@ -35,6 +36,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static int levelId;
     private static GameActivity gameActivity;
     private static MLevel mLevel;
+    MLock mLock;
     private static MAllContent mContents;
     private MSubLevel mSubLevel = new MSubLevel();
     private ArrayList<MAllContent> imageArrayList1;
@@ -212,8 +214,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void prepareDisplay() {
+
+        mLock = new MLock();
+//        mLock = database.getLocalData(Global.SUB_LEVEL_ID);
+        mLock=database.getLockTotalPointData();
+
         txtName.setText(parentName + "(" + subLevelName + ")");
-        txtTotalPoint.setText(Global.TOTAL_POINT + "");
+        txtTotalPoint.setText(mLock.getTotal_pont() + "");
+        Global.TOTAL_POINT=mLock.getTotal_pont();
         int item = Utils.getScreenSize(this, 90);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);

@@ -677,8 +677,32 @@ public class DatabaseHelper {
                 mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
                 mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
                 mLock.setTotal_pont(cursor.getInt(cursor.getColumnIndex(KEY_TOTAL_POINT)));
-                Log.e("totalPoint","is :"+mLock.getTotal_pont());
-                Log.e("unlock","lock size"+unlocks.size());
+                Log.e("totalPoint", "is :" + mLock.getTotal_pont());
+                Log.e("unlock", "lock size" + unlocks.size());
+                unlocks.add(mLock);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+
+        return mLock;
+    }
+
+    public MLock getLockTotalPointData() {
+        ArrayList<MLock> unlocks = new ArrayList<>();
+        MLock mLock = new MLock();
+        String sql = "select sum(" + KEY_TOTAL_POINT + ") AS TotalItemsOrdered from " + DATABASE_LOCK_TABLE;
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mLock = new MLock();
+//                mLock.setId(cursor.getInt(cursor.getColumnIndex(KEY_LOCK_ID)));
+//                mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
+//                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
+                mLock.setTotal_pont(cursor.getInt(cursor.getColumnIndex("TotalItemsOrdered")));
+                Log.e("totalPoint", "is :" + mLock.getTotal_pont());
+                Log.e("unlock", "lock size" + unlocks.size());
                 unlocks.add(mLock);
 
             } while (cursor.moveToNext());
@@ -814,7 +838,7 @@ public class DatabaseHelper {
     }
 
     public ArrayList<MWords> getMathWordsData(int id) {
-        Log.e("start","get math");
+        Log.e("start", "get math");
         ArrayList<MWords> assetArrayList = new ArrayList<>();
 
         MWords mWords;
@@ -836,7 +860,7 @@ public class DatabaseHelper {
             cursor.close();
         }
 
-        Log.e("getmathlist","math size"+assetArrayList.size());
+        Log.e("getmathlist", "math size" + assetArrayList.size());
         return assetArrayList;
 
     }

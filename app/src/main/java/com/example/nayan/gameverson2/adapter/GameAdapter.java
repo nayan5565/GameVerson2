@@ -329,7 +329,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         v.startAnimation(shake);
     }
 
-    private void dialogShowWithWordArray(int pos) {
+    private void dialogShowWithWordArray(final int pos) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -342,7 +342,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
         int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
         Drawable resRed = context.getResources().getDrawable(imageResourceRed);
-        TextView txt1 = (TextView) dialog.findViewById(R.id.txtOne);
+        final TextView txt1 = (TextView) dialog.findViewById(R.id.txtOne);
         TextView txt2 = (TextView) dialog.findViewById(R.id.txtTwo);
         TextView txt3 = (TextView) dialog.findViewById(R.id.txtThree);
         TextView txt4 = (TextView) dialog.findViewById(R.id.txtFour);
@@ -366,7 +366,44 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             changeColor2.setBackground(resYellow);
         } else if (Global.levelId == 3) {
             changeColor2.setBackground(resRed);
-        } else if (mContents.getWords().size() == 4) {
+        }
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Global.GAME_INDEX_POSITION <= 0) {
+                    Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
+
+                    dialog.dismiss();
+
+                } else {
+                    Global.GAME_INDEX_POSITION = Global.GAME_INDEX_POSITION - 1;
+
+                    mContents = textArrayList.get(Global.GAME_INDEX_POSITION);
+
+                    if (Global.SUB_LEVEL_ID == 3) {
+
+
+                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
+                    }
+                    if (Global.SUB_LEVEL_ID == 6) {
+
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                    }
+                    if (Global.SUB_LEVEL_ID == 9) {
+
+                        mContents.setWords(db.getWordsData(mContents.getMid()));
+                    }
+
+                    dialogShowWithWordArray(Global.GAME_INDEX_POSITION);
+//                    txt1.setText(textArrayList.get(pos).getTxt());
+                    Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+//
+            }
+        });
+
+        if (mContents.getWords().size() == 4) {
 //            txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());

@@ -80,14 +80,22 @@ public class GameLogic {
 
     }
 
+private void addDb(){
+    DatabaseHelper db = new DatabaseHelper(context);
+    MLock mLock = new MLock();
+    mLock.setTotal_pont(Global.TOTAL_POINT);
 
+    mLock=db.getLockTotalPointData();
+    db.addLockData(mLock);
+
+}
     private void saveDb() {
         DatabaseHelper db = DatabaseHelper.getInstance(context);
         MLock lock = db.getLocalData(Global.SUB_LEVEL_ID);
         if (lock == null) {
             lock = new MLock();
         }
-        lock.setId(Global.SUB_LEVEL_ID);
+//        lock.setId(Global.SUB_LEVEL_ID);
         lock.setBestPoint(Utils.bestPoint);
         lock.setTotal_pont(Global.TOTAL_POINT);
 //        lock.setUnlockNextLevel(1);
@@ -143,6 +151,7 @@ public class GameLogic {
             Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
         }
         if (count == listSize) {
+            savePoint(listSize);
 
 
             handler.postDelayed(new Runnable() {
@@ -155,7 +164,6 @@ public class GameLogic {
                 }
             }, 1200);
 
-            savePoint(listSize);
 
             Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
             handler.postDelayed(new Runnable() {
@@ -540,12 +548,9 @@ public class GameLogic {
             public void onClick(View v) {
 //                GameLogic.getInstance(context).resetList(listSize);
 //                imageView.setImageResource(R.drawable.yellow_panel);
-//                MLock mLock = new MLock();
-//                mLock.setTotal_pont(Global.TOTAL_POINT);
-//                DatabaseHelper db = new DatabaseHelper(context);
-//                db.addLockData(mLock);
+
                 GameActivity.getInstance().txtTotalPoint.setText(Global.TOTAL_POINT + "");
-                Log.e("totalpoint","tpoint is"+Global.TOTAL_POINT);
+                Log.e("totalpoint", "tpoint is" + Global.TOTAL_POINT);
                 GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 resetList(listSize);
                 dialog.dismiss();
@@ -663,11 +668,13 @@ public class GameLogic {
     private void savePoint(int listSize) {
         presentPoint = pointCount(listSize);
         Global.TOTAL_POINT = Global.TOTAL_POINT + presentPoint;
+//        saveDb();
+        addDb();
+
         if (presentPoint > Utils.bestPoint) {
             Utils.bestPoint = presentPoint;
             saveDb();
         }
-        saveDb();
     }
 
     private int pointCount(int listSize) {
