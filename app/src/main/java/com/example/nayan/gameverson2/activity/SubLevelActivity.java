@@ -30,6 +30,7 @@ import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
+import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.utils.DatabaseHelper;
@@ -54,9 +55,10 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private static MLevel mLevel = new MLevel();
     private DatabaseHelper database;
     private RecyclerView recyclerView;
-    private TextView txtLevelName;
+    private TextView txtLevelName, txtAllTotal_ponts;
     MAllContent mAllContent = new MAllContent();
     private String lName;
+    private MLock mLock;
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
@@ -64,7 +66,6 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     String uriGreen = "@drawable/green_panel";
     String uriYellow = "@drawable/yellow_panel";
     String uriRed = "@drawable/red_panel";
-
 
 
     @Override
@@ -185,6 +186,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void init() {
+        mLock = new MLock();
         imageView = (ImageView) findViewById(R.id.imageView);
         changeColor = (LinearLayout) findViewById(R.id.changeColor);
         back = (Button) findViewById(R.id.back);
@@ -195,6 +197,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         mLevels = new ArrayList<>();
         database = new DatabaseHelper(this);
         txtLevelName = (TextView) findViewById(R.id.txtLevelName);
+        txtAllTotal_ponts = (TextView) findViewById(R.id.txtAllTotalPoints);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         subLevelAdapter = new SubLevelAdapter(this);
 
@@ -227,6 +230,15 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             txtLevelName.setTextColor(0xffff0000);
         }
         int item = Utils.getScreenSize(this, 90);
+//        DatabaseHelper helper=new DatabaseHelper(this);
+//        MLock lock=new MLock();
+//        lock=helper.getLocalData(Global.SUB_LEVEL_ID);
+//        Global.TOTAL_POINT=lock.getTotal_pont();
+        mLock = database.getLockTotalPointData();
+        Global.ALL_TOTAL_POINT=mLock.getAll_total_point();
+        Log.e("all","point is: "+Global.ALL_TOTAL_POINT);
+        txtAllTotal_ponts.setText(Global.ALL_TOTAL_POINT + "");
+
         txtLevelName.setText(lName);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(subLevelAdapter);

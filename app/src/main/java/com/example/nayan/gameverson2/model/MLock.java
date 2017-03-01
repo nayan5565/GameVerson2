@@ -7,6 +7,18 @@ public class MLock {
     private int unlockNextLevel;
     private int id;
     private int bestPoint;
+    private int total_pont;
+    private int all_total_point;
+
+
+    public int getAll_total_point() {
+        return all_total_point;
+    }
+
+    public void setAll_total_point(int all_total_point) {
+        this.all_total_point = all_total_point;
+    }
+
 
     public int getTotal_pont() {
         return total_pont;
@@ -16,7 +28,6 @@ public class MLock {
         this.total_pont = total_pont;
     }
 
-    private int total_pont;
 
     public int getBestPoint() {
         return bestPoint;

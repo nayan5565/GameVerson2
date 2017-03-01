@@ -34,6 +34,18 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/violet_coins" />
 
+        <TextView
+            android:id="@+id/txtAllTotalPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/txtName"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            android:background="#f00"
+            android:text="1000" />
+
     </RelativeLayout>
 
     <LinearLayout

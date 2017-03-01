@@ -216,12 +216,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void prepareDisplay() {
 
         mLock = new MLock();
-//        mLock = database.getLocalData(Global.SUB_LEVEL_ID);
-        mLock=database.getLockTotalPointData();
-
+        mLock = database.getLocalData(Global.SUB_LEVEL_ID);
+//        mLock=database.getLockTotalPointData();
         txtName.setText(parentName + "(" + subLevelName + ")");
-        txtTotalPoint.setText(mLock.getTotal_pont() + "");
-        Global.TOTAL_POINT=mLock.getTotal_pont();
+        Global.TOTAL_POINT = mLock.getTotal_pont();
+        txtTotalPoint.setText(Global.TOTAL_POINT + "");
+//        Global.TOTAL_POINT=mLock.getTotal_pont();
         int item = Utils.getScreenSize(this, 90);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);

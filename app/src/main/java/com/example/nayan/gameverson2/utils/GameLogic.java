@@ -83,7 +83,8 @@ public class GameLogic {
 private void addDb(){
     DatabaseHelper db = new DatabaseHelper(context);
     MLock mLock = new MLock();
-    mLock.setTotal_pont(Global.TOTAL_POINT);
+//    mLock.setId(Global.levelId);
+    mLock.setAll_total_point(Global.ALL_TOTAL_POINT);
 
     mLock=db.getLockTotalPointData();
     db.addLockData(mLock);
@@ -95,7 +96,7 @@ private void addDb(){
         if (lock == null) {
             lock = new MLock();
         }
-//        lock.setId(Global.SUB_LEVEL_ID);
+        lock.setId(Global.SUB_LEVEL_ID);
         lock.setBestPoint(Utils.bestPoint);
         lock.setTotal_pont(Global.TOTAL_POINT);
 //        lock.setUnlockNextLevel(1);
@@ -549,9 +550,9 @@ private void addDb(){
 //                GameLogic.getInstance(context).resetList(listSize);
 //                imageView.setImageResource(R.drawable.yellow_panel);
 
-                GameActivity.getInstance().txtTotalPoint.setText(Global.TOTAL_POINT + "");
                 Log.e("totalpoint", "tpoint is" + Global.TOTAL_POINT);
                 GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
+                GameActivity.getInstance().txtTotalPoint.setText(Global.TOTAL_POINT + "");
                 resetList(listSize);
                 dialog.dismiss();
                 Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
@@ -668,7 +669,9 @@ private void addDb(){
     private void savePoint(int listSize) {
         presentPoint = pointCount(listSize);
         Global.TOTAL_POINT = Global.TOTAL_POINT + presentPoint;
-//        saveDb();
+        saveDb();
+        Global.ALL_TOTAL_POINT=Global.ALL_TOTAL_POINT+presentPoint;
+//        Global.ALL_TOTAL_POINT=Global.TOTAL_POINT;
         addDb();
 
         if (presentPoint > Utils.bestPoint) {
