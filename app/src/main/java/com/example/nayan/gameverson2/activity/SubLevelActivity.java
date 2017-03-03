@@ -86,6 +86,13 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getLocalData();
+        prepareDisplay();
+    }
+
     private void requestStoragePermission() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -165,9 +172,6 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-
-
     private void init() {
         mLock = new MLock();
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -178,7 +182,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         btnSubSetting.setOnClickListener(this);
         Utils.levels = new ArrayList<>();
         mLevels = new ArrayList<>();
-        mSubLevels=new ArrayList<>();
+        mSubLevels = new ArrayList<>();
         database = new DatabaseHelper(this);
         txtLevelName = (TextView) findViewById(R.id.txtLevelName);
         txtAllTotal_ponts = (TextView) findViewById(R.id.txtAllTotalPoints);
@@ -187,8 +191,9 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
-    private void getLocalData() {
 
+    private void getLocalData() {
+//        mLock = database.getLocalData(Global.levelId, Global.subLevelId);
         mSubLevels = database.getSubLevelData(value);
         if (mSubLevels.size() < 1) {
             Toast.makeText(this, "empty data", Toast.LENGTH_SHORT).show();

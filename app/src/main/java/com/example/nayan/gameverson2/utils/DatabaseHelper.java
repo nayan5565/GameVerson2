@@ -532,7 +532,6 @@ public class DatabaseHelper {
         Cursor cursor = null;
         try {
             ContentValues values = new ContentValues();
-            values.put(KEY_LOCK_ID, mLock.getId());
             values.put(KEY_LEVEL_ID, mLock.getLevel_id());
             values.put(KEY_SUB_LEVEL_ID, mLock.getSub_level_id());
             values.put(KEY_POINT, mLock.getBestPoint());
@@ -544,8 +543,10 @@ public class DatabaseHelper {
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.getCount()>0) {
                 int update = db.update(DATABASE_LOCK_TABLE, values, KEY_LEVEL_ID + "=? AND " + KEY_SUB_LEVEL_ID + "=?", new String[]{mLock.getLevel_id() + "", mLock.getSub_level_id() + ""});
+                Log.e("DB", "mlockUpdae:" +update);
             } else {
                 long v = db.insert(DATABASE_LOCK_TABLE, null, values);
+                Log.e("DB", "mlockAdded:"+v);
 
             }
 
@@ -802,12 +803,13 @@ public class DatabaseHelper {
 
     public ArrayList<MSubLevel> getSubLevelData(int id) {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
-
+Log.e("DB","S1");
         MSubLevel mSubLevel;
-        String sql = "select a.s_lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.s_lid=b.loid where a." + KEY_PARENT_ID + "='" + id + "'";
+        String sql = "select a.s_lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
+            Log.e("DB","S2 :"+cursor.getCount());
             do {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
@@ -825,6 +827,7 @@ public class DatabaseHelper {
                 mSubLevel.setCoins_price(cursor.getString(cursor.getColumnIndex(KEY_COINS_PRICE)));
                 mSubLevel.setNo_of_coins(cursor.getString(cursor.getColumnIndex(KEY_NO_OF_COINS)));
                 assetArrayList.add(mSubLevel);
+                Log.e("DB","S3 :"+mSubLevel.getUnlockNextLevel());
 
             } while (cursor.moveToNext());
             cursor.close();

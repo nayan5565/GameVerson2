@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
+import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
@@ -56,7 +57,6 @@ public class GameLogic {
     String uriRed = "@drawable/red_panel";
 
 
-
     private GameLogic() {
 
     }
@@ -81,19 +81,33 @@ public class GameLogic {
     }
 
     private void saveDb() {
-        MLock lock =new MLock();
+        MLock lock = new MLock();
         lock.setLevel_id(Global.levelId);
         lock.setSub_level_id(Global.subLevelId);
         lock.setBestPoint(Utils.bestPoint);
         lock.setTotal_pont(Global.totalPoint);
-        lock.setUnlockNextLevel(Global.SUB_INDEX_POSITION+1);
+        lock.setUnlockNextLevel(1);
 
-Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
-
-        DatabaseHelper db= new DatabaseHelper(context);
+        DatabaseHelper db = new DatabaseHelper(context);
         db.addLockData(lock);
+        if (Global.SUB_INDEX_POSITION >= mSubLevels.size() - 1) {
+            Toast.makeText(context, "no more level", Toast.LENGTH_SHORT).show();
 
-        //// todo : unlock table create
+            return;
+
+        } else {
+            lock = new MLock();
+            lock.setLevel_id(Global.levelId);
+//        lock.setSub_level_id(SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
+            lock.setSub_level_id(mSubLevels.get(Global.SUB_INDEX_POSITION + 1).getLid());
+            Log.e("LOGIC", "sid:" + lock.getSub_level_id());
+            lock.setUnlockNextLevel(1);
+            db.addLockData(lock);
+        }
+
+
+        //next sublevel unlock
+
 
     }
 
@@ -136,7 +150,7 @@ Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
         }
         if (count == listSize) {
             savePoint(listSize);
-
+            GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -208,7 +222,8 @@ Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
                 Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
 
                 if (matchWinCount == listSize / 2) {
-
+                    savePoint(listSize);
+                    GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 //                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -218,7 +233,6 @@ Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
                             dialogShowForLevelClear(listSize);
                         }
                     }, 1500);
-                    savePoint(listSize);
                     gameWinCount++;
                 }
 
@@ -535,7 +549,7 @@ Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
 
                 Log.e("totalpoint", "tpoint is" + Global.totalPoint);
 //                GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
-                GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+
                 resetList(listSize);
                 dialog.dismiss();
                 Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
@@ -547,7 +561,7 @@ Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
         imgNextLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Global.SUB_INDEX_POSITION >= Global.parentName.size() - 1) {
+                if (Global.SUB_INDEX_POSITION >= mSubLevels.size() - 1) {
                     Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
 
                     return;
@@ -556,10 +570,15 @@ Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
                     Global.subLevelId = Global.subLevelId + 1;
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
 
-                    savePoint(listSize);
+//                    savePoint(listSize);
                     mSubLevels.get(Global.SUB_INDEX_POSITION).setUnlockNextLevel(1);
                     DatabaseHelper db = new DatabaseHelper(context);
                     db.addSubFromJsom(mSubLevels.get(Global.SUB_INDEX_POSITION));
+//                    MLock mLock = new MLock();
+//                    mLock.setSub_level_id(Global.subLevelId);
+//                    db.addLockData(mLock);
+//                    mLock = db.getLocalData(Global.levelId, Global.subLevelId);
+//                    GameActivity.getInstance().txtTotalPoint.setText(mLock.getTotal_pont() + "");
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 }
                 dialog.dismiss();

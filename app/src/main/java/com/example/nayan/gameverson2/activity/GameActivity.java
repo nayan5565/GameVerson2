@@ -80,13 +80,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    public void init() {
+
+        gameActivity = this;
+        txtName = (TextView) findViewById(R.id.txtName);
+        txtTotalPoint = (TextView) findViewById(R.id.txtTotalPoint);
+        database = new DatabaseHelper(this);
+        imgSetting = (ImageView) findViewById(R.id.imgseting);
+        imgSetting.setOnClickListener(this);
+        imageArrayList1 = new ArrayList<>();
+        wordsList = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(7));
+        Global.subLevelName = getIntent().getStringExtra("subLevelName");
+        subLevelName = Global.subLevelName;
+        Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
+        parentName = Global.parentLevelName;
+
+        Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
+        Global.subLevelId = getIntent().getIntExtra("Sid", 0);
+
+
+        gameAdapter = new GameAdapter(this);
+
+    }
+
     public void getLocalData() {
 
 
-        mLock=database.getLocalData(Global.levelId,Global.subLevelId);
-        Global.totalPoint =mLock.getTotal_pont();
+        mLock = database.getLocalData(Global.levelId, Global.subLevelId);
 
-        Log.e("TEST",Global.levelId+":"+Global.subLevelId+":"+Global.totalPoint);
+        Log.e("TEST", Global.levelId + ":" + Global.subLevelId + ":" + Global.totalPoint);
 
         if (Global.subLevelId == 1) {
             imageArrayList1 = database.getBanglaContentsContentsData();
@@ -185,31 +209,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void init() {
-
-        gameActivity = this;
-        txtName = (TextView) findViewById(R.id.txtName);
-        txtTotalPoint = (TextView) findViewById(R.id.txtTotalPoint);
-        database = new DatabaseHelper(this);
-        imgSetting = (ImageView) findViewById(R.id.imgseting);
-        imgSetting.setOnClickListener(this);
-        imageArrayList1 = new ArrayList<>();
-        wordsList = new ArrayList<>();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(7));
-        Global.subLevelName = getIntent().getStringExtra("subLevelName");
-        subLevelName = Global.subLevelName;
-        Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
-        parentName = Global.parentLevelName;
-
-        Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
-        Global.subLevelId = getIntent().getIntExtra("Sid", 0);
-
-
-        gameAdapter = new GameAdapter(this);
-
-    }
-
     public void refresh(int index) {
         subLevelName = Global.parentName.get(index).getName();
         Log.e("sublevel name", "s  n :" + subLevelName);
@@ -220,7 +219,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void prepareDisplay() {
-        txtTotalPoint.setText(mLock.getTotal_pont()+"");
+        Global.totalPoint = mLock.getTotal_pont();
+
+        txtTotalPoint.setText(Global.totalPoint + "");
         txtName.setText(parentName + "(" + subLevelName + ")");
 
         int item = Utils.getScreenSize(this, 90);
