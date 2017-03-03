@@ -66,6 +66,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     String uriGreen = "@drawable/green_panel";
     String uriYellow = "@drawable/yellow_panel";
     String uriRed = "@drawable/red_panel";
+    int totalPoint;
 
 
     @Override
@@ -80,8 +81,9 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Log.e("log", "is" + value);
 
         init();
-        prepareDisplay();
         getLocalData();
+        prepareDisplay();
+
     }
 
     private void requestStoragePermission() {
@@ -162,6 +164,29 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+
+    private void init() {
+        mLock = new MLock();
+        imageView = (ImageView) findViewById(R.id.imageView);
+        changeColor = (LinearLayout) findViewById(R.id.changeColor);
+        back = (Button) findViewById(R.id.back);
+        btnSubSetting = (Button) findViewById(R.id.btnSubSetting);
+        back.setOnClickListener(this);
+        btnSubSetting.setOnClickListener(this);
+        Utils.levels = new ArrayList<>();
+        mLevels = new ArrayList<>();
+        mSubLevels=new ArrayList<>();
+        database = new DatabaseHelper(this);
+        txtLevelName = (TextView) findViewById(R.id.txtLevelName);
+        txtAllTotal_ponts = (TextView) findViewById(R.id.txtAllTotalPoints);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        subLevelAdapter = new SubLevelAdapter(this);
+
+
+    }
     private void getLocalData() {
 
         mSubLevels = database.getSubLevelData(value);
@@ -175,32 +200,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
         mSubLevels.get(0).setUnlockNextLevel(1);
         subLevelAdapter.setData(mSubLevels);
-
-
-    }
-
-    @Override
-    protected void onRestart() {
-        getLocalData();
-        super.onRestart();
-    }
-
-    private void init() {
-        mLock = new MLock();
-        imageView = (ImageView) findViewById(R.id.imageView);
-        changeColor = (LinearLayout) findViewById(R.id.changeColor);
-        back = (Button) findViewById(R.id.back);
-        btnSubSetting = (Button) findViewById(R.id.btnSubSetting);
-        back.setOnClickListener(this);
-        btnSubSetting.setOnClickListener(this);
-        Utils.levels = new ArrayList<>();
-        mLevels = new ArrayList<>();
-        database = new DatabaseHelper(this);
-        txtLevelName = (TextView) findViewById(R.id.txtLevelName);
-        txtAllTotal_ponts = (TextView) findViewById(R.id.txtAllTotalPoints);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        subLevelAdapter = new SubLevelAdapter(this);
-
+        totalPoint = database.getLockTotalPointData(Global.levelId);
 
     }
 
@@ -232,12 +232,12 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         int item = Utils.getScreenSize(this, 90);
 //        DatabaseHelper helper=new DatabaseHelper(this);
 //        MLock lock=new MLock();
-//        lock=helper.getLocalData(Global.SUB_LEVEL_ID);
-//        Global.TOTAL_POINT=lock.getTotal_pont();
-        mLock = database.getLockTotalPointData();
-        Global.ALL_TOTAL_POINT=mLock.getAll_total_point();
-        Log.e("all","point is: "+Global.ALL_TOTAL_POINT);
-        txtAllTotal_ponts.setText(Global.ALL_TOTAL_POINT + "");
+//        lock=helper.getLocalData(Global.subLevelId);
+//        Global.totalPoint=lock.getTotal_pont();
+
+        Global.ALL_TOTAL_POINT = mLock.getAll_total_point();
+        Log.e("all", "point is: " + Global.ALL_TOTAL_POINT);
+        txtAllTotal_ponts.setText(totalPoint + "");
 
         txtLevelName.setText(lName);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));

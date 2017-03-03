@@ -6,6 +6,25 @@ package com.example.nayan.gameverson2.model;
 public class MLock {
     private int unlockNextLevel;
     private int id;
+    private int level_id;
+
+    public int getSub_level_id() {
+        return sub_level_id;
+    }
+
+    public void setSub_level_id(int sub_level_id) {
+        this.sub_level_id = sub_level_id;
+    }
+
+    public int getLevel_id() {
+        return level_id;
+    }
+
+    public void setLevel_id(int level_id) {
+        this.level_id = level_id;
+    }
+
+    private int sub_level_id;
     private int bestPoint;
     private int total_pont;
     private int all_total_point;

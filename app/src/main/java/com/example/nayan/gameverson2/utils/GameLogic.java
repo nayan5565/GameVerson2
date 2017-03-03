@@ -27,7 +27,6 @@ import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
-import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 
 import java.util.ArrayList;
@@ -57,6 +56,7 @@ public class GameLogic {
     String uriRed = "@drawable/red_panel";
 
 
+
     private GameLogic() {
 
     }
@@ -80,37 +80,20 @@ public class GameLogic {
 
     }
 
-private void addDb(){
-    DatabaseHelper db = new DatabaseHelper(context);
-    MLock mLock = new MLock();
-//    mLock.setId(Global.levelId);
-    mLock.setAll_total_point(Global.ALL_TOTAL_POINT);
-
-    mLock=db.getLockTotalPointData();
-    db.addLockData(mLock);
-
-}
     private void saveDb() {
-        DatabaseHelper db = DatabaseHelper.getInstance(context);
-        MLock lock = db.getLocalData(Global.SUB_LEVEL_ID);
-        if (lock == null) {
-            lock = new MLock();
-        }
-        lock.setId(Global.SUB_LEVEL_ID);
+        MLock lock =new MLock();
+        lock.setLevel_id(Global.levelId);
+        lock.setSub_level_id(Global.subLevelId);
         lock.setBestPoint(Utils.bestPoint);
-        lock.setTotal_pont(Global.TOTAL_POINT);
-//        lock.setUnlockNextLevel(1);
+        lock.setTotal_pont(Global.totalPoint);
+        lock.setUnlockNextLevel(Global.SUB_INDEX_POSITION+1);
+
+Log.e("TEST","save db:"+lock.getTotal_pont()+":"+lock.getBestPoint());
+
+        DatabaseHelper db= new DatabaseHelper(context);
         db.addLockData(lock);
 
-        if (mSubLevels.size() - 1 > Global.SUB_INDEX_POSITION) {
-            lock = new MLock();
-            Log.e("global", "index" + Global.SUB_INDEX_POSITION);
-            Log.e("array List", "size :" + mSubLevels.size());
-            MSubLevel mSubLevel = mSubLevels.get(Global.SUB_INDEX_POSITION + 1);
-            lock.setId(mSubLevel.getLid());
-            lock.setUnlockNextLevel(1);
-            db.addLockData(lock);
-        }
+        //// todo : unlock table create
 
     }
 
@@ -550,9 +533,9 @@ private void addDb(){
 //                GameLogic.getInstance(context).resetList(listSize);
 //                imageView.setImageResource(R.drawable.yellow_panel);
 
-                Log.e("totalpoint", "tpoint is" + Global.TOTAL_POINT);
-                GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
-                GameActivity.getInstance().txtTotalPoint.setText(Global.TOTAL_POINT + "");
+                Log.e("totalpoint", "tpoint is" + Global.totalPoint);
+//                GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
+                GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
                 resetList(listSize);
                 dialog.dismiss();
                 Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
@@ -570,7 +553,7 @@ private void addDb(){
                     return;
 
                 } else {
-                    Global.SUB_LEVEL_ID = Global.SUB_LEVEL_ID + 1;
+                    Global.subLevelId = Global.subLevelId + 1;
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
 
                     savePoint(listSize);
@@ -668,11 +651,9 @@ private void addDb(){
 
     private void savePoint(int listSize) {
         presentPoint = pointCount(listSize);
-        Global.TOTAL_POINT = Global.TOTAL_POINT + presentPoint;
+        Global.totalPoint = Global.totalPoint + presentPoint;
         saveDb();
-        Global.ALL_TOTAL_POINT=Global.ALL_TOTAL_POINT+presentPoint;
-//        Global.ALL_TOTAL_POINT=Global.TOTAL_POINT;
-        addDb();
+//        addDb();
 
         if (presentPoint > Utils.bestPoint) {
             Utils.bestPoint = presentPoint;

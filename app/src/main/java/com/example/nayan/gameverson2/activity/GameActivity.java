@@ -36,7 +36,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static int levelId;
     private static GameActivity gameActivity;
     private static MLevel mLevel;
-    MLock mLock;
     private static MAllContent mContents;
     private MSubLevel mSubLevel = new MSubLevel();
     private ArrayList<MAllContent> imageArrayList1;
@@ -49,6 +48,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public String subLevelName;
     public String parentName;
     public TextView txtName, txtTotalPoint;
+    private MLock mLock;
 
     //    private GameActivity(){
 //
@@ -81,52 +81,58 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getLocalData() {
-//        wordsList = database.getMathWordsData(Utils.MATH_words.get(0).getContentId());
-        if (Global.SUB_LEVEL_ID == 1) {
+
+
+        mLock=database.getLocalData(Global.levelId,Global.subLevelId);
+        Global.totalPoint =mLock.getTotal_pont();
+
+        Log.e("TEST",Global.levelId+":"+Global.subLevelId+":"+Global.totalPoint);
+
+        if (Global.subLevelId == 1) {
             imageArrayList1 = database.getBanglaContentsContentsData();
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 2) {
+        } else if (Global.subLevelId == 2) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaContentsContentsData();
             imageArrayList1 = generatesTxtSen(realAssets);
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 3) {
+        } else if (Global.subLevelId == 3) {
             imageArrayList1 = database.getBanglaContentsContentsData();
 //            Collections.shuffle(imageArrayList1);
 
-        } else if (Global.SUB_LEVEL_ID == 4) {
+        } else if (Global.subLevelId == 4) {
             imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 5) {
+        } else if (Global.subLevelId == 5) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 6) {
+        } else if (Global.subLevelId == 6) {
             imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 8) {
+        } else if (Global.subLevelId == 8) {
             imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 9) {
+        } else if (Global.subLevelId == 9) {
             imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 13) {
+        } else if (Global.subLevelId == 13) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 14) {
+        } else if (Global.subLevelId == 14) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 15) {
+        } else if (Global.subLevelId == 15) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
-        } else if (Global.SUB_LEVEL_ID == 19) {
+        } else if (Global.subLevelId == 19) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
@@ -197,7 +203,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         parentName = Global.parentLevelName;
 
         Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
-        Global.SUB_LEVEL_ID = getIntent().getIntExtra("Sid", 0);
+        Global.subLevelId = getIntent().getIntExtra("Sid", 0);
 
 
         gameAdapter = new GameAdapter(this);
@@ -214,19 +220,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void prepareDisplay() {
-
-        mLock = new MLock();
-        mLock = database.getLocalData(Global.SUB_LEVEL_ID);
-//        mLock=database.getLockTotalPointData();
+        txtTotalPoint.setText(mLock.getTotal_pont()+"");
         txtName.setText(parentName + "(" + subLevelName + ")");
-        Global.TOTAL_POINT = mLock.getTotal_pont();
-        txtTotalPoint.setText(Global.TOTAL_POINT + "");
-//        Global.TOTAL_POINT=mLock.getTotal_pont();
+
         int item = Utils.getScreenSize(this, 90);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.setData(imageArrayList1);
-//        gameAdapter.setDataWord(wordsList);
+
     }
 
     @Override

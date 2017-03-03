@@ -54,6 +54,7 @@ public class DatabaseHelper {
     private static final String KEY_TOTAL_S_LEVEL = "total_slevel";
     private static final String KEY_DIFFICULTY = "difficulty";
     private static final String KEY_LEVEL_ID = "lid";
+    private static final String KEY_SUB_LEVEL_ID = "s_lid";
     private static final String KEY_ITEM = "item";
     private static final String KEY_TAG = "tag";
     private static final String KEY_MODEL_ID = "mid";
@@ -76,7 +77,7 @@ public class DatabaseHelper {
     private static final String KEY_NO_OF_COINS = "no_of_coins";
     private static final String KEY_PRESENT_ID = "present_id";
     private static final String KEY_PRESENT_TYPE = "present_type";
-    private static final String KEY_BEST_POINT = "best_point";
+    private static final String KEY_POINT = "best_point";
     private static final String KEY_LEVEL_WIN_COUNT = "win_count";
 
     private final String TAG = getClass().getSimpleName();
@@ -91,7 +92,7 @@ public class DatabaseHelper {
             + KEY_NAME + " text, "
             + KEY_UPDATE_DATE + " text, "
             + KEY_DIFFICULTY + " integer, "
-            + KEY_BEST_POINT + " integer, "
+            + KEY_POINT + " integer, "
             + KEY_LEVEL_WIN_COUNT + " integer, "
             + KEY_TOTAL_S_LEVEL + " text)";
     private static final String DATABASE_CREATE_CONTENTS_TABLE = "create table if not exists "
@@ -140,11 +141,11 @@ public class DatabaseHelper {
             + KEY_SOUNDS + " text)";
     private static final String DATABASE_CREATE_SUB_LEVEL_TABLE = "create table if not exists "
             + DATABASE_SUB_LEVEL_TABLE + "("
-            + KEY_LEVEL_ID + " integer primary key, "
+            + KEY_SUB_LEVEL_ID + " integer primary key, "
             + KEY_NAME + " text, "
             + KEY_PARENT_ID + " integer, "
             + KEY_UNLOCK + " integer, "
-            + KEY_BEST_POINT + " integer, "
+            + KEY_POINT + " integer, "
             + KEY_PARENT_NAME + " text, "
             + KEY_COINS_PRICE + " text, "
             + KEY_NO_OF_COINS + " text)";
@@ -174,11 +175,12 @@ public class DatabaseHelper {
             + KEY_WORDS_Word + " text)";
     private static final String DATABASE_CREATE_LOCK_TABLE = "create table if not exists "
             + DATABASE_LOCK_TABLE + "("
-            + KEY_LOCK_ID + " integer primary key, "
-            + KEY_BEST_POINT + " integer, "
+            + KEY_LOCK_ID + " integer primary key autoincrement, "
+            + KEY_POINT + " integer, "
+            + KEY_UNLOCK + " integer, "
             + KEY_TOTAL_POINT + " integer, "
-            + KEY_ALL_TOTAL_POINT + " integer, "
-            + KEY_UNLOCK + " integer)";
+            + KEY_LEVEL_ID + " integer, "
+            + KEY_SUB_LEVEL_ID + " integer)";
     private static final String DATABASE_CREATE_OPTION_TABLE = "create table if not exists "
             + DATABASE_OPTION_TABLE + "("
             + KEY_OP_ID + " integer primary key, "
@@ -192,7 +194,7 @@ public class DatabaseHelper {
             + DATABASE_POINT_TABLE + "("
             + KEY_PRESENT_POINT + " integer, "
             + KEY_POINT_ID + " integer primary key, "
-            + KEY_BEST_POINT + " integer)";
+            + KEY_POINT + " integer)";
 
     public DatabaseHelper(Context context) {
 
@@ -248,7 +250,7 @@ public class DatabaseHelper {
 //            values.put(KEY_DIFFICULTY, mLevel.getDifficulty());
             values.put(KEY_TOTAL_S_LEVEL, mLevel.getTotal_slevel());
 //            if (mLevel.getBestpoint() > 0) {
-//                values.put(KEY_BEST_POINT, mLevel.getBestpoint());
+//                values.put(KEY_POINT, mLevel.getBestpoint());
 //            }
 
             if (mLevel.getLevelWinCount() > 0) {
@@ -277,19 +279,19 @@ public class DatabaseHelper {
         Cursor cursor = null;
         try {
             ContentValues values = new ContentValues();
-            values.put(KEY_LEVEL_ID, mSubLevel.getLid());
+            values.put(KEY_SUB_LEVEL_ID, mSubLevel.getLid());
             values.put(KEY_PARENT_ID, mSubLevel.getParentId());
             values.put(KEY_UNLOCK, mSubLevel.getUnlockNextLevel());
-            values.put(KEY_BEST_POINT, mSubLevel.getBestPoint());
+            values.put(KEY_POINT, mSubLevel.getBestPoint());
             values.put(KEY_PARENT_NAME, mSubLevel.getParentName());
             values.put(KEY_NAME, mSubLevel.getName());
             values.put(KEY_COINS_PRICE, mSubLevel.getCoins_price());
             values.put(KEY_NO_OF_COINS, mSubLevel.getNo_of_coins());
 
-            String sql = "select * from " + DATABASE_SUB_LEVEL_TABLE + " where " + KEY_LEVEL_ID + "='" + mSubLevel.getLid() + "'";
+            String sql = "select * from " + DATABASE_SUB_LEVEL_TABLE + " where " + KEY_SUB_LEVEL_ID + "='" + mSubLevel.getLid() + "'";
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.moveToFirst()) {
-                int update = db.update(DATABASE_SUB_LEVEL_TABLE, values, KEY_LEVEL_ID + "=?", new String[]{mSubLevel.getLid() + ""});
+                int update = db.update(DATABASE_SUB_LEVEL_TABLE, values, KEY_SUB_LEVEL_ID + "=?", new String[]{mSubLevel.getLid() + ""});
                 Log.e("sublevel", "sub level update : " + update);
             } else {
                 long v = db.insert(DATABASE_SUB_LEVEL_TABLE, null, values);
@@ -531,25 +533,25 @@ public class DatabaseHelper {
         try {
             ContentValues values = new ContentValues();
             values.put(KEY_LOCK_ID, mLock.getId());
-            values.put(KEY_BEST_POINT, mLock.getBestPoint());
+            values.put(KEY_LEVEL_ID, mLock.getLevel_id());
+            values.put(KEY_SUB_LEVEL_ID, mLock.getSub_level_id());
+            values.put(KEY_POINT, mLock.getBestPoint());
             values.put(KEY_TOTAL_POINT, mLock.getTotal_pont());
-            values.put(KEY_ALL_TOTAL_POINT, mLock.getAll_total_point());
             values.put(KEY_UNLOCK, mLock.getUnlockNextLevel());
 
-            String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LOCK_ID + "='" + mLock.getId() + "'";
+            String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LEVEL_ID + "='" + mLock.getLevel_id()
+                    + "' AND " + KEY_SUB_LEVEL_ID + "='" + mLock.getSub_level_id() + "'";
             cursor = db.rawQuery(sql, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                int update = db.update(DATABASE_LOCK_TABLE, values, KEY_LOCK_ID + "=?", new String[]{mLock.getId() + ""});
-                Log.e("log", "lockdata update : " + update);
+            if (cursor != null && cursor.getCount()>0) {
+                int update = db.update(DATABASE_LOCK_TABLE, values, KEY_LEVEL_ID + "=? AND " + KEY_SUB_LEVEL_ID + "=?", new String[]{mLock.getLevel_id() + "", mLock.getSub_level_id() + ""});
             } else {
                 long v = db.insert(DATABASE_LOCK_TABLE, null, values);
-                Log.e("log", "contentlock insert : " + v);
 
             }
 
 
         } catch (Exception e) {
-
+            Log.e("ERR", "mlock:" + e.toString());
         }
 
         cursor.close();
@@ -561,7 +563,7 @@ public class DatabaseHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_POINT_ID, mPoint.getpId());
             values.put(KEY_PRESENT_POINT, mPoint.getPresentPoint());
-            values.put(KEY_BEST_POINT, mPoint.getBestPoint());
+            values.put(KEY_POINT, mPoint.getBestPoint());
 
             String sql = "select * from " + DATABASE_POINT_TABLE + " where " + KEY_POINT_ID + "='" + mPoint.getpId() + "'";
             cursor = db.rawQuery(sql, null);
@@ -650,7 +652,7 @@ public class DatabaseHelper {
                 mLevel.setUpdate_date(cursor.getString(cursor.getColumnIndex(KEY_UPDATE_DATE)));
                 mLevel.setTotal_slevel(cursor.getString(cursor.getColumnIndex(KEY_TOTAL_S_LEVEL)));
 //                mLevel.setDifficulty(cursor.getInt(cursor.getColumnIndex(KEY_DIFFICULTY)));
-//                mLevel.setBestpoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
+//                mLevel.setBestpoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
                 mLevel.setLevelWinCount(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_WIN_COUNT)));
                 levelArrayList.add(mLevel);
                 Log.e("do", "end");
@@ -668,17 +670,20 @@ public class DatabaseHelper {
         return mSubLevel;
     }
 
-    public MLock getLocalData(int id) {
+
+    public MLock getLocalData(int levelId, int subLevelId) {
         ArrayList<MLock> unlocks = new ArrayList<>();
         MLock mLock = new MLock();
-        String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LOCK_ID + "='" + id + "'";
+        String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LEVEL_ID + "='" + levelId + "' "
+                + " AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 mLock = new MLock();
                 mLock.setId(cursor.getInt(cursor.getColumnIndex(KEY_LOCK_ID)));
+                mLock.setSub_level_id(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
-                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
+                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
                 mLock.setTotal_pont(cursor.getInt(cursor.getColumnIndex(KEY_TOTAL_POINT)));
                 Log.e("totalPoint", "is :" + mLock.getTotal_pont());
                 Log.e("unlock", "lock size" + unlocks.size());
@@ -692,28 +697,43 @@ public class DatabaseHelper {
         return mLock;
     }
 
-    public MLock getLockTotalPointData() {
-        ArrayList<MLock> unlocks = new ArrayList<>();
-        MLock mLock = new MLock();
-        String sql = "select sum(" + KEY_ALL_TOTAL_POINT + ") AS TotalItems from " + DATABASE_LOCK_TABLE;
+    public int getTotalPoint(int levelId, int subLevelId) {
+        String sql = "select sum(" + KEY_POINT + ") as tPoint  from " + DATABASE_LOCK_TABLE + " where "
+                + KEY_LEVEL_ID + "='" + levelId + "'  AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
-            do {
-                mLock = new MLock();
-//                mLock.setId(cursor.getInt(cursor.getColumnIndex(KEY_LOCK_ID)));
+            Log.e("DB", "data have");
+
 //                mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
-//                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
-                mLock.setAll_total_point(cursor.getInt(cursor.getColumnIndex("TotalItems")));
-                Log.e("allPoint", "is :" + mLock.getAll_total_point());
-                Log.e("unlock", "lock size" + unlocks.size());
-                unlocks.add(mLock);
+//                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
+            return cursor.getInt(cursor.getColumnIndex("tPoint"));
 
-            } while (cursor.moveToNext());
-            cursor.close();
+        } else {
+            Log.e("DB", "data null");
         }
+        cursor.close();
 
 
-        return mLock;
+        return 0;
+    }
+
+    public int getLockTotalPointData(int id) {
+        String sql = "select sum(" + KEY_TOTAL_POINT + ") as q  from " + DATABASE_LOCK_TABLE + " where " + KEY_LEVEL_ID + "='" + id + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.e("DB", "data have");
+
+//                mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
+//                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
+            return cursor.getInt(cursor.getColumnIndex("q"));
+
+        } else {
+            Log.e("DB", "data null");
+        }
+        cursor.close();
+
+
+        return 0;
     }
 
     public MPoint getPointData(int id) {
@@ -724,7 +744,7 @@ public class DatabaseHelper {
         if (cursor != null && cursor.moveToFirst()) {
             do {
 
-                mPoint.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
+                mPoint.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
                 mPoint.setPresentPoint(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_POINT)));
 
                 mPoints.add(mPoint);
@@ -784,17 +804,17 @@ public class DatabaseHelper {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
 
         MSubLevel mSubLevel;
-        String sql = "select a.lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.lid=b.loid where a." + KEY_PARENT_ID + "='" + id + "'";
+        String sql = "select a.s_lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.s_lid=b.loid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 mSubLevel = new MSubLevel();
-                mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mSubLevel.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
 
                 try {
-                    mSubLevel.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_BEST_POINT)));
+                    mSubLevel.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
                 } catch (Exception e) {
                     mSubLevel.setBestPoint(0);
                 }
