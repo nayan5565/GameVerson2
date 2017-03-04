@@ -20,8 +20,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_below="@+id/txtOne"
-        android:layout_marginLeft="35dp"
-        android:background="#ff0" />
+        android:layout_marginLeft="35dp"/>
 
     <TextView
         android:id="@+id/txtTwo"
@@ -29,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgOne"
         android:layout_marginLeft="35dp"
-        android:text="Apple"
         android:textSize="20dp" />
 
     <TextView
@@ -38,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgTwo"
         android:layout_marginLeft="125dp"
-        android:text="Ant"
         android:textSize="20dp" />
 
     <TextView
@@ -47,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgTwo"
         android:layout_marginLeft="220dp"
-        android:text="Angel"
         android:textSize="20dp" />
 
     <ImageView
@@ -55,16 +51,14 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_below="@+id/txtOne"
-        android:layout_marginLeft="220dp"
-        android:background="#f0f" />
+        android:layout_marginLeft="220dp"/>
 
     <ImageView
         android:id="@+id/imgTwo"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_below="@+id/txtOne"
-        android:layout_marginLeft="125dp"
-        android:background="#f00" />
+        android:layout_marginLeft="125dp"/>
 
     <ImageView
         android:id="@+id/imgBackOne"

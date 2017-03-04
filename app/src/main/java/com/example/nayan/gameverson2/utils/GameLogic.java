@@ -150,6 +150,7 @@ public class GameLogic {
         }
         if (count == listSize) {
             savePoint(listSize);
+            resetList(listSize);
             GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 
             handler.postDelayed(new Runnable() {
@@ -223,6 +224,7 @@ public class GameLogic {
 
                 if (matchWinCount == listSize / 2) {
                     savePoint(listSize);
+                    resetList(listSize);
                     GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 //                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
@@ -504,7 +506,7 @@ public class GameLogic {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_cleared);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
         Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());

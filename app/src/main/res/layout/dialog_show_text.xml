@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/img1"
         android:layout_marginLeft="40dp"
-        android:text="one"
         android:textSize="20dp" />
 
     <ImageView
@@ -38,7 +37,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/img2"
         android:layout_marginRight="40dp"
-        android:text="two"
         android:textSize="20dp" />
 
     <ImageView
@@ -57,7 +55,6 @@
         android:layout_above="@id/imgBack"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
-        android:text="three"
         android:textSize="20dp" />
 
     <ImageView
@@ -87,7 +84,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="40dp"
-        android:text="four"
         android:textSize="20dp" />
 
     <ImageView

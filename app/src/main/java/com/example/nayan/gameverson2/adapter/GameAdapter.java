@@ -440,7 +440,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         } else if (mContents.getWords().size() == 2) {
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());
-            txt4.setText("null");
             String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
             String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
             Picasso.with(context)
@@ -451,8 +450,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     .into(img2);
         } else if (mContents.getWords().size() == 1) {
             txt2.setText(mContents.getWords().get(0).getWword());
-            txt3.setText("null");
-            txt4.setText("null");
             String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
             Log.e("imgae", "url is" + url);
             Picasso.with(context)
@@ -565,7 +562,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(1).getWword());
             txt3.setText(mContents.getWords().get(2).getWword());
-            txt4.setText("null");
             String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
             String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
             String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
@@ -581,8 +577,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         } else if (mContents.getWords().size() == 2) {
             txt1.setText(mContents.getWords().get(0).getWword());
             txt2.setText(mContents.getWords().get(1).getWword());
-            txt3.setText("null");
-            txt4.setText("null");
             String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
             String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
             Picasso.with(context)
@@ -593,9 +587,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     .into(img2);
         } else if (mContents.getWords().size() == 1) {
             txt1.setText(mContents.getWords().get(0).getWword());
-            txt2.setText("null");
-            txt3.setText("null");
-            txt4.setText("null");
             String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
             Log.e("imgae", "url is" + url);
             Picasso.with(context)

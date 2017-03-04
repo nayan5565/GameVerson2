@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -95,7 +96,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         textName = (TextView) findViewById(R.id.txtGameNames);
-
+//        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/carterone.ttf");
+//
+//        textName.setTypeface(custom_font);
+//        Utils.changeFontAnotherWay(textName, MainActivity.this);
+        Utils.setFont(this,textName);
         database = new DatabaseHelper(this);
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);
@@ -559,33 +564,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-    public class GraphicsView extends View {
-        private static final String MY_TEXT = "xjaphx: Draw Text on Curve";
-        private Path mArc;
-
-        private Paint mPaintText;
-
-        public GraphicsView(Context context) {
-            super(context);
-
-            mArc = new Path();
-            RectF oval = new RectF(50, 100, 200, 250);
-            ;
-            mArc.addArc(oval, -180, 200);
-            mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
-            mPaintText.setColor(Color.WHITE);
-            mPaintText.setTextSize(20f);
-
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            canvas.drawTextOnPath(MY_TEXT, mArc, 0, 20, mPaintText);
-            invalidate();
-        }
-    }
-
-
 }

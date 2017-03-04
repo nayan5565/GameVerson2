@@ -4,13 +4,16 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
@@ -19,7 +22,10 @@ import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
+
+import static android.R.attr.typeface;
 
 /**
  * Created by NAYAN on 8/25/2016.
@@ -220,6 +226,31 @@ public class Utils {
 
         return star;
     }
+
+    public static void changeFont(TextView tx, Context context) {
+        Typeface custom_font = Typeface.createFromAsset(context.getAssets(), "fonts/carterone.ttf");
+
+        tx.setTypeface(custom_font);
+    }
+
+    public static void changeFontAnotherWay(TextView tx, Context context) {
+
+        AssetManager am = context.getApplicationContext().getAssets();
+
+        Typeface typeface = Typeface.createFromAsset(am,
+                String.format(Locale.US, "fonts/%s", "carterone.ttf"));
+
+        tx.setTypeface(typeface);
+    }
+
+    public static void setFont(Context context,TextView... textViews) {
+
+         Typeface  typeface = Typeface.createFromAsset(context.getAssets(), "fonts/carterone.ttf");
+        for (TextView textView : textViews) {
+            textView.setTypeface(typeface);
+        }
+    }
+
 
 
 }
