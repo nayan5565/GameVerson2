@@ -541,12 +541,12 @@ public class DatabaseHelper {
             String sql = "select * from " + DATABASE_LOCK_TABLE + " where " + KEY_LEVEL_ID + "='" + mLock.getLevel_id()
                     + "' AND " + KEY_SUB_LEVEL_ID + "='" + mLock.getSub_level_id() + "'";
             cursor = db.rawQuery(sql, null);
-            if (cursor != null && cursor.getCount()>0) {
+            if (cursor != null && cursor.getCount() > 0) {
                 int update = db.update(DATABASE_LOCK_TABLE, values, KEY_LEVEL_ID + "=? AND " + KEY_SUB_LEVEL_ID + "=?", new String[]{mLock.getLevel_id() + "", mLock.getSub_level_id() + ""});
-                Log.e("DB", "mlockUpdae:" +update);
+                Log.e("DB", "mlockUpdae:" + update);
             } else {
                 long v = db.insert(DATABASE_LOCK_TABLE, null, values);
-                Log.e("DB", "mlockAdded:"+v);
+                Log.e("DB", "mlockAdded:" + v);
 
             }
 
@@ -658,8 +658,11 @@ public class DatabaseHelper {
                 levelArrayList.add(mLevel);
                 Log.e("do", "end");
             } while (cursor.moveToNext());
-            cursor.close();
+
+
         }
+        cursor.close();
+
 
 
         return levelArrayList;
@@ -691,9 +694,9 @@ public class DatabaseHelper {
                 unlocks.add(mLock);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return mLock;
     }
@@ -751,9 +754,9 @@ public class DatabaseHelper {
                 mPoints.add(mPoint);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return mPoint;
     }
@@ -772,9 +775,9 @@ public class DatabaseHelper {
                 mQuestionses.add(mQuestions);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return mQuestionses;
     }
@@ -794,8 +797,9 @@ public class DatabaseHelper {
                 mItems.add(mItem);
 
             } while (cursor.moveToNext());
-            cursor.close();
+
         }
+        cursor.close();
 
 
         return mItems;
@@ -803,13 +807,13 @@ public class DatabaseHelper {
 
     public ArrayList<MSubLevel> getSubLevelData(int id) {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
-Log.e("DB","S1");
+        Log.e("DB", "S1");
         MSubLevel mSubLevel;
         String sql = "select a.s_lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
-            Log.e("DB","S2 :"+cursor.getCount());
+            Log.e("DB", "S2 :" + cursor.getCount());
             do {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
@@ -827,11 +831,12 @@ Log.e("DB","S1");
                 mSubLevel.setCoins_price(cursor.getString(cursor.getColumnIndex(KEY_COINS_PRICE)));
                 mSubLevel.setNo_of_coins(cursor.getString(cursor.getColumnIndex(KEY_NO_OF_COINS)));
                 assetArrayList.add(mSubLevel);
-                Log.e("DB","S3 :"+mSubLevel.getUnlockNextLevel());
+                Log.e("DB", "S3 :" + mSubLevel.getUnlockNextLevel());
 
             } while (cursor.moveToNext());
-            cursor.close();
+
         }
+        cursor.close();
 
 
         return assetArrayList;
@@ -856,9 +861,9 @@ Log.e("DB","S1");
                 assetArrayList.add(mWords);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return assetArrayList;
     }
@@ -883,9 +888,10 @@ Log.e("DB","S1");
                 assetArrayList.add(mWords);
 
             } while (cursor.moveToNext());
-            cursor.close();
+
         }
 
+        cursor.close();
         Log.e("getmathlist", "math size" + assetArrayList.size());
         return assetArrayList;
 
@@ -910,9 +916,9 @@ Log.e("DB","S1");
                 assetArrayList.add(mWords);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return assetArrayList;
     }
@@ -938,9 +944,9 @@ Log.e("DB","S1");
                 assetArrayList.add(mContents);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return assetArrayList;
     }
@@ -967,9 +973,9 @@ Log.e("DB","S1");
                 assetArrayList.add(mAllContent);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return assetArrayList;
     }
@@ -996,9 +1002,9 @@ Log.e("DB","S1");
                 assetArrayList.add(mAllContent);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return assetArrayList;
     }
@@ -1025,10 +1031,17 @@ Log.e("DB","S1");
                 assetArrayList.add(mAllContent);
 
             } while (cursor.moveToNext());
-            cursor.close();
-        }
 
+        }
+        cursor.close();
 
         return assetArrayList;
+    }
+
+    private void close() {
+        if (db != null && db.isOpen()) {
+            db.close();
+            db=null;
+        }
     }
 }

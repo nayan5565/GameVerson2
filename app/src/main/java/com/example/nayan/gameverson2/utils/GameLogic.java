@@ -90,16 +90,17 @@ public class GameLogic {
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.addLockData(lock);
-        if (Global.SUB_INDEX_POSITION >= mSubLevels.size() - 1) {
+        if (Global.SUB_INDEX_POSITION >= SubLevelActivity.mSubLevels.size() - 1) {
             Toast.makeText(context, "no more level", Toast.LENGTH_SHORT).show();
 
             return;
 
         } else {
-            lock = new MLock();
+
+            Log.e("LOGIC","id:"+ SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
+            lock=db.getLocalData(Global.levelId,SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
             lock.setLevel_id(Global.levelId);
-//        lock.setSub_level_id(SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
-            lock.setSub_level_id(mSubLevels.get(Global.SUB_INDEX_POSITION + 1).getLid());
+            lock.setSub_level_id(SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
             Log.e("LOGIC", "sid:" + lock.getSub_level_id());
             lock.setUnlockNextLevel(1);
             db.addLockData(lock);
@@ -569,18 +570,12 @@ public class GameLogic {
                     return;
 
                 } else {
-                    Global.subLevelId = Global.subLevelId + 1;
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
 
-//                    savePoint(listSize);
+
                     mSubLevels.get(Global.SUB_INDEX_POSITION).setUnlockNextLevel(1);
-                    DatabaseHelper db = new DatabaseHelper(context);
-                    db.addSubFromJsom(mSubLevels.get(Global.SUB_INDEX_POSITION));
-//                    MLock mLock = new MLock();
-//                    mLock.setSub_level_id(Global.subLevelId);
-//                    db.addLockData(mLock);
-//                    mLock = db.getLocalData(Global.levelId, Global.subLevelId);
-//                    GameActivity.getInstance().txtTotalPoint.setText(mLock.getTotal_pont() + "");
+                    Global.subLevelId=mSubLevels.get(Global.SUB_INDEX_POSITION).getLid();
+
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 }
                 dialog.dismiss();

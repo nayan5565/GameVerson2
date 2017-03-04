@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getBanglaContentData();
 //        getLocalData();
 
-        database = new DatabaseHelper(this);
-        database.getLockTotalPointData(Global.levelId);
     }
 
 
