@@ -37,7 +37,6 @@
         android:layout_centerInParent="true"
         android:text="Point"
         android:gravity="center"
-        android:textColor="#ff0"
         android:textSize="20dp" />
 </RelativeLayout>
 

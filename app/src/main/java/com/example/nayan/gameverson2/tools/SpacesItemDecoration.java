@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2.utils;
+package com.example.nayan.gameverson2.tools;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

@@ -1,14 +1,8 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
@@ -28,14 +21,13 @@ import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
-import com.example.nayan.gameverson2.utils.DatabaseHelper;
-import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
-import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.Utils;
+import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
+import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.Utils;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName;
     private String image;
     private static String B_URL = Global.BASE_URL;
-    private static String ALTER_URL = "";
+
     private Gson gson = new Gson();
 
     @Override
@@ -184,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getOnlineData() {
         if (!Utils.isInternetOn(this)) {
-            Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(this, "Lost Internet Connection");
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
@@ -221,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
-                        B_URL = ALTER_URL;
+                        B_URL = Global.ALTER_URL;
                         getOnlineData();
                         Log.e("json", "onfailer :" + responseString);
                     }
@@ -231,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getEnglishContentData() {
         if (!Utils.isInternetOn(this)) {
-            Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(this, "Lost Internet Connection");
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
@@ -266,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
-                        B_URL = ALTER_URL;
+                        B_URL = Global.ALTER_URL;
                         getEnglishContentData();
                         Log.e("json", "onfailer :" + responseString);
                     }
@@ -276,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getBanglaContentData() {
         if (!Utils.isInternetOn(this)) {
-            Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(this, "Lost Internet Connection");
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
@@ -311,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
-                        B_URL = ALTER_URL;
+                        B_URL = Global.ALTER_URL;
                         getBanglaContentData();
                         Log.e("json", "onfailer :" + responseString);
                     }
@@ -321,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getMathContentData() {
         if (!Utils.isInternetOn(this)) {
-            Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(this, "Lost Internet Connection");
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
@@ -358,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
-                        B_URL = ALTER_URL;
+                        B_URL = Global.ALTER_URL;
                         getMathContentData();
                         Log.e("json", "onfailer :" + responseString);
                     }
@@ -388,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getOnlineBanglaContentsData() {
         if (!Utils.isInternetOn(this)) {
-            Toast.makeText(this, "lost internet connection", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(this, "Lost Internet Connection");
             return;
         }
 
@@ -430,7 +422,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                B_URL = ALTER_URL;
+                B_URL = Global.ALTER_URL;
                 getOnlineBanglaContentsData();
             }
         });

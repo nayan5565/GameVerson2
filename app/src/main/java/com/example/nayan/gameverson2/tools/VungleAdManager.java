@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2.utils;
+package com.example.nayan.gameverson2.tools;
 
 /**
  * Created by NAYAN on 9/20/2016.

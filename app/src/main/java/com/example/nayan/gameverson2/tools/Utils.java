@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2.utils;
+package com.example.nayan.gameverson2.tools;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
@@ -24,8 +26,6 @@ import com.example.nayan.gameverson2.model.MWords;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
-
-import static android.R.attr.typeface;
 
 /**
  * Created by NAYAN on 8/25/2016.
@@ -75,12 +75,22 @@ public class Utils {
         return num;
     }
 
+    public static void changeUIcolor(Context context, String color, View view) {
+        int imageResourceGreen = context.getResources().getIdentifier(color, null, context.getPackageName());
+        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
+        view.setBackground(resGreen);
+    }
+
     public static String databasePassKey(String emailName, String deviceId) {
         String firstChOfEmail = emailName.substring(0, 1);
         String lastChOfEmail = emailName.substring(emailName.indexOf("@") - 1, emailName.indexOf("@"));
         String firstNumOfDeviceId = deviceId.substring(0, 1);
         String secondNumOfDeviceId = deviceId.substring(deviceId.length() - 1);
         return firstChOfEmail + lastChOfEmail + firstNumOfDeviceId + secondNumOfDeviceId;
+    }
+
+    public static void toastMassage(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void zoom(View view, boolean isLeft) {

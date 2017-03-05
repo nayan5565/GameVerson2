@@ -14,8 +14,8 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.utils.DatabaseHelper;
-import com.example.nayan.gameverson2.utils.Utils;
+import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.Utils;
 
 import java.util.ArrayList;
 
@@ -60,10 +60,13 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         holder.txtSubLevel.setText(mSubLevel.getName());
 
         if (mSubLevel.getBestPoint() == 100) {
+            holder.txtPoint.setTextColor(0xffffff00);
             holder.txtPoint.setText(Utils.getIntToStar(3));
         } else if (mSubLevel.getBestPoint() == 75) {
+            holder.txtPoint.setTextColor(0xffffff00);
             holder.txtPoint.setText(Utils.getIntToStar(2));
         } else if (mSubLevel.getBestPoint() == 50) {
+            holder.txtPoint.setTextColor(0xffffff00);
             holder.txtPoint.setText(Utils.getIntToStar(1));
         } else {
             holder.txtPoint.setText(Utils.getIntToStar(0));

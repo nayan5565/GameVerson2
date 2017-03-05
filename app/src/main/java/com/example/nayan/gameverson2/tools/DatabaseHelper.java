@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2.utils;
+package com.example.nayan.gameverson2.tools;
 
 import android.content.ContentValues;
 import android.content.Context;

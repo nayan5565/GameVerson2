@@ -22,10 +22,10 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
-import com.example.nayan.gameverson2.utils.DatabaseHelper;
-import com.example.nayan.gameverson2.utils.GameLogic;
-import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.Utils;
+import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.GameLogic;
+import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -135,6 +135,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 }
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
+                holder.txtContents.setText("");
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
@@ -293,7 +294,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                     } else if (Global.subLevelId == 2) {
 //                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-                        gameLogic.imageClick( mContents,getAdapterPosition(),textArrayList.size(),itemView, imgAnim2);
+                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
                     } else if (Global.subLevelId == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShowWithWordArray(getAdapterPosition());
@@ -391,7 +392,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             @Override
             public void onClick(View view) {
                 if (Global.GAME_INDEX_POSITION <= 0) {
-                    Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
+                    Utils.toastMassage(context, "level finish");
 
                     dialog.dismiss();
 
@@ -416,7 +417,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                     dialogShowWithWordArray(Global.GAME_INDEX_POSITION);
 //                    txt1.setText(textArrayList.get(pos).getTxt());
-                    Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
+                    Utils.toastMassage(context, "Position");
                     dialog.dismiss();
                 }
 //
@@ -519,7 +520,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             @Override
             public void onClick(View view) {
                 if (Global.GAME_INDEX_POSITION <= 0) {
-                    Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
+                    Utils.toastMassage(context, "level finish");
 
                     dialog.dismiss();
 
@@ -542,7 +543,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     }
 
                     dialogShowWithWordsList();
-                    Toast.makeText(context, "position" + Global.GAME_INDEX_POSITION, Toast.LENGTH_SHORT).show();
+                    Utils.toastMassage(context, "Position");
                     dialog.dismiss();
                 }
 //

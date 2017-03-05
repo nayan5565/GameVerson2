@@ -1,16 +1,10 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,22 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nayan.gameverson2.Manifest;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
-import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.model.MWords;
-import com.example.nayan.gameverson2.utils.DatabaseHelper;
-import com.example.nayan.gameverson2.utils.DialogSoundOnOff;
-import com.example.nayan.gameverson2.utils.DownLoadAsyncTask;
-import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.Utils;
+import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
+import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.Utils;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -63,9 +52,6 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
     private ImageView imageView;
-    String uriGreen = "@drawable/green_panel";
-    String uriYellow = "@drawable/yellow_panel";
-    String uriRed = "@drawable/red_panel";
     int totalPoint;
 
 
@@ -114,10 +100,10 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                downloadAssets();
                 //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+                Utils.toastMassage(this, "Permission granted now you can read the storage");
             } else {
                 //Displaying another toast if permission is not granted
-                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+                Utils.toastMassage(this, "Oops you just denied the permission");
             }
         }
     }
@@ -197,7 +183,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 //        mLock = database.getLocalData(Global.levelId, Global.subLevelId);
         mSubLevels = database.getSubLevelData(value);
         if (mSubLevels.size() < 1) {
-            Toast.makeText(this, "empty data", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(this, "Empty Data");
             return;
         }
         Global.parentName = mSubLevels;
@@ -212,28 +198,21 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
     private void prepareDisplay() {
         Utils.setFont(this, "carterone", txtAllTotal_ponts, txtLevelName, txtLevelSelect);
-
-        int imageResourceGreen = getResources().getIdentifier(uriGreen, null, getPackageName());
-        Drawable resGreen = getResources().getDrawable(imageResourceGreen);
-        int imageResourceYellow = getResources().getIdentifier(uriYellow, null, getPackageName());
-        Drawable resYellow = getResources().getDrawable(imageResourceYellow);
-        int imageResourceRed = getResources().getIdentifier(uriRed, null, getPackageName());
-        Drawable resRed = getResources().getDrawable(imageResourceRed);
         if (value == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
-            changeColor.setBackground(resGreen);
+            Utils.changeUIcolor(this,Global.uriGreen,changeColor);
             txtLevelName.setTextColor(0xff00ff00);
         } else if (value == 2) {
             imageView.setImageResource(R.drawable.yellow_coins);
-            changeColor.setBackground(resYellow);
+            Utils.changeUIcolor(this,Global.uriYellow,changeColor);
             txtLevelName.setTextColor(0xffffff00);
         } else if (value == 3) {
             imageView.setImageResource(R.drawable.red_coins);
-            changeColor.setBackground(resRed);
+            Utils.changeUIcolor(this,Global.uriRed,changeColor);
             txtLevelName.setTextColor(0xffff0000);
         } else if (value == 5) {
             imageView.setImageResource(R.drawable.red_coins);
-            changeColor.setBackground(resRed);
+            Utils.changeUIcolor(this,Global.uriGreen,changeColor);
             txtLevelName.setTextColor(0xffff0000);
         }
         int item = Utils.getScreenSize(this, 90);

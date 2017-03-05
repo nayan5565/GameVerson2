@@ -32,7 +32,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
         android:text="Point"
-        android:textColor="#ff0"
         android:textSize="35dp" />
 
     <TextView

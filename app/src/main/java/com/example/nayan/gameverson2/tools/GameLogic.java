@@ -1,4 +1,4 @@
-package com.example.nayan.gameverson2.utils;
+package com.example.nayan.gameverson2.tools;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -53,9 +53,6 @@ public class GameLogic {
     private LinearLayout changeColor;
     View view1;
     TextView textView2;
-    String uriGreen = "@drawable/green_panel";
-    String uriYellow = "@drawable/yellow_panel";
-    String uriRed = "@drawable/red_panel";
 
 
     private GameLogic() {
@@ -92,7 +89,7 @@ public class GameLogic {
         DatabaseHelper db = new DatabaseHelper(context);
         db.addLockData(lock);
         if (Global.SUB_INDEX_POSITION >= SubLevelActivity.mSubLevels.size() - 1) {
-            Toast.makeText(context, "no more level", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(context, "no more level");
 
             return;
 
@@ -127,8 +124,6 @@ public class GameLogic {
         counter++;
 
         Log.e("counter", "is" + counter);
-        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
-        final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         //don't work if mid !=1 at first time because first time click count=1
         if (mContents.getMid() == clickCount + 1) {
             list.get(pos).setMatch(1);
@@ -148,7 +143,7 @@ public class GameLogic {
             shakeAnimation(view);
             imageView.setImageResource(R.drawable.red_panel);
 //            view2.setBackgroundColor(0xffff0000);
-            Toast.makeText(context, "wrong click", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(context, "wrong click");
         }
         if (count == listSize) {
             savePoint(listSize);
@@ -168,8 +163,7 @@ public class GameLogic {
                 }
             }, 1200);
 
-
-            Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(context, "Game Over");
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -185,10 +179,8 @@ public class GameLogic {
 
     public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos, final ImageView imageView) {
         counter++;
-        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
-        final Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         if (mContents.getMatch() == 1) {
-            Toast.makeText(context, "matched", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(context, "Matched");
             Log.e("s", ":1");
             return;
         }
@@ -213,7 +205,7 @@ public class GameLogic {
         }
 
         if (previousId == mContents.getMid()) {
-            Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(context, "Same Clicked");
 
             Log.e("s", ":2");
             return;
@@ -225,7 +217,7 @@ public class GameLogic {
                 mContents.setMatch(1);
 //                mContents.setClick(Utils.IMAGE_OPEN);
                 matchWinCount++;
-                Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
+                Utils.toastMassage(context, "Match");
 
                 if (matchWinCount == listSize / 2) {
                     savePoint(listSize);
@@ -275,7 +267,7 @@ public class GameLogic {
             Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
-            Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
+            Utils.toastMassage(context, "Same click");
             return;
         }
         clickCount++;
@@ -299,7 +291,7 @@ public class GameLogic {
         if (count == 2) {
 
             if (previousType == mImage.getPresentType()) {
-                Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
+                Utils.toastMassage(context, "Match ");
                 Log.e("log", "match win count : " + matchWinCount);
                 Log.e("previous id", "MID : " + previousId);
 
@@ -330,7 +322,7 @@ public class GameLogic {
 //                    VungleAdManager.getInstance(context).play();
 
 
-                    Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
+                    Utils.toastMassage(context, "Game Over");
                     gameWinCount++;
                     Log.e("log", "game over : " + gameWinCount);
                 }
@@ -352,7 +344,7 @@ public class GameLogic {
                                 list.get(i).setMatch(0);
                                 gameAdapter.notifyDataSetChanged();
                                 imageView.setImageResource(R.drawable.red_panel);
-                                Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
+                                Utils.toastMassage(context, "Did Not Match");
 //                                flipAnimation2(view);
 //
                             }
@@ -510,13 +502,6 @@ public class GameLogic {
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_cleared);
-        dialog.setCancelable(false);
-        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
-        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
-        int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
-        Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
-        int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
-        Drawable resRed = context.getResources().getDrawable(imageResourceRed);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
         TextView txtClear = (TextView) dialog.findViewById(R.id.dia_level_clear);
@@ -538,15 +523,15 @@ public class GameLogic {
                 dialog.dismiss();
 
 
-                Toast.makeText(context, "return game level", Toast.LENGTH_SHORT).show();
+                Utils.toastMassage(context, "Return Game Level");
             }
         });
         if (Global.levelId == 1) {
-            changeColor.setBackground(resGreen);
+            Utils.changeUIcolor(context, Global.uriGreen, changeColor);
         } else if (Global.levelId == 2) {
-            changeColor.setBackground(resYellow);
+            Utils.changeUIcolor(context, Global.uriYellow, changeColor);
         } else if (Global.levelId == 3) {
-            changeColor.setBackground(resRed);
+            Utils.changeUIcolor(context, Global.uriRed, changeColor);
         }
 
         ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
@@ -561,7 +546,6 @@ public class GameLogic {
 
                 resetList(listSize);
                 dialog.dismiss();
-                Toast.makeText(context, "Reload", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -571,7 +555,7 @@ public class GameLogic {
             @Override
             public void onClick(View v) {
                 if (Global.SUB_INDEX_POSITION >= mSubLevels.size() - 1) {
-                    Toast.makeText(context, "level finish", Toast.LENGTH_SHORT).show();
+                    Utils.toastMassage(context, "Level Finished ");
 
                     return;
 
@@ -600,10 +584,13 @@ public class GameLogic {
 //        txtBestPoint.setText("" + Utils.bestPoint);
         txtScore.setText("Score :  " + presentPoint + "");
         if (presentPoint == 50) {
+            txtPoint.setTextColor(0xffffff00);
             txtPoint.setText(Utils.getIntToStar(1));
         } else if (presentPoint == 75) {
+            txtPoint.setTextColor(0xffffff00);
             txtPoint.setText(Utils.getIntToStar(2));
         } else if (presentPoint == 100) {
+            txtPoint.setTextColor(0xffffff00);
             txtPoint.setText(Utils.getIntToStar(3));
         } else txtPoint.setText(Utils.getIntToStar(0));
         dialog.show();

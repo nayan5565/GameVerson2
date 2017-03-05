@@ -1,7 +1,6 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.app.Dialog;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,11 +20,11 @@ import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
-import com.example.nayan.gameverson2.utils.DatabaseHelper;
-import com.example.nayan.gameverson2.utils.GameLogic;
-import com.example.nayan.gameverson2.utils.Global;
-import com.example.nayan.gameverson2.utils.SpacesItemDecoration;
-import com.example.nayan.gameverson2.utils.Utils;
+import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.GameLogic;
+import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.SpacesItemDecoration;
+import com.example.nayan.gameverson2.tools.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
