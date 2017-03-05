@@ -219,6 +219,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void prepareDisplay() {
+        Utils.setFont(this, "carterone", txtName, txtTotalPoint);
         Global.totalPoint = mLock.getTotal_pont();
 
         txtTotalPoint.setText(Global.totalPoint + "");
@@ -250,4 +251,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             dialog.show();
         }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//    }
 }

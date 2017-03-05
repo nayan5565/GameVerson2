@@ -55,7 +55,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private static MLevel mLevel = new MLevel();
     private DatabaseHelper database;
     private RecyclerView recyclerView;
-    private TextView txtLevelName, txtAllTotal_ponts;
+    private TextView txtLevelName, txtAllTotal_ponts, txtLevelSelect;
     MAllContent mAllContent = new MAllContent();
     private String lName;
     private MLock mLock;
@@ -173,6 +173,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void init() {
+        txtLevelSelect = (TextView) findViewById(R.id.levelSelect);
         mLock = new MLock();
         imageView = (ImageView) findViewById(R.id.imageView);
         changeColor = (LinearLayout) findViewById(R.id.changeColor);
@@ -210,6 +211,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void prepareDisplay() {
+        Utils.setFont(this, "carterone", txtAllTotal_ponts, txtLevelName, txtLevelSelect);
 
         int imageResourceGreen = getResources().getIdentifier(uriGreen, null, getPackageName());
         Drawable resGreen = getResources().getDrawable(imageResourceGreen);

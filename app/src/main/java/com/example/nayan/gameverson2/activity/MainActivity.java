@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //        textName.setTypeface(custom_font);
 //        Utils.changeFontAnotherWay(textName, MainActivity.this);
-        Utils.setFont(this,textName);
+        Utils.setFont(this, "carterone", textName);
         database = new DatabaseHelper(this);
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);

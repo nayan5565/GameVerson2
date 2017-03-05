@@ -97,10 +97,10 @@ public class GameLogic {
 
         } else {
 
-            Log.e("LOGIC","id:"+ SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
-            lock=db.getLocalData(Global.levelId,SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
+            Log.e("LOGIC", "id:" + SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION + 1).getLid());
+            lock = db.getLocalData(Global.levelId, SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION + 1).getLid());
             lock.setLevel_id(Global.levelId);
-            lock.setSub_level_id(SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION+1).getLid());
+            lock.setSub_level_id(SubLevelActivity.mSubLevels.get(Global.SUB_INDEX_POSITION + 1).getLid());
             Log.e("LOGIC", "sid:" + lock.getSub_level_id());
             lock.setUnlockNextLevel(1);
             db.addLockData(lock);
@@ -507,7 +507,7 @@ public class GameLogic {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_cleared);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
         Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
@@ -516,11 +516,14 @@ public class GameLogic {
         Drawable resRed = context.getResources().getDrawable(imageResourceRed);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
+        TextView txtClear = (TextView) dialog.findViewById(R.id.dia_level_clear);
         final TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
 //        final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
         ImageView imgFacebook = (ImageView) dialog.findViewById(R.id.imgFacebook);
+        Utils.setFont(context, "skranjiregular", txtScore);
+        Utils.setFont(context, "carterone", txtClear);
         imgLevelMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -574,7 +577,7 @@ public class GameLogic {
 
 
                     mSubLevels.get(Global.SUB_INDEX_POSITION).setUnlockNextLevel(1);
-                    Global.subLevelId=mSubLevels.get(Global.SUB_INDEX_POSITION).getLid();
+                    Global.subLevelId = mSubLevels.get(Global.SUB_INDEX_POSITION).getLid();
 
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 }

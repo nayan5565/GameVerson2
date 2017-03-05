@@ -243,14 +243,13 @@ public class Utils {
         tx.setTypeface(typeface);
     }
 
-    public static void setFont(Context context,TextView... textViews) {
+    public static void setFont(Context context, String font, TextView... textViews) {
 
-         Typeface  typeface = Typeface.createFromAsset(context.getAssets(), "fonts/carterone.ttf");
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/" + font + ".ttf");
         for (TextView textView : textViews) {
             textView.setTypeface(typeface);
         }
     }
-
 
 
 }
