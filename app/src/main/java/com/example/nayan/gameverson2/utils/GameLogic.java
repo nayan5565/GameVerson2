@@ -49,6 +49,7 @@ public class GameLogic {
     private RecyclerView.Adapter gameAdapter;
     private MAllContent previousMcontents = new MAllContent();
     private RecyclerView recyclerView;
+    public static Dialog dialog;
     private LinearLayout changeColor;
     View view1;
     TextView textView2;
@@ -151,7 +152,12 @@ public class GameLogic {
         }
         if (count == listSize) {
             savePoint(listSize);
-            resetList(listSize);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    resetList(listSize);
+                }
+            }, 1000);
             GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 
             handler.postDelayed(new Runnable() {
@@ -159,8 +165,6 @@ public class GameLogic {
                 public void run() {
 
                     dialogShowForLevelClear(listSize);
-
-
                 }
             }, 1200);
 
@@ -314,7 +318,7 @@ public class GameLogic {
 
 
                 if (matchWinCount == listSize / 2) {
-
+                    savePoint(listSize);
 //                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -324,7 +328,6 @@ public class GameLogic {
                         }
                     }, 1500);
 //                    VungleAdManager.getInstance(context).play();
-                    savePoint(listSize);
 
 
                     Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
@@ -504,7 +507,7 @@ public class GameLogic {
     }
 
     private void dialogShowForLevelClear(final int listSize) {
-        final Dialog dialog = new Dialog(context);
+        dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_cleared);
         dialog.setCancelable(false);

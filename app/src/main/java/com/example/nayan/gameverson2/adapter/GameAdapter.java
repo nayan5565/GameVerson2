@@ -102,17 +102,37 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
 
-        } else if (Global.subLevelId == 2) {
+        }
+//        else if (Global.subLevelId == 2) {
+//            holder.txtContents.setTextColor(0xffff00ff);
+//            holder.txtContents.setTextSize(20);
+//            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+//                holder.txtContents.setText(mContents.getSen());
+//
+//
+//            } else {
+//                holder.txtContents.setText(mContents.getTxt());
+//            }
+//            if (mContents.getMatch() == 1) {
+//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
+//            } else {
+//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
+//                holder.txtContents.setBackgroundColor(0);
+//            }
+//
+//        }
+        else if (Global.subLevelId == 2) {
             holder.txtContents.setTextColor(0xffff00ff);
             holder.txtContents.setTextSize(20);
-            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-                holder.txtContents.setText(mContents.getSen());
 
-
-            } else {
-                holder.txtContents.setText(mContents.getTxt());
-            }
             if (mContents.getMatch() == 1) {
+                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+                    holder.txtContents.setText(mContents.getSen());
+
+
+                } else {
+                    holder.txtContents.setText(mContents.getTxt());
+                }
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
@@ -272,8 +292,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
 
                     } else if (Global.subLevelId == 2) {
-                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-//                        gameLogic.imageClick( mContents,getAdapterPosition(),textArrayList.size(),itemView, imgAnim2);
+//                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
+                        gameLogic.imageClick( mContents,getAdapterPosition(),textArrayList.size(),itemView, imgAnim2);
                     } else if (Global.subLevelId == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShowWithWordArray(getAdapterPosition());
