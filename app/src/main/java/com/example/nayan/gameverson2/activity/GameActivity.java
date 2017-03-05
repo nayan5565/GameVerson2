@@ -1,6 +1,7 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.app.Dialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,7 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private MSubLevel mSubLevel = new MSubLevel();
     private ArrayList<MAllContent> imageArrayList1;
     private ArrayList<MWords> wordsList;
-    private ImageView imgSetting;
+    private ImageView imgSetting, imageView;
     private RecyclerView recyclerView;
     //    private Context context;
     private GameAdapter gameAdapter;
@@ -49,6 +50,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public String parentName;
     public TextView txtName, txtTotalPoint;
     private MLock mLock;
+    String uriGreen = "@drawable/green_panel";
+    String uriYellow = "@drawable/yellow_panel";
+    String uriRed = "@drawable/red_panel";
 
     //    private GameActivity(){
 //
@@ -83,6 +87,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void init() {
 
         gameActivity = this;
+        imageView = (ImageView) findViewById(R.id.imageView);
         txtName = (TextView) findViewById(R.id.txtName);
         txtTotalPoint = (TextView) findViewById(R.id.txtTotalPoint);
         database = new DatabaseHelper(this);
@@ -229,6 +234,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.setData(imageArrayList1);
+//        int imageResourceGreen = getResources().getIdentifier(uriGreen, null, getPackageName());
+//        Drawable resGreen = getResources().getDrawable(imageResourceGreen);
+//        int imageResourceYellow = getResources().getIdentifier(uriYellow, null, getPackageName());
+//        Drawable resYellow = getResources().getDrawable(imageResourceYellow);
+//        int imageResourceRed = getResources().getIdentifier(uriRed, null, getPackageName());
+//        Drawable resRed = getResources().getDrawable(imageResourceRed);
+        if (Global.levelId == 1) {
+            imageView.setImageResource(R.drawable.grren_coins);
+
+        } else if (Global.levelId == 2) {
+            imageView.setImageResource(R.drawable.yellow_coins);
+
+        } else if (Global.levelId == 3) {
+            imageView.setImageResource(R.drawable.red_coins);
+
+        } else if (Global.levelId == 4) {
+            imageView.setImageResource(R.drawable.red_coins);
+        }
 
     }
 
