@@ -49,9 +49,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public String parentName;
     public TextView txtName, txtTotalPoint;
     private MLock mLock;
-    String uriGreen = "@drawable/green_panel";
-    String uriYellow = "@drawable/yellow_panel";
-    String uriRed = "@drawable/red_panel";
 
     //    private GameActivity(){
 //
@@ -233,12 +230,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.setData(imageArrayList1);
-//        int imageResourceGreen = getResources().getIdentifier(uriGreen, null, getPackageName());
-//        Drawable resGreen = getResources().getDrawable(imageResourceGreen);
-//        int imageResourceYellow = getResources().getIdentifier(uriYellow, null, getPackageName());
-//        Drawable resYellow = getResources().getDrawable(imageResourceYellow);
-//        int imageResourceRed = getResources().getIdentifier(uriRed, null, getPackageName());
-//        Drawable resRed = getResources().getDrawable(imageResourceRed);
+
         if (Global.levelId == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
 
@@ -274,9 +266,4 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        GameLogic.dialog.dismiss();
-        super.onBackPressed();
-    }
 }

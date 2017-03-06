@@ -239,8 +239,6 @@ public class GameLogic {
                 previousMcontents.setMatch(0);
                 mContents.setMatch(0);
                 imageView.setImageResource(R.drawable.red_panel);
-//                mContents.setClick(Utils.IMAGE_OFF);
-//                previousMcontents.setClick(Utils.IMAGE_OFF);
                 Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();
 //                textView.setBackgroundColor(0xffff0000);
 //                handler.postDelayed(new Runnable() {

@@ -46,9 +46,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private int subLevelType;
     private AnimatorSet mSetRightOut;
     private AnimatorSet mSetLeftIn;
-    String uriGreen = "@drawable/green_panel";
-    String uriYellow = "@drawable/yellow_panel";
-    String uriRed = "@drawable/red_panel";
     private boolean mIsBackVisible = false;
     private RelativeLayout changeColor;
     DatabaseHelper db;
@@ -121,51 +118,53 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //            }
 //
 //        }
+//        else if (Global.subLevelId == 2) {
+//            holder.txtContents.setTextColor(0xffff00ff);
+//            holder.txtContents.setTextSize(20);
+//
+//            if (mContents.getMatch() == 1) {
+//                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+//                    holder.txtContents.setText(mContents.getSen());
+//
+//
+//                } else {
+//                    holder.txtContents.setText(mContents.getTxt());
+//                }
+//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
+//            } else {
+//                holder.txtContents.setText("");
+//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
+//                holder.txtContents.setBackgroundColor(0);
+//            }
+//
+//        }
+
         else if (Global.subLevelId == 2) {
             holder.txtContents.setTextColor(0xffff00ff);
-            holder.txtContents.setTextSize(20);
+//            holder.txtContents.setText(mContents.getTxt());
+
 
             if (mContents.getMatch() == 1) {
-                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-                    holder.txtContents.setText(mContents.getSen());
 
+                holder.imgAnim2.setImageResource(R.drawable.green_panel);
+                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+                    holder.txtContents.setVisibility(View.GONE);
+                    Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
+                    Picasso.with(context)
+                            .load(Global.IMAGE_URL + mContents.getImg())
+                            .into(holder.imgAnim);
 
                 } else {
                     holder.txtContents.setText(mContents.getTxt());
+//                holder.imgAnim.setVisibility(View.GONE);
                 }
-                holder.imgAnim2.setImageResource(R.drawable.green_panel);
             } else {
                 holder.txtContents.setText("");
+                holder.imgAnim.setVisibility(View.GONE);
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-                holder.txtContents.setBackgroundColor(0);
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-
-        }
-
-//        else if (Global.subLevelId == 2) {
-//            holder.txtContents.setTextColor(0xffff00ff);
-////            holder.txtContents.setText(mContents.getTxt());
-//            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-//                holder.txtContents.setVisibility(View.GONE);
-//                Log.e("image e","img :"+Global.IMAGE_URL+mContents.getImg());
-//                Picasso.with(context)
-//                        .load(Global.IMAGE_URL+mContents.getImg())
-//                        .into(holder.imgAnim);
-//
-//            } else {
-//                holder.txtContents.setText(mContents.getTxt());
-////                holder.imgAnim.setVisibility(View.GONE);
-//            }
-//
-//            if (mContents.getMatch() == 1) {
-//
-//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
-//            } else {
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
-//            }
-//        }
-        else if (Global.subLevelId == 3) {
+        } else if (Global.subLevelId == 3) {
             if (mContents.getMatch() == 1) {
 
             } else {
@@ -357,12 +356,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_show_with_word_text);
         RelativeLayout changeColor2 = (RelativeLayout) dialog.findViewById(R.id.dia_relativeLayout2);
-        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
-        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
-        int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
-        Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
-        int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
-        Drawable resRed = context.getResources().getDrawable(imageResourceRed);
         final TextView txt1 = (TextView) dialog.findViewById(R.id.txtOne);
         TextView txt2 = (TextView) dialog.findViewById(R.id.txtTwo);
         TextView txt3 = (TextView) dialog.findViewById(R.id.txtThree);
@@ -382,11 +375,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         });
         Log.e("TEST", "s:" + mContents.getWords().size());
         if (Global.levelId == 1) {
-            changeColor2.setBackground(resGreen);
+            Utils.changeUIcolor(context, Global.uriGreen, changeColor2);
         } else if (Global.levelId == 2) {
-            changeColor2.setBackground(resYellow);
+            Utils.changeUIcolor(context, Global.uriYellow, changeColor2);
         } else if (Global.levelId == 3) {
-            changeColor2.setBackground(resRed);
+            Utils.changeUIcolor(context, Global.uriRed, changeColor2);
         }
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -493,12 +486,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_show_text);
         RelativeLayout changeColor2 = (RelativeLayout) dialog.findViewById(R.id.relLayout);
-        int imageResourceGreen = context.getResources().getIdentifier(uriGreen, null, context.getPackageName());
-        Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
-        int imageResourceYellow = context.getResources().getIdentifier(uriYellow, null, context.getPackageName());
-        Drawable resYellow = context.getResources().getDrawable(imageResourceYellow);
-        int imageResourceRed = context.getResources().getIdentifier(uriRed, null, context.getPackageName());
-        Drawable resRed = context.getResources().getDrawable(imageResourceRed);
+
         TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
         TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
         TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
@@ -510,11 +498,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBack);
         ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         if (Global.levelId == 1) {
-            changeColor2.setBackground(resGreen);
+            Utils.changeUIcolor(context, Global.uriGreen, changeColor2);
         } else if (Global.levelId == 2) {
-            changeColor2.setBackground(resYellow);
+            Utils.changeUIcolor(context, Global.uriYellow, changeColor2);
         } else if (Global.levelId == 3) {
-            changeColor2.setBackground(resRed);
+            Utils.changeUIcolor(context, Global.uriRed, changeColor2);
         }
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
