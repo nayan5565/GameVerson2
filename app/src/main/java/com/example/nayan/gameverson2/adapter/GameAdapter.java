@@ -148,7 +148,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-                    holder.txtContents.setVisibility(View.GONE);
+//                    holder.txtContents.setVisibility(View.GONE);
                     Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
                     Picasso.with(context)
                             .load(Global.IMAGE_URL + mContents.getImg())

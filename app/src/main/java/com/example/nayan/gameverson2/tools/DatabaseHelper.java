@@ -664,7 +664,6 @@ public class DatabaseHelper {
         cursor.close();
 
 
-
         return levelArrayList;
     }
 
@@ -913,6 +912,7 @@ public class DatabaseHelper {
                 mWords.setContentId(cursor.getInt(cursor.getColumnIndex(KEY_WORDS_CONTENTS_ID)));
                 mWords.setWimg(cursor.getString(cursor.getColumnIndex(KEY_WORDS_IMG)));
                 mWords.setWletter(cursor.getString(cursor.getColumnIndex(KEY_WORDS_LETTER)));
+
                 assetArrayList.add(mWords);
 
             } while (cursor.moveToNext());
@@ -999,6 +999,7 @@ public class DatabaseHelper {
                 mAllContent.setSen(cursor.getString(cursor.getColumnIndex(KEY_SEN)));
                 mAllContent.setPresentType(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_TYPE)));
                 mAllContent.setPresentId(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_ID)));
+                Log.e("image", "get image : " + mAllContent.getImg());
                 assetArrayList.add(mAllContent);
 
             } while (cursor.moveToNext());
@@ -1041,7 +1042,7 @@ public class DatabaseHelper {
     private void close() {
         if (db != null && db.isOpen()) {
             db.close();
-            db=null;
+            db = null;
         }
     }
 }
