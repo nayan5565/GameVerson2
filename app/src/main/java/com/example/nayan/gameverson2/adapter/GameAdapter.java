@@ -148,7 +148,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
-//                    holder.txtContents.setVisibility(View.GONE);
+                    holder.imgAnim.setVisibility(View.VISIBLE);
+                    holder.txtContents.setText("");
                     Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
                     Picasso.with(context)
                             .load(Global.IMAGE_URL + mContents.getImg())
@@ -156,7 +157,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                 } else {
                     holder.txtContents.setText(mContents.getTxt());
-//                holder.imgAnim.setVisibility(View.GONE);
+                    holder.imgAnim.setVisibility(View.GONE);
                 }
             } else {
                 holder.txtContents.setText("");
@@ -283,7 +284,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (getAdapterPosition() < 0)
+                        return;
                     mContents = textArrayList.get(getAdapterPosition());
                     Global.GAME_INDEX_POSITION = getAdapterPosition();
 

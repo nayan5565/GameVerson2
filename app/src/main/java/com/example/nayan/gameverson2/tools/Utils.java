@@ -20,12 +20,21 @@ import android.widget.Toast;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
+import com.example.nayan.gameverson2.model.MPost;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by NAYAN on 8/25/2016.
@@ -61,6 +70,50 @@ public class Utils {
             mediaPlayer.start();
             Log.e("log", "playing");
         }
+    }
+
+    public static void postDataFromDatabase(final MPost mPost) {
+        //need params variable name of data url
+        final Gson gson = new Gson();
+        final RequestParams params = new RequestParams();
+        AsyncHttpClient client = new AsyncHttpClient();
+        params.put("data", gson.toJson(mPost));
+        client.post("", params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+
+    public static void logIn(String email, String pass, String deviceId) {
+        //need url
+        final Gson gson = new Gson();
+        final RequestParams params = new RequestParams();
+        AsyncHttpClient client = new AsyncHttpClient();
+        params.put("email", email);
+        params.put("pass", pass);
+        params.put("deviceId", deviceId);
+        client.post("", params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 
     public static String convertNum(String num) {
@@ -139,7 +192,7 @@ public class Utils {
         animator.setDuration(9000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -200);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -250);
         animator1.setDuration(9000);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();
@@ -167,9 +220,9 @@ public class Utils {
             public void run() {
 //                getScreenSize(MainActivity.this);
 
-                view2.setY(randInt(50, heightSize - 50));
+                view2.setY(randInt(50, heightSize - (heightSize / 2)));
                 view2.setX(280);
-                view.setY(randInt(50, heightSize - 50));
+                view.setY(randInt(50, heightSize - (heightSize / 2)));
                 view.setX(-200);
                 move(view, view2);
             }

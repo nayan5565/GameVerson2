@@ -17,9 +17,9 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textSize="40dp" />
+
     <ImageView
         android:id="@+id/imgImage"
-        android:src="@drawable/b"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
