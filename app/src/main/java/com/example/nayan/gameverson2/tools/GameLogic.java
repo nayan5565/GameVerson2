@@ -39,7 +39,7 @@ import static com.example.nayan.gameverson2.activity.SubLevelActivity.mSubLevels
  * Created by NAYAN on 8/20/2016.
  */
 public class GameLogic {
-    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious;
+    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious, oneClick;
     private static GameLogic gameLogic;
     private ArrayList<MAllContent> list;
     private ArrayList<MWords> list2;
@@ -122,9 +122,13 @@ public class GameLogic {
 
     public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2, final ImageView imageView) {
         counter++;
+        oneClick++;
 
         Log.e("counter", "is" + counter);
         //don't work if mid !=1 at first time because first time click count=1
+        if (oneClick > 1) {
+            return;
+        }
         if (mContents.getMid() == clickCount + 1) {
             list.get(pos).setMatch(1);
 //            list.get(pos).setClick(Utils.IMAGE_OPEN);
@@ -179,6 +183,10 @@ public class GameLogic {
 
     public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos, final ImageView imageView) {
         counter++;
+        oneClick++;
+        if (oneClick > 1) {
+            return;
+        }
         if (mContents.getMatch() == 1) {
             Utils.toastMassage(context, "Matched");
             Log.e("s", ":1");
@@ -260,6 +268,10 @@ public class GameLogic {
         Log.e("position", "pos" + pos);
 
         counter++;
+        oneClick++;
+        if (oneClick > 1) {
+            return;
+        }
 
         if (previousId == mImage.getMid() || count > 1 || mImage.getMatch() == 1) {
             Log.e("previous type", "same: " + mImage.getPresentType());
@@ -602,6 +614,7 @@ public class GameLogic {
             @Override
             public void run() {
                 gameAdapter.notifyDataSetChanged();
+                oneClick = 0;
             }
         }, 500);
     }
