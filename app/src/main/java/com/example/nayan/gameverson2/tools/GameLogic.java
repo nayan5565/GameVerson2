@@ -229,7 +229,12 @@ public class GameLogic {
 
                 if (matchWinCount == listSize / 2) {
                     savePoint(listSize);
-                    resetList(listSize);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            resetList(listSize);
+                        }
+                    }, 1000);
                     GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 //                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
@@ -321,14 +326,16 @@ public class GameLogic {
 
                 if (matchWinCount == listSize / 2) {
                     savePoint(listSize);
+//                    resetList(listSize);
 //                    textView.setBackgroundColor(0);
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            resetList(listSize);
+                            resetList(listSize);
                             dialogShowForLevelClear(listSize);
                         }
                     }, 1500);
+                    GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
 //                    VungleAdManager.getInstance(context).play();
 
 
@@ -626,6 +633,7 @@ public class GameLogic {
     }
 
     public void shakeAnimation(View v) {
+        oneClick = 0;
         // Create shake effect from xml resource
         Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
         // View element to be shaken

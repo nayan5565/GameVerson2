@@ -91,6 +91,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
             txtSubLevel = (TextView) itemView.findViewById(R.id.txtLevel);
             txtPoint = (TextView) itemView.findViewById(R.id.txtPoint);
             imgLock = (ImageView) itemView.findViewById(R.id.imgLock);
+            Utils.setFont(context, "carterone", txtSubLevel);
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
