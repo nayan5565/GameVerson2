@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/dia_relativeLayout2"
-    android:layout_height="370dp"
+    android:layout_width="290dp"
+    android:layout_height="350dp"
+    android:layout_marginLeft="12dp"
     android:background="@drawable/red_panel"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="15dp"
-        android:text="A"
-        android:textSize="110dp" />
+        android:textColor="#fff"
+        android:textSize="100dp"
+        android:text="A" />
 
     <ImageView
         android:id="@+id/imgOne"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:background="#fff"
         android:layout_below="@+id/txtOne"
-        android:layout_marginLeft="35dp"/>
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:id="@+id/txtTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgOne"
-        android:layout_marginLeft="35dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#fff"
         android:textSize="20dp" />
 
     <TextView
@@ -35,7 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgTwo"
-        android:layout_marginLeft="125dp"
+        android:layout_marginLeft="110dp"
+        android:textColor="#fff"
+        android:layout_marginTop="15dp"
         android:textSize="20dp" />
 
     <TextView
@@ -43,29 +51,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgTwo"
-        android:layout_marginLeft="220dp"
+        android:layout_marginLeft="210dp"
+        android:textColor="#fff"
+        android:layout_marginTop="15dp"
         android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/imgThree"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:background="#fff"
         android:layout_below="@+id/txtOne"
-        android:layout_marginLeft="220dp"/>
+        android:layout_marginLeft="200dp" />
 
     <ImageView
         android:id="@+id/imgTwo"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:background="#fff"
         android:layout_below="@+id/txtOne"
-        android:layout_marginLeft="125dp"/>
+        android:layout_marginLeft="110dp" />
 
     <ImageView
         android:id="@+id/imgBackOne"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/prev_btn" />
 
@@ -75,8 +89,8 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="140dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="120dp"
         android:background="@drawable/reload_btn" />
 
     <ImageView
@@ -85,7 +99,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/close_button" />
 

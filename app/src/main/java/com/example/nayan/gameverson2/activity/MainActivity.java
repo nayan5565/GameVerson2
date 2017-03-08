@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getEnglishContentData();
         getMathContentData();
         getBanglaContentData();
-//        getLocalData();
+        getLocalData();
 
     }
 
@@ -135,8 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void getLocalData() {
+        saveLevelToDb();
         levelsBangla = database.getLevelData(1);
-        txtSub.setText(Utils.levels.get(0).getTotal_slevel());
+        txtSub.setText(levelsBangla.get(0).getTotal_slevel());
         levelsBanglaMath = database.getLevelData(2);
         txtBanglaMath.setText(levelsBanglaMath.get(0).getTotal_slevel());
         levelsEnglish = database.getLevelData(3);
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
 
 
-        Log.e("sublel", "size");
+        Log.e("subLevel", "size");
     }
 
 
