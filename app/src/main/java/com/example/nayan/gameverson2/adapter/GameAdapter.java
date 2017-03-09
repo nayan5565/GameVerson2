@@ -243,7 +243,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         } else if (Global.subLevelId == 15) {
-            if (mContents.getClick() == Utils.IMAGE_OPEN) {
+            if (mContents.getClick() == Global.IMAGE_OPEN) {
 
             } else {
                 holder.txtContents.setBackgroundColor(0);
@@ -365,6 +365,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView img1 = (ImageView) dialog.findViewById(R.id.imgOne);
         ImageView img2 = (ImageView) dialog.findViewById(R.id.imgTwo);
         ImageView img3 = (ImageView) dialog.findViewById(R.id.imgThree);
+        Utils.setFont(context, "carterone", txt1, txt2, txt3, txt4);
         ImageView imgSound = (ImageView) dialog.findViewById(R.id.imgSoundOne);
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBackOne);
         ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgCloseOne);
@@ -497,6 +498,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView img2 = (ImageView) dialog.findViewById(R.id.img2);
         ImageView img3 = (ImageView) dialog.findViewById(R.id.img3);
         ImageView img4 = (ImageView) dialog.findViewById(R.id.img4);
+        Utils.setFont(context, "carterone", txt1, txt2, txt3, txt4);
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBack);
         ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         if (Global.levelId == 1) {

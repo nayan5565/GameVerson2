@@ -167,7 +167,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         btnSubSetting = (Button) findViewById(R.id.btnSubSetting);
         back.setOnClickListener(this);
         btnSubSetting.setOnClickListener(this);
-        Utils.levels = new ArrayList<>();
+        Global.levels = new ArrayList<>();
         mLevels = new ArrayList<>();
         mSubLevels = new ArrayList<>();
         database = new DatabaseHelper(this);

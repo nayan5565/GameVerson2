@@ -395,7 +395,7 @@ public class GameLogic {
 
         counter++;
 
-        if (idPrevious == mImage.getPresentId() || count > 1 || mImage.getClick() == Utils.IMAGE_OPEN) {
+        if (idPrevious == mImage.getPresentId() || count > 1 || mImage.getClick() == Global.IMAGE_OPEN) {
             Log.e("previous id", "same: " + mImage.getPresentId());
             Log.e("click over 1", "count: " + count);
 
@@ -412,7 +412,7 @@ public class GameLogic {
         }
         clickCount++;
 
-        list.get(pos).setClick(Utils.IMAGE_OPEN);
+        list.get(pos).setClick(Global.IMAGE_OPEN);
 
         flipAnimation(view);
         handler.postDelayed(new Runnable() {
@@ -497,7 +497,7 @@ public class GameLogic {
 //                        Utils.getSound(context, R.raw.fail);
                         for (int i = 0; i < listSize; i++) {
                             if (list.get(i).getPresentId() == perevious || list.get(i).getPresentId() == mImage.getPresentId()) {
-                                list.get(i).setClick(Utils.IMAGE_OFF);
+                                list.get(i).setClick(Global.IMAGE_OFF);
                                 Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
 //
                             }

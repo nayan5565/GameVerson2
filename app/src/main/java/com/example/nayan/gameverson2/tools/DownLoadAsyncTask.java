@@ -66,7 +66,7 @@ public class DownLoadAsyncTask extends AsyncTask<String, Integer, Boolean> {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         Log.e("DOWNLOAD_PROG","%:"+values[0]);
-        progressDialog.setMessage(Utils.ASSETS_DOWNLOAD_MASSAGE +values[0]+"%");
+        progressDialog.setMessage(Global.ASSETS_DOWNLOAD_MASSAGE +values[0]+"%");
     }
 
     @Override

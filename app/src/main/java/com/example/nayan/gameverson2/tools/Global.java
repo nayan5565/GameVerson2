@@ -3,7 +3,11 @@ package com.example.nayan.gameverson2.tools;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MSubLevel;
+import com.example.nayan.gameverson2.model.MWords;
 
 import java.util.ArrayList;
 
@@ -32,6 +36,18 @@ public class Global {
     public static String uriGreen = "@drawable/green_panel";
     public static String uriYellow = "@drawable/yellow_panel";
     public static String uriRed = "@drawable/red_panel";
+    public static String IMAGE_OPEN = "one", IMAGE_OFF = "two";
+    public static String ASSETS_DOWNLOAD_MASSAGE = "downloaded";
+    public static String CONVERT_NUM = "downloaded";
+    public static ArrayList<MSubLevel> mSubLevelArrayList;
+    public static ArrayList<MLevel> levels;
+    public static ArrayList<MContents> contents;
+    public static ArrayList<MAllContent> English;
+    public static ArrayList<MWords> English_words;
+    public static ArrayList<MWords> BANGLA_words;
+    public static ArrayList<MWords> MATH_words;
+    public static ArrayList<MAllContent> Maths;
+    public static ArrayList<MAllContent> BANGLA;
 
 
 }

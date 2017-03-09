@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtEnglish = (TextView) findViewById(R.id.txtEnglish);
         txtDrawing = (TextView) findViewById(R.id.txtDrawing);
         txtBanglaMath = (TextView) findViewById(R.id.txtBanglaMath);
-        Utils.levels = new ArrayList<>();
+        Global.levels = new ArrayList<>();
         btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
         btnBanglaMath.setOnClickListener(this);
         cloud1 = (ImageView) findViewById(R.id.imgCloud1);
@@ -186,19 +186,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
 
-                        Utils.levels = new ArrayList<MLevel>();
-                        Utils.mSubLevelArrayList = new ArrayList<MSubLevel>();
+                        Global.levels = new ArrayList<MLevel>();
+                        Global.mSubLevelArrayList = new ArrayList<MSubLevel>();
                         try {
                             MLevel[] levelData = gson.fromJson(response.getJSONObject("puzzle").getJSONArray("level").toString(), MLevel[].class);
-                            Utils.levels = new ArrayList<MLevel>(Arrays.asList(levelData));
-                            for (int i = 0; i < Utils.levels.size(); i++) {
-                                for (int j = 0; j < Utils.levels.get(i).getSub().size(); j++) {
+                            Global.levels = new ArrayList<MLevel>(Arrays.asList(levelData));
+                            for (int i = 0; i < Global.levels.size(); i++) {
+                                for (int j = 0; j < Global.levels.get(i).getSub().size(); j++) {
 
-                                    MSubLevel subLevel = Utils.levels.get(i).getSub().get(j);
-                                    subLevel.setParentId(Utils.levels.get(i).getLid());
-                                    subLevel.setParentName(Utils.levels.get(i).getName());
+                                    MSubLevel subLevel = Global.levels.get(i).getSub().get(j);
+                                    subLevel.setParentId(Global.levels.get(i).getLid());
+                                    subLevel.setParentName(Global.levels.get(i).getName());
 
-                                    Utils.mSubLevelArrayList.add(subLevel);
+                                    Global.mSubLevelArrayList.add(subLevel);
                                 }
 
                             }
@@ -235,18 +235,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.e("json data", " is response :" + response);
 
 
-                        Utils.English_words = new ArrayList<MWords>();
+                        Global.English_words = new ArrayList<MWords>();
 
                         try {
                             MAllContent[] data = gson.fromJson(response.getJSONArray("contents").toString(), MAllContent[].class);
-                            Utils.English = new ArrayList<MAllContent>(Arrays.asList(data));
-                            for (int i = 0; i < Utils.English.size(); i++) {
+                            Global.English = new ArrayList<MAllContent>(Arrays.asList(data));
+                            for (int i = 0; i < Global.English.size(); i++) {
 //                                Utils.English.get(i).setPresentId(i+1);
-                                Utils.English.get(i).setPresentType(i + 1);
-                                for (int j = 0; j < Utils.English.get(i).getWords().size(); j++) {
-                                    MWords mWords = Utils.English.get(i).getWords().get(j);
-                                    mWords.setContentId(Utils.English.get(i).getMid());
-                                    Utils.English_words.add(mWords);
+                                Global.English.get(i).setPresentType(i + 1);
+                                for (int j = 0; j < Global.English.get(i).getWords().size(); j++) {
+                                    MWords mWords = Global.English.get(i).getWords().get(j);
+                                    mWords.setContentId(Global.English.get(i).getMid());
+                                    Global.English_words.add(mWords);
                                 }
                             }
                         } catch (JSONException e) {
@@ -280,18 +280,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.e("json data", " is response :" + response);
 
 
-                        Utils.BANGLA_words = new ArrayList<MWords>();
+                        Global.BANGLA_words = new ArrayList<MWords>();
 
                         try {
                             MAllContent[] data = gson.fromJson(response.getJSONArray("contents").toString(), MAllContent[].class);
-                            Utils.BANGLA = new ArrayList<MAllContent>(Arrays.asList(data));
-                            for (int i = 0; i < Utils.BANGLA.size(); i++) {
+                            Global.BANGLA = new ArrayList<MAllContent>(Arrays.asList(data));
+                            for (int i = 0; i < Global.BANGLA.size(); i++) {
 //                                Utils.English.get(i).setPresentId(i+1);
-                                Utils.BANGLA.get(i).setPresentType(i + 1);
-                                for (int j = 0; j < Utils.BANGLA.get(i).getWords().size(); j++) {
-                                    MWords mWords = Utils.BANGLA.get(i).getWords().get(j);
-                                    mWords.setContentId(Utils.BANGLA.get(i).getMid());
-                                    Utils.BANGLA_words.add(mWords);
+                                Global.BANGLA.get(i).setPresentType(i + 1);
+                                for (int j = 0; j < Global.BANGLA.get(i).getWords().size(); j++) {
+                                    MWords mWords = Global.BANGLA.get(i).getWords().get(j);
+                                    mWords.setContentId(Global.BANGLA.get(i).getMid());
+                                    Global.BANGLA_words.add(mWords);
                                 }
                             }
                         } catch (JSONException e) {
@@ -325,17 +325,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.e("json data", " is response :" + response);
 
 
-                        Utils.MATH_words = new ArrayList<MWords>();
+                        Global.MATH_words = new ArrayList<MWords>();
 
                         try {
                             MAllContent[] data = gson.fromJson(response.getJSONArray("contents").toString(), MAllContent[].class);
-                            Utils.Maths = new ArrayList<MAllContent>(Arrays.asList(data));
-                            for (int i = 0; i < Utils.Maths.size(); i++) {
-                                Utils.Maths.get(i).setPresentType(i + 1);
-                                for (int j = 0; j < Utils.Maths.get(i).getWords().size(); j++) {
-                                    MWords mWords = Utils.Maths.get(i).getWords().get(j);
-                                    mWords.setContentId(Utils.Maths.get(i).getMid());
-                                    Utils.MATH_words.add(mWords);
+                            Global.Maths = new ArrayList<MAllContent>(Arrays.asList(data));
+                            for (int i = 0; i < Global.Maths.size(); i++) {
+                                Global.Maths.get(i).setPresentType(i + 1);
+                                for (int j = 0; j < Global.Maths.get(i).getWords().size(); j++) {
+                                    MWords mWords = Global.Maths.get(i).getWords().get(j);
+                                    mWords.setContentId(Global.Maths.get(i).getMid());
+                                    Global.MATH_words.add(mWords);
 
                                 }
                             }
@@ -345,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         saveMathContentsOfAllLevelToDb();
                         saveMathWordsToDb();
-                        Log.e("mathList", "is : " + Utils.MATH_words.size());
+                        Log.e("mathList", "is : " + Global.MATH_words.size());
                     }
 
                     @Override
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                Utils.contents = new ArrayList<MContents>();
+                Global.contents = new ArrayList<MContents>();
                 try {
                     JSONArray content = response.getJSONArray("contents");
                     MContents mContents;
@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mContents.setPresentType(count);
 
 
-                        Utils.contents.add(mContents);
+                        Global.contents.add(mContents);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -433,58 +433,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void saveLevelToDb() {
-        Log.e("SAVE", "Level size:" + Utils.levels.size());
-        for (MLevel data : Utils.levels) {
+        Log.e("SAVE", "Level size:" + Global.levels.size());
+        for (MLevel data : Global.levels) {
             database.addLevelFromJson(data);
         }
     }
 
     private void saveSubLevelToDb() {
-        Log.e("SAVE db", "mSubLevel size:" + Utils.mSubLevelArrayList.size());
-        for (MSubLevel data2 : Utils.mSubLevelArrayList) {
+        Log.e("SAVE db", "mSubLevel size:" + Global.mSubLevelArrayList.size());
+        for (MSubLevel data2 : Global.mSubLevelArrayList) {
             database.addSubFromJsom(data2);
         }
     }
 
     private void saveContentsToDb() {
-        for (MContents data2 : Utils.contents) {
+        for (MContents data2 : Global.contents) {
             database.addContentsFromJsom(data2);
         }
     }
 
     private void saveEnglishContentsOfAllLevelToDb() {
-        for (MAllContent mAllContent : Utils.English) {
+        for (MAllContent mAllContent : Global.English) {
             database.addEnglishContentsFromJsom(mAllContent);
         }
     }
 
     private void saveBanglaContentsOfAllLevelToDb() {
-        for (MAllContent mAllContent : Utils.BANGLA) {
+        for (MAllContent mAllContent : Global.BANGLA) {
             database.addBanglaContentsFromJsom(mAllContent);
         }
     }
 
     private void saveMathContentsOfAllLevelToDb() {
-        for (MAllContent mAllContent : Utils.Maths) {
+        for (MAllContent mAllContent : Global.Maths) {
             database.addMathContentsFromJsom(mAllContent);
         }
     }
 
     private void saveWordsToDb() {
-        for (MWords mWords : Utils.English_words) {
+        for (MWords mWords : Global.English_words) {
             database.addWordsFromJsom(mWords);
         }
     }
 
     private void saveBanglaWordsToDb() {
-        for (MWords mWords : Utils.BANGLA_words) {
+        for (MWords mWords : Global.BANGLA_words) {
             database.addBanglaWordsFromJsom(mWords);
         }
     }
 
 
     private void saveMathWordsToDb() {
-        for (MWords mWords : Utils.MATH_words) {
+        for (MWords mWords : Global.MATH_words) {
             database.addMathWordsFromJsom(mWords);
             Log.e("math", " words");
         }

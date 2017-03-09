@@ -40,18 +40,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by NAYAN on 8/25/2016.
  */
 public class Utils {
-    public static String IMAGE_OPEN = "one", IMAGE_OFF = "two";
-    public static String ASSETS_DOWNLOAD_MASSAGE = "downloaded";
-    public static String CONVERT_NUM = "downloaded";
-    public static ArrayList<MSubLevel> mSubLevelArrayList;
-    public static ArrayList<MLevel> levels;
-    public static ArrayList<MContents> contents;
-    public static ArrayList<MAllContent> English;
-    public static ArrayList<MWords> English_words;
-    public static ArrayList<MWords> BANGLA_words;
-    public static ArrayList<MWords> MATH_words;
-    public static ArrayList<MAllContent> Maths;
-    public static ArrayList<MAllContent> BANGLA;
+
     public static boolean isSoundPlay = true;
     public static int bestPoint, presentPoint;
     static MediaPlayer mediaPlayer;
