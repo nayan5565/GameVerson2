@@ -85,11 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        levelsBangla=new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
-//        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/carterone.ttf");
-//
-//        textName.setTypeface(custom_font);
-//        Utils.changeFontAnotherWay(textName, MainActivity.this);
         Utils.setFont(this, "carterone", textName);
         database = new DatabaseHelper(this);
         btnSetting = (Button) findViewById(R.id.btnSetting);
@@ -135,9 +132,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void getLocalData() {
-        saveLevelToDb();
+//        saveLevelToDb();
         levelsBangla = database.getLevelData(1);
-        txtSub.setText(levelsBangla.get(0).getTotal_slevel());
+        if (levelsBangla.size()==0){
+            return;
+
+        }else {
+            txtSub.setText(levelsBangla.get(0).getTotal_slevel());
+        }
+
         levelsBanglaMath = database.getLevelData(2);
         txtBanglaMath.setText(levelsBanglaMath.get(0).getTotal_slevel());
         levelsEnglish = database.getLevelData(3);
@@ -359,25 +362,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         );
     }
 
-    private void getOnlineDataByGson() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.post(Global.API_LEVELS, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject puzzle = response.getJSONObject("puzzle");
-                    JSONArray level = puzzle.getJSONArray("level");
-                    MLevel[] mLevels = gson.fromJson(level.toString(), MLevel[].class);
-
-                    levels = new ArrayList<MLevel>(Arrays.asList(mLevels));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     private void getOnlineBanglaContentsData() {
         if (!Utils.isInternetOn(this)) {

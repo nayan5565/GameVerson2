@@ -272,7 +272,8 @@ public class DatabaseHelper {
         } catch (Exception e) {
 
         }
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addSubFromJsom(MSubLevel mSubLevel) {
@@ -290,6 +291,7 @@ public class DatabaseHelper {
 
             String sql = "select * from " + DATABASE_SUB_LEVEL_TABLE + " where " + KEY_SUB_LEVEL_ID + "='" + mSubLevel.getLid() + "'";
             cursor = db.rawQuery(sql, null);
+            Log.e("cu", "has" + cursor);
             if (cursor != null && cursor.moveToFirst()) {
                 int update = db.update(DATABASE_SUB_LEVEL_TABLE, values, KEY_SUB_LEVEL_ID + "=?", new String[]{mSubLevel.getLid() + ""});
                 Log.e("sublevel", "sub level update : " + update);
@@ -303,7 +305,8 @@ public class DatabaseHelper {
         } catch (Exception e) {
 
         }
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addWordsFromJsom(MWords mWords) {
@@ -333,7 +336,8 @@ public class DatabaseHelper {
         } catch (Exception e) {
 
         }
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addBanglaWordsFromJsom(MWords mWords) {
@@ -363,7 +367,8 @@ public class DatabaseHelper {
         } catch (Exception e) {
 
         }
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addMathWordsFromJsom(MWords mWords) {
@@ -393,7 +398,8 @@ public class DatabaseHelper {
         } catch (Exception e) {
 
         }
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addContentsFromJsom(MContents mContents) {
@@ -426,7 +432,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addEnglishContentsFromJsom(MAllContent mAllContent) {
@@ -459,7 +466,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addBanglaContentsFromJsom(MAllContent mAllContent) {
@@ -492,7 +500,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addMathContentsFromJsom(MAllContent mAllContent) {
@@ -525,7 +534,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addLockData(MLock mLock) {
@@ -555,7 +565,8 @@ public class DatabaseHelper {
             Log.e("ERR", "mlock:" + e.toString());
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addPointData(MPoint mPoint) {
@@ -582,7 +593,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addQuesData(MQuestions mQuestions) {
@@ -607,7 +619,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
     public void addOptonData(MItem mItem) {
@@ -633,7 +646,8 @@ public class DatabaseHelper {
 
         }
 
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
     }
 
 

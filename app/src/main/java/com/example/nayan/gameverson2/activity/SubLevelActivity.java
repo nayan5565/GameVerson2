@@ -79,7 +79,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         prepareDisplay();
     }
 
-    private void requestStoragePermission() {
+    private void requestStoragePermissionToMashmallow() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             //If the user has denied the permission previously your code will come to this block
