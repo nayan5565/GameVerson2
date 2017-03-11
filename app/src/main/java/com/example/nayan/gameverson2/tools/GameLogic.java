@@ -141,7 +141,6 @@ public class GameLogic {
             clickCount = mContents.getMid();
             count++;
 
-            Toast.makeText(context, mContents.getTxt(), Toast.LENGTH_SHORT).show();
         } else {
             Utils.getSound(context, R.raw.fail);
             shakeAnimation(view);

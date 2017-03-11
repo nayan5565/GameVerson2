@@ -40,8 +40,8 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnSetting, special, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
-    private ImageView cloud1, cloud2;
+    private Button btnSetting, special;
+    private ImageView cloud1, cloud2 , btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private MLevel mLevel;
     private MAllContent mAllContent;
     private MWords mWords;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static ArrayList<MLevel> levelsEnglish;
     private static ArrayList<MLevel> levelsBanglaMath;
     private DatabaseHelper database;
-    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName;
+    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName,txtEnglisg,txtMatht;
     private String image;
     private static String B_URL = Global.BASE_URL;
 
@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        txtEnglisg=(TextView)findViewById(R.id.txtEnglishTx);
+        txtMatht=(TextView)findViewById(R.id.txtMathTx);
+        Utils.setFont(this,"carterone",txtEnglisg,txtMatht);
         levelsBangla=new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
         Utils.setFont(this, "carterone", textName);
@@ -92,13 +95,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);
         mLevel = new MLevel();
-        btnBangla = (Button) findViewById(R.id.btnBangla);
+        btnBangla = (ImageView) findViewById(R.id.btnBangla);
         btnBangla.setOnClickListener(this);
-        btnEnglish = (Button) findViewById(R.id.btnEnglish);
+        btnEnglish = (ImageView) findViewById(R.id.btnEnglish);
         btnEnglish.setOnClickListener(this);
-        btnMath = (Button) findViewById(R.id.btnMath);
+        btnMath = (ImageView) findViewById(R.id.btnMath);
         btnMath.setOnClickListener(this);
-        btnDrawing = (Button) findViewById(R.id.btnDrawing);
+        btnDrawing = (ImageView) findViewById(R.id.btnDrawing);
         btnDrawing.setOnClickListener(this);
         txtSub = (TextView) findViewById(R.id.txtSub);
         txtMath = (TextView) findViewById(R.id.txtMath);
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtDrawing = (TextView) findViewById(R.id.txtDrawing);
         txtBanglaMath = (TextView) findViewById(R.id.txtBanglaMath);
         Global.levels = new ArrayList<>();
-        btnBanglaMath = (Button) findViewById(R.id.btnBanglaMath);
+        btnBanglaMath = (ImageView) findViewById(R.id.btnBanglaMath);
         btnBanglaMath.setOnClickListener(this);
         cloud1 = (ImageView) findViewById(R.id.imgCloud1);
         cloud2 = (ImageView) findViewById(R.id.imgCloud2);

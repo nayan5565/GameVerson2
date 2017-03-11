@@ -29,6 +29,8 @@ import com.example.nayan.gameverson2.tools.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by NAYAN on 11/24/2016.
@@ -368,12 +370,39 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         Utils.setFont(context, "carterone", txt1, txt2, txt3, txt4);
         ImageView imgSound = (ImageView) dialog.findViewById(R.id.imgSoundOne);
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBackOne);
-        ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgCloseOne);
+        ImageView imgForward = (ImageView) dialog.findViewById(R.id.imgForward1);
         txt1.setText(textArrayList.get(pos).getTxt());
-        imgClose.setOnClickListener(new View.OnClickListener() {
+        imgForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                if (Global.GAME_INDEX_POSITION >= textArrayList.size() - 1) {
+                    Utils.toastMassage(context, "level finish");
+//                    Collections.shuffle(textArrayList);
+                    dialog.dismiss();
+
+                } else {
+                    Global.GAME_INDEX_POSITION = Global.GAME_INDEX_POSITION + 1;
+
+                    mContents = textArrayList.get(Global.GAME_INDEX_POSITION);
+
+                    if (Global.subLevelId == 3) {
+
+
+                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
+                    }
+                    if (Global.subLevelId == 6) {
+
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                    }
+                    if (Global.subLevelId == 9) {
+
+                        mContents.setWords(db.getWordsData(mContents.getMid()));
+                    }
+
+                    dialogShowWithWordArray(Global.GAME_INDEX_POSITION);
+//                    txt1.setText(textArrayList.get(pos).getTxt());
+                    dialog.dismiss();
+                }
             }
         });
         Log.e("TEST", "s:" + mContents.getWords().size());

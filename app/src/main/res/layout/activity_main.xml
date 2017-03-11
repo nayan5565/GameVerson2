@@ -14,10 +14,10 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_marginTop="40dp"
             android:id="@+id/txtGameNames"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="Game Names"
             android:textSize="30dp" />
@@ -49,12 +49,12 @@
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:layout_marginTop="20dp"
                     android:id="@+id/frmBangla"
                     android:layout_width="190dp"
-                    android:layout_height="60dp">
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/btnBangla"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
@@ -79,7 +79,7 @@
                     android:layout_width="190dp"
                     android:layout_height="60dp">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/btnBanglaMath"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
@@ -102,7 +102,7 @@
                     android:layout_width="190dp"
                     android:layout_height="60dp">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/btnEnglish"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
@@ -111,6 +111,17 @@
                         android:text="English"
                         android:textColor="#FFFFFF"
                         android:textSize="23dp" />
+
+                    <TextView
+                        android:id="@+id/txtEnglishTx"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="English"
+                        android:textColor="#fff"
+                        android:textSize="23dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtEnglish"
@@ -128,16 +139,25 @@
                     android:layout_width="190dp"
                     android:layout_height="60dp">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/btnMath"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_gravity="bottom|center"
                         android:background="@drawable/math_button"
-                        android:text="Math"
                         android:textColor="#FFFFFF"
-                        android:textSize="23dp"
                         android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/txtMathTx"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Math"
+                        android:textColor="#fff"
+                        android:textSize="23dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtMath"
@@ -156,7 +176,7 @@
                     android:layout_width="190dp"
                     android:layout_height="60dp">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/btnDrawing"
                         android:layout_width="180dp"
                         android:layout_height="50dp"
@@ -189,7 +209,6 @@
             android:gravity="bottom">
 
             <Button
-                android:gravity="bottom"
                 android:id="@+id/special"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -198,7 +217,8 @@
                 android:layout_alignTop="@+id/btnSetting"
                 android:layout_marginLeft="33dp"
                 android:layout_marginStart="21dp"
-                android:background="@drawable/leaderboardbtn" />
+                android:background="@drawable/leaderboardbtn"
+                android:gravity="bottom" />
 
             <Button
                 android:id="@+id/btnSetting"
