@@ -647,7 +647,6 @@ public class GameLogic {
 //            list.get(i).setClick(Utils.IMAGE_OFF);
 //            imageView.setImageResource(R.drawable.yellow_panel);
             list.get(i).setMatch(0);
-//
         }
 //        previousMcontents.setMatch(0);
 //        MAllContent mContents = new MAllContent();

@@ -7,15 +7,15 @@ import java.util.ArrayList;
  */
 
 public class MPost {
-    private ArrayList<MSubLevel> mSubLevels;
-    private String deviceId, email;
+    private ArrayList<MSubLevel> subLevel;
+    private String deviceId, userEmail;
 
-    public ArrayList<MSubLevel> getmSubLevels() {
-        return mSubLevels;
+    public ArrayList<MSubLevel> getSubLevel() {
+        return subLevel;
     }
 
-    public void setmSubLevels(ArrayList<MSubLevel> mSubLevels) {
-        this.mSubLevels = mSubLevels;
+    public void setSubLevel(ArrayList<MSubLevel> subLevel) {
+        this.subLevel = subLevel;
     }
 
     public String getDeviceId() {
@@ -26,11 +26,11 @@ public class MPost {
         this.deviceId = deviceId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

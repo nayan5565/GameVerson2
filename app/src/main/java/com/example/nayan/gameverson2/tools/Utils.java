@@ -1,5 +1,7 @@
 package com.example.nayan.gameverson2.tools;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -28,6 +31,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -61,23 +65,39 @@ public class Utils {
         }
     }
 
+    // get android device id
+    public static String getDeviceId(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public static String getPhoneGmailAcc(Context context) {
+        AccountManager accountManager = AccountManager.get(context);
+        Account[] accounts = accountManager.getAccountsByType("com.google");
+        return accounts.length > 0 ? accounts[0].name.trim().toLowerCase() : "null";
+
+    }
+
+
     public static void postDataFromDatabase(final MPost mPost) {
         //need params variable name of data url
         final Gson gson = new Gson();
         final RequestParams params = new RequestParams();
         AsyncHttpClient client = new AsyncHttpClient();
-        params.put("data", gson.toJson(mPost));
-        client.post("", params, new JsonHttpResponseHandler() {
+        params.put("post_games", gson.toJson(mPost));
+        Log.e("post", "is" + gson.toJson(mPost));
+        client.post("http://www.radhooni.com/content/match_game/v1/games_data_save.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                Log.e("post", "success" + response);
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                Log.e("post", "fail");
             }
         });
     }

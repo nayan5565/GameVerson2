@@ -19,6 +19,7 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
+import com.example.nayan.gameverson2.model.MPost;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
@@ -41,11 +42,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btnSetting, special;
-    private ImageView cloud1, cloud2 , btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
+    private ImageView cloud1, cloud2, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private MLevel mLevel;
     private MAllContent mAllContent;
     private MWords mWords;
     //    private static LevelAdapter levelAdapter;
+    MPost mPost = new MPost();
     private static ArrayList<MLevel> levels;
     private static ArrayList<MLevel> levelsMath;
     private static ArrayList<MLevel> levelsBangla;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static ArrayList<MLevel> levelsEnglish;
     private static ArrayList<MLevel> levelsBanglaMath;
     private DatabaseHelper database;
-    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName,txtEnglisg,txtMatht;
+    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName, txtEnglisg, txtMatht;
     private String image;
     private static String B_URL = Global.BASE_URL;
 
@@ -65,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         init();
+        mPost.setSubLevel(database.getSubLevelData(1));
+        mPost.setDeviceId(Utils.getDeviceId(this));
+        mPost.setUserEmail(Utils.getPhoneGmailAcc(this));
+        Utils.postDataFromDatabase(mPost);
         getOnlineData();
         getEnglishContentData();
         getMathContentData();
@@ -85,10 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        txtEnglisg=(TextView)findViewById(R.id.txtEnglishTx);
-        txtMatht=(TextView)findViewById(R.id.txtMathTx);
-        Utils.setFont(this,"carterone",txtEnglisg,txtMatht);
-        levelsBangla=new ArrayList<>();
+        txtEnglisg = (TextView) findViewById(R.id.txtEnglishTx);
+        txtMatht = (TextView) findViewById(R.id.txtMathTx);
+        Utils.setFont(this, "carterone", txtEnglisg, txtMatht);
+        levelsBangla = new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
         Utils.setFont(this, "carterone", textName);
         database = new DatabaseHelper(this);
@@ -137,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getLocalData() {
 //        saveLevelToDb();
         levelsBangla = database.getLevelData(1);
-        if (levelsBangla.size()==0){
+        if (levelsBangla.size() == 0) {
             return;
 
-        }else {
+        } else {
             txtSub.setText(levelsBangla.get(0).getTotal_slevel());
         }
 
