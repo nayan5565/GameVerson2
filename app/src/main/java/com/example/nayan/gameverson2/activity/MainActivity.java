@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -487,14 +488,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         final Dialog dialog = new Dialog(this);
         dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_game_exit);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final Button btnYes = (Button) dialog.findViewById(R.id.btnYes);
         final Button btnNO = (Button) dialog.findViewById(R.id.btnNo);
+        Utils.setFont(this, "carterone", btnNO, btnYes);
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnYes.setBackgroundColor(0xff444444);
+                btnYes.setBackgroundColor(0xffff0000);
                 finish();
 
             }
