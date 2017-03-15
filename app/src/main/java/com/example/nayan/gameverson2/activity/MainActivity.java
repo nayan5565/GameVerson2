@@ -493,7 +493,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final Button btnYes = (Button) dialog.findViewById(R.id.btnYes);
         final Button btnNO = (Button) dialog.findViewById(R.id.btnNo);
-        Utils.setFont(this, "carterone", btnNO, btnYes);
+        TextView diaTxt = (TextView) dialog.findViewById(R.id.diaTxt);
+        TextView diaTxt2 = (TextView) dialog.findViewById(R.id.diaTxt2);
+        Utils.setFont(this, "carterone", btnNO, btnYes, diaTxt, diaTxt2);
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
