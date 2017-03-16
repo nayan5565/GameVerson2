@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
+import com.example.nayan.gameverson2.model.MPost;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 
@@ -41,6 +42,7 @@ public class Global {
     public static String CONVERT_NUM = "downloaded";
     public static ArrayList<MSubLevel> mSubLevelArrayList;
     public static ArrayList<MLevel> levels;
+    public static ArrayList<MPost> gameStatus;
     public static ArrayList<MContents> contents;
     public static ArrayList<MAllContent> English;
     public static ArrayList<MWords> English_words;

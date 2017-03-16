@@ -35,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
@@ -92,6 +93,7 @@ public class Utils {
                 super.onSuccess(statusCode, headers, response);
                 Log.e("post", "success" + response);
 
+
             }
 
             @Override
@@ -107,15 +109,20 @@ public class Utils {
         final Gson gson = new Gson();
         final RequestParams params = new RequestParams();
         AsyncHttpClient client = new AsyncHttpClient();
-        params.put("email", email);
-        params.put("pass", pass);
+        params.put("userEmail", email);
+        params.put("password", pass);
         params.put("deviceId", deviceId);
-        client.post("", params, new JsonHttpResponseHandler() {
+        client.post("http://www.radhooni.com/content/match_game/v1/users.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-
+                try {
+                    MPost[] gameStatus = gson.fromJson(response.getJSONArray("subLevel").toString(), MPost[].class);
+                    Global.gameStatus = new ArrayList<MPost>(Arrays.asList(gameStatus));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

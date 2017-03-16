@@ -129,6 +129,7 @@ public class GameLogic {
         if (oneClick > 1) {
             return;
         }
+
         if (mContents.getMid() == clickCount + 1) {
             list.get(pos).setMatch(1);
 //            list.get(pos).setClick(Utils.IMAGE_OPEN);
@@ -148,6 +149,7 @@ public class GameLogic {
 //            view2.setBackgroundColor(0xffff0000);
             Utils.toastMassage(context, "wrong click");
         }
+
         if (count == listSize) {
             savePoint(listSize);
             handler.postDelayed(new Runnable() {
@@ -456,18 +458,19 @@ public class GameLogic {
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             dialog.setContentView(R.layout.dialog_level_cleared);
                             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+                            ImageView txtPoint = (ImageView) dialog.findViewById(R.id.txtLevelPoint);
 //                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
                             TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
 //                            txtBestPoint.setText("" + Utils.bestPoint);
                             txtScore.setText(presentPoint + "");
                             if (presentPoint == 50) {
-                                txtPoint.setText(Utils.getIntToStar(1));
+                                txtPoint.setImageResource(R.drawable.star_1);
                             } else if (presentPoint == 75) {
-                                txtPoint.setText(Utils.getIntToStar(2));
+                                txtPoint.setImageResource(R.drawable.star_2);
                             } else if (presentPoint == 100) {
-                                txtPoint.setText(Utils.getIntToStar(3));
-                            } else txtPoint.setText(Utils.getIntToStar(0));
+                                txtPoint.setImageResource(R.drawable.star_3);
+                            }
+//                            else txtPoint.setText(Utils.getIntToStar(0));
                             dialog.show();
                         }
                     }, 1500);
@@ -521,7 +524,7 @@ public class GameLogic {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         changeColor = (LinearLayout) dialog.findViewById(R.id.dia_LenearLayout);
         TextView txtClear = (TextView) dialog.findViewById(R.id.dia_level_clear);
-        final TextView txtPoint = (TextView) dialog.findViewById(R.id.txtLevelPoint);
+        final ImageView txtPoint = (ImageView) dialog.findViewById(R.id.txtLevelPoint);
 //        final TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
@@ -600,15 +603,13 @@ public class GameLogic {
 //        txtBestPoint.setText("" + Utils.bestPoint);
         txtScore.setText("Score :  " + presentPoint + "");
         if (presentPoint == 50) {
-            txtPoint.setTextColor(0xffffff00);
-            txtPoint.setText(Utils.getIntToStar(1));
+            txtPoint.setImageResource(R.drawable.star_1);
         } else if (presentPoint == 75) {
-            txtPoint.setTextColor(0xffffff00);
-            txtPoint.setText(Utils.getIntToStar(2));
+            txtPoint.setImageResource(R.drawable.star_2);
         } else if (presentPoint == 100) {
-            txtPoint.setTextColor(0xffffff00);
-            txtPoint.setText(Utils.getIntToStar(3));
-        } else txtPoint.setText(Utils.getIntToStar(0));
+            txtPoint.setImageResource(R.drawable.star_3);
+        }
+//        else txtPoint.setText(Utils.getIntToStar(0));
         dialog.show();
     }
 
