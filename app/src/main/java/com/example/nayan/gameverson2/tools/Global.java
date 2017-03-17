@@ -24,6 +24,7 @@ public class Global {
     public static int SUB_INDEX_POSITION;
     public static String ALTER_URL = "";
     public static int subLevelId;
+    public static int imageDownload = 10;
     public static int totalPoint;
     public static int ALL_TOTAL_POINT;
     public static int GAME_INDEX_POSITION;

@@ -117,12 +117,8 @@ public class Utils {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                try {
-                    MPost[] gameStatus = gson.fromJson(response.getJSONArray("subLevel").toString(), MPost[].class);
-                    Global.gameStatus = new ArrayList<MPost>(Arrays.asList(gameStatus));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Log.e("gameStatus", " is response :" + response);
+                MPost gameStatus = gson.fromJson(response.toString(), MPost.class);
             }
 
             @Override

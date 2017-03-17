@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPost.setDeviceId(Utils.getDeviceId(this));
         mPost.setUserEmail(Utils.getPhoneGmailAcc(this));
         Utils.postDataFromDatabase(mPost);
+        Utils.logIn(mPost.getUserEmail(), "123456", mPost.getDeviceId());
         getOnlineData();
         getEnglishContentData();
         getMathContentData();
@@ -192,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!Utils.isInternetOn(this)) {
             Utils.toastMassage(this, "Lost Internet Connection");
             return;
+        }
+        else {
+            Utils.toastMassage(this, " Internet Connected");
         }
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(B_URL + Global.API_LEVELS, new JsonHttpResponseHandler() {

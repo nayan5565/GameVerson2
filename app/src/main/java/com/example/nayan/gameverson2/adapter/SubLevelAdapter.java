@@ -60,20 +60,18 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         holder.txtSubLevel.setText(mSubLevel.getName());
 
         if (mSubLevel.getBestPoint() == 100) {
-            holder.txtPoint.setTextColor(0xffffff00);
-            holder.txtPoint.setText(Utils.getIntToStar(3));
+            holder.txtPoint.setImageResource(R.drawable.s_star_3);
         } else if (mSubLevel.getBestPoint() == 75) {
-            holder.txtPoint.setTextColor(0xffffff00);
-            holder.txtPoint.setText(Utils.getIntToStar(2));
+            holder.txtPoint.setImageResource(R.drawable.s_star_2);
         } else if (mSubLevel.getBestPoint() == 50) {
-            holder.txtPoint.setTextColor(0xffffff00);
-            holder.txtPoint.setText(Utils.getIntToStar(1));
-        } else {
-            holder.txtPoint.setText(Utils.getIntToStar(0));
+            holder.txtPoint.setImageResource(R.drawable.s_star_1);
         }
 
         if (mSubLevel.getUnlockNextLevel() == 1) {
             holder.imgLock.setVisibility(View.GONE);
+        }
+        else {
+            holder.imgLock.setVisibility(View.VISIBLE);
         }
     }
 
@@ -83,13 +81,13 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txtSubLevel, txtPoint;
-        ImageView imgLock;
+        TextView txtSubLevel;
+        ImageView imgLock, txtPoint;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtSubLevel = (TextView) itemView.findViewById(R.id.txtLevel);
-            txtPoint = (TextView) itemView.findViewById(R.id.txtPoint);
+            txtPoint = (ImageView) itemView.findViewById(R.id.txtPoint);
             imgLock = (ImageView) itemView.findViewById(R.id.imgLock);
             Utils.setFont(context, "carterone", txtSubLevel);
             itemView.setOnClickListener(new View.OnClickListener() {
