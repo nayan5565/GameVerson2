@@ -191,11 +191,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getOnlineData() {
         if (!Utils.isInternetOn(this)) {
-            Utils.toastMassage(this, "Lost Internet Connection");
+            Dialog dialog = new Dialog(this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dia_internet_alert);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            TextView txtInternet = (TextView) dialog.findViewById(R.id.txtInternet);
+            txtInternet.setText(Global.internetAlert);
+            dialog.show();
             return;
-        }
-        else {
-            Utils.toastMassage(this, " Internet Connected");
         }
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(B_URL + Global.API_LEVELS, new JsonHttpResponseHandler() {
@@ -241,7 +244,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getEnglishContentData() {
         if (!Utils.isInternetOn(this)) {
-            Utils.toastMassage(this, "Lost Internet Connection");
+            Dialog dialog = new Dialog(this);
+            dialog.setCancelable(false);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dia_internet_alert);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            TextView txtInternet = (TextView) dialog.findViewById(R.id.txtInternet);
+            txtInternet.setText(Global.internetAlert);
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
@@ -286,7 +295,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getBanglaContentData() {
         if (!Utils.isInternetOn(this)) {
-            Utils.toastMassage(this, "Lost Internet Connection");
+            Dialog dialog = new Dialog(this);
+            dialog.setCancelable(false);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dia_internet_alert);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            TextView txtInternet = (TextView) dialog.findViewById(R.id.txtInternet);
+            txtInternet.setText(Global.internetAlert);
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
@@ -331,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getMathContentData() {
         if (!Utils.isInternetOn(this)) {
-            Utils.toastMassage(this, "Lost Internet Connection");
+
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();

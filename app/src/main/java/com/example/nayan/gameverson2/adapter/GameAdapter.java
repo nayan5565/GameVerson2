@@ -177,14 +177,21 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 4) {
             if (mContents.getMatch() == 1) {
-//                holder.txtContents.setBackgroundColor(0xff888888);
-//                flipAnimation(holder.txtContents);
 
             } else {
-//                shakeAnimation(holder.itemView);
-                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
+            holder.txtContents.setText(mContents.getTxt());
+            holder.txtContents.setTextColor(0xffff00ff);
+//            if (mContents.getMatch() == 1) {
+////                holder.txtContents.setBackgroundColor(0xff888888);
+////                flipAnimation(holder.txtContents);
+//
+//            } else {
+////                shakeAnimation(holder.itemView);
+//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
+//                holder.txtContents.setBackgroundColor(0);
+//            }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 5) {
@@ -227,8 +234,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 13) {
             if (mContents.getMatch() == 1) {
+//                holder.txtContents.setBackgroundColor(0xff888888);
+//                flipAnimation(holder.txtContents);
 
             } else {
+//                shakeAnimation(holder.itemView);
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
@@ -292,18 +302,23 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Global.GAME_INDEX_POSITION = getAdapterPosition();
 
                     if (Global.subLevelId == 1) {
-
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
+                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
+                        dialogShowWithWordArray(getAdapterPosition());
+//                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
 
                     } else if (Global.subLevelId == 2) {
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                        dialogShowWithWordsList();
 //                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
                     } else if (Global.subLevelId == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShowWithWordArray(getAdapterPosition());
 //                        dialogShowWithWordsList();
                     } else if (Global.subLevelId == 4) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                        dialogShowWithWordsList();
+//                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.subLevelId == 5) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     } else if (Global.subLevelId == 6) {

@@ -107,18 +107,19 @@ public class Utils {
     public static void logIn(String email, String pass, String deviceId) {
         //need url
         final Gson gson = new Gson();
+        final MPost[] mPost = {new MPost()};
         final RequestParams params = new RequestParams();
         AsyncHttpClient client = new AsyncHttpClient();
-        params.put("userEmail", email);
+        params.put("userEmail", mPost[0].getUserEmail());
         params.put("password", pass);
-        params.put("deviceId", deviceId);
+        params.put("deviceId", mPost[0].getDeviceId());
         client.post("http://www.radhooni.com/content/match_game/v1/users.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.e("gameStatus", " is response :" + response);
-                MPost gameStatus = gson.fromJson(response.toString(), MPost.class);
+                mPost[0] = gson.fromJson(response.toString(), MPost.class);
             }
 
             @Override

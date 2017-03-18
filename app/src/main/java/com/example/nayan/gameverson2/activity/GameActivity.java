@@ -114,6 +114,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("TEST", Global.levelId + ":" + Global.subLevelId + ":" + Global.totalPoint);
 
         if (Global.subLevelId == 1) {
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.game_instruction);
+            Button close = (Button) dialog.findViewById(R.id.btnDismiss);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
             imageArrayList1 = database.getBanglaContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 2) {
@@ -141,11 +151,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 9) {
             imageArrayList1 = database.getEnglishContentsContentsData();
-            Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 13) {
-            ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getEnglishContentsContentsData();
-            imageArrayList1 = generateAssets(realAssets);
+            imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 14) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
@@ -269,14 +276,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             dialog.setTitle("Game Information");
             dialog.requestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
             dialog.setContentView(R.layout.dialog_setting);
-            Button btnWin = (Button) dialog.findViewById(R.id.btnBack);
-            btnWin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                    GameLogic.getInstance(GameActivity.this).showHistory();
-                }
-            });
+//            Button btnWin = (Button) dialog.findViewById(R.id.btnBack);
+//            btnWin.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+//                    GameLogic.getInstance(GameActivity.this).showHistory();
+//                }
+//            });
 
             dialog.show();
         }

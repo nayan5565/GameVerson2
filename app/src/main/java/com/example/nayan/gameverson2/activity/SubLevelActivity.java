@@ -45,7 +45,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private DatabaseHelper database;
     private RecyclerView recyclerView;
     private TextView txtLevelName, txtAllTotal_ponts, txtLevelSelect;
-    MAllContent mAllContent = new MAllContent();
+    private MAllContent mAllContent = new MAllContent();
     private String lName;
     private MLock mLock;
     private int STORAGE_PERMISSION_CODE = 23;

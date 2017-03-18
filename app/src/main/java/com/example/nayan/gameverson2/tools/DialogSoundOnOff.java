@@ -3,7 +3,10 @@ package com.example.nayan.gameverson2.tools;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -29,15 +32,16 @@ public class DialogSoundOnOff {
         editor.apply();
     }
 
-    public static void dialogShow(final Context context){
+    public static void dialogShow(final Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.setTitle("Setting");
-        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_setting);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final ImageView imgSound = (ImageView) dialog.findViewById(R.id.imgSoundOnOf);
-        Button button = (Button) dialog.findViewById(R.id.btnBack);
+        ImageView btnOK = (ImageView) dialog.findViewById(R.id.btnOk);
         String image;
-        image = getPREF(context,KEY_IMAGE);
+        image = getPREF(context, KEY_IMAGE);
         if (image.equals(1 + "")) {
             Utils.isSoundPlay = true;
             imgSound.setImageResource(R.drawable.on);
@@ -45,7 +49,7 @@ public class DialogSoundOnOff {
             Utils.isSoundPlay = false;
             imgSound.setImageResource(R.drawable.off);
         }
-        button.setOnClickListener(new View.OnClickListener() {
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
@@ -57,11 +61,11 @@ public class DialogSoundOnOff {
                 if (Utils.isSoundPlay == false) {
                     Utils.isSoundPlay = true;
                     imgSound.setImageResource(R.drawable.on);
-                    savePref(context,KEY_IMAGE, 1 + "");
+                    savePref(context, KEY_IMAGE, 1 + "");
                 } else {
                     Utils.isSoundPlay = false;
                     imgSound.setImageResource(R.drawable.off);
-                    savePref(context,KEY_IMAGE, 0 + "");
+                    savePref(context, KEY_IMAGE, 0 + "");
                 }
             }
         });
