@@ -10,9 +10,9 @@
     tools:context=".activity.GameActivity">
 
     <RelativeLayout
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
 
         <TextView
             android:id="@+id/txtName"
@@ -25,12 +25,21 @@
             android:textSize="25dp" />
 
         <ImageView
+            android:id="@+id/imgHelp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@id/txtName"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="140dp"
+            android:src="@drawable/help_btn" />
+
+        <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginRight="10dp"
             android:layout_alignBottom="@id/txtName"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:src="@drawable/violet_coins" />
 
         <TextView
@@ -40,10 +49,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="#fff"
-            android:layout_marginTop="23dp"
             android:layout_marginRight="23dp"
-            android:text="0" />
+            android:layout_marginTop="23dp"
+            android:text="0"
+            android:textColor="#fff" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

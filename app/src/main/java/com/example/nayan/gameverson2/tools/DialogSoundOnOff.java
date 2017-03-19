@@ -1,10 +1,13 @@
 package com.example.nayan.gameverson2.tools;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -40,6 +43,20 @@ public class DialogSoundOnOff {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final ImageView imgSound = (ImageView) dialog.findViewById(R.id.imgSoundOnOf);
         ImageView btnOK = (ImageView) dialog.findViewById(R.id.btnOk);
+        Button btnContuct = (Button) dialog.findViewById(R.id.btnContuctUs);
+        btnContuct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "nayan5565@gmail.com"));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "your_subject");
+                    intent.putExtra(Intent.EXTRA_TEXT, "your_text");
+                    context.startActivity(intent);
+                }catch(ActivityNotFoundException e){
+                    //TODO smth
+                }
+            }
+        });
         String image;
         image = getPREF(context, KEY_IMAGE);
         if (image.equals(1 + "")) {

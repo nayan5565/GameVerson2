@@ -209,7 +209,7 @@
             android:gravity="bottom">
 
             <Button
-                android:id="@+id/special"
+                android:id="@+id/btnResult"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentLeft="true"

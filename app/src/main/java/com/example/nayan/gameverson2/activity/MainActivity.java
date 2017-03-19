@@ -42,7 +42,7 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnSetting, special;
+    private Button btnSetting, btnResult;
     private ImageView cloud1, cloud2, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private MLevel mLevel;
     private MAllContent mAllContent;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPost.setDeviceId(Utils.getDeviceId(this));
         mPost.setUserEmail(Utils.getPhoneGmailAcc(this));
         Utils.postDataFromDatabase(mPost);
-        Utils.logIn(mPost.getUserEmail(), "123456", mPost.getDeviceId());
+        Utils.logIn("asds@gmail.com", "123456", "adsad12312");
         getOnlineData();
         getEnglishContentData();
         getMathContentData();
@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        btnResult = (Button) findViewById(R.id.btnResult);
+        btnResult.setOnClickListener(this);
         txtEnglisg = (TextView) findViewById(R.id.txtEnglishTx);
         txtMatht = (TextView) findViewById(R.id.txtMathTx);
         Utils.setFont(this, "carterone", txtEnglisg, txtMatht);
@@ -568,6 +570,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v.getId() == R.id.btnSetting) {
             DialogSoundOnOff.dialogShow(this);
+
+        } else if (v.getId() == R.id.btnResult) {
+            final Dialog dialog = new Dialog(this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dia_result);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            TextView txtBanglaPoint = (TextView) dialog.findViewById(R.id.txtBanglaPoint);
+            TextView txtEnglishPoint = (TextView) dialog.findViewById(R.id.txtEnglishPoint);
+            TextView txtBMPoint = (TextView) dialog.findViewById(R.id.txtBanglaMathPoint);
+            TextView txtMathPoint = (TextView) dialog.findViewById(R.id.txtMathPoint);
+            TextView txtBangla = (TextView) dialog.findViewById(R.id.txtBangla);
+            TextView txtEng = (TextView) dialog.findViewById(R.id.txtEnglish1);
+            TextView txtBMath = (TextView) dialog.findViewById(R.id.txtBanglaMa);
+            TextView txtMath = (TextView) dialog.findViewById(R.id.txtMath1);
+            txtBangla.setTextColor(0xff00ff00);
+            txtEng.setTextColor(0xffff0000);
+            txtBMath.setTextColor(0xffffff00);
+            txtMath.setTextColor(0xffff00ff);
+            int totalBPoint = database.getLockTotalPointData(1);
+            txtBanglaPoint.setText(totalBPoint + "");
+            int totalEPoint = database.getLockTotalPointData(3);
+            txtEnglishPoint.setText(totalEPoint + "");
+            int totalMPoint = database.getLockTotalPointData(4);
+            txtMathPoint.setText(totalMPoint + "");
+            int totalBMPoint = database.getLockTotalPointData(2);
+            txtBMPoint.setText(totalBMPoint + "");
+            dialog.show();
 
         }
 

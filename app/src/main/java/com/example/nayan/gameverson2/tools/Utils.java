@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Point;
@@ -17,9 +18,11 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLevel;
@@ -107,24 +110,25 @@ public class Utils {
     public static void logIn(String email, String pass, String deviceId) {
         //need url
         final Gson gson = new Gson();
-        final MPost[] mPost = {new MPost()};
         final RequestParams params = new RequestParams();
         AsyncHttpClient client = new AsyncHttpClient();
-        params.put("userEmail", mPost[0].getUserEmail());
+        params.put("userEmail", email);
         params.put("password", pass);
-        params.put("deviceId", mPost[0].getDeviceId());
-        client.post("http://www.radhooni.com/content/match_game/v1/users.php", params, new JsonHttpResponseHandler() {
+        params.put("deviceId", deviceId);
+        Log.e("isParams", params.toString());
+        client.get("http://www.radhooni.com/content/match_game/v1/users.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.e("gameStatus", " is response :" + response);
-                mPost[0] = gson.fromJson(response.toString(), MPost.class);
+                Log.e("gameStatus", " is response :" + response.toString());
+//                mPost[0] = gson.fromJson(response.toString(), MPost.class);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                Log.e("failer", "isFail" + responseString);
             }
         });
     }
@@ -145,6 +149,18 @@ public class Utils {
         int imageResourceGreen = context.getResources().getIdentifier(color, null, context.getPackageName());
         Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         view.setBackground(resGreen);
+    }
+    public static void diaRulesOfPlay(Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.game_instruction);
+        Button close = (Button) dialog.findViewById(R.id.btnDismiss);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     public static String databasePassKey(String emailName, String deviceId) {
