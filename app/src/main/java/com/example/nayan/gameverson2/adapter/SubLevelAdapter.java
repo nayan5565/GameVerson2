@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.model.MLock;
+import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
+import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.Utils;
 
 import java.util.ArrayList;
@@ -29,10 +32,11 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
     private MSubLevel mSubLevel = new MSubLevel();
     private MLock mLock = new MLock();
     private Context context;
-
+    MQuestions mQuestions;
     private LayoutInflater inflater;
     private DatabaseHelper db;
     private int count;
+    int one;
     private int subLevel;
 
     public SubLevelAdapter(Context context) {
@@ -40,6 +44,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         mSubLevels = new ArrayList<>();
         db = new DatabaseHelper(context);
         inflater = LayoutInflater.from(context);
+        mQuestions = new MQuestions();
     }
 
     public void setData(ArrayList<MSubLevel> mSubLevels) {
@@ -73,6 +78,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
             holder.imgLock.setVisibility(View.GONE);
         } else {
             holder.imgLock.setVisibility(View.VISIBLE);
+            holder.imgSub.setImageResource(R.drawable.inactive_bg);
         }
     }
 
@@ -83,18 +89,28 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtSubLevel;
-        ImageView imgLock, txtPoint;
+        ImageView imgLock, txtPoint, imgSub;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtSubLevel = (TextView) itemView.findViewById(R.id.txtLevel);
             txtPoint = (ImageView) itemView.findViewById(R.id.txtPoint);
             imgLock = (ImageView) itemView.findViewById(R.id.imgLock);
+            imgSub = (ImageView) itemView.findViewById(R.id.imgSub);
             Utils.setFont(context, "carterone", txtSubLevel);
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
+                    int one1 = Global.popUp;
+                    Log.e("popUp", "is " + Global.popUp);
+                    one1++;
+                    mQuestions.setPopUp(one1);
+                    db.addQuesData(mQuestions);
+
+
+//                    Global.popUp = db.getPopUp();
+//                    Log.e("popUp", "opp  " + Global.popUp);
 
                     mSubLevel = mSubLevels.get(getAdapterPosition());
                     Utils.bestPoint = mSubLevel.getBestPoint();
@@ -103,6 +119,8 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                         intent.putExtra("subLevelName", mSubLevel.getName());
                         intent.putExtra("index", getAdapterPosition());
                         intent.putExtra("Sid", mSubLevel.getLid());
+                        intent.putExtra("one", mQuestions.getPopUp());
+                        Log.e("popUp", "were " + mQuestions.getPopUp());
                         intent.putExtra("parentLevelName", mSubLevel.getParentName());
                         context.startActivity(intent);
                     }

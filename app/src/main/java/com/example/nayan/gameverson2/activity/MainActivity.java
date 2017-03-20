@@ -95,9 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         btnResult = (Button) findViewById(R.id.btnResult);
         btnResult.setOnClickListener(this);
-        txtEnglisg = (TextView) findViewById(R.id.txtEnglishTx);
-        txtMatht = (TextView) findViewById(R.id.txtMathTx);
-        Utils.setFont(this, "carterone", txtEnglisg, txtMatht);
         levelsBangla = new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
         Utils.setFont(this, "carterone", textName);
@@ -111,12 +108,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnEnglish.setOnClickListener(this);
         btnMath = (ImageView) findViewById(R.id.btnMath);
         btnMath.setOnClickListener(this);
-        btnDrawing = (ImageView) findViewById(R.id.btnDrawing);
-        btnDrawing.setOnClickListener(this);
         txtSub = (TextView) findViewById(R.id.txtSub);
         txtMath = (TextView) findViewById(R.id.txtMath);
         txtEnglish = (TextView) findViewById(R.id.txtEnglish);
-        txtDrawing = (TextView) findViewById(R.id.txtDrawing);
         txtBanglaMath = (TextView) findViewById(R.id.txtBanglaMath);
         Global.levels = new ArrayList<>();
         btnBanglaMath = (ImageView) findViewById(R.id.btnBanglaMath);
@@ -161,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         levelsMath = database.getLevelData(4);
         txtMath.setText(levelsMath.get(0).getTotal_slevel());
         levelsDrawing = database.getLevelData(5);
-        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
+//        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
 
 
         Log.e("subLevel", "size");
@@ -563,12 +557,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("id", 4);
             intent.putExtra("name", "Math ");
             startActivity(intent);
-        } else if (v.getId() == R.id.btnDrawing) {
-            Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
-            intent.putExtra("id", 5);
-            intent.putExtra("name", "Drawing ");
-            startActivity(intent);
-        } else if (v.getId() == R.id.btnSetting) {
+        }  else if (v.getId() == R.id.btnSetting) {
             DialogSoundOnOff.dialogShow(this);
 
         } else if (v.getId() == R.id.btnResult) {
@@ -585,9 +574,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView txtBMath = (TextView) dialog.findViewById(R.id.txtBanglaMa);
             TextView txtMath = (TextView) dialog.findViewById(R.id.txtMath1);
             txtBangla.setTextColor(0xff00ff00);
+            txtBanglaPoint.setTextColor(0xff00ff00);
             txtEng.setTextColor(0xffff0000);
+            txtEnglishPoint.setTextColor(0xffff0000);
             txtBMath.setTextColor(0xffffff00);
+            txtBMPoint.setTextColor(0xffffff00);
             txtMath.setTextColor(0xffff00ff);
+            txtMathPoint.setTextColor(0xffff00ff);
             int totalBPoint = database.getLockTotalPointData(1);
             txtBanglaPoint.setText(totalBPoint + "");
             int totalEPoint = database.getLockTotalPointData(3);

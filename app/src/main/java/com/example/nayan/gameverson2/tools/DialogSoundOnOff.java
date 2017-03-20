@@ -27,6 +27,10 @@ public class DialogSoundOnOff {
         preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         return preferences.getString(key, "null");
     }
+    public static int getIntPREF(Context context, String key) {
+        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+        return preferences.getInt(key, 0);
+    }
 
     public static void savePref(Context context, String key, String value) {
         preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);

@@ -123,6 +123,7 @@ public class GameLogic {
     public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2, final ImageView imageView) {
         counter++;
         oneClick++;
+        clickCount=getMin();
 
         Log.e("counter", "is" + counter);
         //don't work if mid !=1 at first time because first time click count=1
@@ -130,7 +131,7 @@ public class GameLogic {
             return;
         }
 
-        if (mContents.getMid() == clickCount + 1) {
+        if (mContents.getMid() == clickCount) {
             list.get(pos).setMatch(1);
 //            list.get(pos).setClick(Utils.IMAGE_OPEN);
             Utils.getSound(context, R.raw.click);
@@ -139,7 +140,7 @@ public class GameLogic {
             flipAnimation(view);
             imageView.setImageResource(R.drawable.green_panel);
 //            view2.setBackgroundColor(0xff888888);
-            clickCount = mContents.getMid();
+//            clickCount = mContents.getMid();
             count++;
 
         } else {

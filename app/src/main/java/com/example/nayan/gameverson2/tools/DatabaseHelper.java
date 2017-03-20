@@ -32,7 +32,7 @@ public class DatabaseHelper {
     private static final String DATABASE_CONTENTS_TABLE = "contents";
     private static final String DATABASE_LOCK_TABLE = "lock_tb";
     private static final String DATABASE_SUB_LEVEL_TABLE = "sub";
-    private static final String DATABASE_QUES_TABLE = "ques";
+    private static final String DATABASE_POPUP_TABLE = "ques";
     private static final String DATABASE_OPTION_TABLE = "option";
     private static final String DATABASE_POINT_TABLE = "point_tb";
     private static final String DATABASE_WORDS_TABLE = "words_tb";
@@ -49,6 +49,7 @@ public class DatabaseHelper {
     private static final String KEY_WORDS_IMG = "words_img";
     private static final String KEY_WORDS_SOUND = "words_sound";
     private static final String KEY_POINT_ID = "point_id";
+    private static final String KEY_POPUP = "pop_up";
     private static final String KEY_PRESENT_POINT = "present_point";
     private static final String KEY_UPDATE_DATE = "update_date";
     private static final String KEY_TOTAL_S_LEVEL = "total_slevel";
@@ -183,12 +184,13 @@ public class DatabaseHelper {
             + KEY_SUB_LEVEL_ID + " integer)";
     private static final String DATABASE_CREATE_OPTION_TABLE = "create table if not exists "
             + DATABASE_OPTION_TABLE + "("
-            + KEY_OP_ID + " integer primary key, "
+            + KEY_OP_ID + " integer primary key autoincrement , "
             + KEY_ITEM + " integer, "
             + KEY_TAG + " integer)";
-    private static final String DATABASE_CREATE_QUES_TABLE = "create table if not exists "
-            + DATABASE_QUES_TABLE + "("
+    private static final String DATABASE_CREATE_POPUP_TABLE = "create table if not exists "
+            + DATABASE_POPUP_TABLE + "("
             + KEY_Q_ID + " integer primary key, "
+            + KEY_POPUP + " integer, "
             + KEY_QUES + " text)";
     private static final String DATABASE_CREATE_POINT_TABLE = "create table if not exists "
             + DATABASE_POINT_TABLE + "("
@@ -228,7 +230,7 @@ public class DatabaseHelper {
         db.execSQL(DATABASE_CREATE_CONTENTS_TABLE);
         db.execSQL(DATABASE_CREATE_SUB_LEVEL_TABLE);
         db.execSQL(DATABASE_CREATE_LOCK_TABLE);
-        db.execSQL(DATABASE_CREATE_QUES_TABLE);
+        db.execSQL(DATABASE_CREATE_POPUP_TABLE);
         db.execSQL(DATABASE_CREATE_OPTION_TABLE);
         db.execSQL(DATABASE_CREATE_POINT_TABLE);
         db.execSQL(DATABASE_CREATE_WORDS_TABLE);
@@ -601,16 +603,17 @@ public class DatabaseHelper {
         Cursor cursor = null;
         try {
             ContentValues values = new ContentValues();
-            values.put(KEY_QUES, mQuestions.getQues());
+            values.put(KEY_POPUP, mQuestions.getPopUp());
+            values.put(KEY_Q_ID, mQuestions.getId());
 
-            String sql = "select * from " + DATABASE_QUES_TABLE;
+            String sql = "select * from " + DATABASE_POPUP_TABLE + " where " + KEY_Q_ID + "='" + mQuestions.getId() + "'";
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.moveToFirst()) {
-                int update = db.update(DATABASE_QUES_TABLE, values, KEY_Q_ID + "=?", new String[]{mQuestions.getId() + ""});
-                Log.e("log", "content update : " + update);
+                int update = db.update(DATABASE_POPUP_TABLE, values, KEY_Q_ID + "=?", new String[]{mQuestions.getId() + ""});
+                Log.e("ques", "content update : " + update);
             } else {
-                long v = db.insert(DATABASE_QUES_TABLE, null, values);
-                Log.e("log", "content insert : " + v);
+                long v = db.insert(DATABASE_POPUP_TABLE, null, values);
+                Log.e("ques", "content insert : " + v);
 
             }
 
@@ -630,7 +633,7 @@ public class DatabaseHelper {
             values.put(KEY_ITEM, mItem.getItem());
             values.put(KEY_TAG, mItem.getTag());
 
-            String sql = "select * from " + DATABASE_QUES_TABLE;
+            String sql = "select * from " + DATABASE_POPUP_TABLE;
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int update = db.update(DATABASE_OPTION_TABLE, values, KEY_OP_ID + "=?", new String[]{mItem.getId() + ""});
@@ -714,19 +717,15 @@ public class DatabaseHelper {
         return mLock;
     }
 
-    public int getTotalPoint(int levelId, int subLevelId) {
-        String sql = "select sum(" + KEY_POINT + ") as tPoint  from " + DATABASE_LOCK_TABLE + " where "
-                + KEY_LEVEL_ID + "='" + levelId + "'  AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'";
+    public int getPopUp() {
+        String sql = "select * from " + DATABASE_POPUP_TABLE;
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
-            Log.e("DB", "data have");
-
-//                mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
-//                mLock.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
-            return cursor.getInt(cursor.getColumnIndex("tPoint"));
+            Log.e("popUp", "data have");
+            return cursor.getInt(cursor.getColumnIndex("pop_up"));
 
         } else {
-            Log.e("DB", "data null");
+            Log.e("popUp", "data null");
         }
         cursor.close();
 
@@ -774,31 +773,29 @@ public class DatabaseHelper {
         return mPoint;
     }
 
-    public ArrayList<MQuestions> getQuesData() {
-        ArrayList<MQuestions> mQuestionses = new ArrayList<>();
+    public int getQuesData() {
+
         MQuestions mQuestions = new MQuestions();
-        String sql = "select a.question,b.item,b.tag  from ques a right join option b on a.qid=b.opid ";
+        String sql = "select * from " + DATABASE_POPUP_TABLE;
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
 
-                mQuestions.setQues(cursor.getString(cursor.getColumnIndex(KEY_QUES)));
+                mQuestions.setPopUp(cursor.getInt(cursor.getColumnIndex(KEY_POPUP)));
                 mQuestions.setId(cursor.getInt(cursor.getColumnIndex(KEY_Q_ID)));
 
-                mQuestionses.add(mQuestions);
 
             } while (cursor.moveToNext());
 
         }
         cursor.close();
-
-        return mQuestionses;
+        return 0;
     }
 
     public ArrayList<MItem> getOptionData() {
         ArrayList<MItem> mItems = new ArrayList<>();
         MItem mItem = new MItem();
-        String sql = "select * from " + DATABASE_QUES_TABLE;
+        String sql = "select * from " + DATABASE_POPUP_TABLE;
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {

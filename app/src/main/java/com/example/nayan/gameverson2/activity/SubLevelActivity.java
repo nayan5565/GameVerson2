@@ -1,7 +1,6 @@
 package com.example.nayan.gameverson2.activity;
 
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
@@ -51,7 +49,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
-    private ImageView imageView;
+    private ImageView imageView, imgLevelName;
     int totalPoint;
 
 
@@ -171,7 +169,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         mLevels = new ArrayList<>();
         mSubLevels = new ArrayList<>();
         database = new DatabaseHelper(this);
-        txtLevelName = (TextView) findViewById(R.id.txtLevelName);
+        txtLevelName = (TextView) findViewById(R.id.imgLevelName);
         txtAllTotal_ponts = (TextView) findViewById(R.id.txtAllTotalPoints);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         subLevelAdapter = new SubLevelAdapter(this);
@@ -182,6 +180,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private void getLocalData() {
 //        mLock = database.getLocalData(Global.levelId, Global.subLevelId);
         mSubLevels = database.getSubLevelData(value);
+        Global.popUp=database.getPopUp();
+        Log.e("popUp", "opp1  " + Global.popUp);
         if (mSubLevels.size() < 1) {
             Utils.toastMassage(this, "Empty Data");
             return;
@@ -200,20 +200,21 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Utils.setFont(this, "carterone", txtAllTotal_ponts, txtLevelName, txtLevelSelect);
         if (value == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
-            Utils.changeUIcolor(this,Global.uriGreen,changeColor);
-            txtLevelName.setTextColor(0xff00ff00);
+            Utils.changeUIcolor(this, Global.uriGreen, changeColor);
+//            txtLevelName.setTextColor(0xff00ff00);
         } else if (value == 2) {
             imageView.setImageResource(R.drawable.yellow_coins);
-            Utils.changeUIcolor(this,Global.uriYellow,changeColor);
-            txtLevelName.setTextColor(0xffffff00);
+            Utils.changeUIcolor(this, Global.uriYellow, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.bangla_math_btn_text);
+//            txtLevelName.setTextColor(0xffffff00);
         } else if (value == 3) {
             imageView.setImageResource(R.drawable.red_coins);
-            Utils.changeUIcolor(this,Global.uriRed,changeColor);
-            txtLevelName.setTextColor(0xffff0000);
+            Utils.changeUIcolor(this, Global.uriRed, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.english_button);
         } else if (value == 5) {
             imageView.setImageResource(R.drawable.red_coins);
-            Utils.changeUIcolor(this,Global.uriGreen,changeColor);
-            txtLevelName.setTextColor(0xffff0000);
+            Utils.changeUIcolor(this, Global.uriGreen, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.math_button);
         }
         int item = Utils.getScreenSize(this, 90);
 //        DatabaseHelper helper=new DatabaseHelper(this);
@@ -225,7 +226,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Log.e("all", "point is: " + Global.ALL_TOTAL_POINT);
         txtAllTotal_ponts.setText(totalPoint + "");
 
-        txtLevelName.setText(lName);
+//        txtLevelName.setText(lName);
         recyclerView.setLayoutManager(new GridLayoutManager(this, item));
         recyclerView.setAdapter(subLevelAdapter);
     }

@@ -107,21 +107,9 @@
                         android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:layout_gravity="bottom|center"
-                        android:background="@drawable/englis_button"
-                        android:text="English"
+                        android:background="@drawable/english_button"
                         android:textColor="#FFFFFF"
                         android:textSize="23dp" />
-
-                    <TextView
-                        android:id="@+id/txtEnglishTx"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="English"
-                        android:textColor="#fff"
-                        android:textSize="23dp"
-                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtEnglish"
@@ -149,17 +137,6 @@
                         android:visibility="visible" />
 
                     <TextView
-                        android:id="@+id/txtMathTx"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Math"
-                        android:textColor="#fff"
-                        android:textSize="23dp"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/txtMath"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -172,32 +149,6 @@
                         android:visibility="visible" />
                 </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="190dp"
-                    android:layout_height="60dp">
-
-                    <ImageView
-                        android:id="@+id/btnDrawing"
-                        android:layout_width="180dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="bottom|center"
-                        android:background="@drawable/bangla_button"
-                        android:text="Drawing"
-                        android:textSize="23dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/txtDrawing"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="right"
-                        android:background="@drawable/starr"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#f00"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-                </FrameLayout>
             </LinearLayout>
 
 

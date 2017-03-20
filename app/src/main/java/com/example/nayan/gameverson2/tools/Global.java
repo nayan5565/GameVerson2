@@ -52,6 +52,7 @@ public class Global {
     public static ArrayList<MWords> MATH_words;
     public static ArrayList<MAllContent> Maths;
     public static ArrayList<MAllContent> BANGLA;
+    public static int popUp;
 
 
 }

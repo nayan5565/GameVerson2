@@ -176,22 +176,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 4) {
+
             if (mContents.getMatch() == 1) {
+//                holder.txtContents.setBackgroundColor(0xff888888);
+//                flipAnimation(holder.txtContents);
 
             } else {
+//                shakeAnimation(holder.itemView);
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
-            holder.txtContents.setText(mContents.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
-//            if (mContents.getMatch() == 1) {
-////                holder.txtContents.setBackgroundColor(0xff888888);
-////                flipAnimation(holder.txtContents);
-//
-//            } else {
-////                shakeAnimation(holder.itemView);
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(0);
-//            }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 5) {
@@ -225,13 +219,31 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 9) {
+            holder.txtContents.setTextColor(0xffff00ff);
+//            holder.txtContents.setText(mContents.getTxt());
+
+
             if (mContents.getMatch() == 1) {
 
+                holder.imgAnim2.setImageResource(R.drawable.green_panel);
+                if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+                    holder.imgAnim.setVisibility(View.VISIBLE);
+                    holder.txtContents.setText("");
+                    Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
+                    Picasso.with(context)
+                            .load(Global.IMAGE_URL + mContents.getImg())
+                            .into(holder.imgAnim);
+
+                } else {
+                    holder.txtContents.setText(mContents.getTxt());
+                    holder.imgAnim.setVisibility(View.GONE);
+                }
             } else {
-                holder.txtContents.setBackgroundColor(0);
+                holder.txtContents.setText("");
+                holder.imgAnim.setVisibility(View.GONE);
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
+                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
-            holder.txtContents.setText(mContents.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 13) {
             if (mContents.getMatch() == 1) {
 //                holder.txtContents.setBackgroundColor(0xff888888);
@@ -302,23 +314,18 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Global.GAME_INDEX_POSITION = getAdapterPosition();
 
                     if (Global.subLevelId == 1) {
-                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
-                        dialogShowWithWordArray(getAdapterPosition());
-//                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
 
                     } else if (Global.subLevelId == 2) {
-                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                        dialogShowWithWordsList();
+
 //                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
+                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
                     } else if (Global.subLevelId == 3) {
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShowWithWordArray(getAdapterPosition());
 //                        dialogShowWithWordsList();
                     } else if (Global.subLevelId == 4) {
-                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                        dialogShowWithWordsList();
-//                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.subLevelId == 5) {
                         gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     } else if (Global.subLevelId == 6) {
@@ -327,8 +334,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     } else if (Global.subLevelId == 8) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.subLevelId == 9) {
-                        mContents.setWords(db.getWordsData(mContents.getMid()));
-                        dialogShowWithWordsList();
+                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
                     } else if (Global.subLevelId == 13) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
                     } else if (Global.subLevelId == 14) {

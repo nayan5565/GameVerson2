@@ -8,6 +8,16 @@ import java.util.ArrayList;
 
 public class MQuestions {
     private int id;
+    private int popUp;
+
+    public int getPopUp() {
+        return popUp;
+    }
+
+    public void setPopUp(int popUp) {
+        this.popUp = popUp;
+    }
+
 
     public int getId() {
         return id;
@@ -17,22 +27,4 @@ public class MQuestions {
         this.id = id;
     }
 
-    private String ques;
-    private ArrayList<MItem> option;
-
-    public String getQues() {
-        return ques;
-    }
-
-    public void setQues(String ques) {
-        this.ques = ques;
-    }
-
-    public ArrayList<MItem> getOption() {
-        return option;
-    }
-
-    public void setOption(ArrayList<MItem> option) {
-        this.option = option;
-    }
 }
