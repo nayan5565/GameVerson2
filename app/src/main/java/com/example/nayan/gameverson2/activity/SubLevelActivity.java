@@ -211,8 +211,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             imageView.setImageResource(R.drawable.red_coins);
             Utils.changeUIcolor(this, Global.uriRed, changeColor);
             txtLevelName.setBackgroundResource(R.drawable.english_button);
-        } else if (value == 5) {
-            imageView.setImageResource(R.drawable.red_coins);
+        } else if (value == 4) {
+//            imageView.setImageResource(R.drawable.red_coins);
             Utils.changeUIcolor(this, Global.uriGreen, changeColor);
             txtLevelName.setBackgroundResource(R.drawable.math_button);
         }

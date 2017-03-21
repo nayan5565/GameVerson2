@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getEnglishContentData();
         getMathContentData();
         getBanglaContentData();
+        getBanglaMathContentData();
         getLocalData();
 
     }
@@ -386,6 +387,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
         );
     }
+    private void getBanglaMathContentData() {
+        if (!Utils.isInternetOn(this)) {
+
+            return;
+        }
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(B_URL + Global.API_BANGLA_MATH, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        Log.e("json data", " is response :" + response);
+
+
+                        Global.BANGLA_MATH_words = new ArrayList<MWords>();
+
+                        try {
+                            MAllContent[] data = gson.fromJson(response.getJSONArray("contents").toString(), MAllContent[].class);
+                            Global.BANGLA_Maths = new ArrayList<MAllContent>(Arrays.asList(data));
+                            for (int i = 0; i < Global.BANGLA_Maths.size(); i++) {
+                                Global.BANGLA_Maths.get(i).setPresentType(i + 1);
+                                for (int j = 0; j < Global.BANGLA_Maths.get(i).getWords().size(); j++) {
+                                    MWords mWords = Global.BANGLA_Maths.get(i).getWords().get(j);
+                                    mWords.setContentId(Global.BANGLA_Maths.get(i).getMid());
+                                    Global.BANGLA_MATH_words.add(mWords);
+
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        saveBanglaMathContentsOfAllLevelToDb();
+                        saveBanglaMathWordsToDb();
+                        Log.e("mathList", "is : " + Global.BANGLA_MATH_words.size());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        B_URL = Global.ALTER_URL;
+                        getMathContentData();
+                        Log.e("json", "onfailer :" + responseString);
+                    }
+                }
+        );
+    }
 
 
     private void getOnlineBanglaContentsData() {
@@ -477,6 +524,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (MAllContent mAllContent : Global.Maths) {
             database.addMathContentsFromJsom(mAllContent);
         }
+    }  private void saveBanglaMathContentsOfAllLevelToDb() {
+        for (MAllContent mAllContent : Global.BANGLA_Maths) {
+            database.addBanglaMathContentsFromJsom(mAllContent);
+        }
     }
 
     private void saveWordsToDb() {
@@ -495,6 +546,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void saveMathWordsToDb() {
         for (MWords mWords : Global.MATH_words) {
             database.addMathWordsFromJsom(mWords);
+            Log.e("math", " words");
+        }
+    }
+
+    private void saveBanglaMathWordsToDb() {
+        for (MWords mWords : Global.BANGLA_MATH_words) {
+            database.addBanglaMathWordsFromJsom(mWords);
             Log.e("math", " words");
         }
     }

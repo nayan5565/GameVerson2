@@ -134,15 +134,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //            Collections.shuffle(imageArrayList1);
 
         } else if (Global.subLevelId == 4) {
-            imageArrayList1 = database.getMathContentsContentsData();
+            imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 5) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getMathContentsContentsData();
+            realAssets = database.getBanglaMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 6) {
-            imageArrayList1 = database.getMathContentsContentsData();
+            imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 8) {
             imageArrayList1 = database.getEnglishContentsContentsData();
@@ -153,16 +153,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             imageArrayList1 = generatesTxtImg(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 13) {
-            imageArrayList1 = database.getEnglishContentsContentsData();
+            imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 14) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getEnglishContentsContentsData();
+            realAssets = database.getMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 15) {
             ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getEnglishContentsContentsData();
+            realAssets = database.getMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 19) {
@@ -265,7 +265,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             imageView.setImageResource(R.drawable.red_coins);
 
         } else if (Global.levelId == 4) {
-            imageView.setImageResource(R.drawable.red_coins);
+            imageView.setImageResource(R.drawable.violet_coins);
         }
 
     }

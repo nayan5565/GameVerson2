@@ -38,9 +38,11 @@ public class DatabaseHelper {
     private static final String DATABASE_WORDS_TABLE = "words_tb";
     private static final String DATABASE_WORDS_TABLE_BANGLA = "bangla_words_tb";
     private static final String DATABASE_WORDS_TABLE_MATH = "math_words_tb";
+    private static final String DATABASE_WORDS_TABLE_BANGLA_MATH = "bangla_math_words_tb";
     private static final String DATABASE_ENGLISH_CONTENTS_TABLE = "english_contents_tb";
     private static final String DATABASE_BANGLA_CONTENTS_TABLE = "bangla_contents_tb";
     private static final String DATABASE_MATH_CONTENTS_TABLE = "math_contents_tb";
+    private static final String DATABASE_BANGLA_MATH_CONTENTS_TABLE = "bangla_math_contents_tb";
 
     private static final String KEY_WORDS_ID = "words_id";
     private static final String KEY_WORDS_CONTENTS_ID = "words_contents_id";
@@ -140,6 +142,17 @@ public class DatabaseHelper {
             + KEY_TEXT + " text, "
             + KEY_VIDEO + " text, "
             + KEY_SOUNDS + " text)";
+    private static final String DATABASE_CREATE_CONTENTS_OF_BANGLA_MATH_TABLE = "create table if not exists "
+            + DATABASE_BANGLA_MATH_CONTENTS_TABLE + "("
+            + KEY_LEVEL_ID + " integer, "
+            + KEY_MODEL_ID + " integer primary key, "
+            + KEY_PRESENT_ID + " integer, "
+            + KEY_PRESENT_TYPE + " integer, "
+            + KEY_IMAGE + " text, "
+            + KEY_SEN + " text, "
+            + KEY_TEXT + " text, "
+            + KEY_VIDEO + " text, "
+            + KEY_SOUNDS + " text)";
     private static final String DATABASE_CREATE_SUB_LEVEL_TABLE = "create table if not exists "
             + DATABASE_SUB_LEVEL_TABLE + "("
             + KEY_SUB_LEVEL_ID + " integer primary key, "
@@ -168,6 +181,14 @@ public class DatabaseHelper {
             + KEY_WORDS_Word + " text)";
     private static final String DATABASE_CREATE_WORDS_TABLE_MATH = "create table if not exists "
             + DATABASE_WORDS_TABLE_MATH + "("
+            + KEY_WORDS_ID + " integer primary key, "
+            + KEY_WORDS_CONTENTS_ID + " integer, "
+            + KEY_WORDS_IMG + " text, "
+            + KEY_WORDS_LETTER + " text, "
+            + KEY_WORDS_SOUND + " text, "
+            + KEY_WORDS_Word + " text)";
+    private static final String DATABASE_CREATE_WORDS_TABLE_BANGLA_MATH = "create table if not exists "
+            + DATABASE_WORDS_TABLE_BANGLA_MATH + "("
             + KEY_WORDS_ID + " integer primary key, "
             + KEY_WORDS_CONTENTS_ID + " integer, "
             + KEY_WORDS_IMG + " text, "
@@ -236,9 +257,11 @@ public class DatabaseHelper {
         db.execSQL(DATABASE_CREATE_WORDS_TABLE);
         db.execSQL(DATABASE_CREATE_WORDS_TABLE_BANGLA);
         db.execSQL(DATABASE_CREATE_WORDS_TABLE_MATH);
+        db.execSQL(DATABASE_CREATE_WORDS_TABLE_BANGLA_MATH);
         db.execSQL(DATABASE_CREATE_CONTENTS_OF_ENGLISH_TABLE);
         db.execSQL(DATABASE_CREATE_CONTENTS_OF_BANGLA_TABLE);
         db.execSQL(DATABASE_CREATE_CONTENTS_OF_MATH_TABLE);
+        db.execSQL(DATABASE_CREATE_CONTENTS_OF_BANGLA_MATH_TABLE);
 
     }
 
@@ -403,6 +426,36 @@ public class DatabaseHelper {
         if (cursor != null)
             cursor.close();
     }
+    public void addBanglaMathWordsFromJsom(MWords mWords) {
+        Cursor cursor = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_WORDS_ID, mWords.getWid());
+            values.put(KEY_WORDS_CONTENTS_ID, mWords.getContentId());
+            values.put(KEY_WORDS_IMG, mWords.getWimg());
+            values.put(KEY_WORDS_LETTER, mWords.getWletter());
+            values.put(KEY_WORDS_Word, mWords.getWword());
+            values.put(KEY_WORDS_SOUND, mWords.getWsound());
+
+
+            String sql = "select * from " + DATABASE_WORDS_TABLE_BANGLA_MATH + " where " + KEY_WORDS_ID + "='" + mWords.getWid() + "'";
+            cursor = db.rawQuery(sql, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int update = db.update(DATABASE_WORDS_TABLE_BANGLA_MATH, values, KEY_WORDS_ID + "=?", new String[]{mWords.getWid() + ""});
+                Log.e("log", "math words update : " + update);
+            } else {
+                long v = db.insert(DATABASE_WORDS_TABLE_BANGLA_MATH, null, values);
+                Log.e("log", "math words insert : " + v);
+
+            }
+
+
+        } catch (Exception e) {
+
+        }
+        if (cursor != null)
+            cursor.close();
+    }
 
     public void addContentsFromJsom(MContents mContents) {
         Cursor cursor = null;
@@ -527,6 +580,39 @@ public class DatabaseHelper {
                 Log.e("log", "content update : " + update);
             } else {
                 long v = db.insert(DATABASE_MATH_CONTENTS_TABLE, null, values);
+                Log.e("log", "content insert : " + v);
+
+            }
+
+
+        } catch (Exception e) {
+
+        }
+
+        if (cursor != null)
+            cursor.close();
+    }
+    public void addBanglaMathContentsFromJsom(MAllContent mAllContent) {
+        Cursor cursor = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_LEVEL_ID, mAllContent.getLid());
+            values.put(KEY_MODEL_ID, mAllContent.getMid());
+            values.put(KEY_IMAGE, mAllContent.getImg());
+            values.put(KEY_TEXT, mAllContent.getTxt());
+            values.put(KEY_SOUNDS, mAllContent.getAud());
+            values.put(KEY_PRESENT_TYPE, mAllContent.getPresentType());
+            values.put(KEY_VIDEO, mAllContent.getVid());
+            values.put(KEY_SEN, mAllContent.getSen());
+            values.put(KEY_PRESENT_ID, mAllContent.getPresentId());
+
+            String sql = "select * from " + DATABASE_BANGLA_MATH_CONTENTS_TABLE + " where " + KEY_MODEL_ID + "='" + mAllContent.getMid() + "'";
+            cursor = db.rawQuery(sql, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int update = db.update(DATABASE_BANGLA_MATH_CONTENTS_TABLE, values, KEY_MODEL_ID + "=?", new String[]{mAllContent.getMid() + ""});
+                Log.e("log", "content update : " + update);
+            } else {
+                long v = db.insert(DATABASE_BANGLA_MATH_CONTENTS_TABLE, null, values);
                 Log.e("log", "content insert : " + v);
 
             }
@@ -906,6 +992,34 @@ public class DatabaseHelper {
         return assetArrayList;
 
     }
+    public ArrayList<MWords> getBanglaMathWordsData(int id) {
+        Log.e("start", "get math");
+        ArrayList<MWords> assetArrayList = new ArrayList<>();
+
+        MWords mWords;
+        String sql = "select * from " + DATABASE_WORDS_TABLE_BANGLA_MATH + " a where " + KEY_WORDS_CONTENTS_ID + "='" + id + "'";
+
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mWords = new MWords();
+                mWords.setWid(cursor.getInt(cursor.getColumnIndex(KEY_WORDS_ID)));
+                mWords.setWsound(cursor.getString(cursor.getColumnIndex(KEY_WORDS_SOUND)));
+                mWords.setWword(cursor.getString(cursor.getColumnIndex(KEY_WORDS_Word)));
+                mWords.setContentId(cursor.getInt(cursor.getColumnIndex(KEY_WORDS_CONTENTS_ID)));
+                mWords.setWimg(cursor.getString(cursor.getColumnIndex(KEY_WORDS_IMG)));
+                mWords.setWletter(cursor.getString(cursor.getColumnIndex(KEY_WORDS_LETTER)));
+                assetArrayList.add(mWords);
+
+            } while (cursor.moveToNext());
+
+        }
+
+        cursor.close();
+        Log.e("getmathlist", "math size" + assetArrayList.size());
+        return assetArrayList;
+
+    }
 
     public ArrayList<MWords> getBanglaWordsData(int id) {
         ArrayList<MWords> assetArrayList = new ArrayList<>();
@@ -1026,6 +1140,34 @@ public class DatabaseHelper {
 
         MAllContent mAllContent;
         String sql = "select * from " + DATABASE_MATH_CONTENTS_TABLE;
+//                + " where " + KEY_LEVEL_ID + "='" + id + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mAllContent = new MAllContent();
+                mAllContent.setLid(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mAllContent.setMid(cursor.getInt(cursor.getColumnIndex(KEY_MODEL_ID)));
+                mAllContent.setAud(cursor.getString(cursor.getColumnIndex(KEY_SOUNDS)));
+                mAllContent.setVid(cursor.getString(cursor.getColumnIndex(KEY_VIDEO)));
+                mAllContent.setTxt(cursor.getString(cursor.getColumnIndex(KEY_TEXT)));
+                mAllContent.setImg(cursor.getString(cursor.getColumnIndex(KEY_IMAGE)));
+                mAllContent.setSen(cursor.getString(cursor.getColumnIndex(KEY_SEN)));
+                mAllContent.setPresentType(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_TYPE)));
+                mAllContent.setPresentId(cursor.getInt(cursor.getColumnIndex(KEY_PRESENT_ID)));
+                assetArrayList.add(mAllContent);
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+
+        return assetArrayList;
+    }
+    public ArrayList<MAllContent> getBanglaMathContentsContentsData() {
+        ArrayList<MAllContent> assetArrayList = new ArrayList<>();
+
+        MAllContent mAllContent;
+        String sql = "select * from " + DATABASE_BANGLA_MATH_CONTENTS_TABLE;
 //                + " where " + KEY_LEVEL_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {

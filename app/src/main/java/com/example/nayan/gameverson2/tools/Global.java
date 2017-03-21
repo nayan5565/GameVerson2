@@ -20,18 +20,19 @@ public class Global {
     public static int levelId;
     public static String levelName;
     public static String subLevelName;
-    public static String internetAlert="No Internet Connection. Please at first need internet connected then exit from app and again open it.";
+    public static String internetAlert = "No Internet Connection. Please at first need internet connected then exit from app and again open it.";
     public static String parentLevelName;
     public static int SUB_INDEX_POSITION;
     public static String ALTER_URL = "";
     public static int subLevelId;
-    public static int imageDownload = 10;
+    public static int LEVEL_DOWNLOAD = 10;
     public static int totalPoint;
     public static int ALL_TOTAL_POINT;
     public static int GAME_INDEX_POSITION;
     public static final String API_LEVELS = "levels.php";
     public static final String API_CONTENTS = "contents.php";
     public static final String API_MATH = "contents_math.php";
+    public static final String API_BANGLA_MATH = "contents_ongko.php";
     public static final String API_ENGLISH = "contents_english.php";
     public static final String API_BANGLA = "contents_bangla.php";
     public static final String BASE_URL = "http://www.radhooni.com/content/match_game/v1/";
@@ -51,6 +52,8 @@ public class Global {
     public static ArrayList<MWords> BANGLA_words;
     public static ArrayList<MWords> MATH_words;
     public static ArrayList<MAllContent> Maths;
+    public static ArrayList<MWords> BANGLA_MATH_words;
+    public static ArrayList<MAllContent> BANGLA_Maths;
     public static ArrayList<MAllContent> BANGLA;
     public static int popUp;
 
