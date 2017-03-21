@@ -208,11 +208,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setTextColor(0xffff00ff);
         } else if (Global.subLevelId == 8) {
             if (mContents.getMatch() == 1) {
-//                holder.txtContents.setBackgroundColor(0xff888888);
-//                flipAnimation(holder.txtContents);
 
             } else {
-//                shakeAnimation(holder.itemView);
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
