@@ -21,6 +21,7 @@ import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
+import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
@@ -46,6 +47,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private MAllContent mAllContent = new MAllContent();
     private String lName;
     private MLock mLock;
+    MQuestions mQuestions;
     private int STORAGE_PERMISSION_CODE = 23;
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
@@ -159,6 +161,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private void init() {
         txtLevelSelect = (TextView) findViewById(R.id.levelSelect);
         mLock = new MLock();
+        mQuestions = new MQuestions();
         imageView = (ImageView) findViewById(R.id.imageView);
         changeColor = (LinearLayout) findViewById(R.id.changeColor);
         back = (Button) findViewById(R.id.back);
@@ -180,8 +183,17 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private void getLocalData() {
 //        mLock = database.getLocalData(Global.levelId, Global.subLevelId);
         mSubLevels = database.getSubLevelData(value);
-        Global.popUp=database.getPopUp();
+        mQuestions = database.getQuesData();
+//        Global.popUp=database.getPopUp();
+        Global.popUp = mQuestions.getPopUp();
+        Global.popUp2 = mQuestions.getPopUp2();
+        Global.popUp3 = mQuestions.getPopUp3();
+        Global.popUp4 = mQuestions.getPopUp4();
+
         Log.e("popUp", "opp1  " + Global.popUp);
+        Log.e("popUp", "opp2  " + Global.popUp2);
+        Log.e("popUp", "opp3  " + Global.popUp3);
+        Log.e("popUp", "opp4 " + Global.popUp4);
         if (mSubLevels.size() < 1) {
             Utils.toastMassage(this, "Empty Data");
             return;

@@ -52,6 +52,9 @@ public class DatabaseHelper {
     private static final String KEY_WORDS_SOUND = "words_sound";
     private static final String KEY_POINT_ID = "point_id";
     private static final String KEY_POPUP = "pop_up";
+    private static final String KEY_POPUP2 = "pop_up2";
+    private static final String KEY_POPUP3 = "pop_up3";
+    private static final String KEY_POPUP4 = "pop_up4";
     private static final String KEY_PRESENT_POINT = "present_point";
     private static final String KEY_UPDATE_DATE = "update_date";
     private static final String KEY_TOTAL_S_LEVEL = "total_slevel";
@@ -212,6 +215,9 @@ public class DatabaseHelper {
             + DATABASE_POPUP_TABLE + "("
             + KEY_Q_ID + " integer primary key, "
             + KEY_POPUP + " integer, "
+            + KEY_POPUP2 + " integer, "
+            + KEY_POPUP3 + " integer, "
+            + KEY_POPUP4 + " integer, "
             + KEY_QUES + " text)";
     private static final String DATABASE_CREATE_POINT_TABLE = "create table if not exists "
             + DATABASE_POINT_TABLE + "("
@@ -426,6 +432,7 @@ public class DatabaseHelper {
         if (cursor != null)
             cursor.close();
     }
+
     public void addBanglaMathWordsFromJsom(MWords mWords) {
         Cursor cursor = null;
         try {
@@ -592,6 +599,7 @@ public class DatabaseHelper {
         if (cursor != null)
             cursor.close();
     }
+
     public void addBanglaMathContentsFromJsom(MAllContent mAllContent) {
         Cursor cursor = null;
         try {
@@ -690,6 +698,9 @@ public class DatabaseHelper {
         try {
             ContentValues values = new ContentValues();
             values.put(KEY_POPUP, mQuestions.getPopUp());
+            values.put(KEY_POPUP2, mQuestions.getPopUp2());
+            values.put(KEY_POPUP3, mQuestions.getPopUp3());
+            values.put(KEY_POPUP4, mQuestions.getPopUp4());
             values.put(KEY_Q_ID, mQuestions.getId());
 
             String sql = "select * from " + DATABASE_POPUP_TABLE + " where " + KEY_Q_ID + "='" + mQuestions.getId() + "'";
@@ -859,7 +870,7 @@ public class DatabaseHelper {
         return mPoint;
     }
 
-    public int getQuesData() {
+    public MQuestions getQuesData() {
 
         MQuestions mQuestions = new MQuestions();
         String sql = "select * from " + DATABASE_POPUP_TABLE;
@@ -867,15 +878,18 @@ public class DatabaseHelper {
         if (cursor != null && cursor.moveToFirst()) {
             do {
 
-                mQuestions.setPopUp(cursor.getInt(cursor.getColumnIndex(KEY_POPUP)));
                 mQuestions.setId(cursor.getInt(cursor.getColumnIndex(KEY_Q_ID)));
+                mQuestions.setPopUp(cursor.getInt(cursor.getColumnIndex(KEY_POPUP)));
+                mQuestions.setPopUp2(cursor.getInt(cursor.getColumnIndex(KEY_POPUP2)));
+                mQuestions.setPopUp3(cursor.getInt(cursor.getColumnIndex(KEY_POPUP3)));
+                mQuestions.setPopUp4(cursor.getInt(cursor.getColumnIndex(KEY_POPUP4)));
 
 
             } while (cursor.moveToNext());
 
         }
         cursor.close();
-        return 0;
+        return mQuestions;
     }
 
     public ArrayList<MItem> getOptionData() {
@@ -992,6 +1006,7 @@ public class DatabaseHelper {
         return assetArrayList;
 
     }
+
     public ArrayList<MWords> getBanglaMathWordsData(int id) {
         Log.e("start", "get math");
         ArrayList<MWords> assetArrayList = new ArrayList<>();
@@ -1163,6 +1178,7 @@ public class DatabaseHelper {
 
         return assetArrayList;
     }
+
     public ArrayList<MAllContent> getBanglaMathContentsContentsData() {
         ArrayList<MAllContent> assetArrayList = new ArrayList<>();
 

@@ -56,6 +56,9 @@ public class Global {
     public static ArrayList<MAllContent> BANGLA_Maths;
     public static ArrayList<MAllContent> BANGLA;
     public static int popUp;
+    public static int popUp2;
+    public static int popUp3;
+    public static int popUp4;
 
 
 }
