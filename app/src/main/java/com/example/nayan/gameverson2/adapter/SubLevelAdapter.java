@@ -107,31 +107,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
 //                    one1++;
 //                    mQuestions.setPopUp(one1);
 //                    db.addQuesData(mQuestions);
-                    if (Global.subLevelId == 1) {
-                        int popUp = Global.popUp;
-                        popUp++;
-                        mQuestions.setPopUp(popUp);
-                        db.addQuesData(mQuestions);
-                        Log.e("popUp1", "one " + popUp);
-                    } else if (Global.subLevelId == 2) {
-                        int popUp2 = Global.popUp2;
-                        popUp2++;
-                        mQuestions.setPopUp2(popUp2);
-                        db.addQuesData(mQuestions);
-                        Log.e("popUp1", "two " + popUp2);
-                    } else if (Global.subLevelId == 3) {
-                        int popUp3 = Global.popUp3;
-                        popUp3++;
-                        mQuestions.setPopUp3(popUp3);
-                        db.addQuesData(mQuestions);
-                        Log.e("popUp1", "three " + popUp3);
-                    } else if (Global.subLevelId == 4) {
-                        int popUp4 = Global.popUp4;
-                        popUp4++;
-                        mQuestions.setPopUp4(popUp4);
-                        db.addQuesData(mQuestions);
-                        Log.e("popUp1", "four " + popUp4);
-                    }
+
 
 
 //                    Global.popUp = db.getPopUp();

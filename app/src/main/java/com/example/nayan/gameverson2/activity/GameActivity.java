@@ -18,6 +18,7 @@ import com.example.nayan.gameverson2.adapter.GameAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
+import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
@@ -46,10 +47,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private GameAdapter gameAdapter;
     private DatabaseHelper database;
     public String subLevelName;
+    private MQuestions mQuestions;
     public String parentName;
     public TextView txtName, txtTotalPoint;
     private MLock mLock;
-    int popUp,popUp2,popUp3,popUp4;
+    int popUp, popUp2, popUp3, popUp4, popUp5, popUp6, popUp7, popUp8, popUp9, popUp10, popUp11;
+    int one, two, three, four;
 
     //    private GameActivity(){
 //
@@ -71,7 +74,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         prepareDisplay();
 
 
-
     }
 
     @Override
@@ -83,6 +85,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void init() {
+        mQuestions = new MQuestions();
         imgHelp = (ImageView) findViewById(R.id.imgHelp);
         imgHelp.setOnClickListener(this);
         gameActivity = this;
@@ -100,6 +103,31 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         subLevelName = Global.subLevelName;
         Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
         parentName = Global.parentLevelName;
+        mQuestions = database.getQuesData();
+//        Global.popUp=database.getPopUp();
+        Global.popUp = mQuestions.getPopUp();
+        Global.popUp2 = mQuestions.getPopUp2();
+        Global.popUp3 = mQuestions.getPopUp3();
+        Global.popUp4 = mQuestions.getPopUp4();
+        Global.popUp5 = mQuestions.getPopUp5();
+        Global.popUp6 = mQuestions.getPopUp6();
+        Global.popUp7 = mQuestions.getPopUp7();
+        Global.popUp8 = mQuestions.getPopUp8();
+        Global.popUp9 = mQuestions.getPopUp9();
+        Global.popUp10 = mQuestions.getPopUp10();
+        Global.popUp11 = mQuestions.getPopUp11();
+
+        Log.e("popUp", "opp1  " + Global.popUp);
+        Log.e("popUp", "opp2  " + Global.popUp2);
+        Log.e("popUp", "opp3  " + Global.popUp3);
+        Log.e("popUp", "opp4 " + Global.popUp4);
+        Log.e("popUp", "opp5 " + Global.popUp5);
+        Log.e("popUp", "opp6 " + Global.popUp6);
+        Log.e("popUp", "opp7 " + Global.popUp7);
+        Log.e("popUp", "opp8 " + Global.popUp8);
+        Log.e("popUp", "opp9 " + Global.popUp9);
+        Log.e("popUp", "opp10 " + Global.popUp10);
+        Log.e("popUp", "opp11 " + Global.popUp11);
 
         Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
         Global.subLevelId = getIntent().getIntExtra("Sid", 0);
@@ -108,6 +136,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        popUp3 = getIntent().getIntExtra("three", 0);
 //        popUp4 = getIntent().getIntExtra("four", 0);
 //        Global.popUp = getIntent().getIntExtra("one", 0);
+//        if (Global.subLevelId == 1) {
+//
+//        } else if (Global.subLevelId == 2) {
+//
+//        } else if (Global.subLevelId == 3) {
+//
+//        } else if (Global.subLevelId == 4) {
+//
+//        }
 
         gameAdapter = new GameAdapter(this);
 
@@ -121,6 +158,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("TEST", Global.levelId + ":" + Global.subLevelId + ":" + Global.totalPoint);
 
         if (Global.subLevelId == 1) {
+            popUp = Global.popUp;
+            popUp++;
+            mQuestions.setPopUp(popUp);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "one " + popUp);
             if (Global.popUp == 0) {
                 Utils.diaRulesOfPlay(this);
             }
@@ -128,6 +170,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             imageArrayList1 = database.getBanglaContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 2) {
+            popUp2 = Global.popUp2;
+            popUp2++;
+            mQuestions.setPopUp2(popUp2);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "two " + popUp2);
             if (Global.popUp2 == 0) {
                 Utils.diaRulesOfPlay(this);
             }
@@ -136,6 +183,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             imageArrayList1 = generatesTxtImg(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 3) {
+            popUp3 = Global.popUp3;
+            popUp3++;
+            mQuestions.setPopUp3(popUp3);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "three " + popUp3);
             if (Global.popUp3 == 0) {
                 Utils.diaRulesOfPlay(this);
             }
@@ -143,36 +195,97 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //            Collections.shuffle(imageArrayList1);
 
         } else if (Global.subLevelId == 4) {
+            popUp4 = Global.popUp4;
+            popUp4++;
+            mQuestions.setPopUp4(popUp4);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "four " + popUp4);
             if (Global.popUp4 == 0) {
                 Utils.diaRulesOfPlay(this);
             }
             imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 5) {
+            popUp5 = Global.popUp5;
+            popUp5++;
+            mQuestions.setPopUp5(popUp5);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "five " + popUp5);
+            if (Global.popUp5 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 6) {
+            popUp6 = Global.popUp6;
+            popUp6++;
+            mQuestions.setPopUp6(popUp6);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "six " + popUp6);
+            if (Global.popUp6 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 8) {
+            popUp7 = Global.popUp7;
+            popUp7++;
+            mQuestions.setPopUp7(popUp7);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "seven " + popUp7);
+            if (Global.popUp7 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 9) {
+            popUp8 = Global.popUp8;
+            popUp8++;
+            mQuestions.setPopUp8(popUp8);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "eight " + popUp8);
+            if (Global.popUp8 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generatesTxtImg(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 13) {
+            popUp9 = Global.popUp9;
+            popUp9++;
+            mQuestions.setPopUp9(popUp9);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "nine " + popUp9);
+            if (Global.popUp9 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 14) {
+            popUp10 = Global.popUp10;
+            popUp10++;
+            mQuestions.setPopUp10(popUp10);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "ten " + popUp10);
+            if (Global.popUp10 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 15) {
+            popUp11 = Global.popUp11;
+            popUp11++;
+            mQuestions.setPopUp11(popUp11);
+            database.addQuesData(mQuestions);
+            Log.e("popUp", "eleven " + popUp11);
+            if (Global.popUp11 == 0) {
+                Utils.diaRulesOfPlay(this);
+            }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
             imageArrayList1 = generateAssets(realAssets);

@@ -55,6 +55,13 @@ public class DatabaseHelper {
     private static final String KEY_POPUP2 = "pop_up2";
     private static final String KEY_POPUP3 = "pop_up3";
     private static final String KEY_POPUP4 = "pop_up4";
+    private static final String KEY_POPUP5 = "pop_up5";
+    private static final String KEY_POPUP6 = "pop_up6";
+    private static final String KEY_POPUP7 = "pop_up7";
+    private static final String KEY_POPUP8 = "pop_up8";
+    private static final String KEY_POPUP9 = "pop_up9";
+    private static final String KEY_POPUP10 = "pop_up10";
+    private static final String KEY_POPUP11 = "pop_up11";
     private static final String KEY_PRESENT_POINT = "present_point";
     private static final String KEY_UPDATE_DATE = "update_date";
     private static final String KEY_TOTAL_S_LEVEL = "total_slevel";
@@ -218,6 +225,13 @@ public class DatabaseHelper {
             + KEY_POPUP2 + " integer, "
             + KEY_POPUP3 + " integer, "
             + KEY_POPUP4 + " integer, "
+            + KEY_POPUP5 + " integer, "
+            + KEY_POPUP6 + " integer, "
+            + KEY_POPUP7 + " integer, "
+            + KEY_POPUP8 + " integer, "
+            + KEY_POPUP9 + " integer, "
+            + KEY_POPUP10 + " integer, "
+            + KEY_POPUP11 + " integer, "
             + KEY_QUES + " text)";
     private static final String DATABASE_CREATE_POINT_TABLE = "create table if not exists "
             + DATABASE_POINT_TABLE + "("
@@ -701,6 +715,13 @@ public class DatabaseHelper {
             values.put(KEY_POPUP2, mQuestions.getPopUp2());
             values.put(KEY_POPUP3, mQuestions.getPopUp3());
             values.put(KEY_POPUP4, mQuestions.getPopUp4());
+            values.put(KEY_POPUP5, mQuestions.getPopUp5());
+            values.put(KEY_POPUP6, mQuestions.getPopUp6());
+            values.put(KEY_POPUP7, mQuestions.getPopUp7());
+            values.put(KEY_POPUP8, mQuestions.getPopUp8());
+            values.put(KEY_POPUP9, mQuestions.getPopUp9());
+            values.put(KEY_POPUP10, mQuestions.getPopUp10());
+            values.put(KEY_POPUP11, mQuestions.getPopUp11());
             values.put(KEY_Q_ID, mQuestions.getId());
 
             String sql = "select * from " + DATABASE_POPUP_TABLE + " where " + KEY_Q_ID + "='" + mQuestions.getId() + "'";
@@ -883,6 +904,13 @@ public class DatabaseHelper {
                 mQuestions.setPopUp2(cursor.getInt(cursor.getColumnIndex(KEY_POPUP2)));
                 mQuestions.setPopUp3(cursor.getInt(cursor.getColumnIndex(KEY_POPUP3)));
                 mQuestions.setPopUp4(cursor.getInt(cursor.getColumnIndex(KEY_POPUP4)));
+                mQuestions.setPopUp5(cursor.getInt(cursor.getColumnIndex(KEY_POPUP5)));
+                mQuestions.setPopUp6(cursor.getInt(cursor.getColumnIndex(KEY_POPUP6)));
+                mQuestions.setPopUp7(cursor.getInt(cursor.getColumnIndex(KEY_POPUP7)));
+                mQuestions.setPopUp8(cursor.getInt(cursor.getColumnIndex(KEY_POPUP8)));
+                mQuestions.setPopUp9(cursor.getInt(cursor.getColumnIndex(KEY_POPUP9)));
+                mQuestions.setPopUp10(cursor.getInt(cursor.getColumnIndex(KEY_POPUP10)));
+                mQuestions.setPopUp11(cursor.getInt(cursor.getColumnIndex(KEY_POPUP11)));
 
 
             } while (cursor.moveToNext());

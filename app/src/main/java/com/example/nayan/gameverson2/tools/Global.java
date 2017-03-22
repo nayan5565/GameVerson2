@@ -58,7 +58,7 @@ public class Global {
     public static int popUp;
     public static int popUp2;
     public static int popUp3;
-    public static int popUp4;
+    public static int popUp4, popUp5, popUp6, popUp7, popUp8, popUp9, popUp10, popUp11;
 
 
 }
