@@ -8,8 +8,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -18,6 +20,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -150,9 +153,13 @@ public class Utils {
         Drawable resGreen = context.getResources().getDrawable(imageResourceGreen);
         view.setBackground(resGreen);
     }
+
     public static void diaRulesOfPlay(Context context) {
         final Dialog dialog = new Dialog(context);
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.game_instruction);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button close = (Button) dialog.findViewById(R.id.btnDismiss);
         close.setOnClickListener(new View.OnClickListener() {
             @Override

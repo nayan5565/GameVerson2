@@ -25,6 +25,7 @@ import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
+import com.example.nayan.gameverson2.tools.FilesDownload;
 import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.Utils;
 import com.google.gson.Gson;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName, txtEnglisg, txtMatht;
     private String image;
     private static String B_URL = Global.BASE_URL;
-
+    private String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
     private Gson gson = new Gson();
 
     @Override
@@ -72,13 +73,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPost.setDeviceId(Utils.getDeviceId(this));
         mPost.setUserEmail(Utils.getPhoneGmailAcc(this));
         Utils.postDataFromDatabase(mPost);
-        Utils.logIn("asds@gmail.com", "123456", "adsad12312");
+        Utils.logIn(mPost.getUserEmail(), "123456", mPost.getDeviceId());
         getOnlineData();
         getEnglishContentData();
         getMathContentData();
         getBanglaContentData();
         getBanglaMathContentData();
         getLocalData();
+        for (int i = 0; i < Global.BANGLA.size(); i++) {
+            FilesDownload.getInstance(this, dir).addUrl(Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
+
+        }
+        FilesDownload.getInstance(MainActivity.this,dir).start();
 
     }
 
@@ -94,12 +100,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        Global.BANGLA=new ArrayList<>();
+
         btnResult = (Button) findViewById(R.id.btnResult);
         btnResult.setOnClickListener(this);
         levelsBangla = new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
         Utils.setFont(this, "carterone", textName);
         database = new DatabaseHelper(this);
+        Global.BANGLA=database.getBanglaContentsContentsData();
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);
         mLevel = new MLevel();
@@ -387,6 +396,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
         );
     }
+
     private void getBanglaMathContentData() {
         if (!Utils.isInternetOn(this)) {
 
@@ -524,7 +534,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (MAllContent mAllContent : Global.Maths) {
             database.addMathContentsFromJsom(mAllContent);
         }
-    }  private void saveBanglaMathContentsOfAllLevelToDb() {
+    }
+
+    private void saveBanglaMathContentsOfAllLevelToDb() {
         for (MAllContent mAllContent : Global.BANGLA_Maths) {
             database.addBanglaMathContentsFromJsom(mAllContent);
         }
@@ -615,7 +627,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("id", 4);
             intent.putExtra("name", "Math ");
             startActivity(intent);
-        }  else if (v.getId() == R.id.btnSetting) {
+        } else if (v.getId() == R.id.btnSetting) {
             DialogSoundOnOff.dialogShow(this);
 
         } else if (v.getId() == R.id.btnResult) {

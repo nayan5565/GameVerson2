@@ -4,6 +4,7 @@
     android:layout_height="300dp"
     android:background="@drawable/green_panel"
     android:gravity="center"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView

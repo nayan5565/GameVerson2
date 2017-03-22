@@ -30,7 +30,7 @@
             android:layout_height="50dp"
             android:layout_alignBottom="@id/txtName"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="140dp"
+            android:layout_marginRight="120dp"
             android:src="@drawable/help_btn" />
 
         <ImageView
