@@ -51,8 +51,9 @@ public class FilesDownload {
     private boolean isFileExists(String _url){
         String fileName = _url.substring(_url.lastIndexOf("/") + 1);
         File file=new File(dir+File.separator+fileName);
-        if(!file.exists())
-            file.mkdir();
+        File fDir=new File(dir);
+        if(!fDir.isDirectory())
+            fDir.mkdirs();
         return file.exists();
     }
 

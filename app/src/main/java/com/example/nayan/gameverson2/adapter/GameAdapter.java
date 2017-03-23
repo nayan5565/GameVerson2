@@ -157,6 +157,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Picasso.with(context)
                             .load(Global.IMAGE_URL + mContents.getImg())
                             .into(holder.imgAnim);
+//                    holder.imgAnim.setImageResource();
 
                 } else {
                     holder.txtContents.setText(mContents.getTxt());

@@ -15,7 +15,7 @@
             android:id="@+id/txtBangla"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="70dp"
             android:background="@drawable/bangl_button_text"
             android:textSize="30dp" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/txtBanglaMa"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="70dp"
             android:background="@drawable/bangla_math_btn_text"
             android:textSize="30dp" />
 
@@ -59,7 +59,7 @@
             android:id="@+id/txtEnglish1"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="70dp"
             android:background="@drawable/english_button"
             android:textSize="30dp" />
 
@@ -81,7 +81,7 @@
             android:id="@+id/txtMath1"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="70dp"
             android:background="@drawable/math_button"
             android:textSize="30dp" />
 

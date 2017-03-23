@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName, txtEnglisg, txtMatht;
     private String image;
     private static String B_URL = Global.BASE_URL;
-    private String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
+    public static String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
 //            +File.separator+"image"+File.separator+"ban";
     private Gson gson = new Gson();
 
@@ -81,12 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getBanglaContentData();
         getBanglaMathContentData();
         getLocalData();
-        for (int i = 0; i < Global.BANGLA.size(); i++) {
-            FilesDownload.getInstance(this, dir).addUrl(Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
-            Log.e("DOWNLOAD",Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
 
-        }
-        FilesDownload.getInstance(MainActivity.this,dir).start();
 
     }
 
@@ -102,15 +97,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        Global.BANGLA=new ArrayList<>();
-
         btnResult = (Button) findViewById(R.id.btnResult);
         btnResult.setOnClickListener(this);
         levelsBangla = new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
         Utils.setFont(this, "carterone", textName);
         database = new DatabaseHelper(this);
-        Global.BANGLA=database.getBanglaContentsContentsData();
         btnSetting = (Button) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(this);
         mLevel = new MLevel();
@@ -337,8 +329,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         saveBanglaContentsOfAllLevelToDb();
                         saveBanglaWordsToDb();
+                        banglaImageDownload();
                     }
 
                     @Override
@@ -569,6 +563,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             database.addBanglaMathWordsFromJsom(mWords);
             Log.e("math", " words");
         }
+    }
+    private void banglaImageDownload(){
+        for (int i = 0; i < Global.BANGLA.size(); i++) {
+            FilesDownload.getInstance(this, dir).addUrl(Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
+            Log.e("DOWNLOAD",Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
+
+        }
+        FilesDownload.getInstance(MainActivity.this,dir).start();
     }
 
     @Override

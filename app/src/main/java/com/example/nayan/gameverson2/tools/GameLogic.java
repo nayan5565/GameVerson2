@@ -147,7 +147,6 @@ public class GameLogic {
             shakeAnimation(view);
             imageView.setImageResource(R.drawable.red_panel);
 //            view2.setBackgroundColor(0xffff0000);
-            Utils.toastMassage(context, "wrong click");
         }
 
         if (count == listSize) {
@@ -168,7 +167,6 @@ public class GameLogic {
                 }
             }, 1200);
 
-            Utils.toastMassage(context, "Game Over");
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -307,7 +305,6 @@ public class GameLogic {
         if (count == 2) {
 
             if (previousType == mImage.getPresentType()) {
-                Utils.toastMassage(context, "Match ");
                 Log.e("log", "match win count : " + matchWinCount);
                 Log.e("previous id", "MID : " + previousId);
 
@@ -340,7 +337,6 @@ public class GameLogic {
 //                    VungleAdManager.getInstance(context).play();
 
 
-                    Utils.toastMassage(context, "Game Over");
                     gameWinCount++;
                     Log.e("log", "game over : " + gameWinCount);
                 }
@@ -362,7 +358,6 @@ public class GameLogic {
                                 list.get(i).setMatch(0);
                                 gameAdapter.notifyDataSetChanged();
                                 imageView.setImageResource(R.drawable.red_panel);
-                                Utils.toastMassage(context, "Did Not Match");
 //                                flipAnimation2(view);
 //
                             }
