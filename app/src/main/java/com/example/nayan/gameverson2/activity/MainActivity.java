@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String image;
     private static String B_URL = Global.BASE_URL;
     private String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
+//            +File.separator+"image"+File.separator+"ban";
     private Gson gson = new Gson();
 
     @Override
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getLocalData();
         for (int i = 0; i < Global.BANGLA.size(); i++) {
             FilesDownload.getInstance(this, dir).addUrl(Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
+            Log.e("DOWNLOAD",Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
 
         }
         FilesDownload.getInstance(MainActivity.this,dir).start();

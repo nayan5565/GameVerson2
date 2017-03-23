@@ -21,6 +21,9 @@ public class Global {
     public static String levelName;
     public static String subLevelName;
     public static String internetAlert = "No Internet Connection. Please at first need internet connected then exit from app and again open it.";
+    public static String rulesOfPlay1 = "Sequentially play";
+    public static String rulesOfPlay2 = "fist click and second click same need to- match";
+    public static String rulesOfPlay3 = "show popUp with image after click any item";
     public static String parentLevelName;
     public static int SUB_INDEX_POSITION;
     public static String ALTER_URL = "";

@@ -51,6 +51,8 @@ public class FilesDownload {
     private boolean isFileExists(String _url){
         String fileName = _url.substring(_url.lastIndexOf("/") + 1);
         File file=new File(dir+File.separator+fileName);
+        if(!file.exists())
+            file.mkdir();
         return file.exists();
     }
 
@@ -70,6 +72,7 @@ public class FilesDownload {
             Log.e("TEST", "Total Size :" + total + ":" + urls.size());
             for (int i = 0; i < urls.size(); i++)
                 download(urls.get(i));
+
 
             return false;
         }

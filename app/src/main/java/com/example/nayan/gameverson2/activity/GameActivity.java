@@ -164,7 +164,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "one " + popUp);
             if (Global.popUp == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
             }
 
             imageArrayList1 = database.getBanglaContentsContentsData();
@@ -176,7 +176,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "two " + popUp2);
             if (Global.popUp2 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaContentsContentsData();
@@ -189,7 +189,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "three " + popUp3);
             if (Global.popUp3 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay3);
             }
             imageArrayList1 = database.getBanglaContentsContentsData();
 //            Collections.shuffle(imageArrayList1);
@@ -201,7 +201,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "four " + popUp4);
             if (Global.popUp4 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
             }
             imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -212,7 +212,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "five " + popUp5);
             if (Global.popUp5 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaMathContentsContentsData();
@@ -225,7 +225,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "six " + popUp6);
             if (Global.popUp6 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay3);
             }
             imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -236,7 +236,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "seven " + popUp7);
             if (Global.popUp7 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
             }
             imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -247,7 +247,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "eight " + popUp8);
             if (Global.popUp8 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
@@ -260,7 +260,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "nine " + popUp9);
             if (Global.popUp9 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
             }
             imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -271,7 +271,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "ten " + popUp10);
             if (Global.popUp10 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
@@ -284,7 +284,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "eleven " + popUp11);
             if (Global.popUp11 == 0) {
-                Utils.diaRulesOfPlay(this);
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay3);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
@@ -398,8 +398,46 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.imgHelp) {
-            Utils.diaRulesOfPlay(this);
-        }
-    }
+            if (Global.subLevelId == 1) {
 
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
+
+            } else if (Global.subLevelId == 2) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
+
+            } else if (Global.subLevelId == 3) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay3);
+
+            } else if (Global.subLevelId == 4) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
+            } else if (Global.subLevelId == 5) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
+            } else if (Global.subLevelId == 6) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay3);
+            } else if (Global.subLevelId == 8) {
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
+
+            } else if (Global.subLevelId == 9) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
+            } else if (Global.subLevelId == 13) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay1);
+            } else if (Global.subLevelId == 14) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay2);
+
+            } else if (Global.subLevelId == 15) {
+
+                Utils.diaRulesOfPlay(this, Global.rulesOfPlay3);
+            }
+        }
+
+
+    }
 }

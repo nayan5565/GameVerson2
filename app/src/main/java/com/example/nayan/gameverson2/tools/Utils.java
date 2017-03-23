@@ -154,12 +154,14 @@ public class Utils {
         view.setBackground(resGreen);
     }
 
-    public static void diaRulesOfPlay(Context context) {
+    public static void diaRulesOfPlay(Context context,String s) {
         final Dialog dialog = new Dialog(context);
         dialog.setCancelable(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.game_instruction);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView txtRule =(TextView)dialog.findViewById(R.id.txtRules);
+        txtRule.setText(s);
         Button close = (Button) dialog.findViewById(R.id.btnDismiss);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
