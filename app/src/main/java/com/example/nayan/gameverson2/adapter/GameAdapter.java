@@ -4,6 +4,8 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.GameLogic;
@@ -154,10 +157,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     holder.imgAnim.setVisibility(View.VISIBLE);
                     holder.txtContents.setText("");
                     Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
-                    Picasso.with(context)
-                            .load(Global.IMAGE_URL + mContents.getImg())
-                            .into(holder.imgAnim);
+//                    Picasso.with(context)
+//                            .load(Global.IMAGE_URL + mContents.getImg())
+//                            .into(holder.imgAnim);
 //                    holder.imgAnim.setImageResource();
+                    Bitmap bmp = BitmapFactory.decodeFile(MainActivity.dir);
+
+                    holder.imgAnim.setImageBitmap(bmp);
 
                 } else {
                     holder.txtContents.setText(mContents.getTxt());
