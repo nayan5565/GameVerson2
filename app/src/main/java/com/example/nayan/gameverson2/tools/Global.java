@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class Global {
     public static final String IMAGE_URL = "http://www.radhooni.com/content/match_game/v1/images/";
+    public static final String BASE_SOUND_URL = "http://www.radhooni.com/content/match_game/v1/sounds/";
     public static int levelId;
     public static String levelName;
     public static String subLevelName;
@@ -28,7 +29,7 @@ public class Global {
     public static int SUB_INDEX_POSITION;
     public static String ALTER_URL = "";
     public static int subLevelId;
-    public static int LEVEL_DOWNLOAD = 10;
+    public static int LEVEL_DOWNLOAD = 30;
     public static int totalPoint;
     public static int ALL_TOTAL_POINT;
     public static int GAME_INDEX_POSITION;
@@ -40,9 +41,10 @@ public class Global {
     public static final String API_BANGLA = "contents_bangla.php";
     public static final String BASE_URL = "http://www.radhooni.com/content/match_game/v1/";
     public static ArrayList<MSubLevel> parentName;
-    public static String uriGreen = "@drawable/green_panel";
-    public static String uriYellow = "@drawable/yellow_panel";
-    public static String uriRed = "@drawable/red_panel";
+    public static String uriBangla = "@drawable/green_panel";
+    public static String uriOngko = "@drawable/yellow_panel";
+    public static String uriEnglish = "@drawable/red_panel";
+    public static String uriMath = "@drawable/violet_panel";
     public static String IMAGE_OPEN = "one", IMAGE_OFF = "two";
     public static String ASSETS_DOWNLOAD_MASSAGE = "downloaded";
     public static String CONVERT_NUM = "downloaded";
@@ -62,6 +64,9 @@ public class Global {
     public static int popUp2;
     public static int popUp3;
     public static int popUp4, popUp5, popUp6, popUp7, popUp8, popUp9, popUp10, popUp11;
+    public static String ADMIN="dino.araf@gmail.com";
+    public static String SUBJECT="your_subject";
+    public static String TEXT="your_text";
 
 
 }

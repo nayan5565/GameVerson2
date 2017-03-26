@@ -51,6 +51,7 @@ public class DatabaseHelper {
     private static final String KEY_WORDS_IMG = "words_img";
     private static final String KEY_WORDS_SOUND = "words_sound";
     private static final String KEY_POINT_ID = "point_id";
+    private static final String KEY_HOW_TO = "how_to";
     private static final String KEY_POPUP = "pop_up";
     private static final String KEY_POPUP2 = "pop_up2";
     private static final String KEY_POPUP3 = "pop_up3";
@@ -171,6 +172,7 @@ public class DatabaseHelper {
             + KEY_UNLOCK + " integer, "
             + KEY_POINT + " integer, "
             + KEY_PARENT_NAME + " text, "
+            + KEY_HOW_TO + " text, "
             + KEY_COINS_PRICE + " text, "
             + KEY_NO_OF_COINS + " text)";
     private static final String DATABASE_CREATE_WORDS_TABLE = "create table if not exists "
@@ -331,6 +333,7 @@ public class DatabaseHelper {
             values.put(KEY_POINT, mSubLevel.getBestPoint());
             values.put(KEY_PARENT_NAME, mSubLevel.getParentName());
             values.put(KEY_NAME, mSubLevel.getName());
+            values.put(KEY_HOW_TO, mSubLevel.getHowto());
             values.put(KEY_COINS_PRICE, mSubLevel.getCoins_price());
             values.put(KEY_NO_OF_COINS, mSubLevel.getNo_of_coins());
 
@@ -956,6 +959,7 @@ public class DatabaseHelper {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mSubLevel.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
+//                mSubLevel.setHowto(cursor.getString(cursor.getColumnIndex(KEY_HOW_TO)));
 
                 try {
                     mSubLevel.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));

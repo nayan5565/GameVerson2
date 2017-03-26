@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -24,12 +23,14 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
+import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MWords;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -121,7 +122,7 @@ public class GameLogic {
     }
 
     public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2, final ImageView imageView) {
-        counter++;
+
         oneClick++;
 
         Log.e("counter", "is" + counter);
@@ -131,9 +132,21 @@ public class GameLogic {
         }
 
         if (mContents.getMid() == clickCount + 1) {
+
             list.get(pos).setMatch(1);
+            String mSound = "msound";
+            if (Global.levelId == 1) {
+                mSound = MainActivity.dirMainSOOfBangla;
+            } else if (Global.levelId == 2) {
+                mSound = MainActivity.dirMainSOOfOngko;
+            } else if (Global.levelId == 3) {
+                mSound = MainActivity.dirMainSOOfEnglish;
+            } else if (Global.levelId == 4) {
+                mSound = MainActivity.dirMainSOOfMath;
+            }
 //            list.get(pos).setClick(Utils.IMAGE_OPEN);
-            Utils.getSound(context, R.raw.click);
+//            Utils.getSound(context, R.raw.click);
+            Utils.PlaySound(mSound + File.separator + mContents.getAud());
 //            gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
@@ -150,11 +163,13 @@ public class GameLogic {
         }
 
         if (count == listSize) {
+
             savePoint(listSize);
+            resetList(listSize);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    resetList(listSize);
+//                    resetList(listSize);
                 }
             }, 1000);
             GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
@@ -162,10 +177,10 @@ public class GameLogic {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
+//                    resetList(listSize);
                     dialogShowForLevelClear(listSize);
                 }
-            }, 1200);
+            }, 3500);
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -541,11 +556,11 @@ public class GameLogic {
             }
         });
         if (Global.levelId == 1) {
-            Utils.changeUIcolor(context, Global.uriGreen, changeColor);
+            Utils.changeUIcolor(context, Global.uriBangla, changeColor);
         } else if (Global.levelId == 2) {
-            Utils.changeUIcolor(context, Global.uriYellow, changeColor);
+            Utils.changeUIcolor(context, Global.uriOngko, changeColor);
         } else if (Global.levelId == 3) {
-            Utils.changeUIcolor(context, Global.uriRed, changeColor);
+            Utils.changeUIcolor(context, Global.uriEnglish, changeColor);
         }
 
         ImageView imgReload = (ImageView) dialog.findViewById(R.id.btnLevelReload);
@@ -610,12 +625,13 @@ public class GameLogic {
 
     public void flipAnimation(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
-        animator.setDuration(500);
+        animator.setDuration(700);
         animator.start();
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
                 gameAdapter.notifyDataSetChanged();
+                counter++;
                 oneClick = 0;
             }
         }, 500);

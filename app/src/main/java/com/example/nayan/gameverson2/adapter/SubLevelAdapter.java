@@ -111,7 +111,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
 
 
 //                    Global.popUp = db.getPopUp();
-//                    Log.e("popUp", "opp  " + Global.popUp);
+                    Log.e("levelID", "idd  " + Global.levelId);
 
                     mSubLevel = mSubLevels.get(getAdapterPosition());
                     Utils.bestPoint = mSubLevel.getBestPoint();
@@ -120,6 +120,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                         intent.putExtra("subLevelName", mSubLevel.getName());
                         intent.putExtra("index", getAdapterPosition());
                         intent.putExtra("Sid", mSubLevel.getLid());
+                        intent.putExtra("how", mSubLevel.getHowto());
                         intent.putExtra("parentLevelName", mSubLevel.getParentName());
                         context.startActivity(intent);
                     }

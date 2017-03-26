@@ -36,6 +36,12 @@ public class FilesDownload {
         instance.context = context;
         return instance;
     }
+    public static FilesDownload newInstance(Context context, String dir) {
+        instance = new FilesDownload();
+        instance.dir = dir;
+        instance.context = context;
+        return instance;
+    }
 
     public void start() {
         if (urls != null && urls.size() > 0)
@@ -60,6 +66,7 @@ public class FilesDownload {
     private class MyDownload extends AsyncTask<String, Integer, Boolean> {
         @Override
         protected void onPreExecute() {
+            Log.e(dir,"start");
             dialog = ProgressDialog.show(context, null, "0%");
             super.onPreExecute();
         }
@@ -87,6 +94,7 @@ public class FilesDownload {
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
+            Log.e(dir,"stop");
             dialog.dismiss();
 
             if (result) {

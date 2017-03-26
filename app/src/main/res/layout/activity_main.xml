@@ -8,10 +8,11 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtGameNames"
@@ -21,25 +22,19 @@
             android:gravity="center"
             android:text="Game Names"
             android:textSize="30dp" />
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgCloud1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_below="@id/txtGameNames"
-            android:src="@drawable/cloud1" />
+    <!--Middle part stating point-->
 
-        <ImageView
-            android:id="@+id/imgCloud2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignTop="@id/imgCloud1"
-            android:src="@drawable/cloud2" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtGameNames">
+            >
 
 
             <LinearLayout
@@ -50,21 +45,21 @@
 
                 <FrameLayout
                     android:id="@+id/frmBangla"
-                    android:layout_width="190dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_width="@dimen/dp190"
+                    android:layout_height="@dimen/dp60"
+                    android:layout_marginTop="@dimen/dp20">
 
                     <ImageView
                         android:id="@+id/btnBangla"
-                        android:layout_width="180dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/dp180"
+                        android:layout_height="@dimen/dp50"
                         android:layout_gravity="bottom|center"
                         android:background="@drawable/bangl_button_text" />
 
                     <TextView
                         android:id="@+id/txtSub"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
                         android:layout_gravity="right"
                         android:background="@drawable/starr"
                         android:gravity="center"
@@ -76,20 +71,20 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="190dp"
-                    android:layout_height="60dp">
+                    android:layout_width="@dimen/dp190"
+                    android:layout_height="@dimen/dp60">
 
                     <ImageView
                         android:id="@+id/btnBanglaMath"
-                        android:layout_width="180dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/dp180"
+                        android:layout_height="@dimen/dp50"
                         android:layout_gravity="bottom|center"
                         android:background="@drawable/bangla_math_btn_text" />
 
                     <TextView
                         android:id="@+id/txtBanglaMath"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
                         android:layout_gravity="right"
                         android:background="@drawable/starr"
                         android:gravity="center"
@@ -99,13 +94,13 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="190dp"
-                    android:layout_height="60dp">
+                    android:layout_width="@dimen/dp190"
+                    android:layout_height="@dimen/dp60">
 
                     <ImageView
                         android:id="@+id/btnEnglish"
-                        android:layout_width="180dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/dp180"
+                        android:layout_height="@dimen/dp50"
                         android:layout_gravity="bottom|center"
                         android:background="@drawable/english_button"
                         android:textColor="#FFFFFF"
@@ -113,8 +108,8 @@
 
                     <TextView
                         android:id="@+id/txtEnglish"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
                         android:layout_gravity="right"
                         android:background="@drawable/starr"
                         android:gravity="center"
@@ -124,13 +119,13 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="190dp"
-                    android:layout_height="60dp">
+                    android:layout_width="@dimen/dp190"
+                    android:layout_height="@dimen/dp60">
 
                     <ImageView
                         android:id="@+id/btnMath"
-                        android:layout_width="180dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/dp180"
+                        android:layout_height="@dimen/dp50"
                         android:layout_gravity="bottom|center"
                         android:background="@drawable/math_button"
                         android:textColor="#FFFFFF"
@@ -138,8 +133,8 @@
 
                     <TextView
                         android:id="@+id/txtMath"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
                         android:layout_gravity="right"
                         android:background="@drawable/starr"
                         android:gravity="center"
@@ -153,7 +148,15 @@
 
 
         </ScrollView>
+    </LinearLayout>
 
+    <!--End Part String Point-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -185,5 +188,29 @@
 
 
         </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imgCloud1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/cloud1" />
+
+        <ImageView
+            android:id="@+id/imgCloud2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignTop="@id/imgCloud1"
+            android:src="@drawable/cloud2" />
+
+
+
+
     </RelativeLayout>
 </LinearLayout>

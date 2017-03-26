@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
 
@@ -41,20 +42,23 @@ public class DialogSoundOnOff {
 
     public static void dialogShow(final Context context) {
         final Dialog dialog = new Dialog(context);
-        dialog.setTitle("Setting");
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_setting);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final ImageView imgSound = (ImageView) dialog.findViewById(R.id.imgSoundOnOf);
         ImageView btnOK = (ImageView) dialog.findViewById(R.id.btnOk);
+        ImageView btnCancel = (ImageView) dialog.findViewById(R.id.imgCancel);
         Button btnContuct = (Button) dialog.findViewById(R.id.btnContuctUs);
+        TextView txtSound=(TextView)dialog.findViewById(R.id.txtSound);
+        TextView txtContact=(TextView)dialog.findViewById(R.id.txtContuctUs);
+        Utils.setFont(context,"carterone",txtSound,txtContact);
         btnContuct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
-                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "nayan5565@gmail.com"));
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "your_subject");
-                    intent.putExtra(Intent.EXTRA_TEXT, "your_text");
+                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + Global.ADMIN));
+                    intent.putExtra(Intent.EXTRA_SUBJECT,Global.SUBJECT);
+                    intent.putExtra(Intent.EXTRA_TEXT, Global.TEXT);
                     context.startActivity(intent);
                 }catch(ActivityNotFoundException e){
                     //TODO smth
@@ -71,6 +75,12 @@ public class DialogSoundOnOff {
             imgSound.setImageResource(R.drawable.off);
         }
         btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();

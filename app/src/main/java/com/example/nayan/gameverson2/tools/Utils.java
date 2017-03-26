@@ -40,6 +40,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -68,6 +69,28 @@ public class Utils {
             Log.e("CONTEXT", "value :" + context + ":" + path);
             mediaPlayer = MediaPlayer.create(context, path);
             mediaPlayer.start();
+            Log.e("log", "playing");
+        }
+    }
+    public static void PlaySound( String path) {
+        if (isSoundPlay) {
+
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                //mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+//            mediaPlayer = MediaPlayer.create(context, path);
+            mediaPlayer=new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(path);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             Log.e("log", "playing");
         }
     }

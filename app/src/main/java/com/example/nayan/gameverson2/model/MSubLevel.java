@@ -8,6 +8,15 @@ public class MSubLevel {
 
 
     private int parentId;
+    private String howto;
+
+    public String getHowto() {
+        return howto;
+    }
+
+    public void setHowto(String howto) {
+        this.howto = howto;
+    }
 
     public String getParentName() {
         return parentName;

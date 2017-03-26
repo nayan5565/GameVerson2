@@ -21,7 +21,6 @@ import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
-import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
@@ -47,7 +46,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private MAllContent mAllContent = new MAllContent();
     private String lName;
     private MLock mLock;
-    private int STORAGE_PERMISSION_CODE = 23;
+
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
     private ImageView imageView, imgLevelName;
@@ -78,34 +77,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         prepareDisplay();
     }
 
-    private void requestStoragePermissionToMashmallow() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            //If the user has denied the permission previously your code will come to this block
-            //Here you can explain why you need this permission
-            //Explain here why you need this permission
-        }
-
-        //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //Checking the request code of our request
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            //If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                downloadAssets();
-                //Displaying a toast
-                Utils.toastMassage(this, "Permission granted now you can read the storage");
-            } else {
-                //Displaying another toast if permission is not granted
-                Utils.toastMassage(this, "Oops you just denied the permission");
-            }
-        }
-    }
 
     private void downloadAssets() {
 //        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -200,30 +172,31 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Utils.setFont(this, "carterone", txtAllTotal_ponts, txtLevelName, txtLevelSelect);
         if (value == 1) {
             imageView.setImageResource(R.drawable.grren_coins);
-            Utils.changeUIcolor(this, Global.uriGreen, changeColor);
+            Utils.changeUIcolor(this, Global.uriBangla, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.bangla);
 //            txtLevelName.setTextColor(0xff00ff00);
         } else if (value == 2) {
             imageView.setImageResource(R.drawable.yellow_coins);
-            Utils.changeUIcolor(this, Global.uriYellow, changeColor);
-            txtLevelName.setBackgroundResource(R.drawable.bangla_math_btn_text);
+            Utils.changeUIcolor(this, Global.uriOngko, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.ongko);
 //            txtLevelName.setTextColor(0xffffff00);
         } else if (value == 3) {
             imageView.setImageResource(R.drawable.red_coins);
-            Utils.changeUIcolor(this, Global.uriRed, changeColor);
-            txtLevelName.setBackgroundResource(R.drawable.english_button);
+            Utils.changeUIcolor(this, Global.uriEnglish, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.english);
         } else if (value == 4) {
 //            imageView.setImageResource(R.drawable.red_coins);
-            Utils.changeUIcolor(this, Global.uriGreen, changeColor);
-            txtLevelName.setBackgroundResource(R.drawable.math_button);
+            Utils.changeUIcolor(this, Global.uriMath, changeColor);
+            txtLevelName.setBackgroundResource(R.drawable.math);
         }
-        int item = Utils.getScreenSize(this, 90);
+        int item = Utils.getScreenSize(this, 180);
 //        DatabaseHelper helper=new DatabaseHelper(this);
 //        MLock lock=new MLock();
 //        lock=helper.getLocalData(Global.subLevelId);
 //        Global.totalPoint=lock.getTotal_pont();
 
         Global.ALL_TOTAL_POINT = mLock.getAll_total_point();
-        Log.e("all", "point is: " + Global.ALL_TOTAL_POINT);
+        Log.e("all", "item: " + item);
         txtAllTotal_ponts.setText(totalPoint + "");
 
 //        txtLevelName.setText(lName);

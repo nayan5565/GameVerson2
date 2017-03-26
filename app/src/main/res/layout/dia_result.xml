@@ -8,13 +8,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtBangla"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="70dp"
             android:background="@drawable/bangl_button_text"
             android:textSize="30dp" />
@@ -24,19 +24,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:text="BPoint"
+            android:text="0"
             android:textSize="30dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="05dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtBanglaMa"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="70dp"
             android:background="@drawable/bangla_math_btn_text"
             android:textSize="30dp" />
@@ -46,19 +47,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:text="BMPoint"
+            android:text="0"
             android:textSize="30dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="05dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtEnglish1"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="70dp"
             android:background="@drawable/english_button"
             android:textSize="30dp" />
@@ -68,19 +70,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:text="EPoint"
+            android:text="0"
             android:textSize="30dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="05dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtMath1"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="70dp"
             android:background="@drawable/math_button"
             android:textSize="30dp" />
@@ -90,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:text="MPoint"
+            android:text="0"
             android:textSize="30dp" />
     </LinearLayout>
 

@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.MainActivity;
@@ -31,9 +29,8 @@ import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Created by NAYAN on 11/24/2016.
@@ -53,6 +50,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private AnimatorSet mSetLeftIn;
     private boolean mIsBackVisible = false;
     private RelativeLayout changeColor;
+    String sounds = "sounds";
     DatabaseHelper db;
 
 
@@ -161,7 +159,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                            .load(Global.IMAGE_URL + mContents.getImg())
 //                            .into(holder.imgAnim);
 //                    holder.imgAnim.setImageResource();
-                    Bitmap bmp = BitmapFactory.decodeFile(MainActivity.dir);
+                    String loc = "loc";
+                    if (Global.levelId == 1) {
+                        loc = MainActivity.dir;
+                    } else if (Global.levelId == 2) {
+                        loc = MainActivity.dirOngko;
+                    } else if (Global.levelId == 3) {
+                        loc = MainActivity.dirEnglish;
+                    } else if (Global.levelId == 4) {
+                        loc = MainActivity.dirMath;
+                    }
+                    Bitmap bmp = BitmapFactory.decodeFile(loc + "/" + mContents.getImg());
 
                     holder.imgAnim.setImageBitmap(bmp);
 
@@ -235,8 +243,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 public void onClick(View v) {
                     if (getAdapterPosition() < 0)
                         return;
+
                     mContents = textArrayList.get(getAdapterPosition());
                     Global.GAME_INDEX_POSITION = getAdapterPosition();
+
 
                     if (Global.subLevelId == 1 || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
@@ -251,10 +261,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                        dialogShowWithWordsList();
                     } else if (Global.subLevelId == 6) {
                         mContents.setWords(db.getBanglaMathWordsData(mContents.getMid()));
-                        dialogShowWithWordsList();
+                        dialogShowWithWordArray(getAdapterPosition());
                     } else if (Global.subLevelId == 15) {
                         mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                        dialogShowWithWordsList();
+                        dialogShowWithWordArray(getAdapterPosition());
 //                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
 //                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
                     } else if (Global.subLevelId == 19) {
@@ -308,6 +318,44 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBackOne);
         ImageView imgForward = (ImageView) dialog.findViewById(R.id.imgForward1);
         txt1.setText(textArrayList.get(pos).getTxt());
+
+        if (Global.levelId == 1) {
+            sounds = MainActivity.dirS;
+        } else if (Global.levelId == 2) {
+            sounds = MainActivity.dirSO;
+        } else if (Global.levelId == 3) {
+            sounds = MainActivity.dirSE;
+        } else if (Global.levelId == 4) {
+            sounds = MainActivity.dirSM;
+        }
+        img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Utils.PlaySound(sounds + File.separator + mContents.getWords().get(0).getWsound());
+            }
+        });
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mContents.getWords().size() == 1) {
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(0).getWsound());
+                } else {
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
+                }
+            }
+        });
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mContents.getWords().size() == 1) {
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(0).getWsound());
+                } else {
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(2).getWsound());
+                }
+            }
+        });
         imgForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -343,11 +391,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         });
         Log.e("TEST", "s:" + mContents.getWords().size());
         if (Global.levelId == 1) {
-            Utils.changeUIcolor(context, Global.uriGreen, changeColor2);
+            Utils.changeUIcolor(context, Global.uriBangla, changeColor2);
         } else if (Global.levelId == 2) {
-            Utils.changeUIcolor(context, Global.uriYellow, changeColor2);
+            Utils.changeUIcolor(context, Global.uriOngko, changeColor2);
         } else if (Global.levelId == 3) {
-            Utils.changeUIcolor(context, Global.uriRed, changeColor2);
+            Utils.changeUIcolor(context, Global.uriEnglish, changeColor2);
         }
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -467,11 +515,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBack);
         ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         if (Global.levelId == 1) {
-            Utils.changeUIcolor(context, Global.uriGreen, changeColor2);
+            Utils.changeUIcolor(context, Global.uriBangla, changeColor2);
         } else if (Global.levelId == 2) {
-            Utils.changeUIcolor(context, Global.uriYellow, changeColor2);
+            Utils.changeUIcolor(context, Global.uriOngko, changeColor2);
         } else if (Global.levelId == 3) {
-            Utils.changeUIcolor(context, Global.uriRed, changeColor2);
+            Utils.changeUIcolor(context, Global.uriEnglish, changeColor2);
         }
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
