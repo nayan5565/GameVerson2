@@ -24,8 +24,6 @@ import java.util.ArrayList;
  * Created by NAYAN on 8/24/2016.
  */
 public class DatabaseHelper {
-    private Context context;
-    private static DatabaseHelper instance;
     private static final String DATABASE_NAME = "game.db";
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_LEVEL_TABLE = "level";
@@ -43,7 +41,6 @@ public class DatabaseHelper {
     private static final String DATABASE_BANGLA_CONTENTS_TABLE = "bangla_contents_tb";
     private static final String DATABASE_MATH_CONTENTS_TABLE = "math_contents_tb";
     private static final String DATABASE_BANGLA_MATH_CONTENTS_TABLE = "bangla_math_contents_tb";
-
     private static final String KEY_WORDS_ID = "words_id";
     private static final String KEY_WORDS_CONTENTS_ID = "words_contents_id";
     private static final String KEY_WORDS_LETTER = "words_letter";
@@ -93,13 +90,6 @@ public class DatabaseHelper {
     private static final String KEY_PRESENT_TYPE = "present_type";
     private static final String KEY_POINT = "best_point";
     private static final String KEY_LEVEL_WIN_COUNT = "win_count";
-
-    private final String TAG = getClass().getSimpleName();
-    private final String PASS = Utils.databasePassKey("nayan5565@gmail.com", "As us");
-
-    private static SQLiteDatabase db;
-
-
     private static final String DATABASE_CREATE_LEVEL_TABLE = "create table if not exists "
             + DATABASE_LEVEL_TABLE + "("
             + KEY_LEVEL_ID + " integer primary key, "
@@ -240,6 +230,11 @@ public class DatabaseHelper {
             + KEY_PRESENT_POINT + " integer, "
             + KEY_POINT_ID + " integer primary key, "
             + KEY_POINT + " integer)";
+    private static DatabaseHelper instance;
+    private static SQLiteDatabase db;
+    private final String TAG = getClass().getSimpleName();
+    private final String PASS = Utils.databasePassKey("nayan5565@gmail.com", "As us");
+    private Context context;
 
     public DatabaseHelper(Context context) {
 
@@ -950,7 +945,7 @@ public class DatabaseHelper {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
         Log.e("DB", "S1");
         MSubLevel mSubLevel;
-        String sql = "select a.s_lid,a.pNm,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
+        String sql = "select a.s_lid,a.pNm,a.how_to,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -959,7 +954,7 @@ public class DatabaseHelper {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mSubLevel.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
-//                mSubLevel.setHowto(cursor.getString(cursor.getColumnIndex(KEY_HOW_TO)));
+                mSubLevel.setHowto(cursor.getString(cursor.getColumnIndex(KEY_HOW_TO)));
 
                 try {
                     mSubLevel.setBestPoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));

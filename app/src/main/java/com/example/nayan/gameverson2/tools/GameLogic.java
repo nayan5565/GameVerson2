@@ -23,14 +23,11 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
-import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
-import com.example.nayan.gameverson2.model.MContents;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MWords;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -40,9 +37,13 @@ import static com.example.nayan.gameverson2.activity.SubLevelActivity.mSubLevels
  * Created by NAYAN on 8/20/2016.
  */
 public class GameLogic {
-    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious, oneClick;
+    public static Dialog dialog;
     private static GameLogic gameLogic;
+    View view1;
+    TextView textView2;
+    private int previousId, count, counter, clickCount, matchWinCount, previousType, gameWinCount, previousPoint, presentPoint, bestPoint, idPrevious, oneClick;
     private ArrayList<MAllContent> list;
+    private int countPoint;
     private ArrayList<MWords> list2;
     private SharedPreferences preferences;
     private Context context;
@@ -50,10 +51,7 @@ public class GameLogic {
     private RecyclerView.Adapter gameAdapter;
     private MAllContent previousMcontents = new MAllContent();
     private RecyclerView recyclerView;
-    public static Dialog dialog;
     private LinearLayout changeColor;
-    View view1;
-    TextView textView2;
 
 
     private GameLogic() {
@@ -122,36 +120,40 @@ public class GameLogic {
     }
 
     public void textClick(final MAllContent mContents, int pos, final int listSize, final View view, TextView view2, final ImageView imageView) {
-
+        counter++;
         oneClick++;
+        countPoint++;
 
-        Log.e("counter", "is" + counter);
+        Log.e("counter", "is" + countPoint);
         //don't work if mid !=1 at first time because first time click count=1
         if (oneClick > 1) {
+            return;
+        }
+        if (mContents.getMatch() == 1) {
+            oneClick = 0;
             return;
         }
 
         if (mContents.getMid() == clickCount + 1) {
 
             list.get(pos).setMatch(1);
-            String mSound = "msound";
-            if (Global.levelId == 1) {
-                mSound = MainActivity.dirMainSOOfBangla;
-            } else if (Global.levelId == 2) {
-                mSound = MainActivity.dirMainSOOfOngko;
-            } else if (Global.levelId == 3) {
-                mSound = MainActivity.dirMainSOOfEnglish;
-            } else if (Global.levelId == 4) {
-                mSound = MainActivity.dirMainSOOfMath;
-            }
+//            String mSound = "msound";
+//            if (Global.levelId == 1) {
+//                mSound = MainActivity.dirMainSOOfBangla;
+//            } else if (Global.levelId == 2) {
+//                mSound = MainActivity.dirMainSOOfOngko;
+//            } else if (Global.levelId == 3) {
+//                mSound = MainActivity.dirMainSOOfEnglish;
+//            } else if (Global.levelId == 4) {
+//                mSound = MainActivity.dirMainSOOfMath;
+//            }
 //            list.get(pos).setClick(Utils.IMAGE_OPEN);
 //            Utils.getSound(context, R.raw.click);
-            Utils.PlaySound(mSound + File.separator + mContents.getAud());
+//            Utils.PlaySound(mSound + File.separator + mContents.getAud());
 //            gameAdapter.notifyDataSetChanged();
             //clickcount store present mid
             flipAnimation(view);
             imageView.setImageResource(R.drawable.green_panel);
-//            view2.setBackgroundColor(0xff888888);
             clickCount = mContents.getMid();
             count++;
 
@@ -159,17 +161,14 @@ public class GameLogic {
             Utils.getSound(context, R.raw.fail);
             shakeAnimation(view);
             imageView.setImageResource(R.drawable.red_panel);
-//            view2.setBackgroundColor(0xffff0000);
         }
 
         if (count == listSize) {
-
             savePoint(listSize);
-            resetList(listSize);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    resetList(listSize);
+                    resetList(listSize);
                 }
             }, 1000);
             GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
@@ -180,7 +179,7 @@ public class GameLogic {
 //                    resetList(listSize);
                     dialogShowForLevelClear(listSize);
                 }
-            }, 3500);
+            }, 1500);
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -198,6 +197,7 @@ public class GameLogic {
     public void forLevel2(final View itemView, final MAllContent mContents, final int listSize, TextView textView, int pos, final ImageView imageView) {
         counter++;
         oneClick++;
+        countPoint++;
         if (oneClick > 1) {
             return;
         }
@@ -206,22 +206,13 @@ public class GameLogic {
             Log.e("s", ":1");
             return;
         }
-//        list.get(pos).setClick(Utils.IMAGE_OPEN);
         list.get(pos).setMatch(1);
         if (previousId == 0) {
             mContents.setMatch(1);
-//            mContents.setClick(Utils.IMAGE_OPEN);
-//            list.get(pos).setClick(Utils.IMAGE_OPEN);
             previousMcontents = mContents;
             previousId = mContents.getMid();
             flipAnimation(itemView);
 
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    gameAdapter.notifyDataSetChanged();
-//                }
-//            }, 400);
             Log.e("s", ":3");
             return;
         }
@@ -237,7 +228,6 @@ public class GameLogic {
             Log.e("s", ":4");
             if (mContents.getPresentType() == previousMcontents.getPresentType()) {
                 mContents.setMatch(1);
-//                mContents.setClick(Utils.IMAGE_OPEN);
                 matchWinCount++;
                 Utils.toastMassage(context, "Match");
 
@@ -250,12 +240,10 @@ public class GameLogic {
                         }
                     }, 1000);
                     GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
-//                    textView.setBackgroundColor(0);
+
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            resetList2(listSize);
-//                            Utils.dialogShowForLevelClear(context,listSize,presentPoint);
                             dialogShowForLevelClear(listSize);
                         }
                     }, 1500);
@@ -267,14 +255,6 @@ public class GameLogic {
                 mContents.setMatch(0);
                 imageView.setImageResource(R.drawable.red_panel);
                 Toast.makeText(context, "wrong", Toast.LENGTH_SHORT).show();
-//                textView.setBackgroundColor(0xffff0000);
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        flipAnimation2(itemView);
-//                    }
-//                },800);
-
             }
             previousId = 0;
             previousMcontents = mContents;
@@ -285,9 +265,10 @@ public class GameLogic {
     public void imageClick(final MAllContent mImage, int pos, final int listSize, final View view, final ImageView imageView) {
         Log.e("Loge", "present id ::" + mImage.getPresentId());
         Log.e("position", "pos" + pos);
-
+        countPoint++;
         counter++;
         oneClick++;
+        Log.e("ANIM", "click prev:" + oneClick);
         if (oneClick > 1) {
             return;
         }
@@ -296,6 +277,7 @@ public class GameLogic {
             Log.e("previous type", "same: " + mImage.getPresentType());
             Log.e("click over 1", "count: " + count);
 //            shakeAnimation(view);
+            oneClick = 0;
             Utils.toastMassage(context, "Same click");
             return;
         }
@@ -397,134 +379,6 @@ public class GameLogic {
         previousType = mImage.getPresentType();
 //        textView2 = textView;
 //        view1=view;
-    }
-
-
-    public void imageClick2(final MContents mImage, int pos, final int listSize, final View view, final View view1) {
-        Log.e("Loge", "present id ::" + mImage.getPresentId());
-        Log.e("position", "pos" + pos);
-
-        counter++;
-
-        if (idPrevious == mImage.getPresentId() || count > 1 || mImage.getClick() == Global.IMAGE_OPEN) {
-            Log.e("previous id", "same: " + mImage.getPresentId());
-            Log.e("click over 1", "count: " + count);
-
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    flipAnimation2(view);
-//                    flipAnimation2(view1);
-//                }
-//            },500);
-
-            Toast.makeText(context, "same click", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        clickCount++;
-
-        list.get(pos).setClick(Global.IMAGE_OPEN);
-
-        flipAnimation(view);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                gameAdapter.notifyDataSetChanged();
-            }
-        }, 400);
-
-        count++;
-
-
-        Log.e("click", "count: " + count);
-//        Utils.getSound(context, R.raw.click);
-        if (count == 2) {
-
-            if (previousType == mImage.getPresentType()) {
-                Toast.makeText(context, "match", Toast.LENGTH_SHORT).show();
-                Log.e("log", "match win count : " + matchWinCount);
-                Log.e("previous type", "type : " + previousType);
-
-
-                matchWinCount++;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-//                        Utils.getSound(context, R.raw.match2);
-                        count = 0;
-
-
-                    }
-                }, 800);
-
-
-                if (matchWinCount == listSize / 2) {
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-//                            resetList(listSize);
-                            Dialog dialog = new Dialog(context);
-                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                            dialog.setContentView(R.layout.dialog_level_cleared);
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            ImageView txtPoint = (ImageView) dialog.findViewById(R.id.txtLevelPoint);
-//                            TextView txtBestPoint = (TextView) dialog.findViewById(R.id.txtLevelBestPoint);
-                            TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
-//                            txtBestPoint.setText("" + Utils.bestPoint);
-                            txtScore.setText(presentPoint + "");
-                            if (presentPoint == 50) {
-                                txtPoint.setImageResource(R.drawable.star_1);
-                            } else if (presentPoint == 75) {
-                                txtPoint.setImageResource(R.drawable.star_2);
-                            } else if (presentPoint == 100) {
-                                txtPoint.setImageResource(R.drawable.star_3);
-                            }
-//                            else txtPoint.setText(Utils.getIntToStar(0));
-                            dialog.show();
-                        }
-                    }, 1500);
-//                    VungleAdManager.getInstance(context).play();
-                    savePoint(listSize);
-
-                    Toast.makeText(context, "game over", Toast.LENGTH_SHORT).show();
-                    gameWinCount++;
-                    Log.e("log", "game over : " + gameWinCount);
-                }
-
-                return;
-            } else {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        flipAnimation2(view);
-                    }
-                }, 500);
-
-                final int perevious = idPrevious;
-
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        Utils.getSound(context, R.raw.fail);
-                        for (int i = 0; i < listSize; i++) {
-                            if (list.get(i).getPresentId() == perevious || list.get(i).getPresentId() == mImage.getPresentId()) {
-                                list.get(i).setClick(Global.IMAGE_OFF);
-                                Toast.makeText(context, "did not match", Toast.LENGTH_SHORT).show();
-//
-                            }
-                        }
-                        gameAdapter.notifyDataSetChanged();
-                        count = 0;
-                    }
-                }, 800);
-                idPrevious = 0;
-                previousType = 0;
-                return;
-            }
-        }
-        idPrevious = mImage.getMid();
-        previousType = mImage.getPresentType();
     }
 
     private void dialogShowForLevelClear(final int listSize) {
@@ -630,9 +484,10 @@ public class GameLogic {
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
-                gameAdapter.notifyDataSetChanged();
                 counter++;
                 oneClick = 0;
+                gameAdapter.notifyDataSetChanged();
+                Log.e("ANIM", "click:" + oneClick);
             }
         }, 500);
     }
@@ -667,6 +522,7 @@ public class GameLogic {
         clickCount = getMin() - 1;
         matchWinCount = 0;
         previousType = 0;
+        countPoint = 0;
         previousId = 0;
         count = 0;
         counter = 0;
@@ -702,9 +558,9 @@ public class GameLogic {
     private int pointCount(int listSize) {
         int point = 50;
 
-        if (counter == listSize) {
+        if (countPoint == listSize) {
             point = 100;
-        } else if (counter > listSize && counter <= listSize + listSize / 2) {
+        } else if (countPoint > listSize && countPoint <= listSize + listSize / 2) {
             point = 75;
         }
         Log.e("pint", "point is" + point);

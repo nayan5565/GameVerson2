@@ -37,9 +37,10 @@ import java.util.ArrayList;
  */
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> {
 
-    private ArrayList<MAllContent> textArrayList;
+    String sounds = "sounds";
 //    private ArrayList<MWords> textArrayList2;
-
+DatabaseHelper db;
+    private ArrayList<MAllContent> textArrayList;
     private MAllContent mContents = new MAllContent();
     private Context context;
     private LayoutInflater inflater;
@@ -50,8 +51,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     private AnimatorSet mSetLeftIn;
     private boolean mIsBackVisible = false;
     private RelativeLayout changeColor;
-    String sounds = "sounds";
-    DatabaseHelper db;
 
 
     public GameAdapter(Context context) {
@@ -225,58 +224,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         return textArrayList.size();
     }
 
-
-    class MyViewholder extends RecyclerView.ViewHolder {
-        TextView txtContents;
-        private ImageView imgAnim;
-        private ImageView imgAnim2;
-
-        public MyViewholder(final View itemView) {
-            super(itemView);
-            imgAnim = (ImageView) itemView.findViewById(R.id.imgImage);
-            imgAnim2 = (ImageView) itemView.findViewById(R.id.imganim2);
-            txtContents = (TextView) itemView.findViewById(R.id.textContents);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getAdapterPosition() < 0)
-                        return;
-
-                    mContents = textArrayList.get(getAdapterPosition());
-                    Global.GAME_INDEX_POSITION = getAdapterPosition();
-
-
-                    if (Global.subLevelId == 1 || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
-                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
-
-                    } else if (Global.subLevelId == 2 || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
-
-//                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
-                    } else if (Global.subLevelId == 3) {
-                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
-                        dialogShowWithWordArray(getAdapterPosition());
-//                        dialogShowWithWordsList();
-                    } else if (Global.subLevelId == 6) {
-                        mContents.setWords(db.getBanglaMathWordsData(mContents.getMid()));
-                        dialogShowWithWordArray(getAdapterPosition());
-                    } else if (Global.subLevelId == 15) {
-                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
-                        dialogShowWithWordArray(getAdapterPosition());
-//                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
-                    } else if (Global.subLevelId == 19) {
-                        dialogShowWithWordsList();
-                    }
-
-
-                }
-            });
-        }
-    }
-
     public void getAnimation(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
         animator.setDuration(500);
@@ -288,7 +235,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         animator.setDuration(500);
         animator.start();
     }
-
 
     public void getShake(View v) {
         // Create shake effect from xml resource
@@ -623,5 +569,67 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
         }
         dialog.show();
+    }
+
+    class MyViewholder extends RecyclerView.ViewHolder {
+        TextView txtContents;
+        private ImageView imgAnim;
+        private ImageView imgAnim2;
+
+        public MyViewholder(final View itemView) {
+            super(itemView);
+            imgAnim = (ImageView) itemView.findViewById(R.id.imgImage);
+            imgAnim2 = (ImageView) itemView.findViewById(R.id.imganim2);
+            txtContents = (TextView) itemView.findViewById(R.id.textContents);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getAdapterPosition() < 0)
+                        return;
+
+                    mContents = textArrayList.get(getAdapterPosition());
+                    Global.GAME_INDEX_POSITION = getAdapterPosition();
+
+
+                    if (Global.subLevelId == 1 || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
+                        String mSound = "msound";
+                        if (Global.levelId == 1) {
+                            mSound = MainActivity.dirMainSOOfBangla;
+                        } else if (Global.levelId == 2) {
+                            mSound = MainActivity.dirMainSOOfOngko;
+                        } else if (Global.levelId == 3) {
+                            mSound = MainActivity.dirMainSOOfEnglish;
+                        } else if (Global.levelId == 4) {
+                            mSound = MainActivity.dirMainSOOfMath;
+                        }
+                        Utils.PlaySound(mSound + File.separator + mContents.getAud());
+                        gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
+
+                    } else if (Global.subLevelId == 2 || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
+
+//                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
+                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
+                    } else if (Global.subLevelId == 3) {
+                        mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
+                        dialogShowWithWordArray(getAdapterPosition());
+//                        dialogShowWithWordsList();
+                    } else if (Global.subLevelId == 6) {
+                        mContents.setWords(db.getBanglaMathWordsData(mContents.getMid()));
+                        dialogShowWithWordArray(getAdapterPosition());
+                    } else if (Global.subLevelId == 15) {
+                        mContents.setWords(db.getMathWordsData(mContents.getMid()));
+                        dialogShowWithWordArray(getAdapterPosition());
+//                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
+//                        gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView);
+                    } else if (Global.subLevelId == 19) {
+                        dialogShowWithWordsList();
+                    }
+
+
+                }
+            });
+        }
     }
 }

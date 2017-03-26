@@ -47,24 +47,6 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnSetting, btnResult;
-    private ImageView cloud1, cloud2, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
-    private MLevel mLevel;
-    private MAllContent mAllContent;
-    private MWords mWords;
-    //    private static LevelAdapter levelAdapter;
-    MPost mPost = new MPost();
-    private static ArrayList<MLevel> levels;
-    private static ArrayList<MLevel> levelsMath;
-    private static ArrayList<MLevel> levelsBangla;
-    private static ArrayList<MLevel> levelsDrawing;
-    private static ArrayList<MLevel> levelsEnglish;
-    private static ArrayList<MLevel> levelsBanglaMath;
-    private DatabaseHelper database;
-    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName, txtEnglisg, txtMatht;
-    private String image;
-    private int STORAGE_PERMISSION_CODE = 23;
-    private static String B_URL = Global.BASE_URL;
     public static String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
     public static String dirOngko = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadOngko";
     public static String dirMath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadMath";
@@ -77,8 +59,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String dirMainSOOfOngko = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFOngko";
     public static String dirMainSOOfEnglish = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFEnglish";
     public static String dirMainSOOfMath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFMath";
+    private static ArrayList<MLevel> levels;
+    private static ArrayList<MLevel> levelsMath;
+    private static ArrayList<MLevel> levelsBangla;
+    private static ArrayList<MLevel> levelsDrawing;
+    private static ArrayList<MLevel> levelsEnglish;
+    private static ArrayList<MLevel> levelsBanglaMath;
+    private static String B_URL = Global.BASE_URL;
+    //    private static LevelAdapter levelAdapter;
+    MPost mPost = new MPost();
+    private Button btnSetting, btnResult;
+    private ImageView cloud1, cloud2, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
+    private MLevel mLevel;
+    private MAllContent mAllContent;
+    private MWords mWords;
+    private DatabaseHelper database;
+    private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName, txtEnglisg, txtMatht;
+    private String image;
+    private int STORAGE_PERMISSION_CODE = 23;
     //            +File.separator+"image"+File.separator+"ban";
     private Gson gson = new Gson();
+
+    public static String getPath(String fileName) {
+        String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Match Game";
+        File file = new File(dir);
+        if (!file.exists()) {
+            file.mkdirs();
+
+        }
+        return dir + File.separator + fileName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,17 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getLocalData();
 
 
-    }
-
-
-    public static String getPath(String fileName) {
-        String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Match Game";
-        File file = new File(dir);
-        if (!file.exists()) {
-            file.mkdirs();
-
-        }
-        return dir + File.separator + fileName;
     }
 
     private void init() {
@@ -750,7 +749,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.English.get(i).getAud());
 
         }
-//        filesDownload.start();
+        filesDownload.start();
     }
     private void mainMathSoundDownload() {
         FilesDownload filesDownload = FilesDownload.newInstance(this, dirMainSOOfMath);
@@ -759,7 +758,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.Maths.get(i).getAud());
 
         }
-//        filesDownload.start();
+        filesDownload.start();
     }
 
     @Override

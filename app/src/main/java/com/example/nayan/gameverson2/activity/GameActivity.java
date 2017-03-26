@@ -40,23 +40,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static GameActivity gameActivity;
     private static MLevel mLevel;
     private static MAllContent mContents;
+    public String subLevelName, how;
+    public String parentName;
+    public TextView txtName, txtTotalPoint, txtSubName;
+    LinearLayout popUI;
+    int popUp, popUp2, popUp3, popUp4, popUp5, popUp6, popUp7, popUp8, popUp9, popUp10, popUp11;
+    int one, two, three, four;
     private MSubLevel mSubLevel = new MSubLevel();
     private ArrayList<MAllContent> imageArrayList1;
-    private ArrayList<MSubLevel> howTo;
     private ArrayList<MWords> wordsList;
     private ImageView imgSetting, imageView, imgHelp;
     private RecyclerView recyclerView;
     //    private Context context;
     private GameAdapter gameAdapter;
     private DatabaseHelper database;
-    public String subLevelName, how;
     private MQuestions mQuestions;
-    public String parentName;
-    public TextView txtName, txtTotalPoint, txtSubName;
     private MLock mLock;
-    LinearLayout popUI;
-    int popUp, popUp2, popUp3, popUp4, popUp5, popUp6, popUp7, popUp8, popUp9, popUp10, popUp11;
-    int one, two, three, four;
 
     //    private GameActivity(){
 //
@@ -105,7 +104,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.addItemDecoration(new SpacesItemDecoration(7));
         Global.subLevelName = getIntent().getStringExtra("subLevelName");
-        how = getIntent().getStringExtra("how");
+        Global.how_to_play = getIntent().getStringExtra("how");
+        how = Global.how_to_play;
         subLevelName = Global.subLevelName;
         Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
         parentName = Global.parentLevelName;
@@ -170,7 +170,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "one " + popUp);
             if (Global.popUp == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay1);
+                diaRulesOfPlay(how);
             }
 
             imageArrayList1 = database.getBanglaContentsContentsData();
@@ -182,7 +182,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "two " + popUp2);
             if (Global.popUp2 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay2);
+                diaRulesOfPlay(how);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaContentsContentsData();
@@ -195,7 +195,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "three " + popUp3);
             if (Global.popUp3 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay3);
+                diaRulesOfPlay(how);
             }
             imageArrayList1 = database.getBanglaContentsContentsData();
 //            Collections.shuffle(imageArrayList1);
@@ -207,7 +207,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "four " + popUp4);
             if (Global.popUp4 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay1);
+                diaRulesOfPlay(how);
             }
             imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -218,7 +218,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "five " + popUp5);
             if (Global.popUp5 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay2);
+                diaRulesOfPlay(how);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getBanglaMathContentsContentsData();
@@ -231,7 +231,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "six " + popUp6);
             if (Global.popUp6 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay3);
+                diaRulesOfPlay(how);
             }
             imageArrayList1 = database.getBanglaMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -242,7 +242,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "seven " + popUp7);
             if (Global.popUp7 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay1);
+                diaRulesOfPlay(how);
             }
             imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -253,7 +253,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "eight " + popUp8);
             if (Global.popUp8 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay2);
+                diaRulesOfPlay(how);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
@@ -266,7 +266,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "nine " + popUp9);
             if (Global.popUp9 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay1);
+                diaRulesOfPlay(how);
             }
             imageArrayList1 = database.getMathContentsContentsData();
             Collections.shuffle(imageArrayList1);
@@ -277,7 +277,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "ten " + popUp10);
             if (Global.popUp10 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay2);
+                diaRulesOfPlay(how);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
@@ -290,7 +290,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             database.addQuesData(mQuestions);
             Log.e("popUp", "eleven " + popUp11);
             if (Global.popUp11 == 0) {
-                diaRulesOfPlay(Global.rulesOfPlay3);
+                diaRulesOfPlay(how);
             }
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getMathContentsContentsData();
@@ -399,6 +399,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void refresh(int index) {
         subLevelName = Global.parentName.get(index).getName();
+        how = Global.parentName.get(index).getHowto();
         Log.e("sublevel name", "s  n :" + subLevelName);
         parentName = Global.parentName.get(index).getParentName();
         Log.e("index ", "posi =" + Global.SUB_INDEX_POSITION);
@@ -462,7 +463,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 diaRulesOfPlay(how);
             } else if (Global.subLevelId == 6) {
 
-                diaRulesOfPlay(Global.rulesOfPlay3);
+                diaRulesOfPlay(how);
             } else if (Global.subLevelId == 8) {
                 diaRulesOfPlay(how);
 

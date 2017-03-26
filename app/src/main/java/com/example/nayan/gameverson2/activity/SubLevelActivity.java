@@ -1,9 +1,6 @@
 package com.example.nayan.gameverson2.activity;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,24 +31,22 @@ import java.util.ArrayList;
  */
 public class SubLevelActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static ArrayList<MSubLevel> mSubLevels;
     private static int value;
     private static SubLevelAdapter subLevelAdapter;
-    public static ArrayList<MSubLevel> mSubLevels;
     private static ArrayList<MLevel> mLevels;
     private static MSubLevel mSubLevel = new MSubLevel();
     private static MLevel mLevel = new MLevel();
+    int totalPoint;
     private DatabaseHelper database;
     private RecyclerView recyclerView;
     private TextView txtLevelName, txtAllTotal_ponts, txtLevelSelect;
     private MAllContent mAllContent = new MAllContent();
     private String lName;
     private MLock mLock;
-
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
     private ImageView imageView, imgLevelName;
-    int totalPoint;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +195,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         txtAllTotal_ponts.setText(totalPoint + "");
 
 //        txtLevelName.setText(lName);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, item));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(subLevelAdapter);
     }
 
