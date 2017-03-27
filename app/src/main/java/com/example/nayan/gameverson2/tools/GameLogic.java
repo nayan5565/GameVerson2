@@ -124,13 +124,15 @@ public class GameLogic {
         oneClick++;
         countPoint++;
 
-        Log.e("counter", "is" + countPoint);
+        Log.e("textClick", "is" + countPoint);
         //don't work if mid !=1 at first time because first time click count=1
         if (oneClick > 1) {
+            Log.e("textClick", "click :" + oneClick);
             return;
         }
         if (mContents.getMatch() == 1) {
             oneClick = 0;
+            Log.e("textClick", "click23 :" + oneClick);
             return;
         }
 
@@ -156,11 +158,13 @@ public class GameLogic {
             imageView.setImageResource(R.drawable.green_panel);
             clickCount = mContents.getMid();
             count++;
+            Log.e("textClick", "step3");
 
         } else {
-            Utils.getSound(context, R.raw.fail);
+            //Utils.getSound(context, R.raw.fail);
             shakeAnimation(view);
             imageView.setImageResource(R.drawable.red_panel);
+            Log.e("textClick", "step4");
         }
 
         if (count == listSize) {
@@ -506,6 +510,7 @@ public class GameLogic {
 
         // Perform animation
         v.startAnimation(shake);
+        gameAdapter.notifyDataSetChanged();
     }
 
 

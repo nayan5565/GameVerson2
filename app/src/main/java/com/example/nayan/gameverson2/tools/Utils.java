@@ -26,23 +26,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
-import com.example.nayan.gameverson2.model.MAllContent;
-import com.example.nayan.gameverson2.model.MContents;
-import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MPost;
-import com.example.nayan.gameverson2.model.MSubLevel;
-import com.example.nayan.gameverson2.model.MWords;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
@@ -55,8 +47,8 @@ public class Utils {
 
     public static boolean isSoundPlay = true;
     public static int bestPoint, presentPoint;
-    static MediaPlayer mediaPlayer;
     public static int widthSize, heightSize;
+    static MediaPlayer mediaPlayer;
 
     public static void getSound(Context context, int path) {
         if (isSoundPlay) {
@@ -249,12 +241,12 @@ public class Utils {
     }
 
     public static void moveAnimation(Object target, Object target2) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -230, widthSize + 10);
-        animator.setDuration(9000);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -280, widthSize + 10);
+        animator.setDuration(2000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -250);
-        animator1.setDuration(9000);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -280);
+        animator1.setDuration(2000);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();
 
@@ -287,7 +279,7 @@ public class Utils {
                 view.setX(-200);
                 move(view, view2);
             }
-        }, 9000);
+        }, 2000);
 
     }
 

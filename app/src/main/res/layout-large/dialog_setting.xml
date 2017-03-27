@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
+    android:layout_width="500dp"
+    android:layout_height="500dp"
     android:layout_gravity="center"
     android:background="@drawable/setting_1"
     android:orientation="vertical">
@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
         android:orientation="horizontal">
 
         <TextView
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
             android:text="Sound "
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="30dp" />
 
         <TextView
             android:id="@+id/txtContuctUs"
@@ -26,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="105dp"
             android:text="Contuct Us "
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="30dp" />
 
 
     </LinearLayout>
@@ -34,22 +37,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imgSoundOnOf"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="35dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
             android:src="@drawable/on" />
 
         <Button
             android:id="@+id/btnContuctUs"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="115dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="110dp"
             android:background="@drawable/contact_btn"
             android:textSize="20dp" />
 
@@ -59,22 +63,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imgCancel"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="190dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
             android:src="@drawable/cancel_button" />
 
         <ImageView
             android:id="@+id/btnOk"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="55dp"
+            android:layout_width="190dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="40dp"
             android:src="@drawable/ok_button" />
 
 

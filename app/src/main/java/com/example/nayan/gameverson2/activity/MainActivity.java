@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Utils.moveAnimation(cloud1, cloud2);
                 Utils.move(cloud1, cloud2);
             }
-        }, 100);
+        }, 300);
         image = DialogSoundOnOff.getPREF(this, DialogSoundOnOff.KEY_IMAGE);
         if (image.equals(1 + "")) {
             Utils.isSoundPlay = true;

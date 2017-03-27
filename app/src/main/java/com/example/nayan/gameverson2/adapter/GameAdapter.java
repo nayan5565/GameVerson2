@@ -38,8 +38,8 @@ import java.util.ArrayList;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> {
 
     String sounds = "sounds";
-//    private ArrayList<MWords> textArrayList2;
-DatabaseHelper db;
+    //    private ArrayList<MWords> textArrayList2;
+    DatabaseHelper db;
     private ArrayList<MAllContent> textArrayList;
     private MAllContent mContents = new MAllContent();
     private Context context;
@@ -594,17 +594,17 @@ DatabaseHelper db;
 
 
                     if (Global.subLevelId == 1 || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
-                        String mSound = "msound";
-                        if (Global.levelId == 1) {
-                            mSound = MainActivity.dirMainSOOfBangla;
-                        } else if (Global.levelId == 2) {
-                            mSound = MainActivity.dirMainSOOfOngko;
-                        } else if (Global.levelId == 3) {
-                            mSound = MainActivity.dirMainSOOfEnglish;
-                        } else if (Global.levelId == 4) {
-                            mSound = MainActivity.dirMainSOOfMath;
-                        }
-                        Utils.PlaySound(mSound + File.separator + mContents.getAud());
+//                        String mSound = "msound";
+//                        if (Global.levelId == 1) {
+//                            mSound = MainActivity.dirMainSOOfBangla;
+//                        } else if (Global.levelId == 2) {
+//                            mSound = MainActivity.dirMainSOOfOngko;
+//                        } else if (Global.levelId == 3) {
+//                            mSound = MainActivity.dirMainSOOfEnglish;
+//                        } else if (Global.levelId == 4) {
+//                            mSound = MainActivity.dirMainSOOfMath;
+//                        }
+//                        Utils.PlaySound(mSound + File.separator + mContents.getAud());
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
 
                     } else if (Global.subLevelId == 2 || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
