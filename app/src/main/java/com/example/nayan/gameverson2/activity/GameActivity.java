@@ -413,10 +413,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         txtTotalPoint.setText(Global.totalPoint + "");
 //        txtName.setText(parentName + "(" + subLevelName + ")");
-        txtSubName.setText(" -" + subLevelName + "");
+        txtSubName.setText("   -" + subLevelName + "");
 
         int item = Utils.getScreenSize(this, 90);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, item));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.setData(imageArrayList1);
 
