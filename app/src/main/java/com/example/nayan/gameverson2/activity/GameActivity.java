@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,10 +26,12 @@ import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.FilesDownload;
 import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.SpacesItemDecoration;
 import com.example.nayan.gameverson2.tools.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,6 +39,7 @@ import java.util.Collections;
  * Created by NAYAN on 11/24/2016.
  */
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+    public static String dirBanglaImagesWords = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadBanglaImagesWords";
     private static int levelId;
     private static GameActivity gameActivity;
     private static MLevel mLevel;
@@ -75,6 +79,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         init();
         getLocalData();
         prepareDisplay();
+        banglaImageDownloadFromWords();
 
 
     }
@@ -85,6 +90,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (id == android.R.id.home)
             finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    private void banglaImageDownloadFromWords() {
+        int size = 0;
+        if (Global.BANGLA_words.size() < Global.LEVEL_DOWNLOAD) {
+            size = Global.BANGLA_words.size();
+        } else {
+            size = Global.LEVEL_DOWNLOAD;
+        }
+        FilesDownload filesDownload = FilesDownload.newInstance(this, dirBanglaImagesWords);
+        for (int i = 0; i < size; i++) {
+            FilesDownload.getInstance(this, dirBanglaImagesWords).addUrl(Global.IMAGE_URL + Global.BANGLA_words.get(i).getWimg());
+            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_words.get(i).getWimg());
+
+        }
+        filesDownload.start();
     }
 
     public void init() {

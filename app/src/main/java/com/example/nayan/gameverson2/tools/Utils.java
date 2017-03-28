@@ -242,11 +242,11 @@ public class Utils {
 
     public static void moveAnimation(Object target, Object target2) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -280, widthSize + 10);
-        animator.setDuration(2000);
+        animator.setDuration(5500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -280);
-        animator1.setDuration(2000);
+        animator1.setDuration(5500);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();
 
@@ -273,13 +273,13 @@ public class Utils {
             public void run() {
 //                getScreenSize(MainActivity.this);
 
-                view2.setY(randInt(50, heightSize - (heightSize / 2)));
+                view2.setY(randInt(5, heightSize - (heightSize / 2)));
                 view2.setX(280);
-                view.setY(randInt(50, heightSize - (heightSize / 2)));
+                view.setY(randInt(5, heightSize - (heightSize / 2)));
                 view.setX(-200);
                 move(view, view2);
             }
-        }, 2000);
+        }, 7000);
 
     }
 

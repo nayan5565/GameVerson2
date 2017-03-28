@@ -23,11 +23,13 @@ import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
+import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MWords;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -139,20 +141,17 @@ public class GameLogic {
         if (mContents.getMid() == clickCount + 1) {
 
             list.get(pos).setMatch(1);
-//            String mSound = "msound";
-//            if (Global.levelId == 1) {
-//                mSound = MainActivity.dirMainSOOfBangla;
-//            } else if (Global.levelId == 2) {
-//                mSound = MainActivity.dirMainSOOfOngko;
-//            } else if (Global.levelId == 3) {
-//                mSound = MainActivity.dirMainSOOfEnglish;
-//            } else if (Global.levelId == 4) {
-//                mSound = MainActivity.dirMainSOOfMath;
-//            }
-//            list.get(pos).setClick(Utils.IMAGE_OPEN);
-//            Utils.getSound(context, R.raw.click);
-//            Utils.PlaySound(mSound + File.separator + mContents.getAud());
-//            gameAdapter.notifyDataSetChanged();
+            String mSound = "msound";
+            if (Global.levelId == 1) {
+                mSound = MainActivity.dirMainSOOfBangla;
+            } else if (Global.levelId == 2) {
+                mSound = MainActivity.dirMainSOOfOngko;
+            } else if (Global.levelId == 3) {
+                mSound = MainActivity.dirMainSOOfEnglish;
+            } else if (Global.levelId == 4) {
+                mSound = MainActivity.dirMainSOOfMath;
+            }
+            Utils.PlaySound(mSound + File.separator + mContents.getAud());
             //clickcount store present mid
             flipAnimation(view);
             imageView.setImageResource(R.drawable.green_panel);
@@ -172,7 +171,7 @@ public class GameLogic {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    resetList(listSize);
+//                    resetList(listSize);
                 }
             }, 1000);
             GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
@@ -188,7 +187,7 @@ public class GameLogic {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Utils.getSound(context, R.raw.shuffle);
+//                    Utils.getSound(context, R.raw.shuffle);
                 }
             }, 500);
 

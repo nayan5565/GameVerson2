@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String dirOngko = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadOngko";
     public static String dirMath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadMath";
     public static String dirEnglish = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadEnglish";
+    public static String dirEnglishImagesWords = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadEnglishImagesWords";
     public static String dirS = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSound";
     public static String dirSM = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundM";
     public static String dirSE = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundE";
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Utils.moveAnimation(cloud1, cloud2);
                 Utils.move(cloud1, cloud2);
             }
-        }, 300);
+        }, 100);
         image = DialogSoundOnOff.getPREF(this, DialogSoundOnOff.KEY_IMAGE);
         if (image.equals(1 + "")) {
             Utils.isSoundPlay = true;
@@ -669,6 +670,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filesDownload.start();
     }
 
+    private void englishImageDownloadFromWords() {
+        int size = 0;
+        if (Global.English_words.size() < Global.LEVEL_DOWNLOAD) {
+            size = Global.English_words.size();
+        } else {
+            size = Global.LEVEL_DOWNLOAD;
+        }
+        FilesDownload filesDownload = FilesDownload.newInstance(this, dirEnglishImagesWords);
+        for (int i = 0; i < size; i++) {
+            FilesDownload.getInstance(this, dirEnglishImagesWords).addUrl(Global.IMAGE_URL + Global.English_words.get(i).getWsound());
+            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.English_words.get(i).getWsound());
+
+        }
+        filesDownload.start();
+    }
+
+
     private void ongkoImageDownload() {
         int size = 0;
         if (Global.BANGLA_Maths.size() < Global.LEVEL_DOWNLOAD) {
@@ -758,7 +776,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.Maths.get(i).getAud());
 
         }
-        filesDownload.start();
+//        filesDownload.start();
     }
 
     @Override

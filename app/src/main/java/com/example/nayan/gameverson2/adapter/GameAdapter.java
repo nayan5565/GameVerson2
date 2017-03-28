@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
@@ -148,16 +149,24 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
 
             if (mContents.getMatch() == 1) {
+                String mSound = "msound";
+                if (Global.levelId == 1) {
+                    mSound = MainActivity.dirMainSOOfBangla;
+                } else if (Global.levelId == 2) {
+                    mSound = MainActivity.dirMainSOOfOngko;
+                } else if (Global.levelId == 3) {
+                    mSound = MainActivity.dirMainSOOfEnglish;
+                } else if (Global.levelId == 4) {
+                    mSound = MainActivity.dirMainSOOfMath;
+                }
+
 
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
                 if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+                    Utils.PlaySound(mSound + File.separator + mContents.getAud());
                     holder.imgAnim.setVisibility(View.VISIBLE);
                     holder.txtContents.setText("");
                     Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
-//                    Picasso.with(context)
-//                            .load(Global.IMAGE_URL + mContents.getImg())
-//                            .into(holder.imgAnim);
-//                    holder.imgAnim.setImageResource();
                     String loc = "loc";
                     if (Global.levelId == 1) {
                         loc = MainActivity.dir;
@@ -173,6 +182,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     holder.imgAnim.setImageBitmap(bmp);
 
                 } else {
+                    Utils.PlaySound(mSound + File.separator + mContents.getAud());
                     holder.txtContents.setText(mContents.getTxt());
                     holder.imgAnim.setVisibility(View.GONE);
                 }
@@ -183,6 +193,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
             }
         } else if (Global.subLevelId == 3) {
+
             if (mContents.getMatch() == 1) {
 
             } else {
@@ -230,6 +241,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         animator.start();
     }
 
+
     public void flipAnimation2(View view) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", 0, -180);
         animator.setDuration(500);
@@ -264,6 +276,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBackOne);
         ImageView imgForward = (ImageView) dialog.findViewById(R.id.imgForward1);
         txt1.setText(textArrayList.get(pos).getTxt());
+
 
         if (Global.levelId == 1) {
             sounds = MainActivity.dirS;
@@ -358,7 +371,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                     if (Global.subLevelId == 3) {
 
-
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                     }
                     if (Global.subLevelId == 6) {
@@ -385,53 +397,46 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             txt3.setText(mContents.getWords().get(1).getWword());
             txt4.setText(mContents.getWords().get(2).getWword());
 
-            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
-            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
-            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-            Picasso.with(context)
-                    .load(url2)
-                    .into(img2);
-            Picasso.with(context)
-                    .load(url3)
-                    .into(img3);
+            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp2 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(1).getWimg());
+            Bitmap bmp3 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(2).getWimg());
+            img1.setImageBitmap(bmp);
+            img2.setImageBitmap(bmp2);
+            img3.setImageBitmap(bmp3);
+
+//            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
+//            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
+//            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
+//            Picasso.with(context)
+//                    .load(url)
+//                    .into(img1);
+//            Picasso.with(context)
+//                    .load(url2)
+//                    .into(img2);
+//            Picasso.with(context)
+//                    .load(url3)
+//                    .into(img3);
         } else if (mContents.getWords().size() == 3) {
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());
             txt4.setText(mContents.getWords().get(2).getWword());
-            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
-            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
-            String url3 = Global.IMAGE_URL + mContents.getWords().get(2).getWimg();
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-            Picasso.with(context)
-                    .load(url2)
-                    .into(img2);
-            Picasso.with(context)
-                    .load(url3)
-                    .into(img3);
+            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp2 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(1).getWimg());
+            Bitmap bmp3 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(2).getWimg());
+            img1.setImageBitmap(bmp);
+            img2.setImageBitmap(bmp2);
+            img3.setImageBitmap(bmp3);
         } else if (mContents.getWords().size() == 2) {
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());
-            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
-            String url2 = Global.IMAGE_URL + mContents.getWords().get(1).getWimg();
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-            Picasso.with(context)
-                    .load(url2)
-                    .into(img2);
+            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp2 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(1).getWimg());
+            img1.setImageBitmap(bmp);
+            img2.setImageBitmap(bmp2);
         } else if (mContents.getWords().size() == 1) {
             txt2.setText(mContents.getWords().get(0).getWword());
-            String url = Global.IMAGE_URL + mContents.getWords().get(0).getWimg();
-            Log.e("imgae", "url is" + url);
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-//            img1.setImageResource(mContents.getWords().get(0).getWimg());
+            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
+            img1.setImageBitmap(bmp);
 
 
         }
@@ -612,6 +617,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                         gameLogic.imageClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
                     } else if (Global.subLevelId == 3) {
+
+
                         mContents.setWords(db.getBanglaWordsData(mContents.getMid()));
                         dialogShowWithWordArray(getAdapterPosition());
 //                        dialogShowWithWordsList();
