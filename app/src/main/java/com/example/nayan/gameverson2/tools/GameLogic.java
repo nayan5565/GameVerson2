@@ -287,6 +287,17 @@ public class GameLogic {
         clickCount++;
 
         list.get(pos).setMatch(1);
+        String mSound = "msound";
+        if (Global.levelId == 1) {
+            mSound = MainActivity.dirMainSOOfBangla;
+        } else if (Global.levelId == 2) {
+            mSound = MainActivity.dirMainSOOfOngko;
+        } else if (Global.levelId == 3) {
+            mSound = MainActivity.dirMainSOOfEnglish;
+        } else if (Global.levelId == 4) {
+            mSound = MainActivity.dirMainSOOfMath;
+        }
+        Utils.PlaySound(mSound + File.separator + mImage.getAud());
 
         flipAnimation(view);
 //        handler.postDelayed(new Runnable() {
@@ -308,7 +319,7 @@ public class GameLogic {
                 Log.e("log", "match win count : " + matchWinCount);
                 Log.e("previous id", "MID : " + previousId);
 
-
+                Utils.PlaySound(mSound + File.separator + mImage.getAud());
                 matchWinCount++;
                 handler.postDelayed(new Runnable() {
                     @Override
