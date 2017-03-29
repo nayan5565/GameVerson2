@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
-import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
@@ -40,6 +39,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
     String sounds = "sounds";
     String mainSounds = "m_sounds";
+    String imageWords = "WImage";
     //    private ArrayList<MWords> textArrayList2;
     DatabaseHelper db;
     private ArrayList<MAllContent> textArrayList;
@@ -150,7 +150,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
 
             if (mContents.getMatch() == 1) {
-
 
 
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
@@ -272,15 +271,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         if (Global.levelId == 1) {
             sounds = MainActivity.dirS;
             mainSounds = MainActivity.dirMainSOOfBangla;
+            imageWords = MainActivity.dirBanglaImagesWords;
         } else if (Global.levelId == 2) {
             mainSounds = MainActivity.dirMainSOOfOngko;
             sounds = MainActivity.dirSO;
+            imageWords = MainActivity.dirOngkoImagesWords;
         } else if (Global.levelId == 3) {
             mainSounds = MainActivity.dirMainSOOfEnglish;
             sounds = MainActivity.dirSE;
+            imageWords = MainActivity.dirEnglishImagesWords;
         } else if (Global.levelId == 4) {
             mainSounds = MainActivity.dirMainSOOfMath;
             sounds = MainActivity.dirSM;
+            imageWords = MainActivity.dirMathImagesWords;
         }
 
         imgSound.setOnClickListener(new View.OnClickListener() {
@@ -373,9 +376,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             txt3.setText(mContents.getWords().get(1).getWword());
             txt4.setText(mContents.getWords().get(2).getWword());
 
-            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
-            Bitmap bmp2 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(1).getWimg());
-            Bitmap bmp3 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(2).getWimg());
+            Bitmap bmp = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp2 = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(1).getWimg());
+            Bitmap bmp3 = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(2).getWimg());
             img1.setImageBitmap(bmp);
             img2.setImageBitmap(bmp2);
             img3.setImageBitmap(bmp3);
@@ -391,17 +394,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mContents.getWords().size() == 2) {
-                        Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
-                    }
+
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
+
                 }
             });
             img3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mContents.getWords().size() == 3) {
-                        Utils.PlaySound(sounds + File.separator + mContents.getWords().get(2).getWsound());
-                    }
+
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(2).getWsound());
+
                 }
             });
 
@@ -421,9 +424,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());
             txt4.setText(mContents.getWords().get(2).getWword());
-            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
-            Bitmap bmp2 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(1).getWimg());
-            Bitmap bmp3 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(2).getWimg());
+            Bitmap bmp = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp2 = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(1).getWimg());
+            Bitmap bmp3 = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(2).getWimg());
             img1.setImageBitmap(bmp);
             img2.setImageBitmap(bmp2);
             img3.setImageBitmap(bmp3);
@@ -439,24 +442,24 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mContents.getWords().size() == 2) {
-                        Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
-                    }
+
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
+
                 }
             });
             img3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mContents.getWords().size() == 3) {
-                        Utils.PlaySound(sounds + File.separator + mContents.getWords().get(2).getWsound());
-                    }
+
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(2).getWsound());
+
                 }
             });
         } else if (mContents.getWords().size() == 2) {
             txt2.setText(mContents.getWords().get(0).getWword());
             txt3.setText(mContents.getWords().get(1).getWword());
-            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
-            Bitmap bmp2 = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(1).getWimg());
+            Bitmap bmp = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp2 = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(1).getWimg());
             img1.setImageBitmap(bmp);
             img2.setImageBitmap(bmp2);
 
@@ -471,14 +474,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             img2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mContents.getWords().size() == 2) {
-                        Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
-                    }
+
+                    Utils.PlaySound(sounds + File.separator + mContents.getWords().get(1).getWsound());
+
                 }
             });
         } else if (mContents.getWords().size() == 1) {
             txt2.setText(mContents.getWords().get(0).getWword());
-            Bitmap bmp = BitmapFactory.decodeFile(GameActivity.dirBanglaImagesWords + File.separator + mContents.getWords().get(0).getWimg());
+            Bitmap bmp = BitmapFactory.decodeFile(imageWords + File.separator + mContents.getWords().get(0).getWimg());
             img1.setImageBitmap(bmp);
 
             img1.setOnClickListener(new View.OnClickListener() {
