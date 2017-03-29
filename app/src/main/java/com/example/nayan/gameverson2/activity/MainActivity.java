@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                downloadAssets();
                 //Displaying a toast
-                Utils.toastMassage(this, "Permission granted now you can read the storage");
+//                Utils.toastMassage(this, "Permission granted now you can read the storage");
             } else {
                 //Displaying another toast if permission is not granted
                 Utils.toastMassage(this, "Oops you just denied the permission");
