@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -167,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         for (int i = 0; i < size; i++) {
             FilesDownload.getInstance(this, dirOngkoImagesWords).addUrl(Global.IMAGE_URL + Global.BANGLA_MATH_words.get(i).getWimg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_MATH_words.get(i).getWimg());
 
         }
     }
@@ -181,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         for (int i = 0; i < size; i++) {
             FilesDownload.getInstance(this, dirEnglishImagesWords).addUrl(Global.IMAGE_URL + Global.English_words.get(i).getWimg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.English_words.get(i).getWimg());
 
         }
     }
@@ -196,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirMathImagesWords);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.MATH_words.get(i).getWimg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.MATH_words.get(i).getWimg());
 
         }
     }
@@ -252,7 +248,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
 
 
-        Log.e("subLevel", "size");
     }
 
 
@@ -329,7 +324,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
                         getOnlineData();
-                        Log.e("json", "onfailer :" + responseString);
                         getEnglishContentData();
                     }
                 }
@@ -352,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
-                        Log.e("json data", " is response :" + response);
 
 
                         Global.English_words = new ArrayList<MWords>();
@@ -388,7 +381,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         super.onFailure(statusCode, headers, responseString, throwable);
 //                        B_URL = Global.ALTER_URL;
 //                        getEnglishContentData();
-                        Log.e("json", "onfailer :" + responseString);
                         getMathContentData();
                     }
                 }
@@ -396,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getBanglaContentData() {
+        Utils.log("bangla", "step1");
         if (!Utils.isInternetOn(this)) {
             Dialog dialog = new Dialog(this);
             dialog.setCancelable(false);
@@ -410,15 +403,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         client.post(B_URL + Global.API_BANGLA, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                         super.onSuccess(statusCode, headers, response);
-                        Log.e("json data", " is response :" + response);
+                        Utils.log("bangla", "step2");
 
 
                         Global.BANGLA_words = new ArrayList<MWords>();
 
                         try {
+                            Utils.log("bangla", "step3");
                             MAllContent[] data = gson.fromJson(response.getJSONArray("contents").toString(), MAllContent[].class);
                             Global.BANGLA = new ArrayList<MAllContent>(Arrays.asList(data));
+                            Utils.log("bangla", "size" + Global.BANGLA.size());
                             for (int i = 0; i < Global.BANGLA.size(); i++) {
 //                                Utils.english.get(i).setPresentId(i+1);
                                 Global.BANGLA.get(i).setPresentType(i + 1);
@@ -428,9 +424,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Global.BANGLA_words.add(mWords);
                                 }
                             }
+                            Utils.log("bangla", "Wsize" + Global.BANGLA_words.size());
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Utils.log("bangla", e.toString());
                         }
+                        Utils.log("bangla", "step4");
 
                         saveBanglaContentsOfAllLevelToDb();
                         saveBanglaWordsToDb();
@@ -446,9 +445,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
-                        getBanglaContentData();
+                        Utils.log("bangla", "step5Errror");
                         getBanglaMathContentData();
-                        Log.e("json", "onfailer :" + responseString);
                     }
                 }
         );
@@ -464,7 +462,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
-                        Log.e("json data", " is response :" + response);
 
 
                         Global.MATH_words = new ArrayList<MWords>();
@@ -491,7 +488,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mainMathSoundDownload();
                         MathSoundDownloadFromWords();
                         mathImageDownloadFromWords();
-                        Log.e("mathList", "is : " + Global.MATH_words.size());
 
                         getBanglaContentData();
 
@@ -503,7 +499,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         B_URL = Global.ALTER_URL;
                         getMathContentData();
                         getBanglaContentData();
-                        Log.e("json", "onfailer :" + responseString);
                     }
                 }
         );
@@ -519,7 +514,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
-                        Log.e("json data", " is response :" + response);
 
 
                         Global.BANGLA_MATH_words = new ArrayList<MWords>();
@@ -546,14 +540,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         ongkoImageDownloadFromWords();
                         mainOngkoSoundDownload();
                         OngkoSoundDownloadFromWords();
-                        Log.e("mathList", "is : " + Global.BANGLA_MATH_words.size());
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
-                        Log.e("json", "onfailer :" + responseString);
+                        FilesDownload.getInstance(MainActivity.this, "").start();
                     }
                 }
         );
@@ -564,14 +557,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void saveLevelToDb() {
-        Log.e("SAVE", "Level size:" + Global.levels.size());
         for (MLevel data : Global.levels) {
             database.addLevelFromJson(data);
         }
     }
 
     private void saveSubLevelToDb() {
-        Log.e("SAVE db", "mSubLevel size:" + Global.mSubLevelArrayList.size());
         for (MSubLevel data2 : Global.mSubLevelArrayList) {
             database.addSubFromJsom(data2);
         }
@@ -617,14 +608,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void saveMathWordsToDb() {
         for (MWords mWords : Global.MATH_words) {
             database.addMathWordsFromJsom(mWords);
-            Log.e("math", " words");
         }
     }
 
     private void saveBanglaMathWordsToDb() {
         for (MWords mWords : Global.BANGLA_MATH_words) {
             database.addBanglaMathWordsFromJsom(mWords);
-            Log.e("math", " words");
         }
     }
 
@@ -639,7 +628,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dir);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
 
         }
     }
@@ -654,7 +642,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirMath);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.Maths.get(i).getImg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.Maths.get(i).getImg());
 
         }
     }
@@ -668,7 +655,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         for (int i = 0; i < size; i++) {
             FilesDownload.getInstance(this, dirEnglish).addUrl(Global.IMAGE_URL + Global.English.get(i).getImg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.English.get(i).getImg());
 
         }
     }
@@ -684,7 +670,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirOngko);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA_Maths.get(i).getImg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_Maths.get(i).getImg());
 
         }
     }
@@ -693,7 +678,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirS);
         for (int i = 0; i < Global.BANGLA_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA_words.get(i).getWsound());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA_words.get(i).getWsound());
 
         }
     }
@@ -702,7 +686,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirSM);
         for (int i = 0; i < Global.MATH_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.MATH_words.get(i).getWsound());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.MATH_words.get(i).getWsound());
 
         }
     }
@@ -711,7 +694,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirSE);
         for (int i = 0; i < Global.English_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.English_words.get(i).getWsound());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.English_words.get(i).getWsound());
 
         }
     }
@@ -726,7 +708,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirBanglaImagesWords);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA_words.get(i).getWimg());
-            Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_words.get(i).getWimg());
 
         }
     }
@@ -735,7 +716,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirSO);
         for (int i = 0; i < Global.BANGLA_MATH_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA_MATH_words.get(i).getWsound());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA_MATH_words.get(i).getWsound());
 
         }
         FilesDownload.getInstance(this, dirSO).start();
@@ -745,7 +725,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfOngko);
         for (int i = 0; i < Global.BANGLA_Maths.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA_Maths.get(i).getAud());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA_Maths.get(i).getAud());
 
         }
 //        filesDownload.start();
@@ -755,7 +734,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfBangla);
         for (int i = 0; i < Global.BANGLA.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA.get(i).getAud());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA.get(i).getAud());
 
         }
     }
@@ -764,7 +742,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfEnglish);
         for (int i = 0; i < Global.English.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.English.get(i).getAud());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.English.get(i).getAud());
 
         }
     }
@@ -773,7 +750,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfMath);
         for (int i = 0; i < Global.Maths.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.Maths.get(i).getAud());
-            Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.Maths.get(i).getAud());
+
 
         }
 //        filesDownload.start();

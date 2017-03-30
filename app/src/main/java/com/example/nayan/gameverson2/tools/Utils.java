@@ -284,6 +284,10 @@ public class Utils {
 
     }
 
+    public static void log(String tag, String msg) {
+        Log.e(tag, msg);
+    }
+
     public static void getScreenSize(Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
