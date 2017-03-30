@@ -64,7 +64,8 @@ public class Utils {
             Log.e("log", "playing");
         }
     }
-    public static void PlaySound( String path) {
+
+    public static void PlaySound(String path) {
         if (isSoundPlay) {
 
             if (mediaPlayer != null) {
@@ -73,7 +74,7 @@ public class Utils {
                 mediaPlayer.release();
             }
 //            mediaPlayer = MediaPlayer.create(context, path);
-            mediaPlayer=new MediaPlayer();
+            mediaPlayer = new MediaPlayer();
             try {
                 mediaPlayer.setDataSource(path);
                 mediaPlayer.prepare();
@@ -169,13 +170,13 @@ public class Utils {
         view.setBackground(resGreen);
     }
 
-    public static void diaRulesOfPlay(Context context,String s) {
+    public static void diaRulesOfPlay(Context context, String s) {
         final Dialog dialog = new Dialog(context);
         dialog.setCancelable(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.game_instruction);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView txtRule =(TextView)dialog.findViewById(R.id.txtRules);
+        TextView txtRule = (TextView) dialog.findViewById(R.id.txtRules);
         txtRule.setText(s);
         Button close = (Button) dialog.findViewById(R.id.btnDismiss);
         close.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +246,7 @@ public class Utils {
         animator.setDuration(5500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -280);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize + 10, -280);
         animator1.setDuration(5500);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();
@@ -274,12 +275,12 @@ public class Utils {
 //                getScreenSize(MainActivity.this);
 
                 view2.setY(randInt(5, heightSize - (heightSize / 2)));
-                view2.setX(280);
+//                view2.setX(280);
                 view.setY(randInt(5, heightSize - (heightSize / 2)));
-                view.setX(-200);
+//                view.setX(-200);
                 move(view, view2);
             }
-        }, 7000);
+        }, 5500);
 
     }
 

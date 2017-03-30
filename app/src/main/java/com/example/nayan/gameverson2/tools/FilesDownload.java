@@ -26,6 +26,7 @@ public class FilesDownload {
     private long total = 0, downloaded;
     private ProgressDialog dialog;
     private ArrayList<String> urls;
+    private ArrayList<String> dirs;
 
     public FilesDownload() {
     }
@@ -36,12 +37,12 @@ public class FilesDownload {
         instance.context = context;
         return instance;
     }
-    public static FilesDownload newInstance(Context context, String dir) {
-        instance = new FilesDownload();
-        instance.dir = dir;
-        instance.context = context;
-        return instance;
-    }
+//    public static FilesDownload newInstance(Context context, String dir) {
+//        instance = new FilesDownload();
+//        instance.dir = dir;
+//        instance.context = context;
+//        return instance;
+//    }
 
     public void start() {
         if (urls != null && urls.size() > 0)
@@ -50,8 +51,12 @@ public class FilesDownload {
 
     public FilesDownload addUrl(String url) {
         if (urls == null) urls = new ArrayList<>();
-        if (!urls.contains(url)&&!isFileExists(url))
+        if (dirs == null) dirs = new ArrayList<>();
+        if (!urls.contains(url) && !isFileExists(url)) {
             urls.add(url);
+            dirs.add(dir);
+        }
+
         return instance;
     }
     private boolean isFileExists(String _url){
@@ -68,6 +73,7 @@ public class FilesDownload {
         protected void onPreExecute() {
             Log.e(dir,"start");
             dialog = ProgressDialog.show(context, null, "0%");
+
             super.onPreExecute();
         }
 
@@ -79,7 +85,7 @@ public class FilesDownload {
 
             Log.e("TEST", "Total Size :" + total + ":" + urls.size());
             for (int i = 0; i < urls.size(); i++)
-                download(urls.get(i));
+                download(urls.get(i), i);
 
 
             return false;
@@ -89,6 +95,7 @@ public class FilesDownload {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             dialog.setMessage(values[0] + "%");
+            Log.e("DOWNL", values[0] + " %");
         }
 
         @Override
@@ -102,7 +109,7 @@ public class FilesDownload {
 
         }
 
-        private void download(String _url) {
+        private void download(String _url, int dirPos) {
             int count = 0;
             try {
                 URL url = new URL(_url);
@@ -110,7 +117,7 @@ public class FilesDownload {
                 InputStream input = new BufferedInputStream(url.openStream());
 
                 String fileName = _url.substring(_url.lastIndexOf("/") + 1);
-                OutputStream output = new FileOutputStream(dir + File.separator + fileName);
+                OutputStream output = new FileOutputStream(dirs.get(dirPos) + File.separator + fileName);
 
                 byte data[] = new byte[1024];
 
@@ -133,6 +140,7 @@ public class FilesDownload {
             try {
                 URL url = new URL(_url);
                 URLConnection conn = url.openConnection();
+                conn.setConnectTimeout(3000);
                 conn.connect();
                 total += conn.getContentLength();
             } catch (Exception ex) {

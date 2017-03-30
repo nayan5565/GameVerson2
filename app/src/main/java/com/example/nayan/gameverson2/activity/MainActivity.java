@@ -45,31 +45,32 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    public static String dirBanglaImagesWords = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadBanglaImagesWords";
-    public static String dirOngkoImagesWords = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadOngkoImagesWords";
-    public static String dirEnglishImagesWords = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadEnglishImagesWords";
-    public static String dirMathImagesWords = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadMathImagesWords";
-    public static String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
-    public static String dirOngko = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadOngko";
-    public static String dirMath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadMath";
-    public static String dirEnglish = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadEnglish";
-    public static String dirS = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSound";
-    public static String dirSM = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundM";
-    public static String dirSE = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundE";
-    public static String dirSO = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundO";
-    public static String dirMainSOOfBangla = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFBangla";
-    public static String dirMainSOOfOngko = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFOngko";
-    public static String dirMainSOOfEnglish = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFEnglish";
-    public static String dirMainSOOfMath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownloadSoundOFMath";
-    private static ArrayList<MLevel> levels;
-    private static ArrayList<MLevel> levelsMath;
-    private static ArrayList<MLevel> levelsBangla;
-    private static ArrayList<MLevel> levelsDrawing;
-    private static ArrayList<MLevel> levelsEnglish;
-    private static ArrayList<MLevel> levelsBanglaMath;
-    private static String B_URL = Global.BASE_URL;
+    public static final String PARENT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MatchGame";
+    public static String dirBanglaImagesWords = PARENT + File.separator + "BanglaImagesWords";
+    public static String dirOngkoImagesWords = PARENT + File.separator + "OngkoImagesWords";
+    public static String dirEnglishImagesWords = PARENT + File.separator + "EnglishImagesWords";
+    public static String dirMathImagesWords = PARENT + File.separator + "MathImagesWords";
+    public static String dir = PARENT + File.separator + "BanglaImages";
+    public static String dirOngko = PARENT + File.separator + "OngkoImages";
+    public static String dirMath = PARENT + File.separator + "Math";
+    public static String dirEnglish = PARENT + File.separator + "English";
+    public static String dirS = PARENT + File.separator + "SoundB";
+    public static String dirSM = PARENT + File.separator + "SoundM";
+    public static String dirSE = PARENT + File.separator + "SoundE";
+    public static String dirSO = PARENT + File.separator + "SoundO";
+    public static String dirMainSOOfBangla = PARENT + File.separator + "SoundOFBangla";
+    public static String dirMainSOOfOngko = PARENT + File.separator + "SoundOFOngko";
+    public static String dirMainSOOfEnglish = PARENT + File.separator + "SoundOFEnglish";
+    public static String dirMainSOOfMath = PARENT + File.separator + "SoundOFMath";
     //    private static LevelAdapter levelAdapter;
     MPost mPost = new MPost();
+    private ArrayList<MLevel> levels;
+    private ArrayList<MLevel> levelsMath;
+    private ArrayList<MLevel> levelsBangla;
+    private ArrayList<MLevel> levelsDrawing;
+    private ArrayList<MLevel> levelsEnglish;
+    private ArrayList<MLevel> levelsBanglaMath;
+    private String B_URL = Global.BASE_URL;
     private Button btnSetting, btnResult;
     private ImageView cloud1, cloud2, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private MLevel mLevel;
@@ -105,10 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Utils.postDataFromDatabase(mPost);
         Utils.logIn(mPost.getUserEmail(), "123456", mPost.getDeviceId());
         getOnlineData();
-        getEnglishContentData();
-        getMathContentData();
-        getBanglaContentData();
-        getBanglaMathContentData();
+
         getLocalData();
 
 
@@ -167,13 +165,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirOngkoImagesWords);
         for (int i = 0; i < size; i++) {
-            filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA_MATH_words.get(i).getWimg());
+            FilesDownload.getInstance(this, dirOngkoImagesWords).addUrl(Global.IMAGE_URL + Global.BANGLA_MATH_words.get(i).getWimg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_MATH_words.get(i).getWimg());
 
         }
-        filesDownload.start();
     }
 
     private void englisImageDownloadFromWords() {
@@ -183,13 +179,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirEnglishImagesWords);
         for (int i = 0; i < size; i++) {
-            filesDownload.addUrl(Global.IMAGE_URL + Global.English_words.get(i).getWimg());
+            FilesDownload.getInstance(this, dirEnglishImagesWords).addUrl(Global.IMAGE_URL + Global.English_words.get(i).getWimg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.English_words.get(i).getWimg());
 
         }
-        filesDownload.start();
     }
 
     private void mathImageDownloadFromWords() {
@@ -199,13 +193,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirMathImagesWords);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirMathImagesWords);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.MATH_words.get(i).getWimg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.MATH_words.get(i).getWimg());
 
         }
-        filesDownload.start();
     }
 
     private void requestStoragePermissionToMashmallow() {
@@ -326,6 +319,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveLevelToDb();
                         saveSubLevelToDb();
                         getLocalData();
+
+                        getEnglishContentData();
+
                     }
 
                     @Override
@@ -334,6 +330,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         B_URL = Global.ALTER_URL;
                         getOnlineData();
                         Log.e("json", "onfailer :" + responseString);
+                        getEnglishContentData();
                     }
                 }
         );
@@ -381,6 +378,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         englisImageDownloadFromWords();
                         mainEnglishSoundDownload();
                         EnglishSoundDownloadFromWords();
+
+                        getMathContentData();
+
                     }
 
                     @Override
@@ -389,6 +389,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        B_URL = Global.ALTER_URL;
 //                        getEnglishContentData();
                         Log.e("json", "onfailer :" + responseString);
+                        getMathContentData();
                     }
                 }
         );
@@ -437,6 +438,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mainBanglaSoundDownload();
                         banglaImageDownloadFromWords();
                         banglaSoundDownloadFromWords();
+
+                        getBanglaMathContentData();
                     }
 
                     @Override
@@ -444,6 +447,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
                         getBanglaContentData();
+                        getBanglaMathContentData();
                         Log.e("json", "onfailer :" + responseString);
                     }
                 }
@@ -488,6 +492,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         MathSoundDownloadFromWords();
                         mathImageDownloadFromWords();
                         Log.e("mathList", "is : " + Global.MATH_words.size());
+
+                        getBanglaContentData();
+
                     }
 
                     @Override
@@ -495,6 +502,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
                         getMathContentData();
+                        getBanglaContentData();
                         Log.e("json", "onfailer :" + responseString);
                     }
                 }
@@ -628,13 +636,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             size = Global.LEVEL_DOWNLOAD;
         }
 
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dir);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dir);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA.get(i).getImg());
 
         }
-        filesDownload.start();
     }
 
     private void mathImageDownload() {
@@ -644,13 +651,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirMath);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirMath);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.Maths.get(i).getImg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.Maths.get(i).getImg());
 
         }
-        filesDownload.start();
     }
 
     private void englishImageDownload() {
@@ -660,13 +666,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirEnglish);
         for (int i = 0; i < size; i++) {
             FilesDownload.getInstance(this, dirEnglish).addUrl(Global.IMAGE_URL + Global.English.get(i).getImg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.English.get(i).getImg());
 
         }
-        filesDownload.start();
     }
 
 
@@ -677,43 +681,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirOngko);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirOngko);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA_Maths.get(i).getImg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_Maths.get(i).getImg());
 
         }
-        filesDownload.start();
     }
 
     private void banglaSoundDownloadFromWords() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirS);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirS);
         for (int i = 0; i < Global.BANGLA_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA_words.get(i).getWsound());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA_words.get(i).getWsound());
 
         }
-        filesDownload.start();
     }
 
     private void MathSoundDownloadFromWords() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirSM);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirSM);
         for (int i = 0; i < Global.MATH_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.MATH_words.get(i).getWsound());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.MATH_words.get(i).getWsound());
 
         }
-        filesDownload.start();
     }
 
     private void EnglishSoundDownloadFromWords() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirSE);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirSE);
         for (int i = 0; i < Global.English_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.English_words.get(i).getWsound());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.English_words.get(i).getWsound());
 
         }
-        filesDownload.start();
     }
 
     private void banglaImageDownloadFromWords() {
@@ -723,27 +723,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             size = Global.LEVEL_DOWNLOAD;
         }
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirBanglaImagesWords);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirBanglaImagesWords);
         for (int i = 0; i < size; i++) {
             filesDownload.addUrl(Global.IMAGE_URL + Global.BANGLA_words.get(i).getWimg());
             Log.e("DOWNLOAD", Global.IMAGE_URL + Global.BANGLA_words.get(i).getWimg());
 
         }
-        filesDownload.start();
     }
 
     private void OngkoSoundDownloadFromWords() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirSO);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirSO);
         for (int i = 0; i < Global.BANGLA_MATH_words.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA_MATH_words.get(i).getWsound());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA_MATH_words.get(i).getWsound());
 
         }
-        filesDownload.start();
+        FilesDownload.getInstance(this, dirSO).start();
     }
 
     private void mainOngkoSoundDownload() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirMainSOOfOngko);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfOngko);
         for (int i = 0; i < Global.BANGLA_Maths.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA_Maths.get(i).getAud());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA_Maths.get(i).getAud());
@@ -753,27 +752,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void mainBanglaSoundDownload() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirMainSOOfBangla);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfBangla);
         for (int i = 0; i < Global.BANGLA.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.BANGLA.get(i).getAud());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.BANGLA.get(i).getAud());
 
         }
-        filesDownload.start();
     }
 
     private void mainEnglishSoundDownload() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirMainSOOfEnglish);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfEnglish);
         for (int i = 0; i < Global.English.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.English.get(i).getAud());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.English.get(i).getAud());
 
         }
-        filesDownload.start();
     }
 
     private void mainMathSoundDownload() {
-        FilesDownload filesDownload = FilesDownload.newInstance(this, dirMainSOOfMath);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, dirMainSOOfMath);
         for (int i = 0; i < Global.Maths.size(); i++) {
             filesDownload.addUrl(Global.BASE_SOUND_URL + Global.Maths.get(i).getAud());
             Log.e("DOWNLOAD", Global.BASE_SOUND_URL + Global.Maths.get(i).getAud());
