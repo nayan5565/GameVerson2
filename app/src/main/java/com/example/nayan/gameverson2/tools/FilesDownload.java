@@ -37,9 +37,9 @@ public class FilesDownload {
         instance.context = context;
         return instance;
     }
-//    public static FilesDownload newInstance(Context context, String dir) {
+//    public static FilesDownload newInstance(Context context, String image) {
 //        instance = new FilesDownload();
-//        instance.dir = dir;
+//        instance.image = image;
 //        instance.context = context;
 //        return instance;
 //    }

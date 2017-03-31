@@ -245,7 +245,7 @@ public class Utils {
         animator.setDuration(5500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -(widthSize + 90));
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -widthSize);
         animator1.setDuration(5500);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();

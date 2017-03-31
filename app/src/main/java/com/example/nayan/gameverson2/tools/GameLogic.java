@@ -143,13 +143,13 @@ public class GameLogic {
             list.get(pos).setMatch(1);
             String mSound = "msound";
             if (Global.levelId == 1) {
-                mSound = MainActivity.dirMainSOOfBangla;
+                mSound = MainActivity.sounds;
             } else if (Global.levelId == 2) {
-                mSound = MainActivity.dirMainSOOfOngko;
+                mSound = MainActivity.sounds;
             } else if (Global.levelId == 3) {
-                mSound = MainActivity.dirMainSOOfEnglish;
+                mSound = MainActivity.sounds;
             } else if (Global.levelId == 4) {
-                mSound = MainActivity.dirMainSOOfMath;
+                mSound = MainActivity.sounds;
             }
             Utils.PlaySound(mSound + File.separator + mContents.getAud());
             //clickcount store present mid
@@ -288,15 +288,16 @@ public class GameLogic {
 
         list.get(pos).setMatch(1);
         String mSound = "msound";
-        if (Global.levelId == 1) {
-            mSound = MainActivity.dirMainSOOfBangla;
-        } else if (Global.levelId == 2) {
-            mSound = MainActivity.dirMainSOOfOngko;
-        } else if (Global.levelId == 3) {
-            mSound = MainActivity.dirMainSOOfEnglish;
-        } else if (Global.levelId == 4) {
-            mSound = MainActivity.dirMainSOOfMath;
-        }
+        mSound = MainActivity.sounds;
+//        if (Global.levelId == 1) {
+//
+//        } else if (Global.levelId == 2) {
+//            mSound = MainActivity.sounds;
+//        } else if (Global.levelId == 3) {
+//            mSound = MainActivity.sounds;
+//        } else if (Global.levelId == 4) {
+//            mSound = MainActivity.sounds;
+//        }
         Utils.PlaySound(mSound + File.separator + mImage.getAud());
 
         flipAnimation(view);

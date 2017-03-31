@@ -261,6 +261,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             ArrayList<MAllContent> realAssets = new ArrayList<>();
             realAssets = database.getEnglishContentsContentsData();
             imageArrayList1 = generatesTxtImg(realAssets);
+//            imageArrayList1 = database.getEnglishContentsContentsData();
             Collections.shuffle(imageArrayList1);
         } else if (Global.subLevelId == 13) {
             popUp9 = Global.popUp9;
@@ -382,6 +383,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             contents.setImg(mContents.getImg());
             contents.setMid(count);
 //            contents.setPresentId(mContents.getPresentId());
+            contents.setAud(mContents.getAud());
             contents.setPresentType(mContents.getPresentType());
             tempTxtSen.add(contents);
         }

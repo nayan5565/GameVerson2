@@ -160,13 +160,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
                     String loc = "loc";
                     if (Global.levelId == 1) {
-                        loc = MainActivity.dir;
+                        loc = MainActivity.image;
                     } else if (Global.levelId == 2) {
-                        loc = MainActivity.dirOngko;
+                        loc = MainActivity.image;
                     } else if (Global.levelId == 3) {
-                        loc = MainActivity.dirEnglish;
+                        loc = MainActivity.image;
                     } else if (Global.levelId == 4) {
-                        loc = MainActivity.dirMath;
+                        loc = MainActivity.image;
                     }
                     Bitmap bmp = BitmapFactory.decodeFile(loc + "/" + mContents.getImg());
 
@@ -267,24 +267,24 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         ImageView imgForward = (ImageView) dialog.findViewById(R.id.imgForward1);
         txt1.setText(textArrayList.get(pos).getTxt());
 
-
-        if (Global.levelId == 1) {
-            sounds = MainActivity.dirS;
-            mainSounds = MainActivity.dirMainSOOfBangla;
-            imageWords = MainActivity.dirBanglaImagesWords;
-        } else if (Global.levelId == 2) {
-            mainSounds = MainActivity.dirMainSOOfOngko;
-            sounds = MainActivity.dirSO;
-            imageWords = MainActivity.dirOngkoImagesWords;
-        } else if (Global.levelId == 3) {
-            mainSounds = MainActivity.dirMainSOOfEnglish;
-            sounds = MainActivity.dirSE;
-            imageWords = MainActivity.dirEnglishImagesWords;
-        } else if (Global.levelId == 4) {
-            mainSounds = MainActivity.dirMainSOOfMath;
-            sounds = MainActivity.dirSM;
-            imageWords = MainActivity.dirMathImagesWords;
-        }
+        sounds = MainActivity.sounds;
+        mainSounds = MainActivity.sounds;
+        imageWords = MainActivity.image;
+//        if (Global.levelId == 1) {
+//
+//        } else if (Global.levelId == 2) {
+//            mainSounds = MainActivity.sounds;
+//            sounds = MainActivity.sounds;
+//            imageWords = MainActivity.image;
+//        } else if (Global.levelId == 3) {
+//            mainSounds = MainActivity.sounds;
+//            sounds = MainActivity.sounds;
+//            imageWords = MainActivity.image;
+//        } else if (Global.levelId == 4) {
+//            mainSounds = MainActivity.sounds;
+//            sounds = MainActivity.sounds;
+//            imageWords = MainActivity.image;
+//        }
 
         imgSound.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -655,13 +655,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     if (Global.subLevelId == 1 || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
 //                        String mSound = "msound";
 //                        if (Global.levelId == 1) {
-//                            mSound = MainActivity.dirMainSOOfBangla;
+//                            mSound = MainActivity.sounds;
 //                        } else if (Global.levelId == 2) {
-//                            mSound = MainActivity.dirMainSOOfOngko;
+//                            mSound = MainActivity.sounds;
 //                        } else if (Global.levelId == 3) {
-//                            mSound = MainActivity.dirMainSOOfEnglish;
+//                            mSound = MainActivity.sounds;
 //                        } else if (Global.levelId == 4) {
-//                            mSound = MainActivity.dirMainSOOfMath;
+//                            mSound = MainActivity.sounds;
 //                        }
 //                        Utils.PlaySound(mSound + File.separator + mContents.getAud());
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
