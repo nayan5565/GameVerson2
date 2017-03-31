@@ -133,6 +133,7 @@ public class FilesDownload {
                 output.close();
                 input.close();
             } catch (Exception e) {
+                Utils.log("fail", "fail" + e);
             }
         }
 

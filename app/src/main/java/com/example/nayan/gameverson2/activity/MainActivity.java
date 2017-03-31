@@ -45,22 +45,22 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String PARENT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MatchGame";
-    public static String dirBanglaImagesWords = PARENT + File.separator + "BanglaImagesWords";
-    public static String dirOngkoImagesWords = PARENT + File.separator + "OngkoImagesWords";
-    public static String dirEnglishImagesWords = PARENT + File.separator + "EnglishImagesWords";
-    public static String dirMathImagesWords = PARENT + File.separator + "MathImagesWords";
-    public static String dir = PARENT + File.separator + "BanglaImages";
-    public static String dirOngko = PARENT + File.separator + "OngkoImages";
-    public static String dirMath = PARENT + File.separator + "Math";
-    public static String dirEnglish = PARENT + File.separator + "English";
-    public static String dirS = PARENT + File.separator + "SoundB";
-    public static String dirSM = PARENT + File.separator + "SoundM";
-    public static String dirSE = PARENT + File.separator + "SoundE";
-    public static String dirSO = PARENT + File.separator + "SoundO";
-    public static String dirMainSOOfBangla = PARENT + File.separator + "SoundOFBangla";
-    public static String dirMainSOOfOngko = PARENT + File.separator + "SoundOFOngko";
-    public static String dirMainSOOfEnglish = PARENT + File.separator + "SoundOFEnglish";
-    public static String dirMainSOOfMath = PARENT + File.separator + "SoundOFMath";
+    public static String dirBanglaImagesWords = PARENT + File.separator + "Image";
+    public static String dirOngkoImagesWords = PARENT + File.separator + "Image";
+    public static String dirEnglishImagesWords = PARENT + File.separator + "Image";
+    public static String dirMathImagesWords = PARENT + File.separator + "Image";
+    public static String dir = PARENT + File.separator + "Image";
+    public static String dirOngko = PARENT + File.separator + "Image";
+    public static String dirMath = PARENT + File.separator + "Image";
+    public static String dirEnglish = PARENT + File.separator + "Image";
+    public static String dirS = PARENT + File.separator + "Sound";
+    public static String dirSM = PARENT + File.separator + "Sound";
+    public static String dirSE = PARENT + File.separator + "Sound";
+    public static String dirSO = PARENT + File.separator + "Sound";
+    public static String dirMainSOOfBangla = PARENT + File.separator + "Sound";
+    public static String dirMainSOOfOngko = PARENT + File.separator + "Sound";
+    public static String dirMainSOOfEnglish = PARENT + File.separator + "Sound";
+    public static String dirMainSOOfMath = PARENT + File.separator + "Sound";
     //    private static LevelAdapter levelAdapter;
     MPost mPost = new MPost();
     private ArrayList<MLevel> levels;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
         requestStoragePermissionToMashmallow();
-        mPost.setSubLevel(database.getSubLevelData(1));
+//        mPost.setSubLevel(database.getSubLevelData(1));
         mPost.setDeviceId(Utils.getDeviceId(this));
         mPost.setUserEmail(Utils.getPhoneGmailAcc(this));
         Utils.postDataFromDatabase(mPost);
@@ -547,6 +547,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
                         FilesDownload.getInstance(MainActivity.this, "").start();
+                        Utils.log("s", "s");
                     }
                 }
         );
@@ -771,7 +772,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnYes.setBackgroundColor(0xffff0000);
                 finish();
 
             }
@@ -780,7 +780,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnNO.setBackgroundColor(0xff00ff00);
                 dialog.dismiss();
             }
         });

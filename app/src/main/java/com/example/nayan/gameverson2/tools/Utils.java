@@ -147,7 +147,6 @@ public class Utils {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                Log.e("failer", "isFail" + responseString);
             }
         });
     }
@@ -242,11 +241,11 @@ public class Utils {
     }
 
     public static void moveAnimation(Object target, Object target2) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -280, widthSize + 10);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -widthSize, widthSize);
         animator.setDuration(5500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize + 10, -280);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -(widthSize + 90));
         animator1.setDuration(5500);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();
