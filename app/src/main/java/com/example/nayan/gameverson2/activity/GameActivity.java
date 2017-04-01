@@ -89,13 +89,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     public void init() {
         mQuestions = new MQuestions();
         imgHelp = (ImageView) findViewById(R.id.imgHelp);
         imgHelp.setOnClickListener(this);
         gameActivity = this;
         imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setOnClickListener(this);
         txtName = (TextView) findViewById(R.id.txtNameGame);
         txtSubName = (TextView) findViewById(R.id.txtNameGameSub);
         txtTotalPoint = (TextView) findViewById(R.id.txtTotalPoint);
@@ -418,7 +418,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         txtTotalPoint.setText(Global.totalPoint + "");
 //        txtName.setText(parentName + "(" + subLevelName + ")");
-        txtSubName.setText("   -" + subLevelName + "");
+        txtSubName.setText(" -" + subLevelName + "");
 
         int item = Utils.getScreenSize(this, 90);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -447,7 +447,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.imgHelp) {
+        if (v.getId() == R.id.imgHelp || v.getId() == R.id.imageView) {
             if (Global.subLevelId == 1) {
                 Log.e("levelID", "opop  " + Global.levelId);
                 diaRulesOfPlay(how);

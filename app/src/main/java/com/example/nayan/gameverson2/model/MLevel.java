@@ -10,10 +10,19 @@ public class MLevel {
     //String eId;
     private int lid;
     private String name;
+    private String howto;
     private String update_date;
     private int type;
     private int levelWinCount;
     private String total_slevel;
+
+    public String getHowto() {
+        return howto;
+    }
+
+    public void setHowto(String howto) {
+        this.howto = howto;
+    }
 
     public String getTotal_slevel() {
         return total_slevel;

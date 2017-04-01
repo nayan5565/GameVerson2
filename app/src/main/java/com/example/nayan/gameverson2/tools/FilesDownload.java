@@ -59,11 +59,12 @@ public class FilesDownload {
 
         return instance;
     }
-    private boolean isFileExists(String _url){
+
+    private boolean isFileExists(String _url) {
         String fileName = _url.substring(_url.lastIndexOf("/") + 1);
-        File file=new File(dir+File.separator+fileName);
-        File fDir=new File(dir);
-        if(!fDir.isDirectory())
+        File file = new File(dir + File.separator + fileName);
+        File fDir = new File(dir);
+        if (!fDir.isDirectory())
             fDir.mkdirs();
         return file.exists();
     }
@@ -71,8 +72,8 @@ public class FilesDownload {
     private class MyDownload extends AsyncTask<String, Integer, Boolean> {
         @Override
         protected void onPreExecute() {
-            Log.e(dir,"start");
-            dialog = ProgressDialog.show(context, null, "0%");
+            Log.e(dir, "start");
+            dialog = ProgressDialog.show(context, null, "Downloading....");
 
             super.onPreExecute();
         }
@@ -94,14 +95,14 @@ public class FilesDownload {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            dialog.setMessage(values[0] + "%");
+            dialog.setMessage("Downloading " + values[0] + " %");
             Log.e("DOWNL", values[0] + " %");
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            Log.e(dir,"stop");
+            Log.e(dir, "stop");
             dialog.dismiss();
 
             if (result) {

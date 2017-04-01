@@ -23,6 +23,7 @@ import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MPost;
+import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
@@ -46,40 +47,21 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String PARENT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MatchGame";
     public static String image = PARENT + File.separator + "Image";
-    //    public static String image = PARENT + File.separator + "Image";
-//    public static String image = PARENT + File.separator + "Image";
-//    public static String image = PARENT + File.separator + "Image";
-//    public static String image = PARENT + File.separator + "Image";
-//    public static String image = PARENT + File.separator + "Image";
-//    public static String image = PARENT + File.separator + "Image";
-//    public static String image = PARENT + File.separator + "Image";
+
     public static String sounds = PARENT + File.separator + "Sound";
-    //    public static String sounds = PARENT + File.separator + "Sound";
-//    public static String sounds = PARENT + File.separator + "Sound";
-//    public static String sounds = PARENT + File.separator + "Sound";
-//    public static String sounds = PARENT + File.separator + "Sound";
-//    public static String sounds = PARENT + File.separator + "Sound";
-//    public static String sounds = PARENT + File.separator + "Sound";
-//    public static String sounds = PARENT + File.separator + "Sound";
-    //    private static LevelAdapter levelAdapter;
+
     MPost mPost = new MPost();
-    private ArrayList<MLevel> levels;
-    private ArrayList<MLevel> levelsMath;
-    private ArrayList<MLevel> levelsBangla;
-    private ArrayList<MLevel> levelsDrawing;
-    private ArrayList<MLevel> levelsEnglish;
-    private ArrayList<MLevel> levelsBanglaMath;
+    int lPopUp, lPopUp2, lPopUp3, lPopUp4;
+    private ArrayList<MLevel> levelsDatas;
     private String B_URL = Global.BASE_URL;
+    private MQuestions mQuestions;
     private Button btnSetting, btnResult;
     private ImageView cloud1, cloud2, btnBangla, btnEnglish, btnMath, btnBanglaMath, btnDrawing;
     private MLevel mLevel;
-    private MAllContent mAllContent;
-    private MWords mWords;
     private DatabaseHelper database;
     private TextView txtSub, txtMath, txtDrawing, txtEnglish, txtBanglaMath, textName, txtEnglisg, txtMatht;
     private String image1;
     private int STORAGE_PERMISSION_CODE = 23;
-    //            +File.separator+"image1"+File.separator+"ban";
     private Gson gson = new Gson();
 
     public static String getPath(String fileName) {
@@ -112,9 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        mQuestions = new MQuestions();
         btnResult = (Button) findViewById(R.id.btnResult);
         btnResult.setOnClickListener(this);
-        levelsBangla = new ArrayList<>();
+        levelsDatas = new ArrayList<>();
         textName = (TextView) findViewById(R.id.txtGameNames);
         Utils.setFont(this, "carterone", textName);
         database = new DatabaseHelper(this);
@@ -230,23 +213,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getLocalData() {
 //        saveLevelToDb();
-        levelsBangla = database.getLevelData(1);
-        if (levelsBangla.size() == 0) {
+        levelsDatas = database.getLevelAllData();
+        Utils.log("levels ", "Alldata : " + levelsDatas.size());
+        if (levelsDatas.size() == 0) {
             return;
 
         } else {
-            txtSub.setText(levelsBangla.get(0).getTotal_slevel());
+            txtSub.setText(levelsDatas.get(0).getTotal_slevel());
+            txtBanglaMath.setText(levelsDatas.get(1).getTotal_slevel());
+            txtEnglish.setText(levelsDatas.get(2).getTotal_slevel());
+            txtMath.setText(levelsDatas.get(3).getTotal_slevel());
         }
-
-        levelsBanglaMath = database.getLevelData(2);
-        txtBanglaMath.setText(levelsBanglaMath.get(0).getTotal_slevel());
-        levelsEnglish = database.getLevelData(3);
-        txtEnglish.setText(levelsEnglish.get(0).getTotal_slevel());
-        levelsMath = database.getLevelData(4);
-        txtMath.setText(levelsMath.get(0).getTotal_slevel());
-        levelsDrawing = database.getLevelData(5);
-//        txtDrawing.setText(levelsDrawing.get(0).getTotal_slevel());
-
 
     }
 
@@ -366,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             e.printStackTrace();
                         }
                         saveEnglishContentsOfAllLevelToDb();
-                        saveWordsToDb();
+                        saveEnglishWordsToDb();
                         englishImageDownload();
                         englisImageDownloadFromWords();
                         mainEnglishSoundDownload();
@@ -593,9 +570,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void saveWordsToDb() {
+    private void saveEnglishWordsToDb() {
         for (MWords mWords : Global.English_words) {
-            database.addWordsFromJsom(mWords);
+            database.addEnglishWordsFromJsom(mWords);
         }
     }
 
@@ -792,26 +769,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnBangla) {
+        mQuestions = database.getQuesData();
+        Global.lPopUp = mQuestions.getlPopUp();
+        if (levelsDatas.size() == 0) {
+            Utils.toastMassage(this, "No Data");
+            return;
 
+        }
+        if (v.getId() == R.id.btnBangla) {
+            lPopUp++;
+            mQuestions.setlPopUp(lPopUp);
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
             intent.putExtra("id", 1);
             intent.putExtra("name", "বাংলা  ");
+            intent.putExtra("lPop", lPopUp);
             startActivity(intent);
         } else if (v.getId() == R.id.btnBanglaMath) {
+            lPopUp2++;
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
             intent.putExtra("id", 2);
             intent.putExtra("name", "অংক ");
+            intent.putExtra("lPop", lPopUp2);
             startActivity(intent);
         } else if (v.getId() == R.id.btnEnglish) {
+            lPopUp3++;
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
             intent.putExtra("id", 3);
             intent.putExtra("name", "english ");
+            intent.putExtra("lPop", lPopUp3);
             startActivity(intent);
         } else if (v.getId() == R.id.btnMath) {
+            lPopUp4++;
             Intent intent = new Intent(MainActivity.this, SubLevelActivity.class);
             intent.putExtra("id", 4);
             intent.putExtra("name", "Math ");
+            intent.putExtra("lPop", lPopUp4);
             startActivity(intent);
         } else if (v.getId() == R.id.btnSetting) {
             DialogSoundOnOff.dialogShow(this);

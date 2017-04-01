@@ -48,11 +48,12 @@
                 android:id="@+id/imgCloud2"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_alignTop="@id/imgCloud1"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/cloud2" />
 
 
         </RelativeLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

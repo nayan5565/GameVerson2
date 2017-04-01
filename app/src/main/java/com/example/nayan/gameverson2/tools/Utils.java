@@ -273,9 +273,9 @@ public class Utils {
             public void run() {
 //                getScreenSize(MainActivity.this);
 
-                view2.setY(randInt(5, heightSize - (heightSize / 2)));
+                view2.setY(randInt(5, heightSize - (heightSize / 4)));
 //                view2.setX(280);
-                view.setY(randInt(5, heightSize - (heightSize / 2)));
+                view.setY(randInt(5, heightSize - (heightSize / 4)));
 //                view.setX(-200);
                 move(view, view2);
             }

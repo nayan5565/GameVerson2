@@ -95,6 +95,7 @@ public class DatabaseHelper {
             + KEY_LEVEL_ID + " integer primary key, "
             + KEY_NAME + " text, "
             + KEY_UPDATE_DATE + " text, "
+            + KEY_HOW_TO + " text, "
             + KEY_DIFFICULTY + " integer, "
             + KEY_POINT + " integer, "
             + KEY_LEVEL_WIN_COUNT + " integer, "
@@ -289,6 +290,7 @@ public class DatabaseHelper {
             values.put(KEY_NAME, mLevel.getName());
             values.put(KEY_LEVEL_ID, mLevel.getLid());
             values.put(KEY_UPDATE_DATE, mLevel.getUpdate_date());
+            values.put(KEY_HOW_TO, mLevel.getHowto());
 //            values.put(KEY_DIFFICULTY, mLevel.getDifficulty());
             values.put(KEY_TOTAL_S_LEVEL, mLevel.getTotal_slevel());
 //            if (mLevel.getBestpoint() > 0) {
@@ -352,7 +354,7 @@ public class DatabaseHelper {
             cursor.close();
     }
 
-    public void addWordsFromJsom(MWords mWords) {
+    public void addEnglishWordsFromJsom(MWords mWords) {
         Cursor cursor = null;
         try {
             ContentValues values = new ContentValues();
@@ -785,9 +787,37 @@ public class DatabaseHelper {
                 mLevel.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
                 mLevel.setUpdate_date(cursor.getString(cursor.getColumnIndex(KEY_UPDATE_DATE)));
                 mLevel.setTotal_slevel(cursor.getString(cursor.getColumnIndex(KEY_TOTAL_S_LEVEL)));
-//                mLevel.setDifficulty(cursor.getInt(cursor.getColumnIndex(KEY_DIFFICULTY)));
-//                mLevel.setBestpoint(cursor.getInt(cursor.getColumnIndex(KEY_POINT)));
+                mLevel.setHowto(cursor.getString(cursor.getColumnIndex(KEY_HOW_TO)));
                 mLevel.setLevelWinCount(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_WIN_COUNT)));
+                levelArrayList.add(mLevel);
+                Log.e("do", "end");
+            } while (cursor.moveToNext());
+
+
+        }
+        cursor.close();
+
+
+        return levelArrayList;
+    }
+
+    public ArrayList<MLevel> getLevelAllData() {
+        ArrayList<MLevel> levelArrayList = new ArrayList<>();
+
+        MLevel mLevel;
+        String sql = "select * from " + DATABASE_LEVEL_TABLE;
+        Cursor cursor = db.rawQuery(sql, null);
+        Log.e("cursor", "count :" + cursor.getCount());
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Log.e("do", "start");
+                mLevel = new MLevel();
+//                mLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+//                mLevel.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+//                mLevel.setUpdate_date(cursor.getString(cursor.getColumnIndex(KEY_UPDATE_DATE)));
+                mLevel.setTotal_slevel(cursor.getString(cursor.getColumnIndex(KEY_TOTAL_S_LEVEL)));
+//                mLevel.setHowto(cursor.getString(cursor.getColumnIndex(KEY_HOW_TO)));
+//                mLevel.setLevelWinCount(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_WIN_COUNT)));
                 levelArrayList.add(mLevel);
                 Log.e("do", "end");
             } while (cursor.moveToNext());
@@ -979,7 +1009,7 @@ public class DatabaseHelper {
         return assetArrayList;
     }
 
-    public ArrayList<MWords> getWordsData(int id) {
+    public ArrayList<MWords> getEnglishWordsData(int id) {
         ArrayList<MWords> assetArrayList = new ArrayList<>();
 
         MWords mWords;

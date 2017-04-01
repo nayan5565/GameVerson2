@@ -318,7 +318,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     }
                     if (Global.subLevelId == 9) {
 
-                        mContents.setWords(db.getWordsData(mContents.getMid()));
+                        mContents.setWords(db.getEnglishWordsData(mContents.getMid()));
                     }
 
                     dialogShowWithWordArray(Global.GAME_INDEX_POSITION);
@@ -358,7 +358,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     }
                     if (Global.subLevelId == 9) {
 
-                        mContents.setWords(db.getWordsData(mContents.getMid()));
+                        mContents.setWords(db.getEnglishWordsData(mContents.getMid()));
                     }
 
                     dialogShowWithWordArray(Global.GAME_INDEX_POSITION);
@@ -549,7 +549,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     }
                     if (Global.subLevelId == 9) {
 
-                        mContents.setWords(db.getWordsData(mContents.getMid()));
+                        mContents.setWords(db.getEnglishWordsData(mContents.getMid()));
                     }
 
                     dialogShowWithWordsList();

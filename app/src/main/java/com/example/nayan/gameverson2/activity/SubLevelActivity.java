@@ -1,5 +1,8 @@
 package com.example.nayan.gameverson2.activity;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,15 +42,16 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private static MSubLevel mSubLevel = new MSubLevel();
     private static MLevel mLevel = new MLevel();
     int totalPoint;
+    int lpopUp, lpopUp2, popUp3, popUp4;
     private DatabaseHelper database;
     private RecyclerView recyclerView;
     private TextView txtLevelName, txtAllTotal_ponts, txtLevelSelect;
     private MAllContent mAllContent = new MAllContent();
-    private String lName;
+    private String lName, how;
     private MLock mLock;
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
-    private ImageView imageView, imgLevelName;
+    private ImageView imageView, imgLevelName, imageHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
         Global.levelName = getIntent().getStringExtra("name");
         Global.levelId = getIntent().getIntExtra("id", 0);
+        lpopUp = getIntent().getIntExtra("lPop", 0);
+        how = getIntent().getStringExtra("howPlay");
         value = Global.levelId;
         lName = Global.levelName;
         Log.e("log", "is" + value);
@@ -71,7 +78,6 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         getLocalData();
         prepareDisplay();
     }
-
 
 
     private void downloadAssets() {
@@ -125,9 +131,14 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void init() {
+        mLevels = new ArrayList<>();
+
+        imageHelp = (ImageView) findViewById(R.id.imgHelpSub);
+        imageHelp.setOnClickListener(this);
         txtLevelSelect = (TextView) findViewById(R.id.levelSelect);
         mLock = new MLock();
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.imageViewSub);
+        imageView.setOnClickListener(this);
         changeColor = (LinearLayout) findViewById(R.id.changeColor);
         back = (Button) findViewById(R.id.back);
         btnSubSetting = (Button) findViewById(R.id.btnSubSetting);
@@ -137,6 +148,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         mLevels = new ArrayList<>();
         mSubLevels = new ArrayList<>();
         database = new DatabaseHelper(this);
+        mLevels = database.getLevelData(value);
+
         txtLevelName = (TextView) findViewById(R.id.imgLevelName);
         txtAllTotal_ponts = (TextView) findViewById(R.id.txtAllTotalPoints);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -154,7 +167,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         Global.parentName = mSubLevels;
-        mLevels = database.getLevelData(mLevel.getLid());
+//        mLevels = database.getLevelData(mLevel.getLid());
         Log.e("getDb", "sublevel : " + mSubLevels.size());
 
         mSubLevels.get(0).setUnlockNextLevel(1);
@@ -199,12 +212,57 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         recyclerView.setAdapter(subLevelAdapter);
     }
 
+    public void diaRulesOfPlay(String s) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.game_instruction);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        LinearLayout popUI = (LinearLayout) dialog.findViewById(R.id.popUpUI);
+        if (Global.levelId == 1) {
+            Utils.changeUIcolor(this, Global.uriBangla, popUI);
+//            txtLevelName.setTextColor(0xff00ff00);
+        } else if (Global.levelId == 2) {
+            Utils.changeUIcolor(this, Global.uriOngko, popUI);
+//            txtLevelName.setTextColor(0xffffff00);
+        } else if (Global.levelId == 3) {
+            Utils.changeUIcolor(this, Global.uriEnglish, popUI);
+        } else if (Global.levelId == 4) {
+//            imageView.setImageResource(R.drawable.red_coins);
+            Utils.changeUIcolor(this, Global.uriMath, popUI);
+        }
+        TextView txtRule = (TextView) dialog.findViewById(R.id.txtRules);
+        txtRule.setText(s);
+        Button close = (Button) dialog.findViewById(R.id.btnDismiss);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.back) {
             finish();
         } else if (v.getId() == R.id.btnSubSetting) {
             DialogSoundOnOff.dialogShow(SubLevelActivity.this);
+        } else if (v.getId() == R.id.imageViewSub || v.getId() == R.id.imgHelpSub) {
+            if (Global.levelId == 1) {
+                diaRulesOfPlay(mLevels.get(0).getHowto());
+            }
+            if (Global.levelId == 2) {
+                diaRulesOfPlay(mLevels.get(0).getHowto());
+            }
+            if (Global.levelId == 3) {
+                diaRulesOfPlay(mLevels.get(0).getHowto());
+            }
+            if (Global.levelId == 4) {
+                diaRulesOfPlay(mLevels.get(0).getHowto());
+            }
         }
     }
 }

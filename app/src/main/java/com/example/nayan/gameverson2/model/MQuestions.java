@@ -1,7 +1,5 @@
 package com.example.nayan.gameverson2.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by NAYAN on 10/4/2016.
  */
@@ -19,6 +17,42 @@ public class MQuestions {
     private int popUp9;
     private int popUp10;
     private int popUp11;
+    private int lPopUp;
+    private int lPopUp2;
+    private int lPopUp3;
+    private int lPopUp4;
+
+    public int getlPopUp() {
+        return lPopUp;
+    }
+
+    public void setlPopUp(int lPopUp) {
+        this.lPopUp = lPopUp;
+    }
+
+    public int getlPopUp2() {
+        return lPopUp2;
+    }
+
+    public void setlPopUp2(int lPopUp2) {
+        this.lPopUp2 = lPopUp2;
+    }
+
+    public int getlPopUp3() {
+        return lPopUp3;
+    }
+
+    public void setlPopUp3(int lPopUp3) {
+        this.lPopUp3 = lPopUp3;
+    }
+
+    public int getlPopUp4() {
+        return lPopUp4;
+    }
+
+    public void setlPopUp4(int lPopUp4) {
+        this.lPopUp4 = lPopUp4;
+    }
 
     public int getPopUp5() {
         return popUp5;
