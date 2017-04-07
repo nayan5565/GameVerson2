@@ -463,6 +463,7 @@ public class GameLogic {
 
                     mSubLevels.get(Global.SUB_INDEX_POSITION).setUnlockNextLevel(1);
                     Global.subLevelId = mSubLevels.get(Global.SUB_INDEX_POSITION).getLid();
+                    Global.logic = mSubLevels.get(Global.SUB_INDEX_POSITION).getLogic();
 
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
                 }

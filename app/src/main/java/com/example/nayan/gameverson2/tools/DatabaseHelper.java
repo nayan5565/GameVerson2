@@ -86,6 +86,7 @@ public class DatabaseHelper {
     private static final String KEY_TEXT = "txt";
     private static final String KEY_COINS_PRICE = "coins_price";
     private static final String KEY_NO_OF_COINS = "no_of_coins";
+    private static final String KEY_LOGIC = "k_Logic";
     private static final String KEY_PRESENT_ID = "present_id";
     private static final String KEY_PRESENT_TYPE = "present_type";
     private static final String KEY_POINT = "best_point";
@@ -160,6 +161,7 @@ public class DatabaseHelper {
             + KEY_SUB_LEVEL_ID + " integer primary key, "
             + KEY_NAME + " text, "
             + KEY_PARENT_ID + " integer, "
+            + KEY_LOGIC + " integer, "
             + KEY_UNLOCK + " integer, "
             + KEY_POINT + " integer, "
             + KEY_PARENT_NAME + " text, "
@@ -333,6 +335,7 @@ public class DatabaseHelper {
             values.put(KEY_HOW_TO, mSubLevel.getHowto());
             values.put(KEY_COINS_PRICE, mSubLevel.getCoins_price());
             values.put(KEY_NO_OF_COINS, mSubLevel.getNo_of_coins());
+            values.put(KEY_LOGIC, mSubLevel.getLogic());
 
             String sql = "select * from " + DATABASE_SUB_LEVEL_TABLE + " where " + KEY_SUB_LEVEL_ID + "='" + mSubLevel.getLid() + "'";
             cursor = db.rawQuery(sql, null);
@@ -975,7 +978,7 @@ public class DatabaseHelper {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
         Log.e("DB", "S1");
         MSubLevel mSubLevel;
-        String sql = "select a.s_lid,a.pNm,a.how_to,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
+        String sql = "select a.s_lid,a.pNm,a.how_to,a.k_Logic,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -983,6 +986,7 @@ public class DatabaseHelper {
             do {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
+                mSubLevel.setLogic(cursor.getInt(cursor.getColumnIndex(KEY_LOGIC)));
                 mSubLevel.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
                 mSubLevel.setHowto(cursor.getString(cursor.getColumnIndex(KEY_HOW_TO)));
 

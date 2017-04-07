@@ -1,6 +1,5 @@
 package com.example.nayan.gameverson2.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +16,6 @@ import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MQuestions;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
-import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
 import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.Utils;
 
@@ -28,15 +25,15 @@ import java.util.ArrayList;
  * Created by NAYAN on 11/24/2016.
  */
 public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyViewHolder> {
+    MQuestions mQuestions;
+    int one;
     private ArrayList<MSubLevel> mSubLevels;
     private MSubLevel mSubLevel = new MSubLevel();
     private MLock mLock = new MLock();
     private Context context;
-    MQuestions mQuestions;
     private LayoutInflater inflater;
     private DatabaseHelper db;
     private int count;
-    int one;
     private int subLevel;
 
     public SubLevelAdapter(Context context) {
@@ -120,6 +117,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                         intent.putExtra("subLevelName", mSubLevel.getName());
                         intent.putExtra("index", getAdapterPosition());
                         intent.putExtra("Sid", mSubLevel.getLid());
+                        intent.putExtra("SLogic", mSubLevel.getLogic());
                         intent.putExtra("how", mSubLevel.getHowto());
                         intent.putExtra("parentLevelName", mSubLevel.getParentName());
                         context.startActivity(intent);

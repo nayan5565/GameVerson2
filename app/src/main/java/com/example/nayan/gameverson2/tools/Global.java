@@ -25,6 +25,7 @@ public class Global {
     public static int levelId;
     public static String levelName;
     public static String subLevelName;
+    public static int logic;
     public static String internetAlert = "No Internet Connection. Please at first need internet connected then exit from app and again open it.";
     public static String how_to_play;
     public static String parentLevelName;

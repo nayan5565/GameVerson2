@@ -8,7 +8,23 @@ public class MSubLevel {
 
 
     private int parentId;
+    private int logic;
     private String howto;
+    private String parentName;
+    private int lid, bestPoint;
+    private String name;
+    private String coins_price;
+    private String no_of_coins;
+    private boolean lock = true;
+    private int unlockNextLevel;
+
+    public int getLogic() {
+        return logic;
+    }
+
+    public void setLogic(int logic) {
+        this.logic = logic;
+    }
 
     public String getHowto() {
         return howto;
@@ -26,8 +42,6 @@ public class MSubLevel {
         this.parentName = parentName;
     }
 
-    private String parentName;
-
     public int getBestPoint() {
         return bestPoint;
     }
@@ -35,13 +49,6 @@ public class MSubLevel {
     public void setBestPoint(int bestPoint) {
         this.bestPoint = bestPoint;
     }
-
-    private int lid,bestPoint;
-    private String name;
-    private String coins_price;
-    private String no_of_coins;
-    private boolean lock=true;
-    private int unlockNextLevel;
 
     public int getUnlockNextLevel() {
         return unlockNextLevel;
