@@ -242,11 +242,11 @@ public class Utils {
 
     public static void moveAnimation(Object target, Object target2) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(target, "translationX", -widthSize, widthSize);
-        animator.setDuration(5500);
+        animator.setDuration(7500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.start();
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(target2, "translationX", widthSize, -widthSize);
-        animator1.setDuration(5500);
+        animator1.setDuration(7500);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
         animator1.start();
 
@@ -279,7 +279,7 @@ public class Utils {
 //                view.setX(-200);
                 move(view, view2);
             }
-        }, 5500);
+        }, 7500);
 
     }
 

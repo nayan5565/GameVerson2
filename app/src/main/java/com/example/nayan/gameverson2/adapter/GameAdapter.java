@@ -145,7 +145,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //
 //        }
 
-        else if (Global.logic == 2) {
+        if (Global.logic == 2) {
 //                || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
             holder.txtContents.setTextColor(0xffff00ff);
 //            holder.txtContents.setText(mContents.getTxt());
@@ -193,6 +193,39 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             }
             holder.txtContents.setText(mContents.getTxt());
             holder.txtContents.setTextColor(0xffff00ff);
+        } else if (Global.logic == 4) {
+            holder.txtContents.setTextColor(0xffff00ff);
+            holder.txtContents.setTextSize(20);
+            holder.imgAnim2.setImageResource(R.drawable.green_panel);
+            if (mContents.getTxt() == null || mContents.getTxt().equals("")) {
+
+                holder.imgAnim.setVisibility(View.VISIBLE);
+                holder.txtContents.setText("");
+                Log.e("image e", "img :" + Global.IMAGE_URL + mContents.getImg());
+                String loc = "loc";
+                if (Global.levelId == 1) {
+                    loc = MainActivity.image;
+                } else if (Global.levelId == 2) {
+                    loc = MainActivity.image;
+                } else if (Global.levelId == 3) {
+                    loc = MainActivity.image;
+                } else if (Global.levelId == 4) {
+                    loc = MainActivity.image;
+                }
+                Bitmap bmp = BitmapFactory.decodeFile(loc + "/" + mContents.getImg());
+
+                holder.imgAnim.setImageBitmap(bmp);
+
+            } else {
+                holder.txtContents.setText(mContents.getTxt());
+                holder.imgAnim.setVisibility(View.GONE);
+            }
+            if (mContents.getMatch() == 1) {
+                holder.imgAnim2.setImageResource(R.drawable.green_panel);
+            } else {
+                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
+                holder.txtContents.setBackgroundColor(0);
+            }
         }
        /* else if (Global.subLevelId == 6) {
             if (mContents.getMatch() == 1) {
@@ -673,7 +706,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                        }
 //                        Utils.PlaySound(mSound + File.separator + mContents.getAud());
                         gameLogic.textClick(mContents, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
-
+//                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     } else if (Global.logic == 2) {
 //                            || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
 
@@ -699,6 +732,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
                         dialogShowWithWordArray(getAdapterPosition());
 //                        dialogShowWithWordsList();
+                    } else if (Global.logic == 4) {
+                        gameLogic.forLevel2(itemView, mContents, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
                     }
 //                    else if (Global.subLevelId == 6) {
 //                        mContents.setWords(db.getBanglaMathWordsData(mContents.getMid()));

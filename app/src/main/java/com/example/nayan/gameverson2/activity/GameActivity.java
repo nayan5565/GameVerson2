@@ -319,6 +319,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
 //            Collections.shuffle(imageArrayList1);
 
+        } else if (Global.logic == 4) {
+
+            ArrayList<MAllContent> realAssets = new ArrayList<>();
+            if (Global.levelId == 1) {
+                realAssets = database.getBanglaContentsContentsData();
+            } else if (Global.levelId == 2) {
+                realAssets = database.getBanglaMathContentsContentsData();
+            } else if (Global.levelId == 3) {
+                realAssets = database.getEnglishContentsContentsData();
+            } else if (Global.levelId == 4) {
+                realAssets = database.getMathContentsContentsData();
+            }
+
+            imageArrayList1 = generatesTxtImg(realAssets);
+            Collections.shuffle(imageArrayList1);
         }
 
 

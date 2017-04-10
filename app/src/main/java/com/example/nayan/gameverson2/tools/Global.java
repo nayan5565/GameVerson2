@@ -2,6 +2,7 @@ package com.example.nayan.gameverson2.tools;
 
 import com.example.nayan.gameverson2.model.MAllContent;
 import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.model.MDownload;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MPost;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -22,6 +23,7 @@ public class Global {
     public static final String API_ENGLISH = "contents_english.php";
     public static final String API_BANGLA = "contents_bangla.php";
     public static final String BASE_URL = "http://www.radhooni.com/content/match_game/v1/";
+
     public static int levelId;
     public static String levelName;
     public static String subLevelName;
@@ -33,6 +35,7 @@ public class Global {
     public static String ALTER_URL = "";
     public static int subLevelId;
     public static int LEVEL_DOWNLOAD = 30;
+    public static int IS_DOWNLOAD = 0;
     public static int totalPoint;
     public static int ALL_TOTAL_POINT;
     public static int GAME_INDEX_POSITION;
@@ -46,6 +49,7 @@ public class Global {
     public static String CONVERT_NUM = "downloaded";
     public static ArrayList<MSubLevel> mSubLevelArrayList;
     public static ArrayList<MLevel> levels;
+    public static ArrayList<MDownload> mDownloads;
     public static ArrayList<MPost> gameStatus;
     public static ArrayList<MContents> contents;
     public static ArrayList<MAllContent> English;
@@ -61,9 +65,9 @@ public class Global {
     public static int popUp2;
     public static int popUp3;
     public static int popUp4, popUp5, popUp6, popUp7, popUp8, popUp9, popUp10, popUp11;
-    public static String ADMIN="dino.araf@gmail.com";
-    public static String SUBJECT="your_subject";
-    public static String TEXT="your_text";
+    public static String ADMIN = "dino.araf@gmail.com";
+    public static String SUBJECT = "your_subject";
+    public static String TEXT = "your_text";
 
 
 }

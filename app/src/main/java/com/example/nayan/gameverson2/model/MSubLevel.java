@@ -17,6 +17,15 @@ public class MSubLevel {
     private String no_of_coins;
     private boolean lock = true;
     private int unlockNextLevel;
+    private int isDownload;
+
+    public int getIsDownload() {
+        return isDownload;
+    }
+
+    public void setIsDownload(int isDownload) {
+        this.isDownload = isDownload;
+    }
 
     public int getLogic() {
         return logic;
