@@ -26,6 +26,7 @@ import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
 import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.MyGoogleAnalytics;
 import com.example.nayan.gameverson2.tools.Utils;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Log.e("log", "is" + value);
 
         init();
+        MyGoogleAnalytics.getInstance().setupAnalytics("SubLevel Activity");
         getLocalData();
         prepareDisplay();
 

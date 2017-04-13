@@ -26,6 +26,7 @@ import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.MyGoogleAnalytics;
 import com.example.nayan.gameverson2.tools.SpacesItemDecoration;
 import com.example.nayan.gameverson2.tools.Utils;
 
@@ -74,6 +75,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         init();
+        MyGoogleAnalytics.getInstance().setupAnalytics("Game Activity");
         getLocalData();
         prepareDisplay();
         getPopUp();

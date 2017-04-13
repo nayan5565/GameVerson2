@@ -509,6 +509,7 @@ public class DatabaseHelper {
             String sql = "select * from " + DATABASE_DOWNLOAD_TABLE + " where " + KEY_URL + "='" + mDownload.getUrl() + "'";
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.getCount() > 0) {
+                int update = db.update(DATABASE_DOWNLOAD_TABLE, values, KEY_URL + "=?", new String[]{mDownload.getUrl() + ""});
             } else {
                 long v = db.insert(DATABASE_DOWNLOAD_TABLE, null, values);
                 Log.e("insetMath", "content insert : " + v);
@@ -983,10 +984,10 @@ public class DatabaseHelper {
         return mItems;
     }
 
-    public ArrayList<MDownload> getDownloadData(int isDownload) {
+    public ArrayList<MDownload> getDownloadData(int levelId, int isDownload) {
         ArrayList<MDownload> mDownloads = new ArrayList<>();
         MDownload mDownload = new MDownload();
-        String sql = "select * from " + DATABASE_DOWNLOAD_TABLE + " where " + KEY_LEVEL_ID + "='" + isDownload + "'";
+        String sql = "select * from " + DATABASE_DOWNLOAD_TABLE + " where " + KEY_LEVEL_ID + "='" + levelId + " AND " + KEY_IS_DOWNLOAD + "='" + isDownload + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {

@@ -32,6 +32,7 @@ import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
 import com.example.nayan.gameverson2.tools.FilesDownload;
 import com.example.nayan.gameverson2.tools.Global;
+import com.example.nayan.gameverson2.tools.MyGoogleAnalytics;
 import com.example.nayan.gameverson2.tools.Utils;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -49,6 +50,7 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String PARENT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MatchGame";
     public static String image = PARENT + File.separator + "Image";
+    public static String bothImgSnd = PARENT + File.separator + "ImageSound";
 
     public static String sounds = PARENT + File.separator + "Sound";
 
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         init();
+        MyGoogleAnalytics.getInstance().setupAnalytics("Main Activity");
         requestStoragePermissionToMashmallow();
 //        mPost.setSubLevel(database.getSubLevelData(1));
         mPost.setDeviceId(Utils.getDeviceId(this));
@@ -378,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mainEnglishSoundDownload();
                         saveDownloadToDb();
                         EnglishSoundDownloadFromWords();
-                        getDownload();
+                        getDownload(3, 0);
                         getMathContentData();
 
                     }
@@ -394,8 +397,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         );
     }
 
-    public void getDownload() {
-        mDownloads = database.getDownloadData(3);
+    public void getDownload(int id, int isDown) {
+        mDownloads = database.getDownloadData(id, isDown);
         Log.e("down", "is  " + mDownloads.size());
 //        banmDownloads = new ArrayList<>();
 //        banmDownloads = database.getDownloadData(1);
@@ -404,19 +407,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getBanDownload() {
         banmDownloads = new ArrayList<>();
-        banmDownloads = database.getDownloadData(1);
+        banmDownloads = database.getDownloadData(1, 0);
         Log.e("down", "is bangla  " + banmDownloads.size());
     }
 
     public void getOngkoDownload() {
         ongkomDownloads = new ArrayList<>();
-        ongkomDownloads = database.getDownloadData(2);
+        ongkomDownloads = database.getDownloadData(2, 0);
         Log.e("down", "is ongko  " + ongkomDownloads.size());
     }
 
     public void getMathDownload() {
         mathmDownloads = new ArrayList<>();
-        mathmDownloads = database.getDownloadData(4);
+        mathmDownloads = database.getDownloadData(4, 0);
         Log.e("down", "is math  " + mathmDownloads.size());
     }
 
@@ -491,7 +494,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         banglaImageDownloadFromWords();
                         banglaSoundDownloadFromWords();
                         saveDownloadToDb();
-                        getBanDownload();
+                        getDownload(1, 0);
                         getBanglaMathContentData();
                     }
 
@@ -528,11 +531,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mDownload.setLevelId(4);
                                 mDownload.setSubLevelId(Global.Maths.get(i).getMid());
                                 mDownload.setUrl(Global.Maths.get(i).getImg());
+                                Utils.log("url", "image " + mDownload.getUrl());
                                 Global.mDownloads.add(mDownload);
                                 mDownload = new MDownload();
                                 mDownload.setLevelId(4);
                                 mDownload.setLevelId(Global.Maths.get(i).getMid());
                                 mDownload.setUrl(Global.Maths.get(i).getAud());
+                                Utils.log("url", "sound " + mDownload.getUrl());
                                 Global.mDownloads.add(mDownload);
                                 Global.Maths.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Global.Maths.get(i).getWords().size(); j++) {
@@ -543,11 +548,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     mDownload.setLevelId(4);
                                     mDownload.setSubLevelId(Global.Maths.get(i).getMid());
                                     mDownload.setUrl(Global.Maths.get(i).getWords().get(j).getWimg());
+                                    Utils.log("url", "image w " + mDownload.getUrl());
                                     Global.mDownloads.add(mDownload);
                                     mDownload = new MDownload();
                                     mDownload.setLevelId(4);
                                     mDownload.setLevelId(Global.Maths.get(i).getMid());
                                     mDownload.setUrl(Global.Maths.get(i).getWords().get(j).getWsound());
+                                    Utils.log("url", "sound w " + mDownload.getUrl());
                                     Global.mDownloads.add(mDownload);
 
                                 }
@@ -564,8 +571,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         MathSoundDownloadFromWords();
                         mathImageDownloadFromWords();
                         saveDownloadToDb();
-                        getMathDownload();
+//                        getMathDownload();
                         getBanglaContentData();
+                        getDownload(4, 0);
 
                     }
 
@@ -638,7 +646,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mainOngkoSoundDownload();
                         OngkoSoundDownloadFromWords();
                         saveDownloadToDb();
-                        getOngkoDownload();
+//                        getOngkoDownload();
+                        getDownload(2, 0);
                     }
 
                     @Override
@@ -737,6 +746,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
+    public void allFileDownload() {
+        FilesDownload filesDownload = FilesDownload.getInstance(this, image);
+        for (int i = 0; i < Global.mDownloads.size(); i++) {
+            int init = Global.mDownloads.get(0).getSubLevelId();
+            int max = init + Global.LEVEL_DOWNLOAD;
+            if (mDownload.getSubLevelId() < max) {
+                filesDownload.addUrl(Global.IMAGE_URL + Global.mDownloads.get(i).getUrl());
+                mDownload.setIdDownload(1);
+                database.addDownloadData(mDownload);
+            }
+        }
+    }
+
 
     private void mathImageDownload() {
         int size = 0;

@@ -34,7 +34,7 @@ public class Global {
     public static int SUB_INDEX_POSITION;
     public static String ALTER_URL = "";
     public static int subLevelId;
-    public static int LEVEL_DOWNLOAD = 30;
+    public static int LEVEL_DOWNLOAD = 2;
     public static int IS_DOWNLOAD = 0;
     public static int totalPoint;
     public static int ALL_TOTAL_POINT;
