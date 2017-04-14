@@ -987,7 +987,7 @@ public class DatabaseHelper {
     public ArrayList<MDownload> getDownloadData(int levelId, int isDownload) {
         ArrayList<MDownload> mDownloads = new ArrayList<>();
         MDownload mDownload = new MDownload();
-        String sql = "select * from " + DATABASE_DOWNLOAD_TABLE + " where " + KEY_LEVEL_ID + "='" + levelId + " AND " + KEY_IS_DOWNLOAD + "='" + isDownload + "'";
+        String sql = "select * from " + DATABASE_DOWNLOAD_TABLE + " where " + KEY_LEVEL_ID + "='" + levelId + "'" + " AND " + KEY_IS_DOWNLOAD + "='" + isDownload + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
